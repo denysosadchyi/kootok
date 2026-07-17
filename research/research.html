@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Куток — дослідження (кроки 03–06)</title>
+<style>
+  :root{
+    --bg:#f1ece0; --ink:#2a231d; --ink-dim:#6b6055;
+    --panel:#ffffff; --panel-border:#e2d8c4;
+    --teal:#2f6b5e; --teal-bg:#e4ede9;
+    --rust:#a8461f; --rust-bg:#f3e4da;
+    --ochre:#a5761f; --ochre-bg:#f0e6d2;
+    --blue:#3f5470; --blue-bg:#e6e9f0;
+    --mono:ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --serif:Georgia, "Times New Roman", serif;
+    --sans:-apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#1c1712; --ink:#efe7d8; --ink-dim:#a89a89;
+      --panel:#241e18; --panel-border:#3a3025;
+      --teal:#64a894; --teal-bg:#1e2e29;
+      --rust:#dd8256; --rust-bg:#2f2019;
+      --ochre:#d9ab5c; --ochre-bg:#2c2415;
+      --blue:#8ba0c4; --blue-bg:#1f2530;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1c1712; --ink:#efe7d8; --ink-dim:#a89a89;
+    --panel:#241e18; --panel-border:#3a3025;
+    --teal:#64a894; --teal-bg:#1e2e29;
+    --rust:#dd8256; --rust-bg:#2f2019;
+    --ochre:#d9ab5c; --ochre-bg:#2c2415;
+    --blue:#8ba0c4; --blue-bg:#1f2530;
+  }
+  :root[data-theme="light"]{
+    --bg:#f1ece0; --ink:#2a231d; --ink-dim:#6b6055;
+    --panel:#ffffff; --panel-border:#e2d8c4;
+    --teal:#2f6b5e; --teal-bg:#e4ede9;
+    --rust:#a8461f; --rust-bg:#f3e4da;
+    --ochre:#a5761f; --ochre-bg:#f0e6d2;
+    --blue:#3f5470; --blue-bg:#e6e9f0;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans);
+    line-height:1.55; padding-bottom:4rem;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:0 1.25rem}
+  header.hero{
+    padding:3.5rem 0 2.5rem; border-bottom:1px solid var(--panel-border);
+    margin-bottom:2.5rem;
+  }
+  .glyph{width:34px; height:34px; margin-bottom:1rem}
+  .glyph path{stroke:var(--teal); stroke-width:5; fill:none; stroke-linecap:square}
+  .eyebrow{
+    font-family:var(--mono); font-size:.75rem; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--teal); margin:0 0 .75rem;
+  }
+  h1{font-family:var(--serif); font-size:2.1rem; margin:0 0 .6rem; font-weight:400}
+  .lede{color:var(--ink-dim); max-width:60ch; margin:0 0 1.25rem}
+  .rule-box{
+    font-size:.88rem; color:var(--ink-dim); background:var(--panel);
+    border:1px solid var(--panel-border); border-radius:8px; padding:.9rem 1.1rem;
+    max-width:60ch;
+  }
+  .rule-box b{color:var(--ink)}
+  code.tag{
+    font-family:var(--mono); font-size:.78em; background:var(--teal-bg); color:var(--teal);
+    padding:.05em .4em; border-radius:4px;
+  }
+  h2{
+    font-family:var(--serif); font-weight:400; font-size:1.5rem;
+    margin:0 0 1.25rem; padding-top:.25rem;
+  }
+  h2 .num{color:var(--teal); font-family:var(--mono); font-size:.85rem; display:block; margin-bottom:.35rem; letter-spacing:.04em}
+  section{margin-bottom:3.5rem}
+  h3{font-size:1.02rem; font-weight:600; margin:2rem 0 .9rem}
+
+  .table-scroll{overflow-x:auto; border:1px solid var(--panel-border); border-radius:10px; margin-bottom:1rem}
+  table{border-collapse:collapse; width:100%; min-width:760px; background:var(--panel)}
+  th,td{text-align:left; padding:.75rem .9rem; border-bottom:1px solid var(--panel-border); vertical-align:top; font-size:.88rem}
+  thead th{
+    font-family:var(--mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.04em;
+    color:var(--ink-dim); background:var(--bg); white-space:nowrap;
+  }
+  tbody th{font-weight:600; white-space:nowrap; background:var(--bg)}
+  tbody tr:last-child td, tbody tr:last-child th{border-bottom:none}
+  .src-table td:nth-child(1){font-family:var(--mono); color:var(--teal); white-space:nowrap}
+
+  .cite{
+    font-family:var(--mono); font-size:.72em; color:var(--teal); text-decoration:none;
+    background:var(--teal-bg); padding:.03em .35em; border-radius:3px; white-space:nowrap;
+  }
+  .cite.unverified{color:var(--rust); background:var(--rust-bg)}
+  .unverified-inline{color:var(--rust); font-weight:600}
+
+  ol.findings{padding-left:1.3rem; margin:0}
+  ol.findings li{margin-bottom:.9rem}
+
+  .cards{display:grid; gap:1rem; margin-bottom:1rem}
+  .card{
+    background:var(--panel); border:1px solid var(--panel-border); border-radius:10px;
+    padding:1.15rem 1.3rem;
+  }
+  .card h4{margin:0 0 .5rem; font-size:1rem; display:flex; align-items:center; gap:.5rem}
+  .card p{margin:.4rem 0; font-size:.92rem; color:var(--ink-dim)}
+  .card p b{color:var(--ink); font-weight:600}
+  .card.win{border-left:4px solid var(--teal)}
+  .card.win h4::before{content:"✓"; color:var(--teal); font-family:var(--mono)}
+  .card.no{border-left:4px solid var(--rust); background:var(--rust-bg)}
+  .card.no h4::before{content:"✕"; color:var(--rust); font-family:var(--mono)}
+  .card.pattern{border-left:4px solid var(--ochre); background:var(--ochre-bg)}
+
+  .gap-card{
+    background:var(--panel); border:1px solid var(--panel-border); border-radius:10px;
+    padding:1.1rem 1.3rem; margin-bottom:1rem;
+  }
+  .gap-card .label{font-family:var(--mono); font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-dim)}
+  .gap-card .gap-title{font-weight:600; margin:.3rem 0 .6rem}
+  .gap-card .hyp{font-size:.92rem; color:var(--ink-dim); margin-bottom:.6rem}
+  .gap-card .from{font-size:.8rem}
+  .from b{font-family:var(--mono); font-size:.72rem; background:var(--blue-bg); color:var(--blue); padding:.1em .5em; border-radius:4px}
+
+  .shots{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:1rem}
+  figure{margin:0; background:var(--panel); border:1px solid var(--panel-border); border-radius:10px; overflow:hidden}
+  figure img{width:100%; display:block; aspect-ratio:16/10; object-fit:cover; object-position:top; background:var(--bg)}
+  figcaption{padding:.6rem .8rem; font-size:.78rem; color:var(--ink-dim)}
+  figcaption b{display:block; color:var(--ink); font-size:.85rem; margin-bottom:.15rem}
+
+  footer{
+    max-width:920px; margin:3rem auto 0; padding:1.5rem 1.25rem 0; border-top:1px solid var(--panel-border);
+    font-size:.82rem; color:var(--ink-dim);
+  }
+  footer a{color:var(--teal)}
+  a{color:var(--teal)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <svg class="glyph" viewBox="0 0 34 34"><path d="M6 28 L6 6 L28 6"/></svg>
+  <p class="eyebrow">Куток · research · кроки 03–06</p>
+  <h1>Дослідження конкурентів і патернів підбору співмешканця</h1>
+  <p class="lede">Консолідація трьох попередніх кроків: карта конкурентів (03), глибокий розбір п'яти обраних гравців зі скрінами (04) і вибір патерну взаємодії (05–06).</p>
+  <div class="rule-box">
+    Кожен факт має позначку <code class="tag">S#</code> — джерело шукай у таблиці «Джерела» внизу сторінки.
+    Де перевіреного джерела немає, так і написано: <b class="unverified-inline">дані не підтверджені</b> — нічого не додумано.
+  </div>
+</header>
+
+<main>
+
+<section id="competitors">
+  <h2><span class="num">01</span>Конкуренти</h2>
+
+  <h3>Матриця — п'ять конкурентів × п'ять осей</h3>
+  <div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Вісь</th><th>OLX.ua</th><th>HomeMate<br>(Telegram)</th><th>Facebook-групи</th><th>SpareRoom</th><th>Badi</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Аудиторія</th>
+        <td>Наймасовіша й найширша — усі, хто продає/шукає нерухомість в Україні; не сегментована під співмешкання чи вік <a class="cite" href="#s1">S1</a></td>
+        <td>Ті, хто вже в Telegram-екосистемі пошуку житла в Києві; неформалізована, часто студенти <a class="cite" href="#s3">S3</a></td>
+        <td>Користувачі груп за районом/темою; ширша демографія, включно з експатами — <span class="unverified-inline">дані не підтверджені</span> (контент за логіном) <a class="cite unverified" href="#s7">S7</a></td>
+        <td>17M+ зареєстрованих користувачів, фокус на великі міста <a class="cite" href="#s8">S8</a></td>
+        <td>Міжнародна, база в Іспанії, мобільний-перший — <span class="unverified-inline">дані не підтверджені</span> щодо точних цифр <a class="cite unverified" href="#s6">S6</a></td>
+      </tr>
+      <tr>
+        <th>Основа продукту</th>
+        <td>Універсальний класифайд нерухомості: фото, ціна, район, площа <a class="cite" href="#s1">S1</a></td>
+        <td>Стрічка постів у каналі — вільний текст без полів і карток <a class="cite" href="#s3">S3</a></td>
+        <td>Пост + коментарі, соціальний контекст навколо оголошення <a class="cite" href="#s7">S7</a></td>
+        <td>Двостороннє структуроване оголошення: Rooms / Flatmates / Buddy ups <a class="cite" href="#s4">S4</a></td>
+        <td>Профілі + оголошення кімнат з фільтрами способу життя <a class="cite" href="#s6">S6</a></td>
+      </tr>
+      <tr>
+        <th>Ключовий механізм</th>
+        <td>Пошук за фільтрами (район, ціна, площа, поверх), без матчингу <a class="cite" href="#s1">S1</a></td>
+        <td>Публікація через адміна → читач гортає стрічку → пише в приват <a class="cite" href="#s3">S3</a></td>
+        <td>Соціальний скоринг через спільних друзів і публічний профіль автора — <span class="unverified-inline">дані не підтверджені</span> (окремого джерела немає)</td>
+        <td>Фільтри за локацією/бюджетом/датою заїзду, свідомо без заглиблення в сумісність способу життя <a class="cite" href="#s9">S9</a></td>
+        <td>Фільтри за побутовими умовами (тварини, пари) + «Lister Score» від верифікації й швидкості відповіді <a class="cite" href="#s10">S10</a></td>
+      </tr>
+      <tr>
+        <th>Довіра</th>
+        <td>Ознак верифікації орендодавця чи обов'язкового логіну для контактів не виявлено <a class="cite" href="#s1">S1</a></td>
+        <td>Відсутня модерація чи верифікація в самих постах <a class="cite" href="#s3">S3</a></td>
+        <td>Непряма — через видимість профілю автора; механіка не задокументована, <span class="unverified-inline">дані не підтверджені</span></td>
+        <td>Команда живих модераторів перевіряє оголошення 7 днів/тиждень; Trustpilot 4.7/5 <a class="cite" href="#s4">S4</a></td>
+        <td>Запит ID/паспорта перед бронюванням, захищені платежі <a class="cite" href="#s6">S6</a>, публічний Lister Score <a class="cite" href="#s10">S10</a></td>
+      </tr>
+      <tr>
+        <th>Монетизація</th>
+        <td>Платне просування оголошень — <code class="tag">search_reason=promoted</code> в DOM сторінки пошуку <a class="cite" href="#s1">S1</a></td>
+        <td><span class="unverified-inline">Дані не підтверджені</span> — платних елементів у зафетченому контенті не виявлено</td>
+        <td><span class="unverified-inline">Дані не підтверджені</span> у контексті самої групи</td>
+        <td>Базово безкоштовно; преміум $6–25/міс за розширені інструменти <a class="cite" href="#s9">S9</a></td>
+        <td><b>Badi Plus</b> — paywall саме на спілкування: необмежений чат і контакт з переглядачами платні <a class="cite" href="#s10">S10</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Три спільні патерни ринку</h3>
+  <ol class="findings">
+    <li><b>Ніхто не робить справжній алгоритмічний матчинг за замовчуванням.</b> SpareRoom і Roomster відкрито визнають, що пошук — це фільтри за локацією/бюджетом/датою без заглиблення в сумісність способу життя <a class="cite" href="#s9">S9</a>; Badi заявляє «підбір» на головній <a class="cite" href="#s6">S6</a>, але деталей алгоритму не розкриває, а реальний trust-механізм («Lister Score») будується на верифікації й швидкості відповіді, а не на сумісності <a class="cite" href="#s10">S10</a>.</li>
+    <li><b>Довіра завжди винесена за межі «просто даних».</b> SpareRoom платить команді людей за ручну модерацію 7 днів на тиждень <a class="cite" href="#s4">S4</a>; Badi монетизує саме комунікацію і вимагає ID перед бронюванням <a class="cite" href="#s10">S10</a>; неформальні канали (Telegram, Facebook) структурно покладаються на соціальний контекст спільноти <a class="cite" href="#s3">S3</a> <a class="cite" href="#s7">S7</a> — ніде довіра не з'являється сама з профілю.</li>
+    <li><b>Двостороння модель контенту — вже стандарт.</b> SpareRoom явно розділяє «Rooms / Flatmates / Buddy ups» на головній <a class="cite" href="#s4">S4</a>; HomeMate змішує в одній стрічці і «шукаю», і «здам» <a class="cite" href="#s3">S3</a>.</li>
+  </ol>
+
+  <h3>Три відмінності</h3>
+  <ol class="findings">
+    <li><b>Хто платить і за що.</b> OLX монетизує просування оголошення <a class="cite" href="#s1">S1</a>; Badi монетизує саме спілкування <a class="cite" href="#s10">S10</a>; SpareRoom монетизує розширені інструменти, $6–25/міс <a class="cite" href="#s9">S9</a>; для HomeMate і Facebook-груп монетизація — <span class="unverified-inline">дані не підтверджені</span>.</li>
+    <li><b>Рівень структурованості даних.</b> Від вільного тексту без жодних полів (HomeMate <a class="cite" href="#s3">S3</a>) до повністю структурованих карток із фільтрами (OLX <a class="cite" href="#s1">S1</a>, SpareRoom <a class="cite" href="#s4">S4</a> <a class="cite" href="#s5">S5</a>, Badi <a class="cite" href="#s6">S6</a>).</li>
+    <li><b>Хто несе тягар верифікації.</b> У Badi — сам продукт (ID, Lister Score) <a class="cite" href="#s10">S10</a>; у SpareRoom — окрема команда людей-модераторів <a class="cite" href="#s4">S4</a>; в OLX, Telegram, Facebook вбудованого механізму верифікації не виявлено <a class="cite" href="#s1">S1</a> <a class="cite" href="#s3">S3</a> або <span class="unverified-inline">дані не підтверджені</span> <a class="cite unverified" href="#s7">S7</a>.</li>
+  </ol>
+
+  <h3>Скріни</h3>
+  <div class="shots">
+    <figure><img src="screens/01-olx-list.png" alt="OLX.ua — список оголошень"><figcaption><b>OLX.ua</b>Пошук «підселення», Київ — публічно, гарний рендер</figcaption></figure>
+    <figure><img src="screens/02-olx-detail.png" alt="OLX.ua — картка оголошення"><figcaption><b>OLX.ua</b>Картка оголошення — зникло з видачі між заходами</figcaption></figure>
+    <figure><img src="screens/03-homemate-render-note.png" alt="HomeMate — рендер недоступний"><figcaption><b>HomeMate</b>Рендер недоступний у headless-режимі (не «доступ обмежений»)</figcaption></figure>
+    <figure><img src="screens/04-spareroom-home.png" alt="SpareRoom — головна"><figcaption><b>SpareRoom</b>Головна сторінка — публічно</figcaption></figure>
+    <figure><img src="screens/05-spareroom-search.png" alt="SpareRoom — пошук"><figcaption><b>SpareRoom</b>Пошук, Лондон (Київ на платформі відсутній)</figcaption></figure>
+    <figure><img src="screens/06-badi-home.png" alt="Badi — головна"><figcaption><b>Badi</b>Головна сторінка — публічно</figcaption></figure>
+    <figure><img src="screens/07-fb-group-access-limited.png" alt="Facebook-група — доступ обмежений"><figcaption><b>Facebook-група</b>Доступ обмежений — стіна логіну</figcaption></figure>
+  </div>
+</section>
+
+<section id="benchmark">
+  <h2><span class="num">02</span>Бенчмарк</h2>
+
+  <h3>Топ-3 механізми для MVP</h3>
+  <div class="cards">
+    <div class="card win">
+      <h4>Людська модерація оголошень перед публікацією</h4>
+      <p>Механізм: команда вручну переглядає кожне оголошення, 7 днів на тиждень <a class="cite" href="#s4">S4</a>.</p>
+      <p><b>Чому підходить Кутку:</b> MVP стартує з малим обсягом оголошень у Києві — ручна перевірка операційно посильна і дає видиму, зрозумілу підставу довіри, узгоджену з ціллю «зняти тертя й ризик» з брифу <a class="cite" href="#s12">S12</a>.</p>
+    </div>
+    <div class="card win">
+      <h4>Публічний бейдж довіри, що росте від підтверджених дій</h4>
+      <p>Механізм: Lister Score в Badi підвищується від верифікованих даних, банківських реквізитів, швидкості відповіді — не від самодекларації <a class="cite" href="#s10">S10</a>.</p>
+      <p><b>Чому підходить:</b> прямо відповідає вже ухваленому в брифі рішенню про «бейджі перевірено» і відгуки після заселення <a class="cite" href="#s12">S12</a>.</p>
+    </div>
+    <div class="card win">
+      <h4>Безкоштовний необмежений вбудований чат</h4>
+      <p>Механізм: SpareRoom пропонує безкоштовний обмін повідомленнями як частину базового продукту <a class="cite" href="#s4">S4</a>, і за незалежним оглядом саме це називають драйвером довіри й обсягу на противагу платним аналогам <a class="cite" href="#s9">S9</a>.</p>
+      <p><b>Чому підходить:</b> узгоджується з рішенням брифу про безкоштовний старт і вбудований чат без бар'єрів <a class="cite" href="#s12">S12</a>.</p>
+    </div>
+  </div>
+
+  <h3>Один, що не спрацює</h3>
+  <div class="cards">
+    <div class="card no">
+      <h4>Paywall на спілкування (модель Badi Plus / Roomster)</h4>
+      <p>Механізм: щоб писати необмеженій кількості людей або відповідати переглядачам оголошення, у Badi потрібна платна підписка Badi Plus <a class="cite" href="#s10">S10</a>; у Roomster повідомлення взагалі вимагають підписки ~$15/міс <a class="cite" href="#s9">S9</a>.</p>
+      <p><b>Чому не спрацює:</b> прямо суперечить рішенню брифу про безкоштовний старт і чат без бар'єрів <a class="cite" href="#s12">S12</a>; додатково, за незалежним оглядом, користувачі Roomster відкрито скаржаться саме на цей paywall як на головний недолік <a class="cite" href="#s9">S9</a> — задокументований негативний сигнал з ринку.</p>
+    </div>
+  </div>
+</section>
+
+<section id="patterns">
+  <h2><span class="num">03</span>Патерни</h2>
+  <div class="card pattern">
+    <h4>Обраний патерн: Пошук і фільтри (маркетплейс)</h4>
+    <p>Джерело аналізу: повний розбір п'яти принципово різних UX-патернів підбору співмешканця — свайп-колода, пошук і фільтри, алгоритмічний скор сумісності, довірена мережа спільноти, реверсивний пост — крок 05–06, артефакт «П'ять патернів підбору сусіда» <a class="cite" href="#s13">S13</a>.</p>
+  </div>
+  <h3>Чому саме він під наш контекст</h3>
+  <ol class="findings">
+    <li><b>Контентна модель Кутка вже двостороння за брифом</b> (кімнати + профілі шукачів) <a class="cite" href="#s12">S12</a> — це нативна структура для пошуку/фільтрів. Те саме підтверджує й SpareRoom, розділяючи Rooms/Flatmates окремими вкладками <a class="cite" href="#s4">S4</a>.</li>
+    <li><b>Бриф прямо ухвалив «тільки фільтри, без алгоритмічного скору сумісності»</b> <a class="cite" href="#s12">S12</a> — рішення вже прийнято, і воно узгоджується зі ставкою рішення (жити разом місяцями): люди хочуть порівнювати й читати профілі, а не отримувати вердикт за секунду <a class="cite" href="#s13">S13</a>.</li>
+    <li><b>Малий пул оголошень на старті.</b> Список із фільтрами деградує плавно навіть при десятку кімнат, тоді як свайп-колода чи алгоритмічний скор потребують об'єму даних/кандидатів, якого в молодого продукту ще немає <a class="cite" href="#s13">S13</a>.</li>
+  </ol>
+</section>
+
+<section id="conclusions">
+  <h2><span class="num">04</span>Висновки</h2>
+
+  <div class="gap-card">
+    <p class="label">Прогалина 1</p>
+    <p class="gap-title">Хто на старті бере на себе ручну модерацію і скільки оголошень/день реально перевірити.</p>
+    <p class="hyp"><b>Гіпотеза:</b> без виділеної ролі (хоч часткової) модерація стане вузьким горлом уже за перших 20–30 оголошень на тиждень, і якість видачі почне падати ще до масштабування.</p>
+    <p class="from">Джерело: <b>БЕНЧМАРК</b> (людська модерація, SpareRoom) + <b>КОНКУРЕНТИ</b> (відмінність №3)</p>
+  </div>
+
+  <div class="gap-card">
+    <p class="label">Прогалина 2</p>
+    <p class="gap-title">Політика «живості» оголошень (чи протухають вони автоматично) не визначена.</p>
+    <p class="hyp"><b>Гіпотеза:</b> без авто-архівації чи підтвердження активності Куток успадкує головну проблему Telegram-каналів — застарілі пости без сигналу актуальності — і швидко втратить довіру до якості видачі.</p>
+    <p class="from">Джерело: <b>КОНКУРЕНТИ</b> (оголошення OLX зникло між заходами; HomeMate — стрічка без модерації застарілих постів)</p>
+  </div>
+
+  <div class="gap-card">
+    <p class="label">Прогалина 3</p>
+    <p class="gap-title">Точна структура й формула trust-бейджа/скору для Кутка не визначена — у брифі лише сама ідея «бейджі перевірено» <a class="cite" href="#s12">S12</a>.</p>
+    <p class="hyp"><b>Гіпотеза:</b> без чіткої, прозорої формули (що саме підвищує бейдж) користувачі не довірятимуть йому більше, ніж голому профілю — Куток ризикує повторити слабкість «чорної скриньки», якої свідомо уникнув, відмовившись від алгоритмічного скору.</p>
+    <p class="from">Джерело: <b>БЕНЧМАРК</b> (публічний бейдж довіри, Lister Score) + <b>ПАТЕРНИ</b> (відмова від алгоритмічного скору саме через непрозорість)</p>
+  </div>
+
+  <div class="gap-card">
+    <p class="label">Прогалина 4</p>
+    <p class="gap-title">Cold-start-стратегія (як наповнити перший контент) не вирішена — залишається відкритим питанням у самому брифі <a class="cite" href="#s12">S12</a>.</p>
+    <p class="hyp"><b>Гіпотеза:</b> органічний ріст «широким Києвом» без стартового посіву через нішеві спільноти (студмістечка, роботодавці, ЖК) буде повільнішим і дорожчим, ніж партнерський посів — саме так уже тримається живий ринок («КНУсусіди» тримаються на приналежності до вишу) <a class="cite" href="#s11">S11</a>.</p>
+    <p class="from">Джерело: <b>ПАТЕРНИ</b> (другий вибір «довірена мережа спільноти», за умови X) + <b>КОНКУРЕНТИ</b> (крок 03, групи Хард/Софт)</p>
+  </div>
+
+  <div class="gap-card">
+    <p class="label">Прогалина 5</p>
+    <p class="gap-title">Монетизаційна модель після безкоштовного старту не визначена, а найближчий за структурою конкурент монетизує саме те, що Куток свідомо лишає безкоштовним.</p>
+    <p class="hyp"><b>Гіпотеза:</b> якщо Куток колись захоче монетизуватися, копіювати paywall-на-чат (модель Badi) буде помилкою; імовірніші кандидати — платне просування оголошень (модель OLX) або розширені інструменти для активних користувачів (модель SpareRoom), що не заважають базовій довірі.</p>
+    <p class="from">Джерело: <b>БЕНЧМАРК</b> («один, що не спрацює») + <b>КОНКУРЕНТИ</b> (відмінність №1)</p>
+  </div>
+</section>
+
+<section id="sources">
+  <h2><span class="num">05</span>Джерела</h2>
+  <div class="table-scroll">
+  <table class="src-table">
+    <thead><tr><th>#</th><th>Джерело</th><th>Тип</th></tr></thead>
+    <tbody>
+      <tr id="s1"><td>S1</td><td><a href="https://www.olx.ua/uk/nedvizhimost/komnaty/dolgosrochnaya-arenda-komnat/kiev/q-%D0%BF%D1%96%D0%B4%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%BD%D1%8F/" target="_blank" rel="noopener">OLX.ua — пошук «підселення», Київ</a></td><td>Web fetch + скрін 01</td></tr>
+      <tr id="s2"><td>S2</td><td><a href="https://www.olx.ua/d/uk/obyavlenie/pdselennya-v-kmnatu-ID10kZR6.html" target="_blank" rel="noopener">OLX.ua — картка оголошення</a></td><td>Скрін 02 (оголошення згодом зникло — власне спостереження про плинність)</td></tr>
+      <tr id="s3"><td>S3</td><td><a href="https://t.me/s/homemate1" target="_blank" rel="noopener">HomeMate — Telegram-канал</a></td><td>Web fetch (текст); скрін не вдалося зняти технічно — скрін 03</td></tr>
+      <tr id="s4"><td>S4</td><td><a href="https://www.spareroom.co.uk/" target="_blank" rel="noopener">SpareRoom — головна сторінка</a></td><td>Web fetch + скрін 04</td></tr>
+      <tr id="s5"><td>S5</td><td><a href="https://www.spareroom.co.uk/flatshare/london" target="_blank" rel="noopener">SpareRoom — пошук, Лондон</a></td><td>Скрін 05</td></tr>
+      <tr id="s6"><td>S6</td><td><a href="https://badi.com/" target="_blank" rel="noopener">Badi — головна сторінка</a></td><td>Web fetch + скрін 06</td></tr>
+      <tr id="s7"><td>S7</td><td><a href="https://www.facebook.com/groups/519401202138866/posts/1911051902973782/" target="_blank" rel="noopener">Facebook-група — пост</a></td><td>Скрін 07 — підтверджує лише обмеження доступу, не контент</td></tr>
+      <tr id="s8"><td>S8</td><td>Web-пошук: аудиторія SpareRoom (17M+ зареєстрованих користувачів)</td><td>Агрегований результат пошуку, окремої статті не збережено</td></tr>
+      <tr id="s9"><td>S9</td><td><a href="https://cohabby.com/blog/best-roommate-finder-apps/" target="_blank" rel="noopener">CoHabby — «Best Roommate Finder Apps 2026: Honest Comparison»</a></td><td>UX-розбір третьої сторони (SpareRoom, Roomster)</td></tr>
+      <tr id="s10"><td>S10</td><td><a href="https://badi.com/legal/en/terms-and-conditions/" target="_blank" rel="noopener">Badi</a> / <a href="https://plus.badi.com/terms-and-conditions/" target="_blank" rel="noopener">Badi Plus</a> — умови використання</td><td>Первинне джерело (Lister Score, верифікація ID, Badi Plus)</td></tr>
+      <tr id="s11"><td>S11</td><td><a href="https://t.me/s/knu_susid" target="_blank" rel="noopener">«КНУсусіди» — Telegram</a></td><td>Web-пошук, крок 03</td></tr>
+      <tr id="s12"><td>S12</td><td>CLAUDE.md — продуктовий бриф Кутка</td><td>Внутрішній документ проєкту</td></tr>
+      <tr id="s13"><td>S13</td><td>Артефакт «П'ять патернів підбору сусіда» (крок 05–06)</td><td>Внутрішній аналітичний документ цієї сесії, на основі CLAUDE.md</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Згенеровано з <a href="https://github.com/denysosadchyi/kootok/blob/main/research/research.md">research/research.md</a> · репозиторій <a href="https://github.com/denysosadchyi/kootok">denysosadchyi/kootok</a>
+</footer>
+</div>
+</body>
+</html>
