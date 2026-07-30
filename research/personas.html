@@ -158,7 +158,10 @@ li b{color:var(--ink)}
 
 /* ===== ЧЕСНІСТЬ: бейджі статусу твердження — першокласний елемент дизайну ===== */
 .hyp,.dis,.conf,.na{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.03em;
-  padding:1px 8px;border-radius:6px;white-space:nowrap;vertical-align:baseline;line-height:1.55}
+  padding:1px 8px;border-radius:6px;vertical-align:baseline;line-height:1.55}
+/* короткі маркери не ламаємо; багатослівні — навпаки, мають переноситись у вузьких клітинках */
+.hyp,.na{white-space:nowrap}
+.dis,.conf{white-space:normal;overflow-wrap:anywhere}
 /* [?] — гіпотеза, даних немає */
 .hyp{background:var(--yellow-strong);color:var(--yellow-ink);border:1px solid var(--yellow-line)}
 /* спростовано доресерчем */
@@ -173,10 +176,12 @@ li b{color:var(--ink)}
 .imp.top{background:var(--primary);color:#fff}
 
 /* блок-легенда бейджів */
-.legend{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0}
-.legend .li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--slate);
-  background:var(--surface);border:1px solid var(--hairline);border-radius:8px;padding:9px 12px;
-  flex:1 1 220px;min-width:0}
+.legend{display:grid;grid-template-columns:max-content minmax(0,1fr);column-gap:16px;
+  margin:16px 0 0;padding:2px 16px;background:var(--surface);
+  border:1px solid var(--hairline);border-radius:10px}
+.legend dt{padding:12px 0 12px;display:flex;align-items:flex-start;min-width:0}
+.legend dd{margin:0;padding:12px 0;font-size:13.5px;line-height:1.55;color:var(--slate);min-width:0}
+.legend dt:not(:first-of-type),.legend dd:not(:first-of-type){border-top:1px solid var(--hairline)}
 
 /* смуга-акцент для гіпотези всередині тексту */
 .hypline{background:var(--yellow);border-left:3px solid var(--yellow-line);
@@ -262,7 +267,7 @@ blockquote .qsrc{display:block;margin-top:9px;font-size:12px;font-weight:500;col
 .themebtn:hover{color:var(--ink)}
 
 @media (max-width:900px){
-  .app{grid-template-columns:1fr}
+  .app{grid-template-columns:minmax(0,1fr)}
   .sidebar{display:none}
   .mobtop{display:block;position:sticky;top:0;z-index:15;background:var(--surface-soft);
     border-bottom:1px solid var(--hairline);padding:10px 16px}
@@ -285,7 +290,13 @@ blockquote .qsrc{display:block;margin-top:9px;font-size:12px;font-weight:500;col
   .persona{padding:18px 16px}
   .persona .ph .nm{font-size:19px}
   blockquote{padding:14px 14px;font-size:15px}
-  .legend .li{flex:1 1 100%}
+}
+/* на вузьких екранах легенда стає стовпчиком: бейдж над поясненням */
+@media (max-width:560px){
+  .legend{grid-template-columns:minmax(0,1fr);padding:2px 14px}
+  .legend dt{padding:12px 0 5px}
+  .legend dd{padding:0 0 12px;border-top:0}
+  .legend dd:not(:first-of-type){border-top:0}
 }
 </style>
 </head>
@@ -346,12 +357,16 @@ blockquote .qsrc{display:block;margin-top:9px;font-size:12px;font-weight:500;col
 <div class="callout"><span class="ico">🗣</span><div>У першій версії дослідження не було <b>жодної</b> прямої цитати користувача — єдиним реальним текстовим артефактом «голосу аудиторії» була сама назва FB-групи «Рієлтори - зло» <span class="cite">S16</span>. Доресерч 2026-07-30 це частково закрив: нижче є чотири реальні цитати, і всі вони позначені <span class="conf">реальна цитата</span>. Реконструйовані «цитати-настрою» лишились позначеними як <span class="hyp">[?] гіпотеза</span>.</div></div>
 
 <h3>Легенда позначок</h3>
-<div class="legend">
-<div class="li"><span class="hyp">[?]</span><span>Гіпотеза. Джерело цього не підтверджує — формулювання лишено як напрямок для перевірки, не як факт.</span></div>
-<div class="li"><span class="conf">підтверджено доресерчем</span><span>Твердження закрите локальними українськими джерелами 2026-07-30.</span></div>
-<div class="li"><span class="dis">спростовано</span><span>Доресерч показав протилежне — попереднє припущення знято.</span></div>
-<div class="li"><span class="na">—</span><span>Структурно не стосується цієї персони (не «немає даних», а «не її job»).</span></div>
-</div>
+<dl class="legend">
+<dt><span class="hyp">[?]</span></dt>
+<dd>Гіпотеза. Джерело цього не підтверджує — формулювання лишено як напрямок для перевірки, не як факт.</dd>
+<dt><span class="conf">підтверджено доресерчем</span></dt>
+<dd>Твердження закрите локальними українськими джерелами 2026-07-30.</dd>
+<dt><span class="dis">спростовано</span></dt>
+<dd>Доресерч показав протилежне — попереднє припущення знято.</dd>
+<dt><span class="na">—</span></dt>
+<dd>Структурно не стосується цієї персони (не «немає даних», а «не її job»).</dd>
+</dl>
 </section>
 
 <!-- ============ 02 ============ -->

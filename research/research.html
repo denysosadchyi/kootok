@@ -168,7 +168,8 @@ blockquote .qsrc a{color:var(--steel)}
 .gtag.asp{background:var(--peach);color:var(--orange-deep)}
 
 /* tables */
-.twrap{overflow-x:auto;border:1px solid var(--hairline);border-radius:8px;margin:14px 0}
+.twrap{overflow-x:auto;border:1px solid var(--hairline);border-radius:8px;margin:14px 0;
+  max-width:100%;-webkit-overflow-scrolling:touch}
 table{border-collapse:collapse;width:100%;min-width:640px;background:var(--canvas);font-size:14px}
 th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--hairline-soft);vertical-align:top;line-height:1.5}
 thead th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;font-weight:600;
@@ -207,6 +208,8 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:none}
 /* sources */
 .src-table td:first-child{font-family:var(--mono);color:var(--primary);white-space:nowrap;font-size:12px;font-weight:600}
 .src-table td{font-size:13px}
+/* довгі URL не мають розпирати таблицю джерел */
+.src-table a{overflow-wrap:anywhere;word-break:break-word}
 
 /* screenshots */
 .shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:16px 0}
@@ -229,7 +232,8 @@ figcaption b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
 .themebtn:hover{color:var(--ink)}
 
 @media (max-width:900px){
-  .app{grid-template-columns:1fr}
+  .app{grid-template-columns:minmax(0,1fr)}
+  tbody th{white-space:normal}
   .sidebar{display:none}
   .mobtop{display:block;position:sticky;top:0;z-index:15;background:var(--surface-soft);
     border-bottom:1px solid var(--hairline);padding:10px 16px}
