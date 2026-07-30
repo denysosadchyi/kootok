@@ -92,6 +92,16 @@ body{margin:0;background:var(--canvas);color:var(--charcoal);font-family:var(--f
 .nav a.active .n{color:var(--primary)}
 .nav a.sub{padding-left:28px;font-size:13px;font-weight:400}
 
+/* page switcher (shared between research.html / personas.html) */
+.pageswitch{display:flex;flex-direction:column;gap:2px;padding-bottom:6px;
+  border-bottom:1px solid var(--hairline)}
+.pageswitch a{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:6px;
+  color:var(--slate);text-decoration:none;font-size:14px;font-weight:500;line-height:1.3;
+  transition:background .12s,color .12s}
+.pageswitch a svg{width:15px;height:15px;flex:none;opacity:.9}
+.pageswitch a:hover{background:var(--tint-gray);color:var(--ink)}
+.pageswitch a.cur{background:var(--lavender);color:var(--primary);font-weight:600}
+
 .side-links{margin-top:20px;padding:14px 10px 0;border-top:1px solid var(--hairline)}
 .side-links a{display:flex;align-items:center;gap:9px;color:var(--steel);font-size:13px;
   font-weight:500;text-decoration:none;padding:6px 0;border:none}
@@ -135,6 +145,20 @@ section{scroll-margin-top:20px}
 .callout.accent{background:var(--lavender);border-color:transparent;color:var(--purple-800)}
 .callout.accent b{color:var(--purple-800)}
 .callout.rust{background:var(--peach);border-color:transparent;color:var(--orange-deep)}
+
+/* quotes */
+blockquote{margin:14px 0;padding:16px 18px;background:var(--cream);border-left:3px solid var(--primary);
+  border-radius:0 10px 10px 0;font-size:16px;line-height:1.55;color:var(--ink);font-weight:500}
+blockquote.real{background:var(--mint);border-left-color:var(--green-deep)}
+blockquote .qsrc{display:block;margin-top:9px;font-size:12px;font-weight:500;color:var(--steel);
+  font-family:var(--mono);word-break:break-word}
+blockquote .qsrc a{color:var(--steel)}
+
+/* verdict badges */
+.vd{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;
+  padding:2px 8px;border-radius:5px;vertical-align:middle;margin-right:6px}
+.vd.ok{background:var(--mint);color:var(--green-deep)}
+.vd.no{background:var(--rose);color:var(--pink-deep)}
 
 /* tag chips (badge-tag-*) */
 .gtag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.02em;
@@ -216,30 +240,42 @@ figcaption b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
   .mobtop .mn{margin-left:auto;font-size:13px;color:var(--stone)}
   .mobtop nav{padding:8px 0 2px}
   .mobtop nav a{display:block;padding:7px 4px;color:var(--slate);text-decoration:none;font-size:14px}
+  .mobtop .mswitch{display:flex;gap:8px;padding:2px 0 8px;margin-bottom:4px;border-bottom:1px solid var(--hairline)}
+  .mobtop .mswitch a{flex:1;text-align:center;padding:8px 10px;border-radius:8px;background:var(--surface);
+    border:1px solid var(--hairline);font-size:13px;font-weight:500;color:var(--slate)}
+  .mobtop .mswitch a.cur{background:var(--lavender);border-color:transparent;color:var(--primary);font-weight:600}
   .content{padding:0 18px}
   .content-inner{padding:24px 0 64px}
   .heroband{padding:28px 22px}
   h1{font-size:32px;letter-spacing:-.5px}
   h2{font-size:24px}
+  blockquote{padding:14px 14px;font-size:15px}
 }
 
 </style>
 </head>
 <body>
 <div class="mobtop"><details><summary><svg viewBox="0 0 34 34"><path d="M6 28 L6 6 L28 6"/></svg><span>Куток · дослідження</span><span class="mn">зміст ▾</span></summary><nav>
+<span class="mswitch"><a class="cur" href="research.html">Дослідження ринку</a><a href="personas.html">Персони і JTBD</a></span>
 <a href="#overview">01 · Огляд</a>
 <a href="#competitors">02 · Конкуренти</a>
 <a href="#market">03 · Патерни ринку</a>
 <a href="#benchmark">04 · Бенчмарк</a>
 <a href="#uxpatterns">05 · Патерни взаємодії</a>
 <a href="#conclusions">06 · Висновки</a>
-<a href="#screens">07 · Скріни</a>
-<a href="#sources">08 · Джерела</a>
+<a href="#reresearch">07 · Доресерч після персон</a>
+<a href="#screens">08 · Скріни</a>
+<a href="#sources">09 · Джерела</a>
 <a href="https://github.com/denysosadchyi/kootok" target="_blank" rel="noopener">↗ GitHub-репозиторій</a>
 </nav></details></div>
 <div class="app">
 <aside class="sidebar">
 <div class="brand"><svg viewBox="0 0 34 34"><path d="M6 28 L6 6 L28 6"/></svg><span class="brand-txt"><b>Куток</b><span>дослідження ринку</span></span></div>
+<div class="nav-label">Сторінки</div>
+<div class="pageswitch">
+<a class="cur" href="research.html"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 2h12v2H2V2zm0 4h12v2H2V6zm0 4h8v2H2v-2z"/></svg>Дослідження ринку</a>
+<a href="personas.html"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.5 7a2.5 2.5 0 100-5 2.5 2.5 0 000 5zm5 0a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1 13c0-2.2 2-3.5 4.5-3.5S10 10.8 10 13v1H1v-1zm10.5-3.5c2.2 0 3.5 1.4 3.5 3.5v1h-4v-1c0-1.1-.4-2.1-1.1-2.8.5-.4 1-.7 1.6-.7z"/></svg>Персони і JTBD</a>
+</div>
 <div class="nav-label">Зміст</div>
 <div class="nav">
 <a href="#overview"><span class="n">01</span>Огляд</a>
@@ -251,8 +287,11 @@ figcaption b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
 <a href="#benchmark"><span class="n">04</span>Бенчмарк</a>
 <a href="#uxpatterns"><span class="n">05</span>Патерни взаємодії</a>
 <a href="#conclusions"><span class="n">06</span>Висновки</a>
-<a href="#screens"><span class="n">07</span>Скріни</a>
-<a href="#sources"><span class="n">08</span>Джерела</a>
+<a href="#reresearch"><span class="n">07</span>Доресерч після персон</a>
+<a class="sub" href="#q-scam">Страх шахрайства</a>
+<a class="sub" href="#q-belong">Приналежність = довіра?</a>
+<a href="#screens"><span class="n">08</span>Скріни</a>
+<a href="#sources"><span class="n">09</span>Джерела</a>
 </div>
 <div class="side-links"><a href="https://github.com/denysosadchyi/kootok" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub-репозиторій</a></div>
 </aside>
@@ -267,7 +306,7 @@ figcaption b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
 <span class="chip"><b>12</b> конкурентів</span>
 <span class="chip"><b>3</b> групи</span>
 <span class="chip"><b>49/60</b> осей підтверджено</span>
-<span class="chip"><b>56</b> джерел</span>
+<span class="chip"><b>70</b> джерел</span>
 <span class="chip"><b>9</b> скрінів</span>
 </div>
 <div class="callout accent"><span class="ico">🔎</span><div>Кожен факт має позначку <a class="cite" href="#sources">S#</a> — джерело в розділі «Джерела». Осі без надійного джерела чесно позначені <span class="cite nv">неперевірено</span> / <b class="nv-txt">дані не підтверджені</b>. Нічого не вигадано: краще порожньо, ніж здогад.</div></div>
@@ -466,7 +505,86 @@ figcaption b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
 <div class="gap"><p class="lbl">Прогалина 6</p><p class="gt">Двостороння модель потребує балансу обох сторін, але бриф не визначає, з якого боку наповнювати ринок першим і як міряти «здоровʼя» ліквідності — що прямо змикається з невирішеним питанням метрик успіху MVP.</p><p class="hy"><b>Гіпотеза:</b> На старті засівати перевагою сторону пропозиції (оголошення кімнат — їх легше парсити), а метрикою успіху MVP брати не DAU, а частку оголошень/профілів, що отримали ≥1 взаємний контакт, і медіанний час до першого матчу.</p><p class="fr">Випливає з: <b>БЕНЧМАРК — SpareRoom, Badi і Roomi двосторонні й свідомо тримають активними обидві сторони (оголошення кімнат + профілі шукачів). КОНКУРЕНТИ — у КНУсусіди/HomeMate контент уже двосторонній («є кімната» + «шукаю куток»), що валідує модель, але жоден канал не має метрики матчингу.</b></p><p class="fr" style="margin-top:.3rem">Відкрите питання брифу: метрики успіху MVP (кількість матчів, заселень, DAU)</p></div>
 <div class="gap"><p class="lbl">Прогалина 7</p><p class="gt">«Безкоштовно на старті» задано, але не окреслено, які майбутні монетизаційні важелі сумісні з довірою — а деякі патерни її прямо руйнують, тож проєктувати «з запасом» треба вже зараз, щоб не закласти токсичну механіку.</p><p class="hy"><b>Гіпотеза:</b> Проєктувати монетизацію на просуванні/бусті оголошень і опційній платній верифікації (продавати цінність і видимість, а не доступ), свідомо уникаючи paywall на комунікацію/прочитання повідомлень; ядро першого контакту тримати безкоштовним назавжди.</p><p class="fr">Випливає з: <b>ПАТЕРНИ — Roomster дійшов до позову FTC через агресивний paywall на повідомлення + фейки (анти-урок). БЕНЧМАРК — SpareRoom монетизує ранній доступ (Early Bird £14/тиж), Roomi — ліміти (1 оголошення / 10 контактів), OLX — платні Підняття/Топ/VIP поверх безкоштовної бази; усі продають просування/ліміти, а не саму довіру.</b></p><p class="fr" style="margin-top:.3rem">Відкрите питання брифу: монетизація (freemium, буст оголошень — проєктуємо з запасом)</p></div>
 </section>
-<section id="screens" class="spy"><h2><span class="h2n">07</span>Скріни ключових екранів</h2><div class="shots">
+<section id="reresearch" class="spy"><h2><span class="h2n">07</span>Доресерч після персон</h2>
+<p class="lede">Точкове закриття дірок, знайдених аудитом персон/JTBD (<a href="https://github.com/denysosadchyi/kootok/blob/main/research/audit.md" target="_blank" rel="noopener">audit.md</a>). Виконано 2026-07-30 web-фетчем; кожне джерело нижче реально відкрито й перевірено, якщо не зазначено інше. Нові джерела — <a class="cite" href="#s57">S57</a>–<a class="cite" href="#s70">S70</a>.</p>
+
+<h3 id="q-scam">Питання 2 аудиту: чи реальний страх шахрайства саме в київської аудиторії?</h3>
+<div class="callout accent"><span class="ico">✓</span><div><span class="vd ok">підтверджено</span><b>Вердикт: підтверджено як локальний український біль, а не імпорт із кейсу FTC/Roomster.</b> Але з важливим нюансом: домінуюча емоція — не «мене пограбують», а «мені брешуть і витрачають мій час».</div></div>
+
+<h4 style="margin-top:22px">Знахідки</h4>
+<div class="cards">
+<div class="card"><h4>~10% орендарів стикалися з шахраями</h4><p>Оцінка голови комітету Союзу фахівців нерухомості України (експертна оцінка рієлторки, <b>НЕ соціологія</b> — джерело даних стаття не вказує). Описані схеми: аванс до перегляду, підроблені документи, «орендарі», що вивозять меблі.</p><p class="mtag">Джерело: <a class="cite" href="#s57">S57</a></p></div>
+
+<div class="card"><h4>Шахрайства зросли «у кілька разів» з початку повномасштабного вторгнення</h4><p>Експертка Вікторія Берещак. Ключова деталь: завдаток буває мікроскопічний, <b>150–200 грн</b> — схема розрахована на потік, жертва втрачає мало грошей, але багато часу й довіри. Друга схема: «здавання одного об'єкту кільком людям».</p>
+<blockquote class="real">«Зросла кількість фіктивних оголошень, які пропонують супервигідні умови, які ви отримаєте, як тільки переведете на картку завдаток»
+<span class="qsrc">пряма цитата · Вікторія Берещак · <a class="cite" href="#s58">S58</a></span></blockquote>
+<p class="mtag">Джерело: <a class="cite" href="#s58">S58</a></p></div>
+
+<div class="card"><h4>Київська поліція офіційно попереджає</h4><p>ГУ НП у м. Києві, 10.11.2022. Вразлива група — переселенці.</p>
+<blockquote class="real">«оренда житла за вигідною ціною для переселенців — аферисти здають "уявні" квартири... після отримання передплати не виходять на зв'язок»
+<span class="qsrc">пряма цитата · ГУ НП у м. Києві · <a class="cite" href="#s59">S59</a></span></blockquote>
+<p class="mtag">Джерело: <a class="cite" href="#s59">S59</a></p></div>
+
+<div class="card"><h4>Недовіра — дефолтний стан аудиторії до нових сервісів оренди</h4><p>Перша реакція DOU-спільноти на новий київський сервіс Josti (платні контакти власника) — не «як зручно», а сценарій скаму.</p>
+<blockquote class="real">«Берём несуществующую хату, генерим фотки, ставим привлекательную цену. Собираем по 4%...»
+<span class="qsrc">пряма цитата · DOU-тред про Josti · <a class="cite" href="#s60">S60</a></span></blockquote>
+<p class="mtag">Джерело: <a class="cite" href="#s60">S60</a></p></div>
+
+<div class="card"><h4>Платний доступ + неактуальне оголошення переживається як обман</h4><p>Навіть якщо формально це не скам: відгук в App Store на Josti (рейтинг застосунку 3.5/5). Прямий аргумент <b>проти платного розблокування контактів у MVP</b> і <b>за агресивну архівацію протухлих оголошень</b>.</p>
+<blockquote class="real">«Заплатила 700 грн, щоб мені сказали, що квартира здана. Гроші повернули на баланс застосунку»
+<span class="qsrc">пряма цитата · відгук в App Store (Josti) · <a class="cite" href="#s61">S61</a></span></blockquote>
+<p class="mtag">Джерело: <a class="cite" href="#s61">S61</a></p></div>
+
+<div class="card"><h4>У побутових розмовах болить не стільки крадіжка, скільки брехня посередників</h4><p>У великому DOU-треді про пошук житла домінують скарги на рієлторів, а історій «мене кинули на гроші» немає. Увага: атрибуція цитат цього треду до конкретних авторів <b>ненадійна</b> (WebFetch-самарайзер плутав ніки), тому цитати наводимо без імен.</p>
+<blockquote class="real">«Ріелтор — це проксі, який може викривити загальну картину для обох сторін, аби пошвидше закрити об'єкт»
+<span class="qsrc">пряма цитата без атрибуції · DOU · <a class="cite" href="#s62">S62</a></span></blockquote>
+<p class="mtag">Джерело: <a class="cite" href="#s62">S62</a></p></div>
+
+<div class="card"><h4>Власники кімнат уже вручну «верифікують» кандидатів через соцмережі</h4><p>Реальне оголошення кімнати в Києві (Межигірська, <b>7000 грн</b>) вимагає надіслати інформацію про себе і посилання на соцмережі для «схвалення мешканця». Тобто механіка «лінк на соцмережі» з брифу відтворює те, що ринок робить сам — це піднімає її з «кандидата на виліт» (за матрицею <a href="personas.html#core">jtbd</a>) до <b>підтвердженої знизу практики</b>.</p><p class="mtag">Джерело: <a class="cite" href="#s63">S63</a></p></div>
+
+<div class="card"><h4>Системна причина, чому шахрайство квітне</h4><p>Ринок оренди майже повністю тіньовий — за 2024 рік дохід від оренди офіційно задекларували <b>~900 осіб</b> на всю країну; житло орендують <b>65%</b> тих, хто переїхав після 24.02.2022 (проти 17% загалом); рієлторів 40–80 тис., кваліфікованими ринок вважає 2–3 тис.</p><p class="mtag">Джерело: <a class="cite" href="#s64">S64</a></p></div>
+</div>
+
+<div class="callout rust"><span class="ico">⚠️</span><div><b>Що не вдалося дістати (чесно).</b> Відгуки OLX/DIM.RIA у Google Play (контент за JS, WebFetch не бачить), Reddit r/Kyiv (фетч заблоковано), форум Мінфіну (тематичної гілки про оренду, схоже, немає), vidhuk.ua про DIM.RIA — 403. Живих цитат саме про підселення/кімнати (а не квартири) досі майже немає — <b>головна відкрита дірка</b>.</div></div>
+
+<h3 id="q-belong">Питання 1 аудиту: чи працює приналежність до «свого» каналу як механізм довіри?</h3>
+<div class="callout rust"><span class="ico">✕</span><div><span class="vd no">спростовано</span><b>Вердикт: спростовано — найсильніші докази дали самі канали.</b> Досліджено <b>2 738 реальних постів</b> (повна пагінація t.me/s/ трьох каналів) + зовнішні джерела.</div></div>
+
+<h4 style="margin-top:22px">Знахідки</h4>
+<div class="cards">
+<div class="card"><h4>Адміни КНУсусідів самі відмовляються від ролі гаранта</h4><p>Закріплений пост-інструкція каналу містить дисклеймер (дослівно). Вимог «підтвердь, що ти студент КНУ» немає навіть в інструкції подання.</p>
+<blockquote class="real">«Ми не перевіряємо авторів постів і не несемо відповідальності за шахрайство. Уважність — ваше все. Не кидайте передоплату незнайомим людям, зустрічайтеся в публічних місцях, перевіряйте документи»
+<span class="qsrc">дослівно · закріплений пост КНУсусідів · <a class="cite" href="#s65">S65</a></span></blockquote>
+<p class="mtag">Джерело: <a class="cite" href="#s65">S65</a></p></div>
+
+<div class="card"><h4>Ті самі адміни у власному гайді попереджають про шахраїв</h4><p>З чек-листом анти-шахрайства (підозріло низькі ціни, відмова від договору, «залог за перегляд») і порадою шукати також на LUN/OLX/DOM.RIA.</p>
+<blockquote class="real">«Шахраїв вистачає, будьте пильні!»
+<span class="qsrc">дослівно · адмінський гайд КНУсусідів · <a class="cite" href="#s66">S66</a></span></blockquote>
+<p class="mtag">Джерело: <a class="cite" href="#s66">S66</a></p></div>
+
+<div class="card"><h4>«Свої» канали не відсіюють комерційних гравців</h4><p>Щонайменше <b>24 з 2 460</b> архівних постів КНУсусідів містять комісію посереднику; у новому каналі — пряме промо агентства нерухомості. Плюс структурна сліпота: це канал <b>без коментарів</b> — учасники фізично не можуть поскаржитись чи попередити інших, тож відсутність скарг ≠ відсутність проблем.</p>
+<blockquote class="real">«оплата: 14000 в місяць + 14000 залог + 7000 ріелтору», «окрема кімната 5000 + 50% рієлтору»
+<span class="qsrc">дослівно · пости КНУсусідів · <a class="cite" href="#s67">S67</a></span></blockquote>
+<p class="mtag">Джерело: <a class="cite" href="#s67">S67</a></p></div>
+
+<div class="card"><h4>HomeMate Kyiv не має навіть декларативної рамки довіри</h4><p>За 91 переглянутий пост — нуль правил, нуль попереджень, нуль дисклеймерів; комісії теж трапляються.</p>
+<blockquote class="real">«2850 місяць + комунальні / Комісія 2000»
+<span class="qsrc">дослівно · пост HomeMate Kyiv · <a class="cite" href="#s68">S68</a></span></blockquote>
+<p class="mtag">Джерело: <a class="cite" href="#s68">S68</a></p></div>
+
+<div class="card"><h4>Верифікований поліцейський кейс скаму саме в тематичній Telegram-спільноті</h4><p>22-річний студент знайшов оголошення оренди в тематичній спільноті, переказав <b>8 200 грн</b> передоплати за «бронювання», псевдоорендодавець зник, оголошення видалили (Тернопіль, не Київ — <b>індикатор, не доказ</b> по КНУсусідах).</p><p class="mtag">Джерело: <a class="cite" href="#s69">S69</a></p></div>
+
+<div class="card"><h4>Структурна вразливість месенджера не залежить від «спільнотності»</h4><p>Ризики зростають саме при спілкуванні виключно через месенджери — ідентичність = нік, історії взаємодій немає, зникнути коштує нуль.</p><p class="mtag">Джерело: <a class="cite" href="#s70">S70</a></p></div>
+</div>
+
+<div class="callout"><span class="ico">🔍</span><div><b>Що не знайдено.</b> Публічної скарги «мене кинули саме в КНУсусідах» — але це <b>слабкий негативний доказ</b> (канал без коментарів = скаргу нікуди подати).</div></div>
+
+<div class="callout accent"><span class="ico">✎</span><div><b>Правильне формулювання для персон/JTBD.</b> Приналежність до каналу дає <b>релевантність аудиторії й соціальний контекст</b> (спільний виш, схожі бюджети, зрозумілі райони) — але <b>не дає жодного механізму довіри</b>; це підтверджено адмінськими заявами обох досліджених каналів.</div></div>
+
+<h4 style="margin-top:22px">Наслідки для продукту</h4>
+<div class="gap"><p class="lbl">Наслідки для продукту</p><p class="gt">Безпека/верифікація лишається в ядрі MVP, але акцент повідомлення варто змістити з «захистимо твої гроші» на «тут не бреше ні оголошення, ні людина» — актуальність оголошень і підтверджена особа, без платного доступу до контактів.</p><p class="hy">Ніша Кутка — не «спільнота вже дає довіру, ми зручніше упакуємо», а навпаки: <b>довіра ніде не реалізована</b>, тож верифікація (телефон + соцмережі + відгуки) — справжня диференціація, а не косметика.</p></div>
+</section>
+<section id="screens" class="spy"><h2><span class="h2n">08</span>Скріни ключових екранів</h2><div class="shots">
 <figure><img loading="lazy" src="https://raw.githubusercontent.com/denysosadchyi/kootok/main/research/screens/01-olx-list.png" alt="OLX.ua"><figcaption><b>OLX.ua</b>Пошук «підселення», Київ — публічно</figcaption></figure>
 <figure><img loading="lazy" src="https://raw.githubusercontent.com/denysosadchyi/kootok/main/research/screens/02-olx-detail.png" alt="OLX.ua"><figcaption><b>OLX.ua</b>Картка оголошення (згодом зникла — плинність)</figcaption></figure>
 <figure><img loading="lazy" src="https://raw.githubusercontent.com/denysosadchyi/kootok/main/research/screens/08-dimria-home.png" alt="DIM.RIA"><figcaption><b>DIM.RIA</b>Головна: «Перевірена нерухомість на мапі»</figcaption></figure>
@@ -477,7 +595,7 @@ figcaption b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
 <figure><img loading="lazy" src="https://raw.githubusercontent.com/denysosadchyi/kootok/main/research/screens/06-badi-home.png" alt="Badi"><figcaption><b>Badi</b>Головна — публічно</figcaption></figure>
 <figure><img loading="lazy" src="https://raw.githubusercontent.com/denysosadchyi/kootok/main/research/screens/07-fb-group-access-limited.png" alt="Facebook-група"><figcaption><b>Facebook-група <span class="nv-txt">(доступ обмежено)</span></b>Доступ обмежено — стіна логіну</figcaption></figure>
 </div></section>
-<section id="sources" class="spy"><h2><span class="h2n">08</span>Джерела</h2>
+<section id="sources" class="spy"><h2><span class="h2n">09</span>Джерела</h2>
 <div class="twrap"><table class="src-table"><thead><tr><th>#</th><th>Джерело</th><th>Що підтверджує</th></tr></thead><tbody>
 <tr id="s1"><td>S1</td><td><a href="https://www.olx.ua/uk/nedvizhimost/komnaty/dolgosrochnaya-arenda-komnat/kiev/q-%D0%BF%D1%96%D0%B4%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%BD%D1%8F/" target="_blank" rel="noopener">https://www.olx.ua/uk/nedvizhimost/komnaty/dolgosrochnaya-arenda-komnat/kiev/q-%D0%BF%D1%96%D0%B4%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%BD%D1%8F/</a></td><td>Розділ оренди кімнат/підселення в Києві — структура, фільтри, картки, ~54 оголошення, бейдж Власник</td></tr>
 <tr id="s2"><td>S2</td><td><a href="https://business.olx.ua/reklama/" target="_blank" rel="noopener">https://business.olx.ua/reklama/</a></td><td>Платні послуги просування: Підняття, Топ, VIP і пакети (монетизація)</td></tr>
@@ -535,8 +653,22 @@ figcaption b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
 <tr id="s54"><td>S54</td><td><a href="https://play.google.com/store/apps/details?id=com.roomster&hl=en_US" target="_blank" rel="noopener">https://play.google.com/store/apps/details?id=com.roomster&amp;hl=en_US</a></td><td>Google Play: підтвердження масштабу завантажень і платформи (не фетчив у цій перевірці)</td></tr>
 <tr id="s55"><td>S55</td><td><a href="https://github.com/denysosadchyi/kootok/blob/main/CLAUDE.md" target="_blank" rel="noopener">https://github.com/denysosadchyi/kootok/blob/main/CLAUDE.md</a></td><td>CLAUDE.md — продуктовий бриф Кутка (внутрішній документ)</td></tr>
 <tr id="s56"><td>S56</td><td><i>внутрішній документ</i></td><td>Артефакт «Пʼять патернів підбору сусіда» (крок 05–06) — внутрішній аналіз цієї сесії на основі CLAUDE.md</td></tr>
+<tr id="s57"><td>S57</td><td><a href="https://blog.olx.ua/25916/kozhen-desyatij-orendar-stikavsya-z-shaxrayami-yak-ne-potrapiti-na-gachok-shaxraiv-pid-chas-poshuku-kvartiri/" target="_blank" rel="noopener">https://blog.olx.ua/25916/…</a></td><td>Блог OLX (2021/22): експертна оцінка «кожен десятий орендар стикався з шахраями» (Союз фахівців нерухомості), три типові схеми. Перевірено фетчем</td></tr>
+<tr id="s58"><td>S58</td><td><a href="https://suspilne.media/rivne/370699-aki-najposirenisi-sahrajstva-na-rinku-orendi-zitla-poasnue-ekspertka/" target="_blank" rel="noopener">https://suspilne.media/rivne/370699-…</a></td><td>Суспільне (02.2023): шахрайства з орендою зросли «у кілька разів» після 24.02.2022; завдаток 150–200 грн; здача одного обʼєкта кільком людям. Перевірено фетчем, прямі цитати експертки</td></tr>
+<tr id="s59"><td>S59</td><td><a href="https://kyiv.npu.gov.ua/news/politseiski-kyieva-poperedzhaiut-hromadian-pro-nyzku-shakhraiskykh-skhem-zlovmysnykiv-v-umovakh-viiny" target="_blank" rel="noopener">https://kyiv.npu.gov.ua/news/politseiski-kyieva-poperedzhaiut-…</a></td><td>Офіційне попередження ГУ НП у м. Києві (11.2022): схема «уявних» квартир з передплатою, вразлива група — переселенці. Перевірено фетчем</td></tr>
+<tr id="s60"><td>S60</td><td><a href="https://dou.ua/forums/topic/57704/" target="_blank" rel="noopener">https://dou.ua/forums/topic/57704/</a></td><td>DOU-тред про сервіс Josti: перша реакція аудиторії — сценарій скаму («генерим фотки... собираем по 4%») — недовіра як дефолтний стан. Перевірено фетчем</td></tr>
+<tr id="s61"><td>S61</td><td><a href="https://apps.apple.com/ua/app/josti-%D0%B4%D0%BE%D0%B2%D0%B3%D0%BE%D1%81%D1%82%D1%80%D0%BE%D0%BA%D0%BE%D0%B2%D0%B0-%D0%BE%D1%80%D0%B5%D0%BD%D0%B4%D0%B0/id6446787293" target="_blank" rel="noopener">https://apps.apple.com/ua/app/josti-…/id6446787293</a></td><td>App Store Josti (3.5/5, 325 оцінок): живий відгук «Заплатила 700 грн, щоб мені сказали, що квартира здана» — платний доступ + неактуальність = субʼєктивний обман. Перевірено фетчем</td></tr>
+<tr id="s62"><td>S62</td><td><a href="https://dou.ua/forums/topic/52860/" target="_blank" rel="noopener">https://dou.ua/forums/topic/52860/</a></td><td>DOU-тред «Оренда помешкання: лайфхаки»: домінує недовіра до рієлторів, а не страх крадіжки. Перевірено фетчем; атрибуція цитат до ніків ненадійна (самарайзер плутав авторів) — цитуємо без імен</td></tr>
+<tr id="s63"><td>S63</td><td><a href="https://www.obozrevatel.com/ukr/ekonomika-glavnaya/economy/kimnata-pislya-remontu-za-7-tis-grn-viklikala-hvilyu-oburennya-ukraintsiv-shokuvav-stan-zhitla-v-tsentri-stolitsi.htm" target="_blank" rel="noopener">https://www.obozrevatel.com/ukr/…/kimnata-pislya-remontu-za-7-tis-grn-…</a></td><td>OBOZ (05.2026): реальне оголошення кімнати в Києві 7000 грн — власник вимагає лінки на соцмережі для «схвалення мешканця»; ручна верифікація через соцмережі вже існує знизу. Перевірено фетчем</td></tr>
+<tr id="s64"><td>S64</td><td><a href="https://epravda.com.ua/finances/yak-ukrajina-zahishchaye-rinok-zhitla-ta-borotbu-z-shahraystvom-u-neruhomosti-823583/" target="_blank" rel="noopener">https://epravda.com.ua/finances/yak-ukrajina-zahishchaye-rinok-zhitla-…</a></td><td>Економічна правда (07.2026, Олена Шуляк): тіньовість ринку оренди (~900 декларацій доходу за 2024), 65% орендарів серед переселенців, 40–80 тис. рієлторів без ліцензування. Перевірено фетчем</td></tr>
+<tr id="s65"><td>S65</td><td><a href="https://t.me/knu_susidd/14" target="_blank" rel="noopener">https://t.me/knu_susidd/14</a></td><td>Закріплений пост-інструкція КНУсусідів з дисклеймером: «Ми не перевіряємо авторів постів і не несемо відповідальності за шахрайство». Перевірено фетчем</td></tr>
+<tr id="s66"><td>S66</td><td><a href="https://t.me/knu_susid/1718" target="_blank" rel="noopener">https://t.me/knu_susid/1718</a></td><td>Адмінський гайд «Як студенту знайти житло в Києві»: «Шахраїв вистачає, будьте пильні!», чек-лист анти-шахрайства, порада шукати на LUN/OLX/DOM.RIA. Перевірено фетчем</td></tr>
+<tr id="s67"><td>S67</td><td><a href="https://t.me/s/knu_susid" target="_blank" rel="noopener">https://t.me/s/knu_susid</a></td><td>Суцільна вигрузка 2 460 постів (+187 у knu_susidd): ≥24 пости з комісією рієлтору (до 7000 грн / 50%), промо агентства нерухомості, канал без коментарів (скаргу подати нікуди). Перевірено фетчем з пагінацією</td></tr>
+<tr id="s68"><td>S68</td><td><a href="https://t.me/s/HomeMateKyiv" target="_blank" rel="noopener">https://t.me/s/HomeMateKyiv</a></td><td>91 пост HomeMate Kyiv: нуль правил/попереджень/дисклеймерів, комісії трапляються («Комісія 2000»), підпис постів технічним Telegram-ID без верифікації. Перевірено фетчем</td></tr>
+<tr id="s69"><td>S69</td><td><a href="https://www.0352.ua/news/4118970/sob-tut-ziti-potribna-peredoplata-sahrai-vidurili-grosi-u-studenta-akij-hotiv-orenduvati-kvartiru-v-ternopoli" target="_blank" rel="noopener">https://www.0352.ua/news/4118970/…</a></td><td>Поліцейський кейс: студент втратив 8 200 грн за оголошенням із тематичної Telegram-спільноти (Тернопіль). Перевірено фетчем, повний текст</td></tr>
+<tr id="s70"><td>S70</td><td><a href="https://sud.ua/uk/news/ukraine/342087-moshennicheskaya-arenda-pochemu-predoplata-za-kvartiru-mozhet-ostavit-vas-bez-deneg-i-zhilya" target="_blank" rel="noopener">https://sud.ua/uk/news/ukraine/342087-…</a></td><td>Механіка схеми шахрайської оренди: «ризики значно зростають при... спілкуванні лише через месенджери» — структурна вразливість незалежно від «спільнотності». Перевірено фетчем</td></tr>
 </tbody></table></div>
-<div class="foot">Джерело-верифіковане дослідження · 12 конкурентів · 49/60 осей підтверджено · 56 джерел · вихідний <a href="https://github.com/denysosadchyi/kootok/blob/main/research/research.md">research.md</a> · репозиторій <a href="https://github.com/denysosadchyi/kootok">denysosadchyi/kootok</a></div>
+<div class="foot">Джерело-верифіковане дослідження · 12 конкурентів · 49/60 осей підтверджено · 70 джерел · вихідний <a href="https://github.com/denysosadchyi/kootok/blob/main/research/research.md">research.md</a> · репозиторій <a href="https://github.com/denysosadchyi/kootok">denysosadchyi/kootok</a></div>
 </section>
 </div></main></div>
 <button class="themebtn" id="tt" title="Тема">◐</button>
