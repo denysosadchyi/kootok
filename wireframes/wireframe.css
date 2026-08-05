@@ -1,0 +1,438 @@
+/* ==========================================================================
+   Куток · вайрфрейми · службова графіка
+   Урок 4, крок 02. Контракт: /wireframes/_conventions.md
+   --------------------------------------------------------------------------
+   ЩО ТУТ Є: сітка «панель зліва + макет справа», хейрлайни, сірі плейсхолдери,
+   підписи зон, дерево навігації, перемикач станів, примітиви вайрфрейма.
+   ЧОГО ТУТ НЕМАЄ І БУТИ НЕ МАЄ: кольору (крім градацій сірого), тіней,
+   скруглень > 2px, іконок, шрифтових файлів, зовнішніх бібліотек, JS,
+   анімацій. Це вайрфрейм, а не UI.
+   ========================================================================== */
+
+/* --- 0. Токени: тільки сірий ---------------------------------------------- */
+
+:root {
+  --wf-ink: #111;          /* основний текст */
+  --wf-ink-2: #555;        /* другорядний текст */
+  --wf-ink-3: #767676;     /* службові підписи (контраст ≥ 4.5:1 на білому) */
+  --wf-line: #999;         /* хейрлайн макета */
+  --wf-line-2: #ccc;       /* слабкий хейрлайн */
+  --wf-fill: #e4e4e4;      /* плейсхолдер / заглушка */
+  --wf-fill-2: #f2f2f2;    /* службовий фон */
+  --wf-paper: #fff;
+  --wf-gap: 12px;
+  --wf-pad: 12px;
+}
+
+/* --- 1. База -------------------------------------------------------------- */
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  /* Системний шрифт — це не «вибір шрифту», а відсутність вибору. */
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--wf-ink);
+  background: var(--wf-fill-2);
+}
+
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img { max-width: 100%; display: block; }
+
+a { color: inherit; }
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; }
+
+/* --- 2. Каркас сторінки: панель зліва + макет справа ---------------------- */
+
+.wf {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  align-items: start;
+  gap: 0;
+  min-height: 100vh;
+}
+
+@media (max-width: 860px) {
+  .wf { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* 2.1. Дерево навігації (крок 04) */
+
+.wf-tree {
+  position: sticky;
+  top: 0;
+  align-self: stretch;
+  max-height: 100vh;
+  overflow: auto;
+  padding: 16px 14px 32px;
+  background: var(--wf-paper);
+  border-right: 1px solid var(--wf-line);
+  font-size: 13px;
+}
+
+@media (max-width: 860px) {
+  .wf-tree {
+    position: static;
+    max-height: none;
+    border-right: 0;
+    border-bottom: 1px solid var(--wf-line);
+  }
+}
+
+.wf-tree h2 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--wf-ink-3);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--wf-line-2);
+  margin-bottom: 8px;
+}
+
+.wf-tree ul { margin: 0; }
+.wf-tree li { margin: 0; }
+
+/* вкладені рівні дерева — відступ + вертикальний хейрлайн */
+.wf-tree ul ul {
+  margin-left: 8px;
+  padding-left: 10px;
+  border-left: 1px solid var(--wf-line-2);
+}
+
+.wf-tree a,
+.wf-tree .wf-tree-node,
+.wf-tree .wf-tree-todo {
+  display: block;
+  padding: 3px 4px;
+  text-decoration: none;
+  color: var(--wf-ink);
+  border-bottom: 1px solid transparent;
+}
+
+.wf-tree a:hover { border-bottom-color: var(--wf-line); }
+
+.wf-tree [aria-current="page"],
+.wf-tree .is-current {
+  font-weight: 700;
+  background: var(--wf-fill);
+}
+
+/* пункт-заголовок групи, не посилання */
+.wf-tree .wf-tree-group {
+  margin-top: 10px;
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--wf-ink-3);
+}
+
+/* приглушений пункт: екран ще не намальовано */
+.wf-tree .wf-tree-todo { color: var(--wf-ink-3); text-decoration: line-through; }
+
+/* --- 3. Права колонка: метадані екрана + макет ---------------------------- */
+
+.wf-screen { padding: 16px 20px 48px; min-width: 0; }
+
+/* 3.1. Шапка-метадані екрана */
+
+.wf-head {
+  background: var(--wf-paper);
+  border: 1px solid var(--wf-line);
+  padding: 12px 14px;
+  margin-bottom: 20px;
+}
+
+.wf-head h1 {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.wf-head .wf-file {
+  font-size: 12px;
+  color: var(--wf-ink-3);
+}
+
+.wf-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--wf-ink-2);
+}
+
+.wf-meta div { display: flex; gap: 5px; }
+.wf-meta dt { color: var(--wf-ink-3); }
+.wf-meta dd { margin: 0; font-weight: 700; color: var(--wf-ink); }
+
+/* 3.2. Перемикач станів */
+
+.wf-states {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--wf-line-2);
+  font-size: 12px;
+}
+
+.wf-states a,
+.wf-states .is-current {
+  display: inline-block;
+  padding: 3px 8px;
+  border: 1px solid var(--wf-line);
+  text-decoration: none;
+}
+
+.wf-states a:hover { background: var(--wf-fill-2); }
+
+.wf-states .is-current {
+  font-weight: 700;
+  background: var(--wf-ink);
+  color: var(--wf-paper);
+  border-color: var(--wf-ink);
+}
+
+/* стан, якого в _screens.md немає, сторінкою не роблять — але в переліку
+   його показують закресленим, щоб було видно свідоме «—» */
+.wf-states .is-absent {
+  display: inline-block;
+  padding: 3px 8px;
+  border: 1px dashed var(--wf-line-2);
+  color: var(--wf-ink-3);
+  text-decoration: line-through;
+}
+
+/* --- 4. Полотно макета ---------------------------------------------------- */
+
+.wf-canvas { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+
+/* мобільний фрейм: mobile-first, ширина «як телефон» */
+.wf-device {
+  width: 390px;
+  max-width: 100%;
+  background: var(--wf-paper);
+  border: 1px solid var(--wf-ink);
+  padding: 0;
+}
+
+/* горизонтальні відступи задають самі блоки (зони, шапка, таб-бар),
+   щоб не було подвійного паддінга */
+
+/* --- 5. Зони: підпис ролі + головної дії ---------------------------------- */
+
+[data-zone] {
+  position: relative;
+  border: 1px dashed var(--wf-line-2);
+  padding: 22px var(--wf-pad) var(--wf-pad);
+  margin: 0 0 -1px;
+}
+
+/* назва зони — автоматично з data-zone, службовий шар */
+[data-zone]::before {
+  content: attr(data-zone);
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1px 6px;
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--wf-paper);
+  background: var(--wf-ink-3);
+}
+
+/* видимий службовий підпис: роль зони + головна дія */
+.wf-note {
+  display: block;
+  margin: 0 0 8px;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--wf-ink-3);
+  border-left: 2px solid var(--wf-line-2);
+  padding-left: 6px;
+}
+
+.wf-note b { color: var(--wf-ink-2); font-weight: 700; }
+
+/* --- 6. Примітиви вайрфрейма ---------------------------------------------- */
+
+/* 6.1. Плейсхолдер: сірий прямокутник замість фото/медіа */
+
+.ph {
+  display: block;
+  width: 100%;
+  height: 120px;
+  background: var(--wf-fill);
+  border: 1px solid var(--wf-line-2);
+}
+
+.ph-sm { height: 64px; }
+.ph-lg { height: 200px; }
+
+.ph-avatar { width: 48px; height: 48px; flex: 0 0 48px; border-radius: 2px; }
+
+/* 6.2. Текстові заглушки-смуги (для -loading) */
+
+.sk {
+  display: block;
+  height: 12px;
+  background: var(--wf-fill);
+  margin-bottom: 6px;
+}
+.sk-title { height: 16px; width: 65%; }
+.sk-40 { width: 40%; }
+.sk-60 { width: 60%; }
+.sk-80 { width: 80%; }
+
+/* 6.3. Структурні хелпери */
+
+.wf-row { display: flex; gap: var(--wf-gap); align-items: flex-start; }
+.wf-row-between { display: flex; gap: var(--wf-gap); justify-content: space-between; align-items: baseline; }
+.wf-stack > * + * { margin-top: 8px; }
+.wf-grow { flex: 1 1 auto; min-width: 0; }
+
+/* 6.4. Картка списку (оголошення, людина, чат) */
+
+.wf-card {
+  border: 1px solid var(--wf-line);
+  padding: 10px;
+  background: var(--wf-paper);
+}
+.wf-card + .wf-card { margin-top: 8px; }
+.wf-card h3 { font-size: 14px; font-weight: 700; }
+.wf-card p { font-size: 13px; color: var(--wf-ink-2); }
+
+/* 6.5. Метадані картки (район · ціна · дата заїзду) */
+
+.wf-facts { display: flex; flex-wrap: wrap; gap: 2px 10px; font-size: 12px; color: var(--wf-ink-2); }
+.wf-facts li::after { content: " ·"; color: var(--wf-line); }
+.wf-facts li:last-child::after { content: ""; }
+
+/* 6.5b. Список карток: <ul> з <li><article class="wf-card"> — сусідній
+   селектор .wf-card + .wf-card не спрацьовує через обгортку <li> */
+
+.wf-list > li + li { margin-top: 8px; }
+
+/* 6.6. Бейдж/чип: рамка, без заливки кольором */
+
+.wf-badge,
+.wf-chip {
+  display: inline-block;
+  padding: 1px 6px;
+  font-size: 11px;
+  border: 1px solid var(--wf-line);
+  color: var(--wf-ink-2);
+}
+.wf-chip-on { background: var(--wf-ink); color: var(--wf-paper); border-color: var(--wf-ink); }
+
+/* перелік чипів/бейджів — <ul> з переносом рядків (li за замовчуванням
+   блокові, тому кожен чип ставав би в окремий рядок) */
+.wf-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* 6.7. Кнопки */
+
+.wf-btn,
+button {
+  font: inherit;
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1px solid var(--wf-ink);
+  background: var(--wf-paper);
+  color: var(--wf-ink);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+.wf-btn-primary { background: var(--wf-ink); color: var(--wf-paper); }
+.wf-btn-ghost { border-style: dashed; color: var(--wf-ink-2); }
+.wf-btn-block { display: block; width: 100%; }
+.wf-btn[aria-disabled="true"],
+button[disabled] { border-color: var(--wf-line-2); color: var(--wf-ink-3); background: var(--wf-fill-2); cursor: default; }
+
+/* 6.8. Форма */
+
+.wf-field { display: block; margin-bottom: 10px; }
+.wf-field > span { display: block; font-size: 12px; color: var(--wf-ink-2); margin-bottom: 3px; }
+input, select, textarea {
+  font: inherit;
+  width: 100%;
+  padding: 7px 8px;
+  border: 1px solid var(--wf-line);
+  background: var(--wf-paper);
+  color: var(--wf-ink);
+}
+input[type="checkbox"], input[type="radio"] { width: auto; }
+fieldset { border: 1px solid var(--wf-line-2); padding: 10px; margin: 0 0 10px; }
+legend { font-size: 12px; color: var(--wf-ink-2); padding: 0 4px; }
+.wf-hint { font-size: 11px; color: var(--wf-ink-3); }
+
+/* 6.9. Шапка екрана і нижня навігація (усередині фрейма) */
+
+.wf-appbar {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px var(--wf-pad);
+  border-bottom: 1px solid var(--wf-line);
+  font-weight: 700;
+}
+
+.wf-tabbar {
+  display: flex;
+  border-top: 1px solid var(--wf-line);
+  font-size: 12px;
+  padding: 0;
+}
+.wf-tabbar li { flex: 1 1 0; }
+.wf-tabbar a {
+  display: block;
+  padding: 10px 4px;
+  text-align: center;
+  text-decoration: none;
+  border-right: 1px solid var(--wf-line-2);
+}
+.wf-tabbar li:last-child a { border-right: 0; }
+.wf-tabbar [aria-current="page"] { font-weight: 700; background: var(--wf-fill); }
+
+/* 6.10. Порожній стан / помилка — рамка-повідомлення, без кольору-семафора */
+
+.wf-msg {
+  border: 1px solid var(--wf-line);
+  padding: 16px 12px;
+  text-align: center;
+}
+.wf-msg h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.wf-msg p { font-size: 13px; color: var(--wf-ink-2); margin-bottom: 10px; }
+.wf-msg-dead { border-style: dashed; }
+
+/* 6.11. Чат */
+
+.wf-bubble {
+  border: 1px solid var(--wf-line);
+  padding: 8px 10px;
+  max-width: 80%;
+  font-size: 13px;
+}
+.wf-bubble-me { margin-left: auto; background: var(--wf-fill-2); }
+
+/* --- 7. Друк -------------------------------------------------------------- */
+
+@media print {
+  body { background: var(--wf-paper); }
+  .wf { display: block; }
+  .wf-tree { display: none; }
+  .wf-screen { padding: 0; }
+}

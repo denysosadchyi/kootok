@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Куток · Заявки і чати (список) · успіх</title>
+  <link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+<div class="wf">
+<nav class="wf-tree" aria-label="Екрани вайрфрейму">
+  <h2><a href="index.html">Куток · вайрфрейми</a></h2>
+  <ul>
+    <li class="wf-tree-group">I. Стати учасником Кутка</li>
+    <li><a class="wf-tree-node" href="signup.html">Реєстрація і верифікація телефону</a>
+      <ul>
+        <li><a href="signup.html">успіх</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="role.html">Вибір ролі</a>
+      <ul>
+        <li><a href="role.html">успіх</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">II. Мій профіль</li>
+    <li><a class="wf-tree-node" href="profile-edit.html">Створити / редагувати профіль</a>
+      <ul>
+        <li><a href="profile-edit.html">успіх</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="profile-social.html">Додати соцлінк для верифікації</a>
+      <ul>
+        <li><a href="profile-social.html">успіх</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">III. Знайти кімнату або людину</li>
+    <li><a class="wf-tree-node" href="listings.html">Стрічка кімнат</a>
+      <ul>
+        <li><a href="listings.html">успіх</a></li>
+        <li><a href="listings-empty.html">порожньо</a></li>
+        <li><a href="listings-error.html">помилка</a></li>
+        <li><a href="listings-loading.html">завантаження</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="people.html">Стрічка людей-шукачів</a>
+      <ul>
+        <li><a href="people.html">успіх</a></li>
+        <li><a href="people-empty.html">порожньо</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="filters.html">Налаштувати фільтри</a>
+      <ul>
+        <li><a href="filters.html">успіх</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">IV. Розглянути варіант</li>
+    <li><a class="wf-tree-node" href="listing.html">Картка оголошення кімнати</a>
+      <ul>
+        <li><a href="listing.html">успіх</a></li>
+        <li><a href="listing-error.html">помилка</a></li>
+        <li><a href="listing-loading.html">завантаження</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="person.html">Картка профілю людини</a>
+      <ul>
+        <li><a href="person.html">успіх</a></li>
+        <li><a href="person-empty.html">порожньо</a></li>
+        <li><a href="person-error.html">помилка</a></li>
+        <li><a href="person-loading.html">завантаження</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">V. Запропонувати кімнату</li>
+    <li><a class="wf-tree-node" href="new-listing.html">Опублікувати оголошення</a>
+      <ul>
+        <li><a href="new-listing.html">успіх</a></li>
+        <li><a href="new-listing-error.html">помилка</a></li>
+        <li><a href="new-listing-loading.html">завантаження</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="my-listings.html">Мої оголошення</a>
+      <ul>
+        <li><a href="my-listings.html">успіх</a></li>
+        <li><a href="my-listings-empty.html">порожньо</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">VI. Домовитися</li>
+    <li><a class="wf-tree-node" href="chats.html">Заявки і чати</a>
+      <ul>
+        <li><a href="chats.html" class="is-current" aria-current="page">успіх</a></li>
+        <li><a href="chats-empty.html">порожньо</a></li>
+        <li><a href="chats-error.html">помилка</a></li>
+        <li><a href="chats-loading.html">завантаження</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="chat.html">Чат — переписка після взаємної згоди</a>
+      <ul>
+        <li><a href="chat.html">успіх</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="report.html">Поскаржитись / заблокувати</a>
+      <ul>
+        <li><a href="report.html">успіх</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">VII. Після заселення</li>
+    <li><a class="wf-tree-node" href="review.html">Залишити відгук</a>
+      <ul>
+        <li><a href="review.html">успіх</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  <div class="wf-screen">
+    <header class="wf-head">
+      <h1>Заявки і чати (список)</h1>
+      <p class="wf-file">sitemap VI.1 · chats.html</p>
+      <dl class="wf-meta">
+        <div><dt>Job:</dt><dd>R3</dd></div>
+        <div><dt>Flow:</dt><dd>Flow 2 · вузли A–I</dd></div>
+        <div><dt>Стан:</dt><dd>успіх</dd></div>
+      </dl>
+      <nav class="wf-states" aria-label="Стани екрана">
+        <span class="is-current">успіх</span>
+        <a href="chats-empty.html">порожньо</a>
+        <a href="chats-error.html">помилка</a>
+        <a href="chats-loading.html">завантаження</a>
+      </nav>
+    </header>
+    <div class="wf-canvas">
+      <main class="wf-device">
+<header class="wf-appbar"><h2>Заявки і чати</h2></header><section data-zone="список розмов">
+  <p class="wf-note"><b>Роль:</b> зібрати заявки та активні чати в одному місці. <b>Головна дія:</b> відкрити розмову або повернутися до пошуку.</p>
+  <ul class="wf-list"><li><article class="wf-card"><h3>Олег · Оболонь, 8&nbsp;500&nbsp;₴/міс</h3><p>Заявку прийнято — чат відкрито</p><a class="wf-btn wf-btn-primary" href="chat.html">Відкрити чат</a></article></li><li><article class="wf-card"><h3>Настя · Позняки, 6&nbsp;200&nbsp;₴/міс</h3><p>Очікуємо відповідь на заявку…</p><a href="chats-loading.html">Перевірити стан</a></article></li><li><article class="wf-card"><h3>Тарас · Солом’янка, 11&nbsp;000&nbsp;₴/міс</h3><p>Заявка протухла без відповіді</p><a href="listings.html">Шукати інший варіант</a></article></li><li><article class="wf-card"><h3>Юля · Нивки, 5&nbsp;400&nbsp;₴/міс</h3><p>Чат замовк, домовленості немає</p><a href="listings.html">Повернутися до пошуку</a></article></li></ul>
+</section><nav aria-label="Глобальна навігація"><ul class="wf-tabbar"><li><a href="listings.html">Пошук</a></li><li><a href="chats.html" aria-current="page">Чати</a></li><li><a href="profile-edit.html">Профіль</a></li></ul></nav>
+      </main>
+    </div>
+  </div>
+</div>
+</body>
+</html>

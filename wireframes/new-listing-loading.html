@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Куток · Опублікувати оголошення · завантаження</title>
+  <link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+<div class="wf">
+<nav class="wf-tree" aria-label="Екрани вайрфрейму">
+  <h2><a href="index.html">Куток · вайрфрейми</a></h2>
+  <ul>
+    <li class="wf-tree-group">I. Стати учасником Кутка</li>
+    <li><a class="wf-tree-node" href="signup.html">Реєстрація і верифікація телефону</a>
+      <ul>
+        <li><a href="signup.html">успіх</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="role.html">Вибір ролі</a>
+      <ul>
+        <li><a href="role.html">успіх</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">II. Мій профіль</li>
+    <li><a class="wf-tree-node" href="profile-edit.html">Створити / редагувати профіль</a>
+      <ul>
+        <li><a href="profile-edit.html">успіх</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="profile-social.html">Додати соцлінк для верифікації</a>
+      <ul>
+        <li><a href="profile-social.html">успіх</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">III. Знайти кімнату або людину</li>
+    <li><a class="wf-tree-node" href="listings.html">Стрічка кімнат</a>
+      <ul>
+        <li><a href="listings.html">успіх</a></li>
+        <li><a href="listings-empty.html">порожньо</a></li>
+        <li><a href="listings-error.html">помилка</a></li>
+        <li><a href="listings-loading.html">завантаження</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="people.html">Стрічка людей-шукачів</a>
+      <ul>
+        <li><a href="people.html">успіх</a></li>
+        <li><a href="people-empty.html">порожньо</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="filters.html">Налаштувати фільтри</a>
+      <ul>
+        <li><a href="filters.html">успіх</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">IV. Розглянути варіант</li>
+    <li><a class="wf-tree-node" href="listing.html">Картка оголошення кімнати</a>
+      <ul>
+        <li><a href="listing.html">успіх</a></li>
+        <li><a href="listing-error.html">помилка</a></li>
+        <li><a href="listing-loading.html">завантаження</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="person.html">Картка профілю людини</a>
+      <ul>
+        <li><a href="person.html">успіх</a></li>
+        <li><a href="person-empty.html">порожньо</a></li>
+        <li><a href="person-error.html">помилка</a></li>
+        <li><a href="person-loading.html">завантаження</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">V. Запропонувати кімнату</li>
+    <li><a class="wf-tree-node" href="new-listing.html">Опублікувати оголошення</a>
+      <ul>
+        <li><a href="new-listing.html">успіх</a></li>
+        <li><a href="new-listing-error.html">помилка</a></li>
+        <li><a href="new-listing-loading.html" class="is-current" aria-current="page">завантаження</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="my-listings.html">Мої оголошення</a>
+      <ul>
+        <li><a href="my-listings.html">успіх</a></li>
+        <li><a href="my-listings-empty.html">порожньо</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">VI. Домовитися</li>
+    <li><a class="wf-tree-node" href="chats.html">Заявки і чати</a>
+      <ul>
+        <li><a href="chats.html">успіх</a></li>
+        <li><a href="chats-empty.html">порожньо</a></li>
+        <li><a href="chats-error.html">помилка</a></li>
+        <li><a href="chats-loading.html">завантаження</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="chat.html">Чат — переписка після взаємної згоди</a>
+      <ul>
+        <li><a href="chat.html">успіх</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="report.html">Поскаржитись / заблокувати</a>
+      <ul>
+        <li><a href="report.html">успіх</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">VII. Після заселення</li>
+    <li><a class="wf-tree-node" href="review.html">Залишити відгук</a>
+      <ul>
+        <li><a href="review.html">успіх</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  <div class="wf-screen">
+    <header class="wf-head">
+      <h1>Опублікувати оголошення</h1>
+      <p class="wf-file">sitemap V.1 · new-listing-loading.html</p>
+      <dl class="wf-meta">
+        <div><dt>Job:</dt><dd>R5, ГОЛОВНИЙ</dd></div>
+        <div><dt>Flow:</dt><dd>Flow 3 · вузли C–F</dd></div>
+        <div><dt>Стан:</dt><dd>завантаження</dd></div>
+      </dl>
+      <nav class="wf-states" aria-label="Стани екрана">
+        <a href="new-listing.html">успіх</a>
+        <span class="is-absent" title="форма має контент, тому порожній стан не виникає">порожньо — форма має контент, тому порожній стан не виникає</span>
+        <a href="new-listing-error.html">помилка</a>
+        <span class="is-current">завантаження</span>
+      </nav>
+    </header>
+    <div class="wf-canvas">
+      <main class="wf-device">
+<header class="wf-appbar"><a href="my-listings.html">Назад</a><h2>Нове оголошення</h2></header><section data-zone="оголошення">
+  <p class="wf-note"><b>Роль:</b> зібрати факти про кімнату й повний набір побажань. <b>Головна дія:</b> перевірити дані перед публікацією.</p>
+  <form><span class="ph ph-lg" role="img" aria-label="місце для фото кімнати"></span><label class="wf-field" for="new-area"><span>Район і метро</span><input id="new-area" value="Оболонь · 5 хв від метро Мінська"></label><label class="wf-field" for="price"><span>Ціна на місяць</span><input id="price" value="8&nbsp;500&nbsp;₴"></label><label class="wf-field" for="date"><span>Дата заїзду</span><input id="date" value="1 вересня"></label><label class="wf-field" for="conditions"><span>Умови кімнати</span><textarea id="conditions">Меблі є, з тваринами можна.</textarea></label><fieldset><legend>Побажання до співмешканця</legend><label><input type="checkbox" checked> охайність: важлива</label><br><label><input type="checkbox" checked> гості: зрідка</label><br><label><input type="checkbox"> тварини: є кіт</label><br><label><input type="checkbox" checked> не палю</label><br><label><input type="checkbox"> жайворонок / сова</label></fieldset></form>
+</section><section data-zone="публікація">
+  <p class="wf-note"><b>Роль:</b> показати готовність або стан публікації. <b>Головна дія:</b> опублікувати чи виправити форму.</p>
+  <article class="wf-msg"><h3>Публікуємо оголошення…</h3><p>Після збереження оголошення стане активним.</p><button type="button" disabled>Публікуємо оголошення…</button><p class="wf-hint">Перехід прототипу:</p><a href="my-listings.html">Показати опубліковане оголошення</a></article>
+</section><nav aria-label="Глобальна навігація"><ul class="wf-tabbar"><li><a href="listings.html">Пошук</a></li><li><a href="chats.html">Чати</a></li><li><a href="my-listings.html" aria-current="page">Оголошення</a></li><li><a href="profile-edit.html">Профіль</a></li></ul></nav>
+      </main>
+    </div>
+  </div>
+</div>
+</body>
+</html>

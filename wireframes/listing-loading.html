@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Куток · Картка оголошення кімнати · завантаження</title>
+  <link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+<div class="wf">
+<nav class="wf-tree" aria-label="Екрани вайрфрейму">
+  <h2><a href="index.html">Куток · вайрфрейми</a></h2>
+  <ul>
+    <li class="wf-tree-group">I. Стати учасником Кутка</li>
+    <li><a class="wf-tree-node" href="signup.html">Реєстрація і верифікація телефону</a>
+      <ul>
+        <li><a href="signup.html">успіх</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="role.html">Вибір ролі</a>
+      <ul>
+        <li><a href="role.html">успіх</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">II. Мій профіль</li>
+    <li><a class="wf-tree-node" href="profile-edit.html">Створити / редагувати профіль</a>
+      <ul>
+        <li><a href="profile-edit.html">успіх</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="profile-social.html">Додати соцлінк для верифікації</a>
+      <ul>
+        <li><a href="profile-social.html">успіх</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">III. Знайти кімнату або людину</li>
+    <li><a class="wf-tree-node" href="listings.html">Стрічка кімнат</a>
+      <ul>
+        <li><a href="listings.html">успіх</a></li>
+        <li><a href="listings-empty.html">порожньо</a></li>
+        <li><a href="listings-error.html">помилка</a></li>
+        <li><a href="listings-loading.html">завантаження</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="people.html">Стрічка людей-шукачів</a>
+      <ul>
+        <li><a href="people.html">успіх</a></li>
+        <li><a href="people-empty.html">порожньо</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="filters.html">Налаштувати фільтри</a>
+      <ul>
+        <li><a href="filters.html">успіх</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">IV. Розглянути варіант</li>
+    <li><a class="wf-tree-node" href="listing.html">Картка оголошення кімнати</a>
+      <ul>
+        <li><a href="listing.html">успіх</a></li>
+        <li><a href="listing-error.html">помилка</a></li>
+        <li><a href="listing-loading.html" class="is-current" aria-current="page">завантаження</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="person.html">Картка профілю людини</a>
+      <ul>
+        <li><a href="person.html">успіх</a></li>
+        <li><a href="person-empty.html">порожньо</a></li>
+        <li><a href="person-error.html">помилка</a></li>
+        <li><a href="person-loading.html">завантаження</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">V. Запропонувати кімнату</li>
+    <li><a class="wf-tree-node" href="new-listing.html">Опублікувати оголошення</a>
+      <ul>
+        <li><a href="new-listing.html">успіх</a></li>
+        <li><a href="new-listing-error.html">помилка</a></li>
+        <li><a href="new-listing-loading.html">завантаження</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="my-listings.html">Мої оголошення</a>
+      <ul>
+        <li><a href="my-listings.html">успіх</a></li>
+        <li><a href="my-listings-empty.html">порожньо</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">VI. Домовитися</li>
+    <li><a class="wf-tree-node" href="chats.html">Заявки і чати</a>
+      <ul>
+        <li><a href="chats.html">успіх</a></li>
+        <li><a href="chats-empty.html">порожньо</a></li>
+        <li><a href="chats-error.html">помилка</a></li>
+        <li><a href="chats-loading.html">завантаження</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="chat.html">Чат — переписка після взаємної згоди</a>
+      <ul>
+        <li><a href="chat.html">успіх</a></li>
+      </ul>
+    </li>
+    <li><a class="wf-tree-node" href="report.html">Поскаржитись / заблокувати</a>
+      <ul>
+        <li><a href="report.html">успіх</a></li>
+      </ul>
+    </li>
+    <li class="wf-tree-group">VII. Після заселення</li>
+    <li><a class="wf-tree-node" href="review.html">Залишити відгук</a>
+      <ul>
+        <li><a href="review.html">успіх</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  <div class="wf-screen">
+    <header class="wf-head">
+      <h1>Картка оголошення кімнати</h1>
+      <p class="wf-file">sitemap IV.1 · listing-loading.html</p>
+      <dl class="wf-meta">
+        <div><dt>Job:</dt><dd>ГОЛОВНИЙ, R2, E1</dd></div>
+        <div><dt>Flow:</dt><dd>Flow 1 · вузол I</dd></div>
+        <div><dt>Стан:</dt><dd>завантаження</dd></div>
+      </dl>
+      <nav class="wf-states" aria-label="Стани екрана">
+        <a href="listing.html">успіх</a>
+        <span class="is-absent" title="порожня картка не виникає: її відкривають з непорожньої стрічки">порожньо — порожня картка не виникає: її відкривають з непорожньої стрічки</span>
+        <a href="listing-error.html">помилка</a>
+        <span class="is-current">завантаження</span>
+      </nav>
+    </header>
+    <div class="wf-canvas">
+      <main class="wf-device">
+<header class="wf-appbar"><a href="listings.html">Назад</a><h2>Картка оголошення</h2></header><section data-zone="кімната">
+  <p class="wf-note"><b>Роль:</b> дати факти про кімнату, ціну та актуальність. <b>Головна дія:</b> оцінити варіант перед рішенням.</p>
+  <span class="ph ph-lg" role="img" aria-label="місце для фото кімнати"></span><h3>Оболонь, 8&nbsp;500&nbsp;₴/міс</h3><p>Кімната в 3-к квартирі · 2 співмешканці · заїзд з 1 вересня</p><ul class="wf-facts"><li>5 хв від метро Мінська</li><li>меблі є</li><li>з тваринами можна</li></ul><p class="wf-hint">оголошення активне · оновлено 2 дні тому</p>
+</section><section data-zone="сигнали довіри">
+  <p class="wf-note"><b>Роль:</b> показати автора, сумісність і підтвердження. <b>Головна дія:</b> вирішити, чи продовжувати контакт.</p>
+  <div class="wf-row"><span class="ph ph-avatar" role="img" aria-label="місце для фото Олега"></span><article class="wf-grow"><h3>Олег, 29 · власник кімнати</h3><p>Спокійний побут, гостей запрошую зрідка.</p></article></div><ul class="wf-chips"><li><span class="wf-badge">телефон підтверджено</span></li><li><span class="wf-badge">Instagram підтверджено</span></li><li><span class="wf-badge">3 відгуки після заселення</span></li></ul><ul class="wf-facts"><li>охайність: важлива</li><li>гості: зрідка</li><li>тварини: є кіт</li><li>не палю</li><li>жайворонок / сова</li></ul>
+</section><section data-zone="головна дія">
+  <p class="wf-note"><b>Роль:</b> показати рішення та стан заявки. <b>Головна дія:</b> надіслати заявку або вийти за гілкою Flow 1.</p>
+  <article class="wf-msg"><h3>Надсилання заявки…</h3><p>Заявку надіслано успішно?</p><button type="button" disabled>Надсилання заявки…</button><p class="wf-hint">Розвилки прототипу:</p><a href="listing-error.html">Ні, стався збій</a> · <a href="#waiting">Так, заявку надіслано</a></article><article class="wf-msg" id="waiting"><h3>Очікуємо відповідь на заявку…</h3><p>Контакти відкриються після взаємної згоди.</p><button type="button" disabled>Очікуємо відповідь…</button><p class="wf-hint">Розвилки прототипу:</p><a href="chat.html">Заявку прийнято</a> · <a href="listings.html">Заявку відхилено</a><p><a href="listings.html">Немає відповіді — заявка протухла</a></p></article>
+</section><nav aria-label="Глобальна навігація"><ul class="wf-tabbar"><li><a href="listings.html" aria-current="page">Пошук</a></li><li><a href="chats.html">Чати</a></li><li><a href="profile-edit.html">Профіль</a></li></ul></nav>
+      </main>
+    </div>
+  </div>
+</div>
+</body>
+</html>
