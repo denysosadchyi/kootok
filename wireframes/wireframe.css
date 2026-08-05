@@ -1,9 +1,9 @@
 /* ==========================================================================
-   Куток · вайрфрейми · службова графіка
+   Куток · вайрфрейми
    Урок 4, крок 02. Контракт: /wireframes/_conventions.md
    --------------------------------------------------------------------------
    ЩО ТУТ Є: сітка «панель зліва + макет справа», хейрлайни, сірі плейсхолдери,
-   підписи зон, дерево навігації, перемикач станів, примітиви вайрфрейма.
+   дерево навігації, перемикач станів, примітиви вайрфрейма.
    ЧОГО ТУТ НЕМАЄ І БУТИ НЕ МАЄ: кольору (крім градацій сірого), тіней,
    скруглень > 2px, іконок, шрифтових файлів, зовнішніх бібліотек, JS,
    анімацій. Це вайрфрейм, а не UI.
@@ -14,11 +14,11 @@
 :root {
   --wf-ink: #111;          /* основний текст */
   --wf-ink-2: #555;        /* другорядний текст */
-  --wf-ink-3: #767676;     /* службові підписи (контраст ≥ 4.5:1 на білому) */
+  --wf-ink-3: #767676;     /* приглушений текст (контраст ≥ 4.5:1 на білому) */
   --wf-line: #999;         /* хейрлайн макета */
   --wf-line-2: #ccc;       /* слабкий хейрлайн */
   --wf-fill: #e4e4e4;      /* плейсхолдер / заглушка */
-  --wf-fill-2: #f2f2f2;    /* службовий фон */
+  --wf-fill-2: #f2f2f2;    /* слабкий фон */
   --wf-paper: #fff;
   --wf-gap: 12px;
   --wf-pad: 12px;
@@ -33,7 +33,7 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   /* Системний шрифт — це не «вибір шрифту», а відсутність вибору. */
-  font-family: system-ui, sans-serif;
+  font-family: system-ui;
   font-size: 14px;
   line-height: 1.45;
   color: var(--wf-ink);
@@ -42,8 +42,6 @@ body {
 
 h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
-img { max-width: 100%; display: block; }
-
 a { color: inherit; }
 a:focus-visible,
 button:focus-visible,
@@ -110,8 +108,7 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
 }
 
 .wf-tree a,
-.wf-tree .wf-tree-node,
-.wf-tree .wf-tree-todo {
+.wf-tree .wf-tree-node {
   display: block;
   padding: 3px 4px;
   text-decoration: none;
@@ -136,55 +133,23 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
   color: var(--wf-ink-3);
 }
 
-/* приглушений пункт: екран ще не намальовано */
-.wf-tree .wf-tree-todo { color: var(--wf-ink-3); text-decoration: line-through; }
-
-/* --- 3. Права колонка: метадані екрана + макет ---------------------------- */
+/* --- 3. Права колонка: назва, стани й макет ------------------------------- */
 
 .wf-screen { padding: 16px 20px 48px; min-width: 0; }
 
-/* 3.1. Шапка-метадані екрана */
-
-.wf-head {
-  background: var(--wf-paper);
-  border: 1px solid var(--wf-line);
-  padding: 12px 14px;
-  margin-bottom: 20px;
-}
-
-.wf-head h1 {
+.wf-screen > h1 {
   font-size: 17px;
   font-weight: 700;
   line-height: 1.25;
 }
 
-.wf-head .wf-file {
-  font-size: 12px;
-  color: var(--wf-ink-3);
-}
-
-.wf-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 18px;
-  margin: 8px 0 0;
-  font-size: 12px;
-  color: var(--wf-ink-2);
-}
-
-.wf-meta div { display: flex; gap: 5px; }
-.wf-meta dt { color: var(--wf-ink-3); }
-.wf-meta dd { margin: 0; font-weight: 700; color: var(--wf-ink); }
-
-/* 3.2. Перемикач станів */
+/* 3.1. Перемикач станів */
 
 .wf-states {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--wf-line-2);
+  margin: 8px 0 20px;
   font-size: 12px;
 }
 
@@ -205,16 +170,6 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
   border-color: var(--wf-ink);
 }
 
-/* стан, якого в _screens.md немає, сторінкою не роблять — але в переліку
-   його показують закресленим, щоб було видно свідоме «—» */
-.wf-states .is-absent {
-  display: inline-block;
-  padding: 3px 8px;
-  border: 1px dashed var(--wf-line-2);
-  color: var(--wf-ink-3);
-  text-decoration: line-through;
-}
-
 /* --- 4. Полотно макета ---------------------------------------------------- */
 
 .wf-canvas { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
@@ -231,41 +186,13 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
 /* горизонтальні відступи задають самі блоки (зони, шапка, таб-бар),
    щоб не було подвійного паддінга */
 
-/* --- 5. Зони: підпис ролі + головної дії ---------------------------------- */
+/* --- 5. Семантичні зони макета ------------------------------------------- */
 
 [data-zone] {
-  position: relative;
   border: 1px dashed var(--wf-line-2);
-  padding: 22px var(--wf-pad) var(--wf-pad);
+  padding: var(--wf-pad);
   margin: 0 0 -1px;
 }
-
-/* назва зони — автоматично з data-zone, службовий шар */
-[data-zone]::before {
-  content: attr(data-zone);
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 1px 6px;
-  font-size: 10px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--wf-paper);
-  background: var(--wf-ink-3);
-}
-
-/* видимий службовий підпис: роль зони + головна дія */
-.wf-note {
-  display: block;
-  margin: 0 0 8px;
-  font-size: 11px;
-  line-height: 1.35;
-  color: var(--wf-ink-3);
-  border-left: 2px solid var(--wf-line-2);
-  padding-left: 6px;
-}
-
-.wf-note b { color: var(--wf-ink-2); font-weight: 700; }
 
 /* --- 6. Примітиви вайрфрейма ---------------------------------------------- */
 
@@ -293,14 +220,12 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
   margin-bottom: 6px;
 }
 .sk-title { height: 16px; width: 65%; }
-.sk-40 { width: 40%; }
 .sk-60 { width: 60%; }
 .sk-80 { width: 80%; }
 
 /* 6.3. Структурні хелпери */
 
 .wf-row { display: flex; gap: var(--wf-gap); align-items: flex-start; }
-.wf-row-between { display: flex; gap: var(--wf-gap); justify-content: space-between; align-items: baseline; }
 .wf-stack > * + * { margin-top: 8px; }
 .wf-grow { flex: 1 1 auto; min-width: 0; }
 
