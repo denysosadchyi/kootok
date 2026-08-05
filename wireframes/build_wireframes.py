@@ -119,44 +119,156 @@ def appbar(title: str, back: str | None = None) -> str:
     return f'<header class="wf-appbar">{back_link}<h2>{title}</h2></header>'
 
 
-def listing_card() -> str:
-    return '''<article class="wf-card">
+LISTINGS = (
+    dict(
+        title="Оболонь, 8&nbsp;500&nbsp;₴/міс",
+        household="Кімната в 3-к квартирі · 2 співмешканці · заїзд з 1 вересня",
+        metro="5 хв від метро Мінська",
+        habits="не палимо · гостей кличемо зрідка",
+        author="Олег, 29 · власник кімнати",
+        trust=("телефон підтверджено", "Instagram підтверджено", "3 відгуки після заселення"),
+        status="оголошення активне · оновлено 2 дні тому",
+    ),
+    dict(
+        title="Позняки, 6&nbsp;200&nbsp;₴/міс",
+        household="Кімната в 2-к квартирі · 1 співмешканка · заїзд з 15 вересня",
+        metro="8 хв від метро Позняки",
+        habits="є кішка · працюю з дому до 18:00",
+        author="Настя, 26 · основна орендарка",
+        trust=("телефон підтверджено",),
+        status="оголошення активне · оновлено сьогодні",
+    ),
+    dict(
+        title="Солом’янка біля Севастопольської площі, 11&nbsp;000&nbsp;₴/міс",
+        household="Кімната в 4-к квартирі · 3 співмешканці · заїзд з 1 жовтня",
+        metro="18 хв транспортом до метро Вокзальна",
+        habits="прокидаємося рано · тварин не тримаємо",
+        author="Тарас, 34 · співвласник квартири",
+        trust=("телефон підтверджено", "LinkedIn підтверджено"),
+        status="оголошення активне · оновлено 5 днів тому",
+    ),
+    dict(
+        title="Нивки, 5&nbsp;400&nbsp;₴/міс",
+        household="Кімната в 2-к квартирі · 0 співмешканців зараз · заїзд з 20 вересня",
+        metro="7 хв від метро Нивки",
+        habits="можна з собакою · вечірки не влаштовуємо",
+        author="Юля, 24 · представниця орендодавця",
+        trust=(),
+        status="оголошення активне · оновлено 8 днів тому",
+    ),
+    dict(
+        title="Лук’янівка, 9&nbsp;000&nbsp;₴/міс",
+        household="Кімната в 4-к квартирі · 4 співмешканці, дві пари · можна заїжджати зараз",
+        metro="10 хв від метро Лук’янівська",
+        habits="прибираємо за графіком · гості лише за домовленістю",
+        author="Сергій, 38 · орендар, що підселяє",
+        trust=("телефон підтверджено", "5 відгуків після заселення"),
+        status="оголошення активне · оновлено 12 днів тому",
+    ),
+)
+
+PEOPLE = (
+    dict(
+        name="Марічка, 21 · студентка КНУ",
+        search="Шукаю кімнату на Оболоні або Подолі, бюджет до 9&nbsp;000&nbsp;₴/міс.",
+        habits=("охайність: важлива", "гості: зрідка", "не палю"),
+        trust=("телефон підтверджено", "Instagram підтверджено"),
+    ),
+    dict(
+        name="Андрій, 31 · backend-розробник",
+        search="Шукаю кімнату на Солом’янці, бюджет до 11&nbsp;000&nbsp;₴/міс.",
+        habits=("працюю з дому", "сова", "маю кота"),
+        trust=("телефон підтверджено", "LinkedIn підтверджено", "2 відгуки після заселення"),
+    ),
+    dict(
+        name="Ірина, 27 · бариста",
+        search="Шукаю кімнату на Нивках або Сирці, бюджет до 6&nbsp;500&nbsp;₴/міс.",
+        habits=("жайворонок", "без тварин", "не палю"),
+        trust=("телефон підтверджено",),
+    ),
+    dict(
+        name="Богдан, 24 · звукорежисер",
+        search="Шукаю кімнату на Позняках або Осокорках, бюджет до 5&nbsp;000&nbsp;₴/міс.",
+        habits=("репетирую лише у студії", "гості: щотижня", "порядок: за графіком"),
+        trust=("Instagram підтверджено",),
+    ),
+    dict(
+        name="Світлана, 36 · бухгалтерка",
+        search="Шукаю кімнату на Лук’янівці або Дорогожичах, бюджет до 7&nbsp;800&nbsp;₴/міс.",
+        habits=("працюю в офісі", "тиша після 22:00", "без тварин"),
+        trust=(),
+    ),
+)
+
+
+def trust_signals(items: tuple[str, ...]) -> str:
+    if not items:
+        return '<p class="wf-hint">телефон і соцлінк не підтверджені</p>'
+    badges = ''.join(f'<li><span class="wf-badge">{item}</span></li>' for item in items)
+    return f'<ul class="wf-chips">{badges}</ul>'
+
+
+def listing_card(item: dict) -> str:
+    return f'''<article class="wf-card">
   <span class="ph ph-sm" role="img" aria-label="місце для фото кімнати"></span>
-  <h3>Оболонь, 8&nbsp;500&nbsp;₴/міс</h3>
-  <p>Кімната в 3-к квартирі · 2 співмешканці · заїзд з 1 вересня</p>
-  <ul class="wf-facts"><li>5 хв від метро Мінська</li><li>меблі є, з тваринами можна</li></ul>
-  <p>Олег, 29 · власник кімнати</p>
-  <ul class="wf-chips"><li><span class="wf-badge">телефон підтверджено</span></li><li><span class="wf-badge">Instagram підтверджено</span></li></ul>
-  <p class="wf-hint">оголошення активне · оновлено 2 дні тому</p>
+  <h3>{item["title"]}</h3>
+  <p>{item["household"]}</p>
+  <ul class="wf-facts"><li>{item["metro"]}</li><li>{item["habits"]}</li></ul>
+  <p>{item["author"]}</p>
+  {trust_signals(item["trust"])}
+  <p class="wf-hint">{item["status"]}</p>
   <p><a class="wf-btn wf-btn-primary wf-btn-block" href="listing.html">Відкрити оголошення</a></p>
 </article>'''
 
 
-def person_card() -> str:
-    return '''<article class="wf-card">
+def person_card(item: dict) -> str:
+    habits = ''.join(f'<li>{habit}</li>' for habit in item["habits"])
+    return f'''<article class="wf-card">
   <span class="ph ph-avatar" role="img" aria-label="місце для фото профілю"></span>
-  <h3>Марічка, 21 · студентка КНУ</h3>
-  <p>Шукаю кімнату на Оболоні або Подолі, бюджет до 9&nbsp;000&nbsp;₴.</p>
-  <ul class="wf-facts"><li>охайність: важлива</li><li>гості: зрідка</li><li>не палю</li></ul>
-  <ul class="wf-chips"><li><span class="wf-badge">телефон підтверджено</span></li><li><span class="wf-badge">Instagram підтверджено</span></li></ul>
+  <h3>{item["name"]}</h3>
+  <p>{item["search"]}</p>
+  <ul class="wf-facts">{habits}</ul>
+  {trust_signals(item["trust"])}
   <p><a class="wf-btn wf-btn-primary wf-btn-block" href="person.html">Відкрити профіль</a></p>
 </article>'''
 
 
-def loading_cards() -> str:
-    return ''.join('<article class="wf-card"><span class="ph ph-sm" aria-hidden="true"></span><span class="sk sk-title"></span><span class="sk sk-80"></span><span class="sk sk-60"></span></article>' for _ in range(3))
+def list_items(items: tuple[dict, ...], renderer) -> str:
+    return ''.join(f'<li>{renderer(item)}</li>' for item in items)
+
+
+def loading_cards(count: int) -> str:
+    card = '<article class="wf-card"><span class="ph ph-sm" aria-hidden="true"></span><span class="sk sk-title"></span><span class="sk sk-80"></span><span class="sk sk-60"></span></article>'
+    return card * count
+
+
+def validate_feed_content() -> None:
+    """Не дає генератору знову розкотити одну контентну заглушку N разів."""
+    if len(LISTINGS) != 5 or len(PEOPLE) not in (4, 5):
+        raise ValueError("Стрічки мають показувати 5 кімнат і 4–5 профілів")
+    for items, unique_fields in (
+        (LISTINGS, ("title", "household", "metro", "habits", "author", "status")),
+        (PEOPLE, ("name", "search", "habits", "trust")),
+    ):
+        for field in unique_fields:
+            values = [item[field] for item in items]
+            if len(values) != len(set(values)):
+                raise ValueError(f"Повторене поле {field!r} у контенті стрічки")
+    unverified = [item for item in LISTINGS if not item["trust"]]
+    if len(unverified) != 1:
+        raise ValueError("Рівно одна кімната має бути без сигналів верифікації")
 
 
 def content_listings(state: str) -> str:
     filters = zone("пошук і фільтри", "показати межі поточної видачі.", "перейти до налаштування фільтрів.", '''<form action="listings.html" method="get"><label class="wf-field" for="area"><span>Район або метро</span><input id="area" name="area" value="Оболонь, Поділ"></label><button type="submit">Знайти</button></form><ul class="wf-chips"><li><span class="wf-chip wf-chip-on">5&nbsp;000–11&nbsp;000&nbsp;₴</span></li><li><span class="wf-chip wf-chip-on">заїзд з 1 вересня</span></li></ul><p><a class="wf-btn wf-btn-ghost wf-btn-block" href="filters.html">Змінити фільтри</a></p>''')
     if state == "успіх":
-        body = f'<p>Знайдено 14 варіантів</p><ul class="wf-list"><li>{listing_card()}</li><li>{listing_card()}</li></ul>'
+        body = f'<p>Знайдено 14 варіантів</p><ul class="wf-list">{list_items(LISTINGS, listing_card)}</ul>'
     elif state == "порожньо":
         body = '''<article class="wf-msg"><h3>Стрічка порожня: нічого не знайшлось</h3><p>Фільтри надто вузькі. Розшир їх і перевір стрічку ще раз.</p><a class="wf-btn wf-btn-primary" href="filters.html">Послабити фільтри</a></article><article class="wf-msg wf-msg-dead"><h3>Підходящих варіантів у Києві зараз немає</h3><p>Фільтри вже максимально широкі. Це свідомий глухий кут поза межами продукту — вузол H Flow 1.</p></article>'''
     elif state == "помилка":
         body = '''<article class="wf-msg"><h3>Не вдалося завантажити стрічку</h3><p>Перевір з’єднання та повтори завантаження.</p><a class="wf-btn wf-btn-primary" href="listings.html">Спробувати ще</a></article>'''
     else:
-        body = f'<p class="wf-hint">Завантажуємо варіанти в межах фільтра…</p><div class="wf-stack">{loading_cards()}</div><button class="wf-btn-block" type="button" disabled>Завантажуємо стрічку…</button><p class="wf-hint">Перехід прототипу: <a href="listings.html">показати завантажену стрічку</a>.</p>'
+        body = f'<p class="wf-hint">Завантажуємо варіанти в межах фільтра…</p><div class="wf-stack">{loading_cards(len(LISTINGS))}</div><button class="wf-btn-block" type="button" disabled>Завантажуємо стрічку…</button><p class="wf-hint">Перехід прототипу: <a href="listings.html">показати завантажену стрічку</a>.</p>'
     results = zone("результати", "показати варіанти або чесно пояснити стан видачі.", "відкрити картку чи вийти зі стану.", body)
     return appbar("Пошук кімнати") + search_switch("rooms") + filters + results + tabbar("search")
 
@@ -205,7 +317,7 @@ def content_profile_social(_: str) -> str:
 def content_people(state: str) -> str:
     filters = zone("фільтри", "показати критерії пошуку співмешканця.", "змінити критерії.", '''<ul class="wf-chips"><li><span class="wf-chip wf-chip-on">Оболонь, Поділ</span></li><li><span class="wf-chip wf-chip-on">не палить</span></li></ul><p><a class="wf-btn wf-btn-ghost" href="filters.html">Змінити фільтри</a></p>''')
     if state == "успіх":
-        body = f'<p>Знайдено 8 профілів</p><ul class="wf-list"><li>{person_card()}</li><li>{person_card()}</li></ul>'
+        body = f'<p>Знайдено 8 профілів</p><ul class="wf-list">{list_items(PEOPLE, person_card)}</ul>'
     else:
         body = '''<article class="wf-msg"><h3>Підходящих шукачів поки немає</h3><p>Розшир фільтри, щоб побачити більше людей.</p><a class="wf-btn wf-btn-primary" href="filters.html">Розширити фільтри</a></article><article class="wf-msg wf-msg-dead"><h3>Кімната й далі порожня, оренду покриває сам</h3><p>Фільтри вже максимально широкі, а підходящих профілів немає.</p></article>'''
     return appbar("Люди шукають кімнату") + search_switch("people") + filters + zone("результати", "показати сумісних шукачів або пояснити порожню видачу.", "відкрити профіль або розширити фільтри.", body) + tabbar("people", True)
@@ -214,7 +326,7 @@ def content_people(state: str) -> str:
 def content_person(state: str) -> str:
     summary = zone("профіль", "дати людський контекст і побутові критерії.", "оцінити сумісність.", '''<div class="wf-row"><span class="ph ph-avatar" role="img" aria-label="місце для фото Марічки"></span><article class="wf-grow"><h3>Марічка, 21 · студентка КНУ</h3><p>Шукаю кімнату на Оболоні або Подолі, бюджет до 9&nbsp;000&nbsp;₴.</p></article></div><ul class="wf-facts"><li>охайність: важлива</li><li>гості: зрідка</li><li>тварини: є кіт</li><li>не палю</li><li>жайворонок / сова</li></ul><ul class="wf-chips"><li><span class="wf-badge">телефон підтверджено</span></li><li><span class="wf-badge">Instagram підтверджено</span></li></ul>''')
     if state == "успіх":
-        reviews = '<article class="wf-card"><h3>Спокійна й відповідальна співмешканка</h3><p>Домовленостей дотримувалась, побут ділили чесно.</p></article><p><a class="wf-btn wf-btn-primary wf-btn-block" href="person-loading.html">Запропонувати кімнату</a></p><p><a class="wf-btn wf-btn-ghost wf-btn-block" href="people.html">Не підходить — назад у стрічку</a></p>'
+        reviews = '''<ul class="wf-list"><li><article class="wf-card"><h3>Спокійна й відповідальна співмешканка</h3><p>Ірина, 27 · жили разом 8 місяців</p><p>Домовленостей дотримувалась, побут ділили чесно.</p></article></li><li><article class="wf-card"><h3>Завжди попереджала про гостей</h3><p>Дмитро, 25 · спільна оренда у 2025 році</p><p>Поважала тишу ввечері й завчасно узгоджувала гостей.</p></article></li><li><article class="wf-card"><h3>Добре дбала про квартиру й кота</h3><p>Олена, 30 · колишня власниця кімнати</p><p>Після виїзду залишила кімнату охайною та повернула ключі вчасно.</p></article></li></ul><p><a class="wf-btn wf-btn-primary wf-btn-block" href="person-loading.html">Запропонувати кімнату</a></p><p><a class="wf-btn wf-btn-ghost wf-btn-block" href="people.html">Не підходить — назад у стрічку</a></p>'''
     elif state == "порожньо":
         reviews = '<article class="wf-msg"><h3>Немає відгуків після заселення</h3><p>Орієнтуйся на підтверджений телефон, соцлінк і заповнені звички.</p><a class="wf-btn wf-btn-primary" href="person-loading.html">Все одно запропонувати кімнату</a> <a href="people.html">Назад у стрічку</a></article>'
     elif state == "помилка":
@@ -342,6 +454,7 @@ def targets_for(stage: int) -> list[dict]:
 
 
 def build(stage: int) -> None:
+    validate_feed_content()
     targets = targets_for(stage)
     available = {name for page in targets for name in all_filenames(page)}
     if stage >= 8:
