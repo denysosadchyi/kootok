@@ -42,6 +42,14 @@ PAGES = [
 BY_BASE = {page["base"]: page for page in PAGES}
 MAIN = {"signup", "role", "listings", "filters", "listing", "chat"}
 
+# Заглушки під іконки. Це не іконки, а місця під них: значення ще не обране,
+# тож усередині порожньо. Ставимо лише там, де іконка несе розпізнавання —
+# навігація, дія, сигнал довіри, порожній стан. Списки фактів у картках
+# лишаються текстовими навмисно (див. _conventions.md, §0.5).
+ICON = '<span class="ph-icon" aria-hidden="true"></span>'
+ICON_SM = '<span class="ph-icon ph-icon-sm" aria-hidden="true"></span>'
+ICON_LG = '<span class="ph-icon ph-icon-lg" aria-hidden="true"></span>'
+
 
 def filename(page: dict, state: str) -> str:
     return f'{page["base"]}{STATE_SUFFIX[state]}.html'
@@ -90,7 +98,7 @@ def tabbar(current: str, owner: bool = False) -> str:
     links = ''
     for href, label, key in items:
         current_attr = ' aria-current="page"' if key == current else ''
-        links += f'<li><a href="{href}"{current_attr}>{label}</a></li>'
+        links += f'<li><a href="{href}"{current_attr}>{ICON}<span>{label}</span></a></li>'
     return f'<nav aria-label="Глобальна навігація"><ul class="wf-tabbar">{links}</ul></nav>'
 
 
@@ -111,7 +119,7 @@ def state_switcher(page: dict, state: str) -> str:
 
 
 def appbar(title: str, back: str | None = None) -> str:
-    back_link = f'<a href="{back}">Назад</a>' if back else ''
+    back_link = f'<a href="{back}">{ICON}Назад</a>' if back else ''
     return f'<header class="wf-appbar">{back_link}<h2>{title}</h2></header>'
 
 
@@ -200,7 +208,7 @@ PEOPLE = (
 def trust_signals(items: tuple[str, ...]) -> str:
     if not items:
         return '<p class="wf-hint">телефон і соцлінк не підтверджені</p>'
-    badges = ''.join(f'<li><span class="wf-badge">{item}</span></li>' for item in items)
+    badges = ''.join(f'<li><span class="wf-badge">{ICON_SM}{item}</span></li>' for item in items)
     return f'<ul class="wf-chips">{badges}</ul>'
 
 
@@ -256,13 +264,13 @@ def validate_feed_content() -> None:
 
 
 def content_listings(state: str) -> str:
-    filters = zone("пошук і фільтри", '''<form action="listings.html" method="get"><label class="wf-field" for="area"><span>Район або метро</span><input id="area" name="area" value="Оболонь, Поділ"></label><button type="submit">Знайти</button></form><ul class="wf-chips"><li><span class="wf-chip wf-chip-on">5&nbsp;000–11&nbsp;000&nbsp;₴</span></li><li><span class="wf-chip wf-chip-on">заїзд з 1 вересня</span></li></ul><p><a class="wf-btn wf-btn-ghost wf-btn-block" href="filters.html">Змінити фільтри</a></p>''')
+    filters = zone("пошук і фільтри", f'''<form action="listings.html" method="get"><label class="wf-field" for="area"><span>Район або метро</span><span class="wf-input-icon">{ICON}<input id="area" name="area" value="Оболонь, Поділ"></span></label><button type="submit">Знайти</button></form><ul class="wf-chips"><li><span class="wf-chip wf-chip-on">5&nbsp;000–11&nbsp;000&nbsp;₴</span></li><li><span class="wf-chip wf-chip-on">заїзд з 1 вересня</span></li></ul><p><a class="wf-btn wf-btn-ghost wf-btn-block" href="filters.html">Змінити фільтри</a></p>''')
     if state == "успіх":
         body = f'<p>Знайдено 14 варіантів</p><ul class="wf-list">{list_items(LISTINGS, listing_card)}</ul>'
     elif state == "порожньо":
-        body = '''<article class="wf-msg"><h3>Стрічка порожня: нічого не знайшлось</h3><p>Фільтри надто вузькі. Розшир їх і перевір стрічку ще раз.</p><a class="wf-btn wf-btn-primary" href="filters.html">Послабити фільтри</a></article><article class="wf-msg wf-msg-dead"><h3>Підходящих варіантів у Києві зараз немає</h3><p>Фільтри вже максимально широкі. Нових варіантів зараз немає — повернись до пошуку пізніше.</p><a class="wf-btn wf-btn-ghost" href="listings.html">Повернутися до пошуку</a></article>'''
+        body = f'''<article class="wf-msg">{ICON_LG}<h3>Стрічка порожня: нічого не знайшлось</h3><p>Фільтри надто вузькі. Розшир їх і перевір стрічку ще раз.</p><a class="wf-btn wf-btn-primary" href="filters.html">Послабити фільтри</a></article><article class="wf-msg wf-msg-dead">{ICON_LG}<h3>Підходящих варіантів у Києві зараз немає</h3><p>Фільтри вже максимально широкі. Нових варіантів зараз немає — повернись до пошуку пізніше.</p><a class="wf-btn wf-btn-ghost" href="listings.html">Повернутися до пошуку</a></article>'''
     elif state == "помилка":
-        body = '''<article class="wf-msg"><h3>Не вдалося завантажити стрічку</h3><p>Перевір з’єднання та повтори завантаження.</p><a class="wf-btn wf-btn-primary" href="listings.html">Спробувати ще</a></article>'''
+        body = f'''<article class="wf-msg">{ICON_LG}<h3>Не вдалося завантажити стрічку</h3><p>Перевір з’єднання та повтори завантаження.</p><a class="wf-btn wf-btn-primary" href="listings.html">Спробувати ще</a></article>'''
     else:
         body = f'<p class="wf-hint">Завантажуємо варіанти в межах фільтра…</p><div class="wf-stack">{loading_cards(len(LISTINGS))}</div><button class="wf-btn-block" type="button" disabled>Завантажуємо стрічку…</button><p><a href="listings.html">Повернутися до стрічки</a></p>'
     results = zone("результати", body)
@@ -285,11 +293,11 @@ def content_filters(_: str) -> str:
 
 def content_listing(state: str) -> str:
     summary = zone("кімната", '''<span class="ph" role="img" aria-label="місце для фото кімнати"></span><h3>Оболонь, 8&nbsp;500&nbsp;₴/міс</h3><p>Кімната в 3-к квартирі · 2 співмешканці · заїзд з 1 вересня</p><ul class="wf-facts"><li>5 хв від метро Мінська</li><li>меблі є</li><li>з тваринами можна</li></ul><p class="wf-hint">оголошення активне · оновлено 2 дні тому</p>''')
-    trust = zone("сигнали довіри", '''<div class="wf-row"><span class="ph ph-avatar" role="img" aria-label="місце для фото Олега"></span><article class="wf-grow"><h3>Олег, 29 · власник кімнати</h3><p>Спокійний побут, гостей запрошую зрідка.</p></article></div><ul class="wf-chips"><li><span class="wf-badge">телефон підтверджено</span></li><li><span class="wf-badge">Instagram підтверджено</span></li><li><span class="wf-badge">3 відгуки після заселення</span></li></ul><ul class="wf-facts"><li>охайність: важлива</li><li>гості: зрідка</li><li>тварини: є кіт</li><li>не палю</li><li>жайворонок / сова</li></ul>''')
+    trust = zone("сигнали довіри", f'''<div class="wf-row"><span class="ph ph-avatar" role="img" aria-label="місце для фото Олега"></span><article class="wf-grow"><h3>Олег, 29 · власник кімнати</h3><p>Спокійний побут, гостей запрошую зрідка.</p></article></div><ul class="wf-chips"><li><span class="wf-badge">{ICON_SM}телефон підтверджено</span></li><li><span class="wf-badge">{ICON_SM}Instagram підтверджено</span></li><li><span class="wf-badge">{ICON_SM}3 відгуки після заселення</span></li></ul><ul class="wf-facts"><li>охайність: важлива</li><li>гості: зрідка</li><li>тварини: є кіт</li><li>не палю</li><li>жайворонок / сова</li></ul>''')
     if state == "успіх":
         body = '''<p>Оголошення й профіль автора вселяють довіру?</p><div class="wf-row"><a class="wf-btn wf-btn-ghost" href="listings.html">Ні, назад у стрічку</a><a class="wf-btn wf-btn-primary" href="listing-loading.html">Так, надіслати заявку</a></div>'''
     elif state == "помилка":
-        body = '''<article class="wf-msg"><h3>Помилка: заявку не надіслано</h3><p>Збій не змінив оголошення. Повернись на картку й повтори дію.</p><a class="wf-btn wf-btn-primary" href="listing.html">Спробувати ще</a></article>'''
+        body = f'''<article class="wf-msg">{ICON_LG}<h3>Помилка: заявку не надіслано</h3><p>Збій не змінив оголошення. Повернись на картку й повтори дію.</p><a class="wf-btn wf-btn-primary" href="listing.html">Спробувати ще</a></article>'''
     else:
         body = '''<article class="wf-msg"><h3>Надсилання заявки…</h3><p>Статус надсилання:</p><button type="button" disabled>Надсилання заявки…</button><p><a href="listing-error.html">Стався збій</a> · <a href="#waiting">Заявку надіслано</a></p></article><article class="wf-msg" id="waiting"><h3>Очікуємо відповідь на заявку…</h3><p>Контакти відкриються після взаємної згоди.</p><button type="button" disabled>Очікуємо відповідь…</button><p><a href="chat.html">Заявку прийнято</a> · <a href="listings.html">Заявку відхилено</a></p><p><a href="listings.html">Немає відповіді — заявка протухла</a></p></article>'''
     action = zone("головна дія", body)
@@ -298,12 +306,12 @@ def content_listing(state: str) -> str:
 
 def content_chat(_: str) -> str:
     context = zone("контекст", '''<article class="wf-card"><h3>Оболонь, 8&nbsp;500&nbsp;₴/міс</h3><p>Заявку прийнято — чат відкрито</p><a href="listing.html">Переглянути оголошення</a></article>''')
-    conversation = zone("переписка", '''<article class="wf-bubble"><p>Привіт! Кімната ще вільна. Перед переглядом нічого переказувати не треба.</p></article><article class="wf-bubble wf-bubble-me"><p>Добре, у суботу о 15:00 мені підходить.</p></article><form><label class="wf-field" for="message"><span>Повідомлення</span><textarea id="message">Домовились, побачимось у суботу.</textarea></label><button type="button">Надіслати</button></form><article class="wf-msg"><h3>Просять передоплату до перегляду кімнати?</h3><div class="wf-row"><a class="wf-btn wf-btn-ghost" href="report.html">Так — вимагають гроші наперед</a><a class="wf-btn wf-btn-primary" href="review.html">Ні — домовились про перегляд</a></div><p><a href="chats.html">Тиша або відмовки — розмова нічим не закінчилась</a></p></article><p><a href="my-listings.html">Мешканця знайдено — перейти до моїх оголошень</a></p>''')
+    conversation = zone("переписка", f'''<article class="wf-bubble"><p>Привіт! Кімната ще вільна. Перед переглядом нічого переказувати не треба.</p></article><article class="wf-bubble wf-bubble-me"><p>Добре, у суботу о 15:00 мені підходить.</p></article><form><label class="wf-field" for="message"><span>Повідомлення</span><textarea id="message">Домовились, побачимось у суботу.</textarea></label><button type="button">{ICON}Надіслати</button></form><article class="wf-msg"><h3>Просять передоплату до перегляду кімнати?</h3><div class="wf-row"><a class="wf-btn wf-btn-ghost" href="report.html">Так — вимагають гроші наперед</a><a class="wf-btn wf-btn-primary" href="review.html">Ні — домовились про перегляд</a></div><p><a href="chats.html">Тиша або відмовки — розмова нічим не закінчилась</a></p></article><p><a href="my-listings.html">Мешканця знайдено — перейти до моїх оголошень</a></p>''')
     return appbar("Олег · Оболонь", "chats.html") + context + conversation + tabbar("chats")
 
 
 def content_profile_edit(_: str) -> str:
-    return appbar("Мій профіль") + zone("профіль", '''<form><span class="ph ph-avatar" role="img" aria-label="місце для фото Марічки"></span><label class="wf-field" for="name"><span>Ім’я та вік</span><input id="name" value="Марічка, 21"></label><label class="wf-field" for="about"><span>Про себе</span><textarea id="about">Студентка КНУ, шукаю спокійний дім на Оболоні або Подолі.</textarea></label><label class="wf-field" for="profile-budget"><span>Бюджет</span><input id="profile-budget" value="до 9&nbsp;000&nbsp;₴/міс"></label><label class="wf-field" for="profile-areas"><span>Райони інтересу</span><input id="profile-areas" value="Оболонь, Поділ"></label><fieldset><legend>Звички</legend><label><input type="checkbox" checked> охайність: важлива</label><br><label><input type="checkbox" checked> гості: зрідка</label><br><label><input type="checkbox" checked> тварини: є кіт</label><br><label><input type="checkbox" checked> не палю</label><br><label><input type="checkbox"> жайворонок / сова</label></fieldset><button class="wf-btn-primary wf-btn-block" type="button">Зберегти профіль</button></form>''') + zone("верифікація", '''<ul class="wf-chips"><li><span class="wf-badge">телефон підтверджено</span></li></ul><p><a class="wf-btn wf-btn-ghost wf-btn-block" href="profile-social.html">Додати соцлінк</a></p>''') + tabbar("profile")
+    return appbar("Мій профіль") + zone("профіль", '''<form><span class="ph ph-avatar" role="img" aria-label="місце для фото Марічки"></span><label class="wf-field" for="name"><span>Ім’я та вік</span><input id="name" value="Марічка, 21"></label><label class="wf-field" for="about"><span>Про себе</span><textarea id="about">Студентка КНУ, шукаю спокійний дім на Оболоні або Подолі.</textarea></label><label class="wf-field" for="profile-budget"><span>Бюджет</span><input id="profile-budget" value="до 9&nbsp;000&nbsp;₴/міс"></label><label class="wf-field" for="profile-areas"><span>Райони інтересу</span><input id="profile-areas" value="Оболонь, Поділ"></label><fieldset><legend>Звички</legend><label><input type="checkbox" checked> охайність: важлива</label><br><label><input type="checkbox" checked> гості: зрідка</label><br><label><input type="checkbox" checked> тварини: є кіт</label><br><label><input type="checkbox" checked> не палю</label><br><label><input type="checkbox"> жайворонок / сова</label></fieldset><button class="wf-btn-primary wf-btn-block" type="button">Зберегти профіль</button></form>''') + zone("верифікація", f'''<ul class="wf-chips"><li><span class="wf-badge">{ICON_SM}телефон підтверджено</span></li></ul><p><a class="wf-btn wf-btn-ghost wf-btn-block" href="profile-social.html">Додати соцлінк</a></p>''') + tabbar("profile")
 
 
 def content_profile_social(_: str) -> str:
@@ -315,18 +323,18 @@ def content_people(state: str) -> str:
     if state == "успіх":
         body = f'<p>Знайдено 8 профілів</p><ul class="wf-list">{list_items(PEOPLE, person_card)}</ul>'
     else:
-        body = '''<article class="wf-msg"><h3>Підходящих шукачів поки немає</h3><p>Розшир фільтри, щоб побачити більше людей.</p><a class="wf-btn wf-btn-primary" href="filters.html">Розширити фільтри</a></article><article class="wf-msg"><h3>Кімната й далі порожня, оренду покриває сам</h3><p>Фільтри вже максимально широкі, а підходящих профілів немає.</p><a href="my-listings.html">Повернутися до моїх оголошень</a></article>'''
+        body = f'''<article class="wf-msg">{ICON_LG}<h3>Підходящих шукачів поки немає</h3><p>Розшир фільтри, щоб побачити більше людей.</p><a class="wf-btn wf-btn-primary" href="filters.html">Розширити фільтри</a></article><article class="wf-msg">{ICON_LG}<h3>Кімната й далі порожня, оренду покриває сам</h3><p>Фільтри вже максимально широкі, а підходящих профілів немає.</p><a href="my-listings.html">Повернутися до моїх оголошень</a></article>'''
     return appbar("Люди шукають кімнату") + search_switch("people") + filters + zone("результати", body) + tabbar("people", True)
 
 
 def content_person(state: str) -> str:
-    summary = zone("профіль", '''<div class="wf-row"><span class="ph ph-avatar" role="img" aria-label="місце для фото Марічки"></span><article class="wf-grow"><h3>Марічка, 21 · студентка КНУ</h3><p>Шукаю кімнату на Оболоні або Подолі, бюджет до 9&nbsp;000&nbsp;₴.</p></article></div><ul class="wf-facts"><li>охайність: важлива</li><li>гості: зрідка</li><li>тварини: є кіт</li><li>не палю</li><li>жайворонок / сова</li></ul><ul class="wf-chips"><li><span class="wf-badge">телефон підтверджено</span></li><li><span class="wf-badge">Instagram підтверджено</span></li></ul>''')
+    summary = zone("профіль", f'''<div class="wf-row"><span class="ph ph-avatar" role="img" aria-label="місце для фото Марічки"></span><article class="wf-grow"><h3>Марічка, 21 · студентка КНУ</h3><p>Шукаю кімнату на Оболоні або Подолі, бюджет до 9&nbsp;000&nbsp;₴.</p></article></div><ul class="wf-facts"><li>охайність: важлива</li><li>гості: зрідка</li><li>тварини: є кіт</li><li>не палю</li><li>жайворонок / сова</li></ul><ul class="wf-chips"><li><span class="wf-badge">{ICON_SM}телефон підтверджено</span></li><li><span class="wf-badge">{ICON_SM}Instagram підтверджено</span></li></ul>''')
     if state == "успіх":
         reviews = '''<ul class="wf-list"><li><article class="wf-card"><h3>Спокійна й відповідальна співмешканка</h3><p>Ірина, 27 · жили разом 8 місяців</p><p>Домовленостей дотримувалась, побут ділили чесно.</p></article></li><li><article class="wf-card"><h3>Завжди попереджала про гостей</h3><p>Дмитро, 25 · спільна оренда у 2025 році</p><p>Поважала тишу ввечері й завчасно узгоджувала гостей.</p></article></li><li><article class="wf-card"><h3>Добре дбала про квартиру й кота</h3><p>Олена, 30 · колишня власниця кімнати</p><p>Після виїзду залишила кімнату охайною та повернула ключі вчасно.</p></article></li></ul><div class="wf-row"><a class="wf-btn wf-btn-primary" href="person-loading.html">Запропонувати кімнату</a><a class="wf-btn wf-btn-ghost" href="people.html">Не підходить</a></div>'''
     elif state == "порожньо":
-        reviews = '<article class="wf-msg"><h3>Немає відгуків після заселення</h3><p>Орієнтуйся на підтверджений телефон, соцлінк і заповнені звички.</p><a class="wf-btn wf-btn-primary" href="person-loading.html">Все одно запропонувати кімнату</a> <a href="people.html">Назад у стрічку</a></article>'
+        reviews = f'<article class="wf-msg">{ICON_LG}<h3>Немає відгуків після заселення</h3><p>Орієнтуйся на підтверджений телефон, соцлінк і заповнені звички.</p><a class="wf-btn wf-btn-primary" href="person-loading.html">Все одно запропонувати кімнату</a> <a href="people.html">Назад у стрічку</a></article>'
     elif state == "помилка":
-        reviews = '<article class="wf-msg"><h3>Заявку відхилено</h3><p>Марічка не погодилась оселитися. Повернись до інших шукачів.</p><a class="wf-btn wf-btn-primary" href="people.html">Переглянути інших людей</a></article>'
+        reviews = f'<article class="wf-msg">{ICON_LG}<h3>Заявку відхилено</h3><p>Марічка не погодилась оселитися. Повернись до інших шукачів.</p><a class="wf-btn wf-btn-primary" href="people.html">Переглянути інших людей</a></article>'
     else:
         reviews = '<article class="wf-msg"><h3>Очікуємо відповідь на заявку…</h3><p>Профіль отримає пропозицію кімнати на Оболоні за 8&nbsp;500&nbsp;₴/міс.</p><button type="button" disabled>Очікуємо відповідь…</button><p><a href="chat.html">Погодились оселитися</a> · <a href="person-error.html">Заявку відхилено</a></p><p><a href="people.html">Немає відповіді — повернутися до стрічки</a></p></article>'
     return appbar("Профіль людини", "people.html") + summary + zone("відгуки і дія", reviews) + tabbar("people", True)
@@ -342,7 +350,7 @@ def content_new_listing(state: str) -> str:
     if state == "успіх":
         body = '<p>Усі обов’язкові поля заповнені.</p><a class="wf-btn wf-btn-primary wf-btn-block" href="new-listing-loading.html">Опублікувати оголошення</a>'
     elif state == "помилка":
-        body = '<article class="wf-msg"><h3>Помилка: перевірте поля форми</h3><p>Додай дату заїзду та ціну, потім повтори публікацію.</p><a class="wf-btn wf-btn-primary" href="new-listing.html">Виправити поля</a></article>'
+        body = f'<article class="wf-msg">{ICON_LG}<h3>Помилка: перевірте поля форми</h3><p>Додай дату заїзду та ціну, потім повтори публікацію.</p><a class="wf-btn wf-btn-primary" href="new-listing.html">Виправити поля</a></article>'
     else:
         body = '<article class="wf-msg"><h3>Публікуємо оголошення…</h3><p>Після збереження оголошення стане активним.</p><button type="button" disabled>Публікуємо оголошення…</button><p><a href="my-listings.html">Показати опубліковане оголошення</a></p></article>'
     return appbar("Нове оголошення", "my-listings.html") + form + zone("публікація", body) + tabbar("ads", True)
@@ -352,7 +360,7 @@ def content_my_listings(state: str) -> str:
     if state == "успіх":
         body = '<ul class="wf-list"><li><article class="wf-card"><h3>Оболонь, 8&nbsp;500&nbsp;₴/міс</h3><p>оголошення активне · оновлено 2 дні тому</p><p>7 заявок · 2 активні чати</p><a href="people.html">Шукати мешканця серед профілів</a> <button type="button">Закрити оголошення</button></article></li><li><article class="wf-card"><h3>Позняки, 6&nbsp;200&nbsp;₴/міс</h3><p>оголошення закрито · мешканця знайдено</p><button type="button">Знову зробити активним</button></article></li></ul>'
     else:
-        body = '<article class="wf-msg"><h3>Оголошення ще немає</h3><p>Опублікуй кімнату, щоб шукачі побачили район, ціну й умови.</p><a class="wf-btn wf-btn-primary" href="new-listing.html">Опублікувати оголошення</a></article>'
+        body = f'<article class="wf-msg">{ICON_LG}<h3>Оголошення ще немає</h3><p>Опублікуй кімнату, щоб шукачі побачили район, ціну й умови.</p><a class="wf-btn wf-btn-primary" href="new-listing.html">Опублікувати оголошення</a></article>'
     return appbar("Мої оголошення") + zone("перелік", body) + tabbar("ads", True)
 
 
@@ -360,9 +368,9 @@ def content_chats(state: str) -> str:
     if state == "успіх":
         body = '<ul class="wf-list"><li><article class="wf-card"><h3>Олег · Оболонь, 8&nbsp;500&nbsp;₴/міс</h3><p>Заявку прийнято — чат відкрито</p><a class="wf-btn wf-btn-primary" href="chat.html">Відкрити чат</a></article></li><li><article class="wf-card"><h3>Настя · Позняки, 6&nbsp;200&nbsp;₴/міс</h3><p>Очікуємо відповідь на заявку…</p><a href="chats-loading.html">Перевірити стан</a></article></li><li><article class="wf-card"><h3>Тарас · Солом’янка, 11&nbsp;000&nbsp;₴/міс</h3><p>Заявка протухла без відповіді</p><a href="listings.html">Шукати інший варіант</a></article></li><li><article class="wf-card"><h3>Юля · Нивки, 5&nbsp;400&nbsp;₴/міс</h3><p>Чат замовк, домовленості немає</p><a href="listings.html">Повернутися до пошуку</a></article></li></ul>'
     elif state == "порожньо":
-        body = '<article class="wf-msg"><h3>Заявок ще не надсилали</h3><p>Знайди кімнату й надішли першу заявку автору.</p><a class="wf-btn wf-btn-primary" href="listings.html">Перейти до стрічки кімнат</a></article>'
+        body = f'<article class="wf-msg">{ICON_LG}<h3>Заявок ще не надсилали</h3><p>Знайди кімнату й надішли першу заявку автору.</p><a class="wf-btn wf-btn-primary" href="listings.html">Перейти до стрічки кімнат</a></article>'
     elif state == "помилка":
-        body = '<article class="wf-msg"><h3>Заявку відхилено</h3><p>Ця лінія спілкування завершена, але в стрічці є інші варіанти.</p><a class="wf-btn wf-btn-primary" href="listings.html">Повернутися до пошуку</a></article>'
+        body = f'<article class="wf-msg">{ICON_LG}<h3>Заявку відхилено</h3><p>Ця лінія спілкування завершена, але в стрічці є інші варіанти.</p><a class="wf-btn wf-btn-primary" href="listings.html">Повернутися до пошуку</a></article>'
     else:
         body = '<article class="wf-msg"><h3>Очікуємо відповідь на заявку…</h3><p>Відповіді від автора ще немає.</p><button type="button" disabled>Очікуємо відповідь…</button><p><a href="chat.html">Заявку прийнято</a> · <a href="chats-error.html">Заявку відхилено</a></p></article><article class="wf-msg wf-msg-dead"><h3>Заявка протухла без відповіді</h3><p>Ця лінія завершена без відповіді.</p><a href="listings.html">Шукати інший варіант</a></article>'
     return appbar("Заявки і чати") + zone("список розмов", body) + tabbar("chats")

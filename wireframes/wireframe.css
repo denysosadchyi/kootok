@@ -5,7 +5,9 @@
    ЩО ТУТ Є: сітка «панель зліва + макет справа», хейрлайни, сірі плейсхолдери,
    дерево навігації, перемикач станів, примітиви вайрфрейма.
    ЧОГО ТУТ НЕМАЄ І БУТИ НЕ МАЄ: кольору (крім градацій сірого), тіней,
-   іконок, шрифтових файлів, зовнішніх бібліотек, JS, анімацій.
+   справжніх іконок, шрифтових файлів, зовнішніх бібліотек, JS, анімацій.
+   Заглушки під іконки (.ph-icon, §0.5 контракту) — це структура, а не
+   іконки: порожні сірі квадрати без жодного символу всередині.
    Це вайрфрейм, а не UI.
    Скруглення дозволені, але тільки з шкали --wf-r-* (§0): радіус тут —
    не декор, а підказка про роль елемента, тож значень рівно три.
@@ -227,6 +229,44 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
   border-radius: var(--wf-r-pill);
 }
 
+/* 6.1b. Плейсхолдер іконки: сірий квадрат зі скругленням --wf-r-sm.
+
+   Це не іконка, а місце під неї. Значення іконки ще не обране (розділ 1
+   контракту), але сам факт «тут стоїть іконка» вже змінює висоту таб-бару,
+   ліве поле поля пошуку й довжину бейджа — тож приховувати його не можна,
+   інакше макет обіцяє щільність, якої в продукті не буде.
+
+   Форма одна на весь продукт: порожній квадрат зі скругленням контролю.
+   Порожній свідомо — діагональ чи символ усередині були б передчасним
+   рішенням про значення, а на 12 px ще й перетворилися б на шум.
+   Коло не використовується: у цьому макеті коло вже означає фото людини
+   (.ph-avatar), і другий сенс зіпсував би перший.
+
+   .ph-icon не модифікує .ph, бо іконка — не фото. Спільний лише префікс
+   ph-, який означає «місце під майбутній вміст».
+
+   Розмір і радіус масштабуються разом — 12 / 24 / 48 px при ½ · / 1 · / 2 ·
+   від --wf-r-sm, тобто радіус завжди третина сторони. Якби радіус лишався
+   8 px на всіх розмірах, квадрат 12 px браузер обрізав би до кола (а коло
+   вже зайняте аватаром), а квадрат 48 px читався б майже прямокутником.
+   Похідні від одного токена, тому шкала радіусів не розширюється. */
+
+.ph-icon {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  background: var(--wf-fill);
+  border: 1px solid var(--wf-line-2);
+  border-radius: var(--wf-r-sm);
+}
+
+/* Дрібний варіант — тільки в бейджі довіри, поруч з 11px текстом. */
+.ph-icon-sm { width: 12px; height: 12px; border-radius: calc(var(--wf-r-sm) / 2); }
+
+/* Великий варіант — тільки над заголовком порожнього стану чи помилки. */
+.ph-icon-lg { width: 48px; height: 48px; border-radius: calc(var(--wf-r-sm) * 2); }
+
 /* 6.2. Текстові заглушки-смуги (для -loading) */
 
 .sk {
@@ -299,9 +339,13 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
 
 /* 6.6. Бейдж/чип: рамка, без заливки кольором */
 
+/* inline-flex, бо бейдж довіри несе заглушку іконки перед текстом і має
+   тримати її по центру рядка, а не по базовій лінії. */
 .wf-badge,
 .wf-chip {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wf-space-1);
   padding: var(--wf-space-0) var(--wf-space-2);
   font-size: var(--wf-fs-micro);
   line-height: 1.55;
@@ -326,6 +370,7 @@ button {
   width: 100%;
   min-width: 0;
   min-height: 44px;
+  gap: var(--wf-space-2);
   padding: var(--wf-space-2) var(--wf-space-3);
   border: 1px solid var(--wf-ink);
   border-radius: var(--wf-r-sm);
@@ -362,6 +407,18 @@ input, select, textarea {
   background: var(--wf-paper);
   color: var(--wf-ink);
 }
+/* Поле пошуку: заглушка іконки стоїть усередині поля на його початку.
+   Ліве поле інпута збільшене рівно на ширину заглушки з проміжком, тому
+   текст запиту не заповзає під іконку — саме так, як буде в продукті. */
+.wf-input-icon { position: relative; display: block; }
+.wf-input-icon > .ph-icon {
+  position: absolute;
+  top: 50%;
+  left: var(--wf-space-3);
+  transform: translateY(-50%);
+}
+.wf-input-icon > input { padding-left: calc(var(--wf-space-3) + 24px + var(--wf-space-2)); }
+
 /* Без accent-color браузер малює свій фірмовий синій — це вайрфрейм. */
 input[type="checkbox"],
 input[type="radio"] {
@@ -385,16 +442,21 @@ legend { font-size: var(--wf-fs-meta); color: var(--wf-ink-2); padding: 0 var(--
 /* 6.9. Шапка екрана і нижня навігація (усередині фрейма) */
 
 /* Шапка: жирна лише назва екрана. «Назад» — супровідне посилання, тому
-   дрібніше й без ваги, інакше воно конкурує із заголовком. */
+   дрібніше й без ваги, інакше воно конкурує із заголовком.
+   Вирівнювання по центру, а не по базовій лінії: «Назад» тепер пара
+   «заглушка іконки + підпис», тобто контрол, і центрується проти назви. */
 .wf-appbar {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: var(--wf-space-3);
   min-height: 52px;
   padding: var(--wf-space-3) var(--wf-pad);
   border-bottom: 1px solid var(--wf-line);
 }
 .wf-appbar > a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wf-space-1);
   flex: 0 0 auto;
   font-size: var(--wf-fs-meta);
   color: var(--wf-ink-2);
@@ -411,12 +473,18 @@ legend { font-size: var(--wf-fs-meta); color: var(--wf-ink-2); padding: 0 var(--
 .wf-tabbar a {
   display: grid;
   place-items: center;
+  gap: var(--wf-space-1);
   min-height: 44px;
   padding: var(--wf-space-2) var(--wf-space-1);
   text-align: center;
   text-decoration: none;
   border-right: 1px solid var(--wf-line-2);
 }
+/* Пункт глобальної навігації несе два рядки — заглушку іконки й підпис,
+   тому вертикальний паддінг зменшено: інакше таб-бар з'їдає 58 px висоти
+   фрейма замість реалістичних ~50. Перемикач «Кімнати / Люди» користується
+   тим самим класом, але іконок не має і лишається на 8 px. */
+.wf-tabbar a:has(> .ph-icon) { padding-block: var(--wf-space-1); }
 .wf-tabbar li:last-child a { border-right: 0; }
 .wf-tabbar [aria-current="page"] { font-weight: 700; background: var(--wf-fill); }
 
@@ -431,6 +499,9 @@ legend { font-size: var(--wf-fs-meta); color: var(--wf-ink-2); padding: 0 var(--
   overflow-wrap: anywhere;
 }
 .wf-msg > * + * { margin-top: var(--wf-space-1); }
+/* Велика заглушка іконки — єдиний елемент над заголовком порожнього стану
+   чи помилки; вона відбита сильніше, ніж заголовок від пояснення. */
+.wf-msg > .ph-icon + * { margin-top: var(--wf-space-3); }
 .wf-msg > * + :is(p, div):has(> .wf-btn),
 .wf-msg > * + .wf-btn,
 .wf-msg > * + button { margin-top: var(--wf-space-4); }
