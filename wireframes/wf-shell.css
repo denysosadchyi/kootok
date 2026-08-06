@@ -134,7 +134,7 @@
   min-width: 0;
   padding: 6px 8px;
   border: 1px solid transparent;
-  border-radius: 2px;
+  border-radius: var(--wf-r-sm);
   line-height: 1.35;
   overflow-wrap: anywhere;
 }
@@ -194,7 +194,7 @@
 .wf-tree::-webkit-scrollbar-thumb {
   background: #b8b8b8;
   border: 2px solid var(--wf-shell-tree-paper);
-  border-radius: 2px;
+  border-radius: var(--wf-r-pill);
 }
 
 .wf-tree::-webkit-scrollbar-thumb:hover {
@@ -277,7 +277,7 @@
   margin: 0 0 var(--wf-space-4);
   padding: var(--wf-space-4);
   border: 1px solid var(--wf-line-2);
-  border-radius: 2px;
+  border-radius: var(--wf-r-md);
   background: var(--wf-paper);
 }
 
@@ -310,7 +310,7 @@
   display: inline-block;
   padding: var(--wf-space-0) var(--wf-space-2);
   border: 1px solid var(--wf-line);
-  border-radius: 2px;
+  border-radius: var(--wf-r-pill);
   color: var(--wf-ink-2);
   font-size: var(--wf-fs-micro);
   line-height: 1.55;

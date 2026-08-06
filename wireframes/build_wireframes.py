@@ -206,7 +206,7 @@ def trust_signals(items: tuple[str, ...]) -> str:
 
 def listing_card(item: dict) -> str:
     return f'''<article class="wf-card">
-  <span class="ph ph-sm" role="img" aria-label="місце для фото кімнати"></span>
+  <span class="ph" role="img" aria-label="місце для фото кімнати"></span>
   <h3>{item["title"]}</h3>
   <p>{item["household"]}</p>
   <ul class="wf-facts"><li>{item["metro"]}</li><li>{item["habits"]}</li></ul>
@@ -234,7 +234,7 @@ def list_items(items: tuple[dict, ...], renderer) -> str:
 
 
 def loading_cards(count: int) -> str:
-    card = '<article class="wf-card"><span class="ph ph-sm" aria-hidden="true"></span><span class="sk sk-title"></span><span class="sk sk-80"></span><span class="sk sk-60"></span></article>'
+    card = '<article class="wf-card"><span class="ph" aria-hidden="true"></span><span class="sk sk-title"></span><span class="sk sk-80"></span><span class="sk sk-60"></span></article>'
     return card * count
 
 
@@ -284,7 +284,7 @@ def content_filters(_: str) -> str:
 
 
 def content_listing(state: str) -> str:
-    summary = zone("кімната", '''<span class="ph ph-lg" role="img" aria-label="місце для фото кімнати"></span><h3>Оболонь, 8&nbsp;500&nbsp;₴/міс</h3><p>Кімната в 3-к квартирі · 2 співмешканці · заїзд з 1 вересня</p><ul class="wf-facts"><li>5 хв від метро Мінська</li><li>меблі є</li><li>з тваринами можна</li></ul><p class="wf-hint">оголошення активне · оновлено 2 дні тому</p>''')
+    summary = zone("кімната", '''<span class="ph" role="img" aria-label="місце для фото кімнати"></span><h3>Оболонь, 8&nbsp;500&nbsp;₴/міс</h3><p>Кімната в 3-к квартирі · 2 співмешканці · заїзд з 1 вересня</p><ul class="wf-facts"><li>5 хв від метро Мінська</li><li>меблі є</li><li>з тваринами можна</li></ul><p class="wf-hint">оголошення активне · оновлено 2 дні тому</p>''')
     trust = zone("сигнали довіри", '''<div class="wf-row"><span class="ph ph-avatar" role="img" aria-label="місце для фото Олега"></span><article class="wf-grow"><h3>Олег, 29 · власник кімнати</h3><p>Спокійний побут, гостей запрошую зрідка.</p></article></div><ul class="wf-chips"><li><span class="wf-badge">телефон підтверджено</span></li><li><span class="wf-badge">Instagram підтверджено</span></li><li><span class="wf-badge">3 відгуки після заселення</span></li></ul><ul class="wf-facts"><li>охайність: важлива</li><li>гості: зрідка</li><li>тварини: є кіт</li><li>не палю</li><li>жайворонок / сова</li></ul>''')
     if state == "успіх":
         body = '''<p>Оголошення й профіль автора вселяють довіру?</p><div class="wf-row"><a class="wf-btn wf-btn-ghost" href="listings.html">Ні, назад у стрічку</a><a class="wf-btn wf-btn-primary" href="listing-loading.html">Так, надіслати заявку</a></div>'''
@@ -337,7 +337,7 @@ def content_new_listing(state: str) -> str:
     price = "" if invalid else "8&nbsp;500&nbsp;₴"
     date = "" if invalid else "1 вересня"
     invalid_attr = ' aria-invalid="true"' if invalid else ''
-    form_body = f'''<form><span class="ph ph-lg" role="img" aria-label="місце для фото кімнати"></span><label class="wf-field" for="new-area"><span>Район і метро</span><input id="new-area" value="Оболонь · 5 хв від метро Мінська"></label><label class="wf-field" for="price"><span>Ціна на місяць</span><input id="price" value="{price}"{invalid_attr}></label><label class="wf-field" for="date"><span>Дата заїзду</span><input id="date" value="{date}"{invalid_attr}></label><label class="wf-field" for="conditions"><span>Умови кімнати</span><textarea id="conditions">Меблі є, з тваринами можна.</textarea></label><fieldset><legend>Побажання до співмешканця</legend><label><input type="checkbox" checked> охайність: важлива</label><br><label><input type="checkbox" checked> гості: зрідка</label><br><label><input type="checkbox"> тварини: є кіт</label><br><label><input type="checkbox" checked> не палю</label><br><label><input type="checkbox"> жайворонок / сова</label></fieldset></form>'''
+    form_body = f'''<form><span class="ph" role="img" aria-label="місце для фото кімнати"></span><label class="wf-field" for="new-area"><span>Район і метро</span><input id="new-area" value="Оболонь · 5 хв від метро Мінська"></label><label class="wf-field" for="price"><span>Ціна на місяць</span><input id="price" value="{price}"{invalid_attr}></label><label class="wf-field" for="date"><span>Дата заїзду</span><input id="date" value="{date}"{invalid_attr}></label><label class="wf-field" for="conditions"><span>Умови кімнати</span><textarea id="conditions">Меблі є, з тваринами можна.</textarea></label><fieldset><legend>Побажання до співмешканця</legend><label><input type="checkbox" checked> охайність: важлива</label><br><label><input type="checkbox" checked> гості: зрідка</label><br><label><input type="checkbox"> тварини: є кіт</label><br><label><input type="checkbox" checked> не палю</label><br><label><input type="checkbox"> жайворонок / сова</label></fieldset></form>'''
     form = zone("оголошення", form_body)
     if state == "успіх":
         body = '<p>Усі обов’язкові поля заповнені.</p><a class="wf-btn wf-btn-primary wf-btn-block" href="new-listing-loading.html">Опублікувати оголошення</a>'

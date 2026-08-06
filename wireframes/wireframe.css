@@ -5,8 +5,10 @@
    ЩО ТУТ Є: сітка «панель зліва + макет справа», хейрлайни, сірі плейсхолдери,
    дерево навігації, перемикач станів, примітиви вайрфрейма.
    ЧОГО ТУТ НЕМАЄ І БУТИ НЕ МАЄ: кольору (крім градацій сірого), тіней,
-   скруглень > 2px, іконок, шрифтових файлів, зовнішніх бібліотек, JS,
-   анімацій. Це вайрфрейм, а не UI.
+   іконок, шрифтових файлів, зовнішніх бібліотек, JS, анімацій.
+   Це вайрфрейм, а не UI.
+   Скруглення дозволені, але тільки з шкали --wf-r-* (§0): радіус тут —
+   не декор, а підказка про роль елемента, тож значень рівно три.
    ========================================================================== */
 
 /* --- 0. Токени: тільки сірий ---------------------------------------------- */
@@ -44,6 +46,18 @@
   --wf-fs-text: 13px;      /* абзац-пояснення всередині картки */
   --wf-fs-meta: 12px;      /* підписи полів, таб-бар, перемикач станів */
   --wf-fs-micro: 11px;     /* факти, бейджі, підказки */
+
+  /* Шкала радіусів. Рівно три значення, кожне закріплене за роллю, щоб
+     скруглення читалось як класифікація, а не як прикраса:
+     sm — те, що натискають і заповнюють (кнопка, поле, перемикач, вузол
+          дерева): радіус лише знімає гостроту кута;
+     md — поверхні, які щось містять (картка, фото, повідомлення, репліка):
+          помітніший радіус відділяє «плитку» від тла;
+     pill — дрібні мітки, форма яких і є їхнім типом (чип, бейдж, смуга
+          скелетона), і аватар — на квадраті 48 px це рівно коло. */
+  --wf-r-sm: 8px;
+  --wf-r-md: 12px;
+  --wf-r-pill: 999px;
 }
 
 /* --- 1. База -------------------------------------------------------------- */
@@ -134,7 +148,7 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
   display: inline-block;
   padding: var(--wf-space-1) var(--wf-space-3);
   border: 1px solid var(--wf-line);
-  border-radius: 2px;
+  border-radius: var(--wf-r-sm);
   text-decoration: none;
 }
 
@@ -182,20 +196,36 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
 
 /* --- 6. Примітиви вайрфрейма ---------------------------------------------- */
 
-/* 6.1. Плейсхолдер: сірий прямокутник замість фото/медіа */
+/* 6.1. Плейсхолдер: сірий прямокутник замість фото/медіа.
+
+   Форму задає aspect-ratio, а не вигадана висота. Це принципово: висота
+   в px описує пляму на макеті, пропорція описує саме фото. 120 / 64 / 200 px
+   на всю ширину картки давали 3:1 і 5,6:1 — кадрів такої форми не існує,
+   тож рецензент бачив смугу, а не «тут буде фото кімнати».
+
+   4:3 — рідна пропорція телефонної камери, тобто рівно те, що Олег зніме
+   й завантажить. Одна пропорція і в картці стрічки, і в картці оголошення,
+   і у формі публікації: якщо фото в стрічці й у картці мають різну форму,
+   макет обіцяє кадрування, якого продукт не робить. Через це ж зникли
+   .ph-sm / .ph-lg — розмір тепер задає ширина контейнера, а не клас. */
 
 .ph {
   display: block;
   width: 100%;
-  height: 120px;
+  aspect-ratio: 4 / 3;
   background: var(--wf-fill);
   border: 1px solid var(--wf-line-2);
+  border-radius: var(--wf-r-md);
 }
 
-.ph-sm { height: 64px; }
-.ph-lg { height: 200px; }
-
-.ph-avatar { width: 48px; height: 48px; flex: 0 0 48px; border-radius: 2px; }
+/* Аватар — 1:1 і коло. Коло тут несе зміст: у суцільно сірому макеті це
+   єдине, що відрізняє фото людини від фото кімнати з першого погляду. */
+.ph-avatar {
+  width: 48px;
+  aspect-ratio: 1 / 1;
+  flex: 0 0 48px;
+  border-radius: var(--wf-r-pill);
+}
 
 /* 6.2. Текстові заглушки-смуги (для -loading) */
 
@@ -203,6 +233,7 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
   display: block;
   height: 12px;
   background: var(--wf-fill);
+  border-radius: var(--wf-r-pill);
   margin: 0;
 }
 .sk-title { height: 16px; width: 65%; }
@@ -223,6 +254,7 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
 
 .wf-card {
   border: 1px solid var(--wf-line);
+  border-radius: var(--wf-r-md);
   padding: var(--wf-space-3);
   background: var(--wf-paper);
   overflow-wrap: anywhere;
@@ -274,7 +306,7 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
   font-size: var(--wf-fs-micro);
   line-height: 1.55;
   border: 1px solid var(--wf-line);
-  border-radius: 2px;
+  border-radius: var(--wf-r-pill);
   color: var(--wf-ink-2);
 }
 .wf-chip-on { background: var(--wf-ink); color: var(--wf-paper); border-color: var(--wf-ink); }
@@ -296,7 +328,7 @@ button {
   min-height: 44px;
   padding: var(--wf-space-2) var(--wf-space-3);
   border: 1px solid var(--wf-ink);
-  border-radius: 2px;
+  border-radius: var(--wf-r-sm);
   background: var(--wf-paper);
   color: var(--wf-ink);
   text-align: center;
@@ -326,7 +358,7 @@ input, select, textarea {
   min-width: 0;
   padding: var(--wf-space-2) var(--wf-space-3);
   border: 1px solid var(--wf-line);
-  border-radius: 2px;
+  border-radius: var(--wf-r-sm);
   background: var(--wf-paper);
   color: var(--wf-ink);
 }
@@ -338,7 +370,7 @@ input[type="radio"] {
   accent-color: var(--wf-ink);
   vertical-align: middle;
 }
-fieldset { border: 1px solid var(--wf-line-2); border-radius: 2px; padding: var(--wf-space-3); margin: 0; }
+fieldset { border: 1px solid var(--wf-line-2); border-radius: var(--wf-r-sm); padding: var(--wf-space-3); margin: 0; }
 /* Висячий відступ: другий рядок довгого пункту вирівнюється по тексту,
    а не заповзає під чекбокс (22px = ширина контролу + його поле). */
 fieldset > label {
@@ -393,7 +425,7 @@ legend { font-size: var(--wf-fs-meta); color: var(--wf-ink-2); padding: 0 var(--
 /* Заголовок і пояснення — один абзац змісту (4px), дія відбита 16px. */
 .wf-msg {
   border: 1px solid var(--wf-line);
-  border-radius: 2px;
+  border-radius: var(--wf-r-md);
   padding: var(--wf-space-5) var(--wf-space-3);
   text-align: center;
   overflow-wrap: anywhere;
@@ -411,7 +443,7 @@ legend { font-size: var(--wf-fs-meta); color: var(--wf-ink-2); padding: 0 var(--
 
 .wf-bubble {
   border: 1px solid var(--wf-line);
-  border-radius: 2px;
+  border-radius: var(--wf-r-md);
   padding: var(--wf-space-2) var(--wf-space-3);
   max-width: 80%;
   font-size: var(--wf-fs-text);
