@@ -433,7 +433,7 @@ def render_index(available: set[str]) -> str:
         for page in (item for item in PAGES if item["group"] == group):
             states = ''.join(f'<li><a href="{filename(page, state)}">{state}</a></li>' for state in page["states"])
             items.append(f'<li><strong>{page["title"]}</strong><ul>{states}</ul></li>')
-        groups.append(f'<section data-zone="розділ {group.lower()}"><h2>{label}</h2><ul>{"".join(items)}</ul></section>')
+        groups.append(f'<section data-zone="розділ {group.lower()}"><h2>{group}. {label}</h2><ul>{"".join(items)}</ul></section>')
     return f'''<!doctype html>
 <html lang="uk">
 <head>
@@ -446,11 +446,9 @@ def render_index(available: set[str]) -> str:
 <body>
 <div class="wf">
 {tree_html(None, available)}
-  <div class="wf-screen">
+  <div class="wf-screen wf-screen-index">
     <h1>Всі екрани і стани</h1>
-    <div class="wf-canvas">
-      <main class="wf-device">{"".join(groups)}</main>
-    </div>
+    <main class="wf-index">{"".join(groups)}</main>
   </div>
 </div>
 </body>

@@ -17,15 +17,33 @@
   --wf-ink-3: #767676;     /* приглушений текст (контраст ≥ 4.5:1 на білому) */
   --wf-line: #999;         /* хейрлайн макета */
   --wf-line-2: #ccc;       /* слабкий хейрлайн */
+  --wf-line-3: #dcdcdc;    /* службовий хейрлайн зон (анотація, не контент) */
   --wf-fill: #e4e4e4;      /* плейсхолдер / заглушка */
   --wf-fill-2: #f2f2f2;    /* слабкий фон */
   --wf-paper: #fff;
+
+  /* Сходинки відступів. Кожна сходинка означає силу зв'язку:
+     0 — підпис і поле, 1 — заголовок і підзаголовок, 2 — блок усередині
+     картки, 3 — дія картки, 4 — блоки зони й сусідні картки,
+     5 — рівень екрана поза фреймом. */
+  --wf-space-0: 2px;
   --wf-space-1: 4px;
   --wf-space-2: 8px;
   --wf-space-3: 12px;
   --wf-space-4: 16px;
+  --wf-space-5: 24px;
   --wf-gap: var(--wf-space-3);
   --wf-pad: var(--wf-space-4);
+
+  /* Типографічна шкала. Крок ≈1.15–1.2, щоб рівні читались із примруженими
+     очима: заголовок екрана → заголовок об'єкта → текст → метадані. */
+  --wf-fs-screen: 20px;    /* h1 над фреймом */
+  --wf-fs-title: 18px;     /* h2: шапка фрейма, розділ вітрини */
+  --wf-fs-lead: 15px;      /* h3: назва картки, повідомлення */
+  --wf-fs-body: 14px;      /* база: поля, кнопки, пункти списків */
+  --wf-fs-text: 13px;      /* абзац-пояснення всередині картки */
+  --wf-fs-meta: 12px;      /* підписи полів, таб-бар, перемикач станів */
+  --wf-fs-micro: 11px;     /* факти, бейджі, підказки */
 }
 
 /* --- 1. База -------------------------------------------------------------- */
@@ -38,13 +56,19 @@ body {
   margin: 0;
   /* Системний шрифт — це не «вибір шрифту», а відсутність вибору. */
   font-family: system-ui;
-  font-size: 14px;
+  font-size: var(--wf-fs-body);
   line-height: 1.45;
   color: var(--wf-ink);
   background: var(--wf-fill-2);
 }
 
 h1, h2, h3, p, ul { margin: 0; }
+
+/* Заголовки мають розмір із шкали, а не з дефолтів браузера:
+   інакше h2 у шапці фрейма й h2 у вітрині живуть за різними правилами. */
+h2 { font-size: var(--wf-fs-title); font-weight: 700; line-height: 1.25; }
+h3 { font-size: var(--wf-fs-lead); font-weight: 700; line-height: 1.3; }
+
 ul { padding: 0; list-style: none; }
 a { color: inherit; }
 a:focus-visible,
@@ -88,9 +112,10 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
 
 .wf-screen > h1 {
   /* Часткове правило: вирівнювання та ширину задає wf-shell.css. */
-  font-size: 17px;
+  font-size: var(--wf-fs-screen);
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.2;
+  letter-spacing: -.01em;
 }
 
 /* 3.1. Перемикач станів */
@@ -99,16 +124,17 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
   /* Часткове правило: ширину й вирівнювання задає wf-shell.css. */
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin: 8px 0 20px;
-  font-size: 12px;
+  gap: var(--wf-space-1);
+  margin: var(--wf-space-3) 0 0;
+  font-size: var(--wf-fs-meta);
 }
 
 .wf-states a,
 .wf-states .is-current {
   display: inline-block;
-  padding: 3px 8px;
+  padding: var(--wf-space-1) var(--wf-space-3);
   border: 1px solid var(--wf-line);
+  border-radius: 2px;
   text-decoration: none;
 }
 
@@ -127,7 +153,7 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
   /* Часткове правило: ширину й центрування задає wf-shell.css. */
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: var(--wf-space-5);
   align-items: flex-start;
 }
 
@@ -143,10 +169,12 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
 
 /* --- 5. Семантичні зони макета ------------------------------------------- */
 
+/* Пунктир зони — службова анотація, тому він світліший за будь-яку рамку
+   контенту: спершу читається картка, аж потім межа зони. */
 [data-zone] {
   display: grid;
-  gap: var(--wf-space-3);
-  border: 1px dashed var(--wf-line-2);
+  gap: var(--wf-space-4);
+  border: 1px dashed var(--wf-line-3);
   padding: var(--wf-pad);
   margin: 0 0 -1px;
   overflow-wrap: anywhere;
@@ -184,6 +212,9 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
 /* 6.3. Структурні хелпери */
 
 .wf-row { display: flex; gap: var(--wf-gap); align-items: flex-start; }
+/* Пара дій в ряд ділить ширину порівну — і має ділити висоту теж,
+   інакше кнопка з двома рядками тексту робить ряд кривим. */
+.wf-row:has(> .wf-btn) { align-items: stretch; }
 .wf-stack { display: grid; gap: var(--wf-space-3); }
 .wf-grow { flex: 1 1 auto; min-width: 0; }
 .wf-grow > * + * { margin-top: var(--wf-space-1); }
@@ -196,58 +227,76 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
   background: var(--wf-paper);
   overflow-wrap: anywhere;
 }
+/* Ритм усередині картки: заголовок і підзаголовок — одне ціле (4px),
+   змістові блоки — 8px, дія відбита найбільше (12px). */
 .wf-card > * + * { margin-top: var(--wf-space-2); }
 .wf-card > h3 + p { margin-top: var(--wf-space-1); }
-.wf-card > .ph + .sk { margin-top: var(--wf-space-3); }
-.wf-card > a { display: block; }
-.wf-card h3 { font-size: 14px; font-weight: 700; line-height: 1.4; }
-.wf-card p { font-size: 13px; color: var(--wf-ink-2); }
+.wf-card > .ph + * { margin-top: var(--wf-space-3); }
+.wf-card > p + .wf-chips { margin-top: var(--wf-space-2); }
+.wf-card > .wf-chips + .wf-hint,
+.wf-card > p + .wf-hint { margin-top: var(--wf-space-1); }
+.wf-card > * + :is(p, div):has(> .wf-btn),
+.wf-card > * + .wf-btn,
+.wf-card > * + button { margin-top: var(--wf-space-3); }
+.wf-card > a:not(.wf-btn) { display: block; }
+.wf-card p { font-size: var(--wf-fs-text); color: var(--wf-ink-2); }
 
-/* 6.5. Метадані картки (район · ціна · дата заїзду) */
+/* 6.5. Метадані картки (район · ціна · дата заїзду).
+   Роздільник веде наступний факт, а не завершує попередній: інакше при
+   переносі рядок закінчувався б висячою крапкою. */
 
 .wf-facts {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--wf-space-1) var(--wf-space-3);
-  font-size: 12px;
-  line-height: 1.4;
+  gap: var(--wf-space-0) 6px;
+  font-size: var(--wf-fs-micro);
+  line-height: 1.45;
   color: var(--wf-ink-2);
 }
-.wf-facts li::after { content: " ·"; color: var(--wf-line); }
-.wf-facts li:last-child::after { content: ""; }
+.wf-facts li + li::before {
+  content: "·";
+  margin-right: 6px;
+  color: var(--wf-line);
+}
 
 /* 6.5b. Список карток: <ul> з <li><article class="wf-card"> — сусідній
-   селектор .wf-card + .wf-card не спрацьовує через обгортку <li> */
+   селектор .wf-card + .wf-card не спрацьовує через обгортку <li>.
+   Проміжок між картками більший за будь-який проміжок усередині картки. */
 
-.wf-list { display: grid; gap: var(--wf-space-3); }
+.wf-list { display: grid; gap: var(--wf-space-4); }
 
 /* 6.6. Бейдж/чип: рамка, без заливки кольором */
 
 .wf-badge,
 .wf-chip {
   display: inline-block;
-  padding: var(--wf-space-1) var(--wf-space-2);
-  font-size: 11px;
-  line-height: 1.3;
+  padding: var(--wf-space-0) var(--wf-space-2);
+  font-size: var(--wf-fs-micro);
+  line-height: 1.55;
   border: 1px solid var(--wf-line);
+  border-radius: 2px;
   color: var(--wf-ink-2);
 }
 .wf-chip-on { background: var(--wf-ink); color: var(--wf-paper); border-color: var(--wf-ink); }
 
 /* перелік чипів/бейджів — <ul> з переносом рядків (li за замовчуванням
    блокові, тому кожен чип ставав би в окремий рядок) */
-.wf-chips { display: flex; flex-wrap: wrap; gap: var(--wf-space-2); }
+.wf-chips { display: flex; flex-wrap: wrap; gap: var(--wf-space-1) var(--wf-space-2); }
 
 /* 6.7. Кнопки */
 
 .wf-btn,
 button {
   font: inherit;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   min-width: 0;
-  padding: var(--wf-space-3);
+  min-height: 44px;
+  padding: var(--wf-space-2) var(--wf-space-3);
   border: 1px solid var(--wf-ink);
+  border-radius: 2px;
   background: var(--wf-paper);
   color: var(--wf-ink);
   text-align: center;
@@ -264,48 +313,66 @@ button[disabled] { border-color: var(--wf-line-2); color: var(--wf-ink-3); backg
   width: auto;
 }
 
-/* 6.8. Форма */
+/* 6.8. Форма.
+   Підпис приклеєний до свого поля (2px), поля розділені 16px:
+   групування читається без жодної рамки. */
 
-.wf-field { display: grid; gap: var(--wf-space-1); margin: 0; }
-.wf-field > span { display: block; font-size: 12px; color: var(--wf-ink-2); }
-form:not(:has(> [data-zone])) { display: grid; gap: var(--wf-space-3); }
+.wf-field { display: grid; gap: var(--wf-space-0); margin: 0; }
+.wf-field > span { display: block; font-size: var(--wf-fs-meta); color: var(--wf-ink-2); }
+form:not(:has(> [data-zone])) { display: grid; gap: var(--wf-space-4); }
 input, select, textarea {
   font: inherit;
   width: 100%;
   min-width: 0;
   padding: var(--wf-space-2) var(--wf-space-3);
   border: 1px solid var(--wf-line);
+  border-radius: 2px;
   background: var(--wf-paper);
   color: var(--wf-ink);
 }
+/* Без accent-color браузер малює свій фірмовий синій — це вайрфрейм. */
 input[type="checkbox"],
 input[type="radio"] {
   width: auto;
   margin: 0 var(--wf-space-2) 0 0;
+  accent-color: var(--wf-ink);
   vertical-align: middle;
 }
-fieldset { border: 1px solid var(--wf-line-2); padding: var(--wf-space-3); margin: 0; }
-fieldset > label { display: block; padding: var(--wf-space-1) 0; }
+fieldset { border: 1px solid var(--wf-line-2); border-radius: 2px; padding: var(--wf-space-3); margin: 0; }
+/* Висячий відступ: другий рядок довгого пункту вирівнюється по тексту,
+   а не заповзає під чекбокс (22px = ширина контролу + його поле). */
+fieldset > label {
+  display: block;
+  padding: var(--wf-space-1) 0 var(--wf-space-1) 22px;
+  text-indent: -22px;
+}
 fieldset > br { display: none; }
-legend { font-size: 12px; color: var(--wf-ink-2); padding: var(--wf-space-1); }
-.wf-hint { font-size: 11px; line-height: 1.4; color: var(--wf-ink-3); }
+legend { font-size: var(--wf-fs-meta); color: var(--wf-ink-2); padding: 0 var(--wf-space-1); }
+.wf-hint { font-size: var(--wf-fs-micro); line-height: 1.45; color: var(--wf-ink-3); }
 
 /* 6.9. Шапка екрана і нижня навігація (усередині фрейма) */
 
+/* Шапка: жирна лише назва екрана. «Назад» — супровідне посилання, тому
+   дрібніше й без ваги, інакше воно конкурує із заголовком. */
 .wf-appbar {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: var(--wf-space-3);
-  min-height: 48px;
+  min-height: 52px;
   padding: var(--wf-space-3) var(--wf-pad);
   border-bottom: 1px solid var(--wf-line);
-  font-weight: 700;
 }
+.wf-appbar > a {
+  flex: 0 0 auto;
+  font-size: var(--wf-fs-meta);
+  color: var(--wf-ink-2);
+}
+.wf-appbar > h2 { min-width: 0; }
 
 .wf-tabbar {
   display: flex;
   border-top: 1px solid var(--wf-line);
-  font-size: 12px;
+  font-size: var(--wf-fs-meta);
   padding: 0;
 }
 .wf-tabbar li { flex: 1 1 0; }
@@ -313,7 +380,7 @@ legend { font-size: 12px; color: var(--wf-ink-2); padding: var(--wf-space-1); }
   display: grid;
   place-items: center;
   min-height: 44px;
-  padding: var(--wf-space-2);
+  padding: var(--wf-space-2) var(--wf-space-1);
   text-align: center;
   text-decoration: none;
   border-right: 1px solid var(--wf-line-2);
@@ -323,27 +390,36 @@ legend { font-size: 12px; color: var(--wf-ink-2); padding: var(--wf-space-1); }
 
 /* 6.10. Порожній стан / помилка — рамка-повідомлення, без кольору-семафора */
 
+/* Заголовок і пояснення — один абзац змісту (4px), дія відбита 16px. */
 .wf-msg {
   border: 1px solid var(--wf-line);
-  padding: var(--wf-space-4) var(--wf-space-3);
+  border-radius: 2px;
+  padding: var(--wf-space-5) var(--wf-space-3);
   text-align: center;
   overflow-wrap: anywhere;
 }
-.wf-msg > * + * { margin-top: var(--wf-space-2); }
-.wf-msg > a { display: block; }
-.wf-msg h3 { font-size: 14px; font-weight: 700; line-height: 1.4; }
-.wf-msg p { font-size: 13px; color: var(--wf-ink-2); }
+.wf-msg > * + * { margin-top: var(--wf-space-1); }
+.wf-msg > * + :is(p, div):has(> .wf-btn),
+.wf-msg > * + .wf-btn,
+.wf-msg > * + button { margin-top: var(--wf-space-4); }
+.wf-msg > :is(.wf-btn, button, div) + p { margin-top: var(--wf-space-3); }
+.wf-msg > a:not(.wf-btn) { display: block; }
+.wf-msg p { font-size: var(--wf-fs-text); color: var(--wf-ink-2); }
 .wf-msg-dead { border-style: dashed; }
 
 /* 6.11. Чат */
 
 .wf-bubble {
   border: 1px solid var(--wf-line);
-  padding: var(--wf-space-3);
+  border-radius: 2px;
+  padding: var(--wf-space-2) var(--wf-space-3);
   max-width: 80%;
-  font-size: 13px;
+  font-size: var(--wf-fs-text);
   overflow-wrap: anywhere;
 }
+/* Репліки — щільна серія, тож усередині зони вони стоять тісніше за
+   решту блоків; композитор відбито повним кроком зони. */
+.wf-bubble + .wf-bubble { margin-top: calc(var(--wf-space-2) - var(--wf-space-4)); }
 .wf-bubble-me { margin-left: auto; background: var(--wf-fill-2); }
 
 /* --- 7. Друк -------------------------------------------------------------- */

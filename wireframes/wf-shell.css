@@ -9,17 +9,22 @@
 /* --- 0. Токени службової оболонки: тільки градації сірого ---------- */
 
 :root {
-  --wf-shell-tree-width: 280px;
+  --wf-shell-tree-width: 292px;
   --wf-shell-tree-paper: #f7f7f7;
   --wf-shell-tree-hover: #ececec;
   --wf-shell-tree-current: #dedede;
   --wf-shell-tree-line: #d1d1d1;
   --wf-shell-tree-line-strong: #a8a8a8;
   --wf-shell-tree-muted: #5f5f5f;
-  --wf-shell-tabbar-space: 39px;
+  /* дорівнює висоті таб-бару: 44px посилання + 1px верхній хейрлайн */
+  --wf-shell-tabbar-space: 45px;
 }
 
-/* --- 1. Каркас сторінки та центральна вісь ----------------------------- */
+/* --- 1. Каркас сторінки та центральна вісь -----------------------------
+   Заголовок, перемикач станів і фрейм стоять однією колонкою завширшки
+   з пристрій. Колонка центрована в правій області, а текст у ній
+   вирівняний по лівому краю фрейма — так шапка сторінки належить макету,
+   а не пливе окремо посеред порожнечі. */
 
 .wf {
   grid-template-columns: var(--wf-shell-tree-width) minmax(0, 1fr);
@@ -28,23 +33,26 @@
 }
 
 .wf-screen {
+  --wf-screen-column: 390px;
   min-width: 0;
-  padding: 24px clamp(12px, 3vw, 32px) 48px;
+  padding: 32px clamp(12px, 3vw, 32px) 56px;
 }
 
-.wf-screen > h1 {
-  width: 100%;
-  text-align: center;
+.wf-screen > * {
+  width: var(--wf-screen-column);
+  max-width: 100%;
+  margin-inline: auto;
 }
 
-.wf-states {
-  width: 100%;
-  justify-content: center;
+.wf-canvas,
+.wf-index {
+  min-width: 0;
+  margin-top: var(--wf-space-5);
+  padding-top: var(--wf-space-5);
+  border-top: 1px solid var(--wf-line-2);
 }
 
 .wf-canvas {
-  width: 100%;
-  min-width: 0;
   justify-content: center;
 }
 
@@ -92,16 +100,10 @@
   border: 0;
 }
 
-.wf-tree > ul > .wf-tree-group {
-  margin-top: 22px;
-}
-
-.wf-tree > ul > .wf-tree-group:first-child {
-  margin-top: 0;
-}
-
+/* Розділ відбитий і проміжком, і хейрлайном: сім груп інакше зливаються
+   в один довгий стовпчик посилань. */
 .wf-tree .wf-tree-group {
-  padding: 0 8px 6px;
+  padding: 0 8px 8px;
   color: var(--wf-shell-tree-muted);
   font-size: 11px;
   font-weight: 700;
@@ -109,8 +111,20 @@
   letter-spacing: .065em;
 }
 
+.wf-tree > ul > .wf-tree-group {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--wf-shell-tree-line);
+}
+
+.wf-tree > ul > .wf-tree-group:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
 .wf-tree ul ul {
-  margin: 2px 0 8px 10px;
+  margin: 2px 0 10px 10px;
   padding-left: 10px;
   border-left: 1px solid var(--wf-shell-tree-line);
 }
@@ -243,7 +257,73 @@
   order: 1;
 }
 
-/* --- 4. Вузькі вікна: одна колонка без горизонтального скролу ------ */
+/* --- 4. Вітрина index.html -----------------------------------------
+   Єдина сторінка без пристрою: каталог 15 екранів не має сенсу читати
+   крізь щілину 390 px. Колонки самі добирають кількість під ширину,
+   а стани кожного екрана стоять рядком чипів, а не стовпчиком. */
+
+.wf-screen-index {
+  --wf-screen-column: 1120px;
+}
+
+.wf-index {
+  columns: 3 300px;
+  column-gap: var(--wf-space-4);
+}
+
+.wf-index [data-zone] {
+  display: block;
+  break-inside: avoid;
+  margin: 0 0 var(--wf-space-4);
+  padding: var(--wf-space-4);
+  border: 1px solid var(--wf-line-2);
+  border-radius: 2px;
+  background: var(--wf-paper);
+}
+
+.wf-index h2 {
+  margin-bottom: var(--wf-space-3);
+  padding-bottom: var(--wf-space-2);
+  border-bottom: 1px solid var(--wf-line-2);
+  font-size: var(--wf-fs-lead);
+}
+
+.wf-index [data-zone] > ul {
+  display: grid;
+  gap: var(--wf-space-3);
+}
+
+.wf-index [data-zone] > ul > li > strong {
+  display: block;
+  font-size: var(--wf-fs-text);
+  line-height: 1.35;
+}
+
+.wf-index [data-zone] ul ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wf-space-1);
+  margin-top: var(--wf-space-2);
+}
+
+.wf-index [data-zone] ul ul a {
+  display: inline-block;
+  padding: var(--wf-space-0) var(--wf-space-2);
+  border: 1px solid var(--wf-line);
+  border-radius: 2px;
+  color: var(--wf-ink-2);
+  font-size: var(--wf-fs-micro);
+  line-height: 1.55;
+  text-decoration: none;
+}
+
+.wf-index [data-zone] ul ul a:hover {
+  background: var(--wf-ink);
+  border-color: var(--wf-ink);
+  color: var(--wf-paper);
+}
+
+/* --- 5. Вузькі вікна: одна колонка без горизонтального скролу ------ */
 
 @media (max-width: 860px) {
   .wf {
@@ -266,13 +346,11 @@
   }
 }
 
-/* --- 5. Друк: скасування екранної фіксації ----------------------------- */
+/* --- 6. Друк: скасування екранної фіксації ----------------------------- */
 
 @media print {
-  .wf-screen > h1,
-  .wf-states {
-    text-align: left;
-    justify-content: flex-start;
+  .wf-screen > * {
+    margin-inline: 0;
   }
 
   .wf-canvas {
