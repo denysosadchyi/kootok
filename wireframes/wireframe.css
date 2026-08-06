@@ -20,8 +20,12 @@
   --wf-fill: #e4e4e4;      /* плейсхолдер / заглушка */
   --wf-fill-2: #f2f2f2;    /* слабкий фон */
   --wf-paper: #fff;
-  --wf-gap: 12px;
-  --wf-pad: 12px;
+  --wf-space-1: 4px;
+  --wf-space-2: 8px;
+  --wf-space-3: 12px;
+  --wf-space-4: 16px;
+  --wf-gap: var(--wf-space-3);
+  --wf-pad: var(--wf-space-4);
 }
 
 /* --- 1. База -------------------------------------------------------------- */
@@ -40,8 +44,8 @@ body {
   background: var(--wf-fill-2);
 }
 
-h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
-ul, ol { padding: 0; list-style: none; }
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
 a { color: inherit; }
 a:focus-visible,
 button:focus-visible,
@@ -49,95 +53,41 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; }
 
-/* --- 2. Каркас сторінки: панель зліва + макет справа ---------------------- */
+/* --- 2. Точки підключення оболонки ----------------------------------------- */
+
+/*
+   Геометрію цих блоків задає wf-shell.css. Тут лишилися тільки базові
+   властивості розкладки, яких shell-шар не перевизначає.
+*/
 
 .wf {
   display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
   align-items: start;
   gap: 0;
   min-height: 100vh;
 }
 
-@media (max-width: 860px) {
-  .wf { grid-template-columns: minmax(0, 1fr); }
-}
-
-/* 2.1. Дерево навігації (крок 04) */
-
-.wf-tree {
-  position: sticky;
-  top: 0;
-  align-self: stretch;
-  max-height: 100vh;
-  overflow: auto;
-  padding: 16px 14px 32px;
-  background: var(--wf-paper);
-  border-right: 1px solid var(--wf-line);
-  font-size: 13px;
-}
-
-@media (max-width: 860px) {
-  .wf-tree {
-    position: static;
-    max-height: none;
-    border-right: 0;
-    border-bottom: 1px solid var(--wf-line);
-  }
-}
-
 .wf-tree h2 {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .08em;
+  /* Часткове правило: типографіку й геометрію задає wf-shell.css. */
   text-transform: uppercase;
-  color: var(--wf-ink-3);
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--wf-line-2);
-  margin-bottom: 8px;
-}
-
-.wf-tree ul { margin: 0; }
-.wf-tree li { margin: 0; }
-
-/* вкладені рівні дерева — відступ + вертикальний хейрлайн */
-.wf-tree ul ul {
-  margin-left: 8px;
-  padding-left: 10px;
-  border-left: 1px solid var(--wf-line-2);
 }
 
 .wf-tree a,
 .wf-tree .wf-tree-node {
+  /* Часткове правило: візуальні стани й відступи задає wf-shell.css. */
   display: block;
-  padding: 3px 4px;
   text-decoration: none;
-  color: var(--wf-ink);
-  border-bottom: 1px solid transparent;
 }
 
-.wf-tree a:hover { border-bottom-color: var(--wf-line); }
-
-.wf-tree [aria-current="page"],
-.wf-tree .is-current {
-  font-weight: 700;
-  background: var(--wf-fill);
-}
-
-/* пункт-заголовок групи, не посилання */
 .wf-tree .wf-tree-group {
-  margin-top: 10px;
-  font-size: 11px;
-  letter-spacing: .06em;
+  /* Часткове правило: решта дизайну групи належить wf-shell.css. */
   text-transform: uppercase;
-  color: var(--wf-ink-3);
 }
 
 /* --- 3. Права колонка: назва, стани й макет ------------------------------- */
 
-.wf-screen { padding: 16px 20px 48px; min-width: 0; }
-
 .wf-screen > h1 {
+  /* Часткове правило: вирівнювання та ширину задає wf-shell.css. */
   font-size: 17px;
   font-weight: 700;
   line-height: 1.25;
@@ -146,6 +96,7 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
 /* 3.1. Перемикач станів */
 
 .wf-states {
+  /* Часткове правило: ширину й вирівнювання задає wf-shell.css. */
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
@@ -172,12 +123,16 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
 
 /* --- 4. Полотно макета ---------------------------------------------------- */
 
-.wf-canvas { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+.wf-canvas {
+  /* Часткове правило: ширину й центрування задає wf-shell.css. */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
 
-/* мобільний фрейм: mobile-first, ширина «як телефон» */
 .wf-device {
-  width: 390px;
-  max-width: 100%;
+  /* Часткове правило: геометрію 390 × 844 і скрол задає wf-shell.css. */
   background: var(--wf-paper);
   border: 1px solid var(--wf-ink);
   padding: 0;
@@ -189,9 +144,12 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
 /* --- 5. Семантичні зони макета ------------------------------------------- */
 
 [data-zone] {
+  display: grid;
+  gap: var(--wf-space-3);
   border: 1px dashed var(--wf-line-2);
   padding: var(--wf-pad);
   margin: 0 0 -1px;
+  overflow-wrap: anywhere;
 }
 
 /* --- 6. Примітиви вайрфрейма ---------------------------------------------- */
@@ -217,7 +175,7 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
   display: block;
   height: 12px;
   background: var(--wf-fill);
-  margin-bottom: 6px;
+  margin: 0;
 }
 .sk-title { height: 16px; width: 65%; }
 .sk-60 { width: 60%; }
@@ -226,38 +184,51 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
 /* 6.3. Структурні хелпери */
 
 .wf-row { display: flex; gap: var(--wf-gap); align-items: flex-start; }
-.wf-stack > * + * { margin-top: 8px; }
+.wf-stack { display: grid; gap: var(--wf-space-3); }
 .wf-grow { flex: 1 1 auto; min-width: 0; }
+.wf-grow > * + * { margin-top: var(--wf-space-1); }
 
 /* 6.4. Картка списку (оголошення, людина, чат) */
 
 .wf-card {
   border: 1px solid var(--wf-line);
-  padding: 10px;
+  padding: var(--wf-space-3);
   background: var(--wf-paper);
+  overflow-wrap: anywhere;
 }
-.wf-card + .wf-card { margin-top: 8px; }
-.wf-card h3 { font-size: 14px; font-weight: 700; }
+.wf-card > * + * { margin-top: var(--wf-space-2); }
+.wf-card > h3 + p { margin-top: var(--wf-space-1); }
+.wf-card > .ph + .sk { margin-top: var(--wf-space-3); }
+.wf-card > a { display: block; }
+.wf-card h3 { font-size: 14px; font-weight: 700; line-height: 1.4; }
 .wf-card p { font-size: 13px; color: var(--wf-ink-2); }
 
 /* 6.5. Метадані картки (район · ціна · дата заїзду) */
 
-.wf-facts { display: flex; flex-wrap: wrap; gap: 2px 10px; font-size: 12px; color: var(--wf-ink-2); }
+.wf-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wf-space-1) var(--wf-space-3);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--wf-ink-2);
+}
 .wf-facts li::after { content: " ·"; color: var(--wf-line); }
 .wf-facts li:last-child::after { content: ""; }
 
 /* 6.5b. Список карток: <ul> з <li><article class="wf-card"> — сусідній
    селектор .wf-card + .wf-card не спрацьовує через обгортку <li> */
 
-.wf-list > li + li { margin-top: 8px; }
+.wf-list { display: grid; gap: var(--wf-space-3); }
 
 /* 6.6. Бейдж/чип: рамка, без заливки кольором */
 
 .wf-badge,
 .wf-chip {
   display: inline-block;
-  padding: 1px 6px;
+  padding: var(--wf-space-1) var(--wf-space-2);
   font-size: 11px;
+  line-height: 1.3;
   border: 1px solid var(--wf-line);
   color: var(--wf-ink-2);
 }
@@ -265,15 +236,17 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
 
 /* перелік чипів/бейджів — <ul> з переносом рядків (li за замовчуванням
    блокові, тому кожен чип ставав би в окремий рядок) */
-.wf-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.wf-chips { display: flex; flex-wrap: wrap; gap: var(--wf-space-2); }
 
 /* 6.7. Кнопки */
 
 .wf-btn,
 button {
   font: inherit;
-  display: inline-block;
-  padding: 8px 14px;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: var(--wf-space-3);
   border: 1px solid var(--wf-ink);
   background: var(--wf-paper);
   color: var(--wf-ink);
@@ -283,34 +256,48 @@ button {
 }
 .wf-btn-primary { background: var(--wf-ink); color: var(--wf-paper); }
 .wf-btn-ghost { border-style: dashed; color: var(--wf-ink-2); }
-.wf-btn-block { display: block; width: 100%; }
-.wf-btn[aria-disabled="true"],
 button[disabled] { border-color: var(--wf-line-2); color: var(--wf-ink-3); background: var(--wf-fill-2); cursor: default; }
+
+/* Модифікатор ряда: помістіть пару дій у .wf-row — вони порівну ділять ширину. */
+.wf-row > .wf-btn {
+  flex: 1 1 0;
+  width: auto;
+}
 
 /* 6.8. Форма */
 
-.wf-field { display: block; margin-bottom: 10px; }
-.wf-field > span { display: block; font-size: 12px; color: var(--wf-ink-2); margin-bottom: 3px; }
+.wf-field { display: grid; gap: var(--wf-space-1); margin: 0; }
+.wf-field > span { display: block; font-size: 12px; color: var(--wf-ink-2); }
+form:not(:has(> [data-zone])) { display: grid; gap: var(--wf-space-3); }
 input, select, textarea {
   font: inherit;
   width: 100%;
-  padding: 7px 8px;
+  min-width: 0;
+  padding: var(--wf-space-2) var(--wf-space-3);
   border: 1px solid var(--wf-line);
   background: var(--wf-paper);
   color: var(--wf-ink);
 }
-input[type="checkbox"], input[type="radio"] { width: auto; }
-fieldset { border: 1px solid var(--wf-line-2); padding: 10px; margin: 0 0 10px; }
-legend { font-size: 12px; color: var(--wf-ink-2); padding: 0 4px; }
-.wf-hint { font-size: 11px; color: var(--wf-ink-3); }
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  margin: 0 var(--wf-space-2) 0 0;
+  vertical-align: middle;
+}
+fieldset { border: 1px solid var(--wf-line-2); padding: var(--wf-space-3); margin: 0; }
+fieldset > label { display: block; padding: var(--wf-space-1) 0; }
+fieldset > br { display: none; }
+legend { font-size: 12px; color: var(--wf-ink-2); padding: var(--wf-space-1); }
+.wf-hint { font-size: 11px; line-height: 1.4; color: var(--wf-ink-3); }
 
 /* 6.9. Шапка екрана і нижня навігація (усередині фрейма) */
 
 .wf-appbar {
   display: flex;
-  align-items: baseline;
-  gap: 10px;
-  padding: 10px var(--wf-pad);
+  align-items: center;
+  gap: var(--wf-space-3);
+  min-height: 48px;
+  padding: var(--wf-space-3) var(--wf-pad);
   border-bottom: 1px solid var(--wf-line);
   font-weight: 700;
 }
@@ -323,8 +310,10 @@ legend { font-size: 12px; color: var(--wf-ink-2); padding: 0 4px; }
 }
 .wf-tabbar li { flex: 1 1 0; }
 .wf-tabbar a {
-  display: block;
-  padding: 10px 4px;
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  padding: var(--wf-space-2);
   text-align: center;
   text-decoration: none;
   border-right: 1px solid var(--wf-line-2);
@@ -336,20 +325,24 @@ legend { font-size: 12px; color: var(--wf-ink-2); padding: 0 4px; }
 
 .wf-msg {
   border: 1px solid var(--wf-line);
-  padding: 16px 12px;
+  padding: var(--wf-space-4) var(--wf-space-3);
   text-align: center;
+  overflow-wrap: anywhere;
 }
-.wf-msg h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-.wf-msg p { font-size: 13px; color: var(--wf-ink-2); margin-bottom: 10px; }
+.wf-msg > * + * { margin-top: var(--wf-space-2); }
+.wf-msg > a { display: block; }
+.wf-msg h3 { font-size: 14px; font-weight: 700; line-height: 1.4; }
+.wf-msg p { font-size: 13px; color: var(--wf-ink-2); }
 .wf-msg-dead { border-style: dashed; }
 
 /* 6.11. Чат */
 
 .wf-bubble {
   border: 1px solid var(--wf-line);
-  padding: 8px 10px;
+  padding: var(--wf-space-3);
   max-width: 80%;
   font-size: 13px;
+  overflow-wrap: anywhere;
 }
 .wf-bubble-me { margin-left: auto; background: var(--wf-fill-2); }
 

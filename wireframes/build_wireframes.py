@@ -260,7 +260,7 @@ def content_listings(state: str) -> str:
     if state == "успіх":
         body = f'<p>Знайдено 14 варіантів</p><ul class="wf-list">{list_items(LISTINGS, listing_card)}</ul>'
     elif state == "порожньо":
-        body = '''<article class="wf-msg"><h3>Стрічка порожня: нічого не знайшлось</h3><p>Фільтри надто вузькі. Розшир їх і перевір стрічку ще раз.</p><a class="wf-btn wf-btn-primary" href="filters.html">Послабити фільтри</a></article><article class="wf-msg wf-msg-dead"><h3>Підходящих варіантів у Києві зараз немає</h3><p>Фільтри вже максимально широкі. Нових варіантів зараз немає — повернись до пошуку пізніше.</p></article>'''
+        body = '''<article class="wf-msg"><h3>Стрічка порожня: нічого не знайшлось</h3><p>Фільтри надто вузькі. Розшир їх і перевір стрічку ще раз.</p><a class="wf-btn wf-btn-primary" href="filters.html">Послабити фільтри</a></article><article class="wf-msg wf-msg-dead"><h3>Підходящих варіантів у Києві зараз немає</h3><p>Фільтри вже максимально широкі. Нових варіантів зараз немає — повернись до пошуку пізніше.</p><a class="wf-btn wf-btn-ghost" href="listings.html">Повернутися до пошуку</a></article>'''
     elif state == "помилка":
         body = '''<article class="wf-msg"><h3>Не вдалося завантажити стрічку</h3><p>Перевір з’єднання та повтори завантаження.</p><a class="wf-btn wf-btn-primary" href="listings.html">Спробувати ще</a></article>'''
     else:
@@ -287,7 +287,7 @@ def content_listing(state: str) -> str:
     summary = zone("кімната", '''<span class="ph ph-lg" role="img" aria-label="місце для фото кімнати"></span><h3>Оболонь, 8&nbsp;500&nbsp;₴/міс</h3><p>Кімната в 3-к квартирі · 2 співмешканці · заїзд з 1 вересня</p><ul class="wf-facts"><li>5 хв від метро Мінська</li><li>меблі є</li><li>з тваринами можна</li></ul><p class="wf-hint">оголошення активне · оновлено 2 дні тому</p>''')
     trust = zone("сигнали довіри", '''<div class="wf-row"><span class="ph ph-avatar" role="img" aria-label="місце для фото Олега"></span><article class="wf-grow"><h3>Олег, 29 · власник кімнати</h3><p>Спокійний побут, гостей запрошую зрідка.</p></article></div><ul class="wf-chips"><li><span class="wf-badge">телефон підтверджено</span></li><li><span class="wf-badge">Instagram підтверджено</span></li><li><span class="wf-badge">3 відгуки після заселення</span></li></ul><ul class="wf-facts"><li>охайність: важлива</li><li>гості: зрідка</li><li>тварини: є кіт</li><li>не палю</li><li>жайворонок / сова</li></ul>''')
     if state == "успіх":
-        body = '''<p>Оголошення й профіль автора вселяють довіру?</p><p><a class="wf-btn wf-btn-ghost" href="listings.html">Ні, назад у стрічку</a></p><p><a class="wf-btn wf-btn-primary wf-btn-block" href="listing-loading.html">Так, надіслати заявку</a></p>'''
+        body = '''<p>Оголошення й профіль автора вселяють довіру?</p><div class="wf-row"><a class="wf-btn wf-btn-ghost" href="listings.html">Ні, назад у стрічку</a><a class="wf-btn wf-btn-primary" href="listing-loading.html">Так, надіслати заявку</a></div>'''
     elif state == "помилка":
         body = '''<article class="wf-msg"><h3>Помилка: заявку не надіслано</h3><p>Збій не змінив оголошення. Повернись на картку й повтори дію.</p><a class="wf-btn wf-btn-primary" href="listing.html">Спробувати ще</a></article>'''
     else:
@@ -298,7 +298,7 @@ def content_listing(state: str) -> str:
 
 def content_chat(_: str) -> str:
     context = zone("контекст", '''<article class="wf-card"><h3>Оболонь, 8&nbsp;500&nbsp;₴/міс</h3><p>Заявку прийнято — чат відкрито</p><a href="listing.html">Переглянути оголошення</a></article>''')
-    conversation = zone("переписка", '''<article class="wf-bubble"><p>Привіт! Кімната ще вільна. Перед переглядом нічого переказувати не треба.</p></article><article class="wf-bubble wf-bubble-me"><p>Добре, у суботу о 15:00 мені підходить.</p></article><form><label class="wf-field" for="message"><span>Повідомлення</span><textarea id="message">Домовились, побачимось у суботу.</textarea></label><button type="button">Надіслати</button></form><article class="wf-msg"><h3>Просять передоплату до перегляду кімнати?</h3><p><a class="wf-btn wf-btn-ghost" href="report.html">Так — червоний прапорець: вимагають гроші наперед</a></p><p><a class="wf-btn wf-btn-primary wf-btn-block" href="review.html">Ні — домовились на особистий перегляд</a></p><p><a href="chats.html">Тиша або відмовки — розмова нічим не закінчилась</a></p></article><p><a href="my-listings.html">Мешканця знайдено — перейти до моїх оголошень</a></p>''')
+    conversation = zone("переписка", '''<article class="wf-bubble"><p>Привіт! Кімната ще вільна. Перед переглядом нічого переказувати не треба.</p></article><article class="wf-bubble wf-bubble-me"><p>Добре, у суботу о 15:00 мені підходить.</p></article><form><label class="wf-field" for="message"><span>Повідомлення</span><textarea id="message">Домовились, побачимось у суботу.</textarea></label><button type="button">Надіслати</button></form><article class="wf-msg"><h3>Просять передоплату до перегляду кімнати?</h3><div class="wf-row"><a class="wf-btn wf-btn-ghost" href="report.html">Так — вимагають гроші наперед</a><a class="wf-btn wf-btn-primary" href="review.html">Ні — домовились про перегляд</a></div><p><a href="chats.html">Тиша або відмовки — розмова нічим не закінчилась</a></p></article><p><a href="my-listings.html">Мешканця знайдено — перейти до моїх оголошень</a></p>''')
     return appbar("Олег · Оболонь", "chats.html") + context + conversation + tabbar("chats")
 
 
@@ -322,7 +322,7 @@ def content_people(state: str) -> str:
 def content_person(state: str) -> str:
     summary = zone("профіль", '''<div class="wf-row"><span class="ph ph-avatar" role="img" aria-label="місце для фото Марічки"></span><article class="wf-grow"><h3>Марічка, 21 · студентка КНУ</h3><p>Шукаю кімнату на Оболоні або Подолі, бюджет до 9&nbsp;000&nbsp;₴.</p></article></div><ul class="wf-facts"><li>охайність: важлива</li><li>гості: зрідка</li><li>тварини: є кіт</li><li>не палю</li><li>жайворонок / сова</li></ul><ul class="wf-chips"><li><span class="wf-badge">телефон підтверджено</span></li><li><span class="wf-badge">Instagram підтверджено</span></li></ul>''')
     if state == "успіх":
-        reviews = '''<ul class="wf-list"><li><article class="wf-card"><h3>Спокійна й відповідальна співмешканка</h3><p>Ірина, 27 · жили разом 8 місяців</p><p>Домовленостей дотримувалась, побут ділили чесно.</p></article></li><li><article class="wf-card"><h3>Завжди попереджала про гостей</h3><p>Дмитро, 25 · спільна оренда у 2025 році</p><p>Поважала тишу ввечері й завчасно узгоджувала гостей.</p></article></li><li><article class="wf-card"><h3>Добре дбала про квартиру й кота</h3><p>Олена, 30 · колишня власниця кімнати</p><p>Після виїзду залишила кімнату охайною та повернула ключі вчасно.</p></article></li></ul><p><a class="wf-btn wf-btn-primary wf-btn-block" href="person-loading.html">Запропонувати кімнату</a></p><p><a class="wf-btn wf-btn-ghost wf-btn-block" href="people.html">Не підходить — назад у стрічку</a></p>'''
+        reviews = '''<ul class="wf-list"><li><article class="wf-card"><h3>Спокійна й відповідальна співмешканка</h3><p>Ірина, 27 · жили разом 8 місяців</p><p>Домовленостей дотримувалась, побут ділили чесно.</p></article></li><li><article class="wf-card"><h3>Завжди попереджала про гостей</h3><p>Дмитро, 25 · спільна оренда у 2025 році</p><p>Поважала тишу ввечері й завчасно узгоджувала гостей.</p></article></li><li><article class="wf-card"><h3>Добре дбала про квартиру й кота</h3><p>Олена, 30 · колишня власниця кімнати</p><p>Після виїзду залишила кімнату охайною та повернула ключі вчасно.</p></article></li></ul><div class="wf-row"><a class="wf-btn wf-btn-primary" href="person-loading.html">Запропонувати кімнату</a><a class="wf-btn wf-btn-ghost" href="people.html">Не підходить</a></div>'''
     elif state == "порожньо":
         reviews = '<article class="wf-msg"><h3>Немає відгуків після заселення</h3><p>Орієнтуйся на підтверджений телефон, соцлінк і заповнені звички.</p><a class="wf-btn wf-btn-primary" href="person-loading.html">Все одно запропонувати кімнату</a> <a href="people.html">Назад у стрічку</a></article>'
     elif state == "помилка":
@@ -393,7 +393,10 @@ CONTENT = {
 def render_page(page: dict, state: str, available: set[str]) -> str:
     current = filename(page, state)
     tree = tree_html(current, available)
-    main = CONTENT[page["base"]](state)
+    # `.wf-btn` уже повноширинна; старий `.wf-btn-block` не повертаємо у HTML.
+    main = (CONTENT[page["base"]](state)
+            .replace(" wf-btn-block", "")
+            .replace(' class="wf-btn-block"', ""))
     return f'''<!doctype html>
 <html lang="uk">
 <head>
@@ -401,6 +404,7 @@ def render_page(page: dict, state: str, available: set[str]) -> str:
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Куток · {page["title"]} · {state}</title>
   <link rel="stylesheet" href="wireframe.css">
+  <link rel="stylesheet" href="wf-shell.css">
 </head>
 <body>
 <div class="wf">
@@ -430,7 +434,28 @@ def render_index(available: set[str]) -> str:
             states = ''.join(f'<li><a href="{filename(page, state)}">{state}</a></li>' for state in page["states"])
             items.append(f'<li><strong>{page["title"]}</strong><ul>{states}</ul></li>')
         groups.append(f'<section data-zone="розділ {group.lower()}"><h2>{label}</h2><ul>{"".join(items)}</ul></section>')
-    return f'''<!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Куток · Всі вайрфрейми</title><link rel="stylesheet" href="wireframe.css"></head><body><div class="wf">{tree_html(None, available)}<div class="wf-screen"><h1>Всі екрани і стани</h1><main class="wf-device">{"".join(groups)}</main></div></div></body></html>'''
+    return f'''<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Куток · Всі вайрфрейми</title>
+  <link rel="stylesheet" href="wireframe.css">
+  <link rel="stylesheet" href="wf-shell.css">
+</head>
+<body>
+<div class="wf">
+{tree_html(None, available)}
+  <div class="wf-screen">
+    <h1>Всі екрани і стани</h1>
+    <div class="wf-canvas">
+      <main class="wf-device">{"".join(groups)}</main>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+'''
 
 
 def targets_for(stage: int) -> list[dict]:
