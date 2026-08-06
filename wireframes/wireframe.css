@@ -107,10 +107,8 @@ textarea:focus-visible { outline: 2px solid var(--wf-ink); outline-offset: 1px; 
   min-height: 100vh;
 }
 
-.wf-tree h2 {
-  /* Часткове правило: типографіку й геометрію задає wf-shell.css. */
-  text-transform: uppercase;
-}
+/* Бренд-блок панелі повністю належить wf-shell.css: це єдине кольорове
+   місце сторінки, і його типографіка не має ділитися з макетом. */
 
 .wf-tree a,
 .wf-tree .wf-tree-node {

@@ -59,26 +59,30 @@ def all_filenames(page: dict) -> list[str]:
     return [filename(page, state) for state in page["states"]]
 
 
-def tree_html(current: str | None, available: set[str]) -> str:
-    index_node = '<a href="index.html">Куток · вайрфрейми</a>' if "index.html" in available else '<span>Куток · вайрфрейми</span>'
-    lines = ['<nav class="wf-tree" aria-label="Екрани вайрфрейму">', f'  <h2>{index_node}</h2>', '  <ul>']
+BRAND = ('<span class="wf-brand-mark" aria-hidden="true"></span>'
+         '<span class="wf-brand-text">'
+         '<span class="wf-brand-name">Куток</span>'
+         '<span class="wf-brand-sub">вайрфрейми</span>'
+         '</span>')
+
+
+def tree_html(current_base: str | None, available: set[str]) -> str:
+    """Дерево «розділ → екран». Стани живуть у перемикачі біля макета, не тут,
+    тому на сторінці стану активним лишається базовий екран."""
+    brand = f'<a href="index.html">{BRAND}</a>' if "index.html" in available else f'<span>{BRAND}</span>'
+    lines = ['<nav class="wf-tree" aria-label="Екрани вайрфрейму">', f'  <h2 class="wf-brand">{brand}</h2>', '  <ul>']
     for group, label in GROUPS:
         lines.append(f'    <li class="wf-tree-group">{group}. {label}</li>')
         for page in (item for item in PAGES if item["group"] == group):
             base_file = filename(page, "успіх")
-            if base_file in available:
-                lines.append(f'    <li><a class="wf-tree-node" href="{base_file}">{page["short"]}</a>')
+            if base_file not in available:
+                lines.append(f'    <li><span class="wf-tree-node wf-tree-todo">{page["short"]}</span></li>')
+                continue
+            if base_file == current_base:
+                node = f'<a class="wf-tree-node is-current" aria-current="page" href="{base_file}">'
             else:
-                lines.append(f'    <li><span class="wf-tree-node wf-tree-todo">{page["short"]}</span>')
-            lines.append('      <ul>')
-            for state in page["states"]:
-                target = filename(page, state)
-                if target in available:
-                    marker = ' class="is-current" aria-current="page"' if target == current else ''
-                    lines.append(f'        <li><a href="{target}"{marker}>{state}</a></li>')
-                else:
-                    lines.append(f'        <li><span class="wf-tree-todo">{state}</span></li>')
-            lines.extend(['      </ul>', '    </li>'])
+                node = f'<a class="wf-tree-node" href="{base_file}">'
+            lines.append(f'    <li>{node}{page["short"]}</a></li>')
     lines.extend(['  </ul>', '</nav>'])
     return "\n".join(lines)
 
@@ -399,8 +403,8 @@ CONTENT = {
 
 
 def render_page(page: dict, state: str, available: set[str]) -> str:
-    current = filename(page, state)
-    tree = tree_html(current, available)
+    # Активним у дереві завжди стоїть базовий екран: стан видно в перемикачі.
+    tree = tree_html(filename(page, "успіх"), available)
     # `.wf-btn` уже повноширинна; старий `.wf-btn-block` не повертаємо у HTML.
     main = (CONTENT[page["base"]](state)
             .replace(" wf-btn-block", "")
@@ -423,9 +427,11 @@ def render_page(page: dict, state: str, available: set[str]) -> str:
       {state_switcher(page, state)}
     </nav>
     <div class="wf-canvas">
-      <main class="wf-device">
+      <div class="wf-phone">
+        <main class="wf-device">
 {main}
-      </main>
+        </main>
+      </div>
     </div>
   </div>
 </div>

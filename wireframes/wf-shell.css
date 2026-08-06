@@ -6,20 +6,25 @@
    вміст самого макета не змінює.
    ========================================================================== */
 
-/* --- 0. Токени службової оболонки: тільки градації сірого ---------- */
+/* --- 0. Токени службової оболонки: тільки градації сірого ----------
+   Колір у цьому файлі живе виключно в §2 і оголошений на самій панелі
+   `.wf-tree`. Глобальні токени лишаються сірими, тож у фрейм колір не має
+   звідки протекти. */
 
 :root {
-  --wf-shell-tree-width: 292px;
-  --wf-shell-tree-paper: #f7f7f7;
-  --wf-shell-tree-hover: #ececec;
-  --wf-shell-tree-current: #dedede;
-  --wf-shell-tree-line: #d1d1d1;
-  --wf-shell-tree-line-strong: #a8a8a8;
-  --wf-shell-tree-muted: #5f5f5f;
+  --wf-shell-tree-width: 272px;
   /* Дорівнює висоті таб-бару. Пункт несе два рядки — заглушку іконки й
      підпис: 4 + 24 + 4 + 17 + 4 = 53 px посилання + 1 px верхній хейрлайн,
      округлено вгору до 55 px, щоб останній блок не ховався під баром. */
   --wf-shell-tabbar-space: 55px;
+  /* Корпус телефона: безель 12 px і зовнішній радіус 44 px дають радіус
+     екрана 32 px — рівно різниця, тож рамка всюди однакової товщини. */
+  --wf-phone-bezel: 12px;
+  --wf-phone-radius: 44px;
+  --wf-phone-screen-radius: 32px;
+  --wf-phone-body: #262626;
+  --wf-phone-edge: #151515;
+  --wf-phone-speaker: #4d4d4d;
 }
 
 /* --- 1. Каркас сторінки та центральна вісь -----------------------------
@@ -58,9 +63,28 @@
   justify-content: center;
 }
 
-/* --- 2. Дерево навігації --------------------------------------------- */
+/* Полотно завширшки з корпус телефона, а не з екран: заголовок і перемикач
+   лишаються на осі екрана, а корпус виступає на безель у обидва боки. */
+.wf-screen > .wf-canvas {
+  width: calc(var(--wf-screen-column) + 2 * var(--wf-phone-bezel) + 2px);
+}
+
+/* --- 2. Навігаційна панель: єдина кольорова зона сторінки -------------
+   Палітра, бренд-блок і патерн пунктів перенесені зі звітів
+   `research/research.html` і `research/personas.html`: та сама сторінка
+   проєкту, тільки зміст інший. Токени оголошені на `.wf-tree`, а не в
+   `:root`, тому кольору фізично немає за межами панелі — усередині
+   `.wf-device` ці змінні не існують. */
 
 .wf-tree {
+  --nav-surface: #fafaf9;        /* --surface-soft зі звітів */
+  --nav-tint: #f0eeec;           /* --tint-gray: ховер пункту */
+  --nav-hairline: #e5e3df;       /* --hairline: межі груп і панелі */
+  --nav-ink: #1a1a1a;            /* --ink: назва бренду, ховер-текст */
+  --nav-slate: #5d5b54;          /* --slate: звичайний пункт */
+  --nav-stone: #a4a097;          /* --stone: заголовок розділу, підпис */
+  --nav-primary: #5645d4;        /* --primary: знак і активний пункт */
+  --nav-lavender: #e6e0f5;       /* --lavender: плашка активного пункту */
   position: sticky;
   top: 0;
   align-self: start;
@@ -72,138 +96,164 @@
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
-  scrollbar-gutter: stable;
-  scrollbar-color: #b8b8b8 var(--wf-shell-tree-paper);
-  scrollbar-width: thin;
-  padding: 0 18px 40px;
-  background: var(--wf-shell-tree-paper);
-  border-right: 1px solid var(--wf-shell-tree-line);
-  font-size: 13px;
+  /* Смуга прокрутки панелі схована: вертикаль сторінки має лишатися одна. */
+  scrollbar-width: none;
+  padding: 20px 14px 40px;
+  background: var(--nav-surface);
+  border-right: 1px solid var(--nav-hairline);
+  color: var(--nav-slate);
+  font-size: 14px;
   line-height: 1.4;
 }
 
-.wf-tree h2 {
+.wf-tree::-webkit-scrollbar {
+  display: none;
+}
+
+/* 2.1. Бренд-блок. Кутовий знак «Г» зі звітів там намальований SVG-шляхом
+   `M6 28 L6 6 L28 6`; у вайрфреймах SVG заборонений, тож та сама форма
+   зібрана двома межами (`border-top` + `border-left`) порожнього квадрата. */
+
+.wf-tree .wf-brand {
   position: sticky;
   top: 0;
   z-index: 1;
-  margin: 0 -6px 14px;
-  padding: 20px 6px 12px;
-  background: var(--wf-shell-tree-paper);
-  border-bottom: 1px solid var(--wf-shell-tree-line-strong);
-  color: #2f2f2f;
+  margin: 0 0 4px;
+  padding-bottom: 14px;
+  background: var(--nav-surface);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+/* `> *` — це посилання на вітрину; на проміжних кроках, коли index.html ще
+   не існує, той самий вузол рендериться як `<span>`. */
+.wf-tree .wf-brand > * {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: var(--wf-r-sm);
+}
+
+.wf-brand-mark {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-top: 3px solid var(--nav-primary);
+  border-left: 3px solid var(--nav-primary);
+}
+
+.wf-brand-text {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.wf-brand-name {
+  color: var(--nav-ink);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
+
+.wf-brand-sub {
+  color: var(--nav-stone);
   font-size: 12px;
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: .07em;
+  font-weight: 500;
 }
 
-.wf-tree h2 a {
-  padding: 0;
-  border: 0;
-}
-
-/* Розділ відбитий і проміжком, і хейрлайном: сім груп інакше зливаються
+/* 2.2. Розділи I–VII: маленькі капітелі, як `.nav-label` у звітах.
+   Розділ відбитий і проміжком, і хейрлайном — сім груп інакше зливаються
    в один довгий стовпчик посилань. */
+
 .wf-tree .wf-tree-group {
-  padding: 0 8px 8px;
-  color: var(--wf-shell-tree-muted);
+  padding: 12px 10px 6px;
+  color: var(--nav-stone);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.35;
-  letter-spacing: .065em;
+  letter-spacing: .09em;
 }
 
 .wf-tree > ul > .wf-tree-group {
-  margin-top: 20px;
+  margin-top: 12px;
   padding-top: 16px;
-  border-top: 1px solid var(--wf-shell-tree-line);
+  border-top: 1px solid var(--nav-hairline);
 }
 
 .wf-tree > ul > .wf-tree-group:first-child {
   margin-top: 0;
-  padding-top: 0;
+  padding-top: 2px;
   border-top: 0;
 }
 
-.wf-tree ul ul {
-  margin: 2px 0 10px 10px;
-  padding-left: 10px;
-  border-left: 1px solid var(--wf-shell-tree-line);
-}
+/* 2.3. Пункти-екрани. Третього рівня немає: стани показує перемикач біля
+   макета, тож на сторінці стану активним лишається базовий екран. */
 
 .wf-tree a,
 .wf-tree .wf-tree-node {
   min-width: 0;
-  padding: 6px 8px;
-  border: 1px solid transparent;
+  padding: 6px 10px;
   border-radius: var(--wf-r-sm);
-  line-height: 1.35;
+  color: var(--nav-slate);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
   overflow-wrap: anywhere;
-}
-
-.wf-tree .wf-tree-node {
-  color: #1f1f1f;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.wf-tree ul ul a {
-  padding-block: 4px;
-  color: var(--wf-shell-tree-muted);
-  font-size: 12px;
-}
-
-/* Прибираємо старе «підкреслення» hover, щоб стани не конфліктували. */
-.wf-tree a:hover {
-  border-bottom-color: transparent;
+  transition: background .12s, color .12s;
 }
 
 .wf-tree a:hover {
-  background: var(--wf-shell-tree-hover);
-  border-color: var(--wf-shell-tree-line);
-  color: #111111;
+  background: var(--nav-tint);
+  color: var(--nav-ink);
 }
 
 .wf-tree a:focus-visible {
   position: relative;
   z-index: 2;
-  background: #ffffff;
-  outline: 2px solid #111111;
+  outline: 2px solid var(--nav-primary);
   outline-offset: 1px;
 }
 
 .wf-tree [aria-current="page"],
 .wf-tree .is-current {
-  background: var(--wf-shell-tree-current);
-  border-color: var(--wf-shell-tree-line-strong);
-  color: #111111;
-  font-weight: 700;
+  background: var(--nav-lavender);
+  color: var(--nav-primary);
+  font-weight: 600;
 }
 
-.wf-tree [aria-current="page"]:focus-visible,
-.wf-tree .is-current:focus-visible {
-  background: var(--wf-shell-tree-current);
+/* --- 3. Корпус телефона і viewport фрейма 390 × 844 -----------------
+   Мокап — частина оболонки, як і панель: він лише каже «це екран
+   смартфона» і не заходить усередину. Корпус зібраний чистим CSS —
+   безель це паддінг обгортки, динамік — псевдоелемент. */
+
+.wf-phone {
+  position: relative;
+  flex: 0 1 auto;
+  max-width: 100%;
+  padding: var(--wf-phone-bezel);
+  background: var(--wf-phone-body);
+  border: 1px solid var(--wf-phone-edge);
+  border-radius: var(--wf-phone-radius);
 }
 
-.wf-tree::-webkit-scrollbar {
-  width: 10px;
-}
-
-.wf-tree::-webkit-scrollbar-track {
-  background: var(--wf-shell-tree-paper);
-}
-
-.wf-tree::-webkit-scrollbar-thumb {
-  background: #b8b8b8;
-  border: 2px solid var(--wf-shell-tree-paper);
+/* Динамік: пігулка в безелі над екраном, 4 px заввишки з 4 px повітря
+   зверху й знизу — рівно те, що вміщає безель 12 px. */
+.wf-phone::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  width: 52px;
+  height: 4px;
+  margin-left: -26px;
+  background: var(--wf-phone-speaker);
   border-radius: var(--wf-r-pill);
 }
-
-.wf-tree::-webkit-scrollbar-thumb:hover {
-  background: #969696;
-}
-
-/* --- 3. Viewport мобільного фрейма 390 × 844 ----------------------- */
 
 .wf-device {
   position: relative;
@@ -217,7 +267,14 @@
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
-  scrollbar-width: thin;
+  /* Смуга прокрутки схована: інакше вона малюється впритул до безеля й
+     читається як частина макета. Прокрутка колесом і тачем лишається. */
+  scrollbar-width: none;
+  border-radius: var(--wf-phone-screen-radius);
+}
+
+.wf-device::-webkit-scrollbar {
+  display: none;
 }
 
 /* Flex-діти зберігають природну висоту, тож переповнення стає скролом. */
@@ -332,15 +389,16 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  /* Панель стає смугою над макетом і займає рівно свої 22 рядки: тримати
+     тут цілий екран висоти немає за що, дерево більше не має третього рівня. */
   .wf-tree {
     position: relative;
     top: auto;
-    height: 100vh;
-    height: 100dvh;
-    max-height: 100vh;
-    max-height: 100dvh;
+    height: auto;
+    max-height: none;
+    padding-bottom: 20px;
     border-right: 0;
-    border-bottom: 1px solid var(--wf-shell-tree-line);
+    border-bottom: 1px solid var(--nav-hairline);
   }
 
   .wf-screen {
@@ -359,11 +417,24 @@
     justify-content: flex-start;
   }
 
+  /* На папері корпус телефона нічого не пояснює — лишається сам екран. */
+  .wf-phone {
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .wf-phone::before {
+    display: none;
+  }
+
   .wf-device {
     display: block;
     width: 390px;
     height: auto;
     overflow: visible;
+    border-radius: 0;
   }
 
   .wf-device > .wf-appbar,
