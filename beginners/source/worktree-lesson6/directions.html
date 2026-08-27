@@ -1,0 +1,1784 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Куток — сім напрямів візуальної мови</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;600;800&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Literata:wght@500;700&amp;family=Manrope:wght@500;700;800&amp;family=Onest:wght@400;500;700&amp;family=Rubik:wght@500;700;900&amp;family=Fira+Sans+Condensed:wght@400;600;800&amp;family=Golos+Text:wght@400;500;700;900&amp;family=Sofia+Sans+Extra+Condensed:wght@600;800;900&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js" defer></script>
+  <style>
+    :root {
+      --page-ink: #f5f7fb;
+      --page-muted: #a9b0bd;
+      --page-ground: #101116;
+      --focus: #ffffff;
+      font-synthesis: none;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--page-ground);
+      color: var(--page-ink);
+      font-family: "Golos Text", system-ui, sans-serif;
+      text-rendering: optimizeLegibility;
+    }
+
+    button, a { font: inherit; }
+
+    button { cursor: pointer; }
+
+    img { display: block; max-width: 100%; }
+
+    iconify-icon {
+      display: inline-block;
+      flex: 0 0 auto;
+      font-size: 1.3em;
+      vertical-align: -0.17em;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(17rem, .75fr);
+      gap: clamp(2rem, 5vw, 6rem);
+      align-items: end;
+      padding: clamp(2rem, 5vw, 5.5rem) clamp(1.25rem, 4vw, 4.5rem);
+      border-bottom: 1px solid #30323a;
+    }
+
+    .intro h1 {
+      max-width: 13ch;
+      margin: 0;
+      font-family: "Unbounded", sans-serif;
+      font-size: clamp(2.65rem, 6.4vw, 6rem);
+      font-weight: 700;
+      line-height: .94;
+      letter-spacing: -.04em;
+      text-wrap: balance;
+    }
+
+    .intro p {
+      max-width: 52ch;
+      margin: 0;
+      color: var(--page-muted);
+      font-size: clamp(1rem, 1.4vw, 1.2rem);
+      line-height: 1.55;
+    }
+
+    .data-note {
+      display: block;
+      margin-top: 1rem;
+      color: var(--page-ink);
+      font-size: .78em;
+    }
+
+    .direction-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      /* по три смуги на ряд: шапка · демо · ризик. Subgrid вирівнює картки
+         сусідніх напрямів по одній висоті, як би не різнилися тексти вгорі.
+         Три ряди по три смуги: 7 напрямів = 3 ряди (третій неповний). */
+      grid-template-rows: repeat(3, auto auto auto);
+      align-items: stretch;
+    }
+
+    .direction-grid > .direction {
+      display: grid;
+      grid-row: span 3;
+      grid-template-rows: subgrid;
+      align-content: start;
+    }
+
+    .direction {
+      min-width: 0;
+      padding: clamp(1.25rem, 2.4vw, 2.5rem);
+      overflow: hidden;
+    }
+
+    .direction + .direction { border-left: 1px solid currentColor; }
+
+    .direction-header {
+      min-height: 23rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .direction h2 {
+      margin: 0 0 1rem;
+      font-size: clamp(2.4rem, 4vw, 4.7rem);
+      line-height: .91;
+      letter-spacing: -.035em;
+      text-wrap: balance;
+    }
+
+    .thesis {
+      max-width: 43ch;
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.48;
+    }
+
+    .specs {
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(7rem, .82fr);
+      gap: 1.25rem;
+      margin-top: auto;
+      padding-top: 2.5rem;
+    }
+
+    .specs h3 {
+      margin: 0 0 .65rem;
+      font-size: .74rem;
+      line-height: 1.2;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem .65rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .swatch {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      font-size: .68rem;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .swatch::before {
+      width: 1.05rem;
+      height: 1.05rem;
+      border: 1px solid currentColor;
+      background: var(--swatch);
+      content: "";
+    }
+
+    .type-pair {
+      margin: 0;
+      font-size: .83rem;
+      line-height: 1.4;
+    }
+
+    .demo-stage {
+      display: grid;
+      min-height: 44rem;
+      margin-top: 2rem;
+      /* картки починаються на одній лінії, а не центруються по висоті:
+         інакше вищий макет тягне сусідні вгору й відступи не збігаються */
+      align-items: start;
+      justify-items: center;
+    }
+
+    .photo-credit {
+      font-size: .67rem;
+      line-height: 1.35;
+    }
+
+    .photo-credit a { color: inherit; }
+
+    .favorite {
+      display: inline-grid;
+      width: 2.75rem;
+      height: 2.75rem;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0;
+      border: 0;
+      place-items: center;
+    }
+
+    .favorite[aria-pressed="true"] iconify-icon { transform: scale(1.08); }
+
+    .route-photo .favorite[aria-pressed="true"] {
+      background: var(--route-blue);
+      color: #ffffff;
+    }
+
+    .riso-topline .favorite[aria-pressed="true"] {
+      background: var(--riso-ink);
+      color: var(--riso-paper);
+    }
+
+    .label-photo .favorite[aria-pressed="true"] {
+      background: var(--label-red);
+      color: #ffffff;
+    }
+
+    .action-note {
+      min-height: 1.25rem;
+      margin: .75rem 0 0;
+      font-size: .73rem;
+      line-height: 1.4;
+    }
+
+    /* Напрям: Маршрут додому */
+    .direction--route {
+      --route-blue: #2457ff;
+      --route-lime: #ddf529;
+      --route-ice: #eef3ff;
+      --route-ink: #111318;
+      --focus: #111318;
+      background: var(--route-ice);
+      color: var(--route-ink);
+    }
+
+    .direction--route h2 {
+      font-family: "Unbounded", sans-serif;
+      font-weight: 700;
+    }
+
+    .direction--route .thesis,
+    .direction--route .specs { font-family: "Golos Text", sans-serif; }
+
+    .route-card {
+      width: min(100%, 26rem);
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid #111318;
+      border-radius: 14px;
+      box-shadow: 0 22px 42px rgba(17, 19, 24, .18);
+      color: var(--route-ink);
+    }
+
+    .route-photo {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--route-blue);
+    }
+
+    .route-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .route-badge {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .42rem;
+      padding: .55rem .72rem;
+      background: var(--route-lime);
+      border: 1px solid var(--route-ink);
+      border-radius: 999px;
+      color: var(--route-ink);
+      font-size: .72rem;
+      font-weight: 700;
+    }
+
+    .route-photo .favorite {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #ffffff;
+      border: 1px solid var(--route-ink);
+      border-radius: 50%;
+      color: var(--route-ink);
+    }
+
+    .route-body { padding: 1.25rem; }
+
+    .route-title-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: .9rem;
+      align-items: start;
+    }
+
+    .route-title-row h3 {
+      margin: 0;
+      font-family: "Unbounded", sans-serif;
+      font-size: 1.18rem;
+      line-height: 1.15;
+      letter-spacing: -.025em;
+      text-transform: none;
+    }
+
+    .route-price {
+      margin: 0;
+      color: var(--route-blue);
+      font-size: .88rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .route-line {
+      position: relative;
+      display: grid;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      padding-left: 2.05rem;
+    }
+
+    .route-line::before {
+      position: absolute;
+      top: .6rem;
+      bottom: .6rem;
+      left: .55rem;
+      width: 3px;
+      background: var(--route-blue);
+      content: "";
+    }
+
+    .route-stop {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.35rem minmax(0, 1fr);
+      gap: .55rem;
+      align-items: start;
+      font-size: .83rem;
+      line-height: 1.35;
+    }
+
+    .route-stop::before {
+      position: absolute;
+      top: .22rem;
+      left: -1.77rem;
+      width: .82rem;
+      height: .82rem;
+      background: #ffffff;
+      border: 3px solid var(--route-blue);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .route-stop strong { display: block; }
+
+    .route-stop span { color: #4c5261; }
+
+    .route-actions {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: .75rem;
+      align-items: center;
+    }
+
+    .route-cta {
+      min-height: 3rem;
+      padding: .75rem 1rem;
+      border: 1px solid var(--route-ink);
+      border-radius: 9px;
+      background: var(--route-blue);
+      color: #ffffff;
+      font-weight: 800;
+    }
+
+    .route-cta:hover { background: #143cd6; }
+
+    .route-credit {
+      margin: .9rem 0 0;
+      color: #596173;
+    }
+
+    /* Напрям: Живий тираж */
+    .direction--riso {
+      --riso-orange: #ff4f22;
+      --riso-violet: #5b2eff;
+      --riso-paper: #ece7ff;
+      --riso-ink: #19141c;
+      --focus: #19141c;
+      --riso-sheet: #ffffff;
+      position: relative;
+      /* Помаранчевий — акцент, не полотно: суцільне поле #ff4f22 давало 2.73
+         контрасту з дрібним текстом і ламало правило «один акцент лише для дії». */
+      background-color: var(--riso-paper);
+      color: var(--riso-ink);
+    }
+
+    .direction--riso::before {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .18;
+      background-image: radial-gradient(circle, #19141c 0 1px, transparent 1.2px);
+      background-size: 7px 7px;
+      content: "";
+    }
+
+    .direction--riso > * { position: relative; }
+
+    .direction--riso h2 {
+      max-width: 7ch;
+      font-family: "Sofia Sans Extra Condensed", sans-serif;
+      font-size: clamp(3.3rem, 6vw, 6rem);
+      font-weight: 900;
+      line-height: .76;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+    }
+
+    .direction--riso .thesis,
+    .direction--riso .specs { font-family: "Commissioner", sans-serif; }
+
+    .riso-poster {
+      position: relative;
+      width: min(100%, 25rem);
+      padding: .75rem;
+      background: var(--riso-sheet);
+      /* фіолетовий офсет-відбиток + мʼяка тінь; не ::before із z-index:-1 —
+         transform нижче створює stacking context і той фон накривав аркуш */
+      box-shadow:
+        1rem 1.1rem 0 0 var(--riso-violet),
+        0 24px 46px rgba(25, 20, 28, .27);
+      color: var(--riso-ink);
+    }
+
+
+    .riso-topline {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: .75rem;
+      font-family: "Commissioner", sans-serif;
+      font-size: .7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .riso-topline .favorite {
+      width: 2.75rem;
+      height: 2.75rem;
+      background: transparent;
+      color: var(--riso-ink);
+    }
+
+    /* Фото показуємо як фото: без grayscale, blend-mode, растру й обрізки —
+       riso-характер тримають типографіка, офсет-блок і штамп, а не ефект на знімку. */
+    /* Геометрія як була — зрізаний, «наліплений» кадр. Знято тільки
+       фільтри з самого знімка: без grayscale, blend-mode і растру. */
+    .riso-visual {
+      position: relative;
+      aspect-ratio: 5 / 4;
+      overflow: hidden;
+      background: var(--riso-paper);
+      clip-path: polygon(0 4%, 100% 0, 97% 95%, 4% 100%);
+    }
+
+    .riso-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .riso-stamp {
+      position: absolute;
+      z-index: 1;
+      right: .1rem;
+      bottom: .8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      max-width: 10rem;
+      padding: .55rem .65rem;
+      background: var(--riso-orange);
+      border: 2px solid var(--riso-ink);
+      font-family: "Commissioner", sans-serif;
+      font-size: .67rem;
+      font-weight: 800;
+      line-height: 1.1;
+      text-transform: uppercase;
+      transform: rotate(2deg);
+    }
+
+    /* Вертикальний ритм напряму: 8 / 12 / 16 / 24px, як у решті проєкту. */
+    .riso-copy { padding: 1rem .35rem 0; }
+
+    .riso-copy h3 {
+      margin: 0;
+      font-family: "Sofia Sans Extra Condensed", sans-serif;
+      font-size: clamp(2.4rem, 4vw, 3.8rem);
+      font-weight: 900;
+      line-height: .82;
+      letter-spacing: -.02em;
+      text-transform: uppercase;
+    }
+
+    .riso-place {
+      display: flex;
+      gap: .4rem;
+      align-items: center;
+      margin: 1rem 0 .5rem;
+      font-size: .86rem;
+      font-weight: 600;
+    }
+
+    .riso-price {
+      margin: 0;
+      font-family: "Sofia Sans Extra Condensed", sans-serif;
+      font-size: 2.25rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .riso-facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin: 1rem 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .riso-facts li {
+      padding: .4rem .55rem;
+      border: 1px solid var(--riso-ink);
+      border-radius: 999px;
+      background: transparent;
+      font-size: .7rem;
+      font-weight: 600;
+    }
+
+    .riso-proof {
+      display: flex;
+      gap: .55rem;
+      align-items: center;
+      margin: 1rem 0;
+      padding: .75rem 0;
+      border-top: 2px solid var(--riso-ink);
+      border-bottom: 2px solid var(--riso-ink);
+      font-size: .77rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .riso-cta {
+      width: 100%;
+      min-height: 3.25rem;
+      border: 0;
+      background: var(--riso-violet);
+      color: #ffffff;
+      font-family: "Commissioner", sans-serif;
+      font-weight: 800;
+    }
+
+    /* білий на #5b2eff = 6.40 (AA); на помаранчевому було б 3.28, тому
+       акцентна дія — синя, а помаранчевий лишається для штампа. */
+    .riso-cta:hover { background: #4a20e6; }
+
+    .riso-credit {
+      margin: .75rem 0 0;
+      color: #4a3c54;
+    }
+
+    /* Напрям: Бірка переїзду */
+    .direction--label {
+      --label-navy: #082c4c;
+      --label-red: #b52d17;
+      --label-ivory: #fafaf7;
+      --label-purple: #5d2d91;
+      --label-green: #0a6847;
+      --focus: #fafaf7;
+      background: var(--label-navy);
+      color: var(--label-ivory);
+    }
+
+    .direction--label h2 {
+      max-width: 8ch;
+      font-family: "Fira Sans Condensed", sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .direction--label .thesis,
+    .direction--label .specs { font-family: "Golos Text", sans-serif; }
+
+    .label-ticket {
+      position: relative;
+      width: min(100%, 26rem);
+      padding: 1rem;
+      background: var(--label-ivory);
+      border-radius: 12px;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, .32);
+      color: #13222e;
+    }
+
+    .label-ticket::before,
+    .label-ticket::after {
+      position: absolute;
+      top: 61%;
+      width: 1.3rem;
+      height: 1.3rem;
+      border-radius: 50%;
+      background: var(--label-navy);
+      content: "";
+    }
+
+    .label-ticket::before { left: -.65rem; }
+    .label-ticket::after { right: -.65rem; }
+
+    .label-code {
+      display: flex;
+      justify-content: space-between;
+      gap: .8rem;
+      align-items: center;
+      margin-bottom: .65rem;
+      padding-bottom: .65rem;
+      border-bottom: 1px solid #13222e;
+      font-family: "Fira Sans Condensed", sans-serif;
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .label-code span:last-child { color: var(--label-purple); }
+
+    .label-photo {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: var(--label-purple);
+    }
+
+    .label-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .label-photo .favorite {
+      position: absolute;
+      top: .7rem;
+      right: .7rem;
+      background: var(--label-ivory);
+      color: var(--label-red);
+    }
+
+    .label-verified {
+      position: absolute;
+      bottom: .75rem;
+      left: .75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .52rem .65rem;
+      background: var(--label-green);
+      color: #ffffff;
+      font-size: .69rem;
+      font-weight: 700;
+    }
+
+    .label-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 5.8rem;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px dashed #65717b;
+    }
+
+    .label-main h3 {
+      margin: 0 0 .45rem;
+      font-family: "Fira Sans Condensed", sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      line-height: .96;
+      letter-spacing: -.02em;
+      text-transform: uppercase;
+    }
+
+    .label-place {
+      display: flex;
+      gap: .35rem;
+      align-items: center;
+      margin: 0;
+      font-size: .76rem;
+      line-height: 1.35;
+    }
+
+    .label-price {
+      margin: 0;
+      color: var(--label-red);
+      font-family: "Fira Sans Condensed", sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      line-height: 1;
+      text-align: right;
+    }
+
+    .label-price small {
+      display: block;
+      margin-top: .25rem;
+      color: #4e5b65;
+      font-family: "Golos Text", sans-serif;
+      font-size: .62rem;
+      font-weight: 500;
+    }
+
+    .label-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin: 1rem 0;
+      border: 1px solid #13222e;
+    }
+
+    .label-cell {
+      min-width: 0;
+      padding: .65rem .55rem;
+    }
+
+    .label-cell + .label-cell { border-left: 1px solid #13222e; }
+
+    .label-cell iconify-icon {
+      display: block;
+      margin-bottom: .35rem;
+      color: var(--label-purple);
+      font-size: 1.45rem;
+    }
+
+    .label-cell strong,
+    .label-cell span { display: block; }
+
+    .label-cell strong {
+      font-family: "Fira Sans Condensed", sans-serif;
+      font-size: .67rem;
+      text-transform: uppercase;
+    }
+
+    .label-cell span {
+      margin-top: .15rem;
+      color: #4e5b65;
+      font-size: .64rem;
+      line-height: 1.25;
+    }
+
+    .label-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: .75rem;
+      align-items: center;
+    }
+
+    .label-cta {
+      min-height: 3.15rem;
+      padding: .72rem 1rem;
+      border: 0;
+      background: var(--label-red);
+      color: #ffffff;
+      font-weight: 800;
+    }
+
+    .label-cta:hover { background: #8f2110; }
+
+    .label-arrow {
+      font-family: "Fira Sans Condensed", sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--label-red);
+    }
+
+    .label-credit {
+      margin: .75rem 0 0;
+      color: #596570;
+    }
+
+    .direction-footer {
+      margin-top: 2.5rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid currentColor;
+      font-size: .79rem;
+      line-height: 1.45;
+    }
+
+    .direction-footer strong { display: block; margin-bottom: .25rem; }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       Напрями 4–6. Додано після трьох перших: інші системи, не відтінки.
+       Кожна пара колір/фон порахована на AA перед тим, як потрапити сюди.
+       ═══════════════════════════════════════════════════════════════ */
+
+    /* Сітка на два ряди: лівий бордер тільки всередині ряду */
+    .direction-grid > .direction:nth-child(3n+1) { border-left: 0; }
+    .direction-grid > .direction:nth-child(n+4) { border-top: 1px solid currentColor; }
+
+    /* ── Напрям 4: Нічна зміна ─────────────────────────────────── */
+    .direction--night {
+      --night-ground: #12100e;
+      --night-surface: #1b1815;
+      --night-text: #f4efe6;
+      --night-muted: #a9a093;
+      --night-amber: #ffb020;
+      --night-mint: #7be0a5;
+      --focus: #ffb020;
+      background: var(--night-ground);
+      color: var(--night-text);
+    }
+
+    .direction--night h2 {
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(2.4rem, 4.2vw, 3.6rem);
+      font-weight: 800;
+      line-height: .95;
+      letter-spacing: -.04em;
+    }
+
+    .direction--night .thesis,
+    .direction--night .specs { font-family: "Onest", sans-serif; }
+    .direction--night .thesis { color: var(--night-muted); }
+    .direction--night .direction-footer { color: var(--night-muted); }
+
+    .night-card {
+      width: min(100%, 25rem);
+      background: var(--night-surface);
+      border: 1px solid #2e2924;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .night-photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+    .night-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .night-photo .favorite {
+      position: absolute;
+      top: .7rem;
+      right: .7rem;
+      border-radius: 999px;
+      background: rgba(18, 16, 14, .78);
+      color: var(--night-text);
+    }
+
+    .night-verified {
+      position: absolute;
+      left: .75rem;
+      bottom: .75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .4rem .7rem;
+      border-radius: 999px;
+      background: var(--night-mint);
+      color: var(--night-ground);
+      font-family: "Onest", sans-serif;
+      font-size: .74rem;
+      font-weight: 700;
+    }
+
+    .night-body { padding: 1.1rem 1.15rem 1.25rem; }
+
+    .night-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+    }
+
+    .night-title-row h3 {
+      font-family: "Manrope", sans-serif;
+      font-size: 1.12rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .night-price {
+      font-family: "Manrope", sans-serif;
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: var(--night-amber);
+      white-space: nowrap;
+    }
+
+    .night-facts {
+      display: grid;
+      gap: .55rem;
+      margin: 1rem 0;
+      padding: .8rem .85rem;
+      border-radius: 12px;
+      background: #221e1a;
+      font-family: "Onest", sans-serif;
+      font-size: .82rem;
+    }
+
+    .night-facts div { display: flex; align-items: center; gap: .55rem; }
+    .night-facts iconify-icon { font-size: 1.15rem; color: var(--night-amber); flex: none; }
+    .night-facts span { color: var(--night-muted); }
+    .night-facts strong { font-weight: 600; }
+
+    .night-cta {
+      width: 100%;
+      min-height: 3.25rem;
+      border: 0;
+      border-radius: 12px;
+      background: var(--night-amber);
+      color: var(--night-ground);
+      font-family: "Manrope", sans-serif;
+      font-size: .95rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .night-cta:hover { background: #ffc24d; }
+    .direction--night .action-note { background: #221e1a; border-color: #3a332c; color: var(--night-text); }
+    .direction--night .photo-credit { color: var(--night-muted); }
+
+    /* ── Напрям 5: Аркуш ───────────────────────────────────────── */
+    .direction--sheet {
+      --sheet-paper: #f6f3ec;
+      --sheet-ink: #17140f;
+      --sheet-muted: #6b6355;
+      --sheet-rule: #d8d1c4;
+      --sheet-teal: #0f5f5c;
+      --focus: #0f5f5c;
+      background: var(--sheet-paper);
+      color: var(--sheet-ink);
+    }
+
+    .direction--sheet h2 {
+      font-family: "Literata", Georgia, serif;
+      font-size: clamp(2.3rem, 4vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -.02em;
+    }
+
+    .direction--sheet .thesis,
+    .direction--sheet .specs { font-family: "IBM Plex Sans", sans-serif; }
+    .direction--sheet .thesis { color: var(--sheet-muted); }
+    .direction--sheet .direction-footer { color: var(--sheet-muted); }
+
+    .sheet-card {
+      width: min(100%, 25rem);
+      padding-top: .4rem;
+      border-top: 2px solid var(--sheet-ink);
+      font-family: "IBM Plex Sans", sans-serif;
+    }
+
+    .sheet-kicker {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--sheet-muted);
+    }
+
+    .sheet-photo { position: relative; margin: .75rem 0 1rem; aspect-ratio: 3 / 2; overflow: hidden; }
+    .sheet-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .sheet-photo .favorite {
+      position: absolute;
+      top: .6rem;
+      right: .6rem;
+      background: var(--sheet-paper);
+      color: var(--sheet-ink);
+      border: 1px solid var(--sheet-ink);
+    }
+
+    .sheet-card h3 {
+      font-family: "Literata", Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .sheet-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      margin-top: .75rem;
+      padding-bottom: .1rem;
+      border-bottom: 2px solid var(--sheet-teal);
+      color: var(--sheet-teal);
+      font-size: .8rem;
+      font-weight: 600;
+          line-height: 1.15;
+    }
+
+    .sheet-rows { margin: 1rem 0; font-size: .84rem; }
+
+    .sheet-rows > div {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: .5rem 0;
+      border-bottom: 1px solid var(--sheet-rule);
+    }
+
+    .sheet-rows dt, .sheet-rows .k { color: var(--sheet-muted); }
+    .sheet-rows .v { font-weight: 600; text-align: right; }
+
+    .sheet-cta {
+      width: 100%;
+      min-height: 3.25rem;
+      border: 0;
+      background: var(--sheet-teal);
+      color: #ffffff;
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .sheet-cta:hover { background: #0c4f4c; }
+    .direction--sheet .action-note { background: transparent; border-color: var(--sheet-rule); color: var(--sheet-ink); }
+    .direction--sheet .photo-credit { color: var(--sheet-muted); }
+
+    /* ── Напрям 6: Стікер ──────────────────────────────────────── */
+    .direction--sticker {
+      --st-base: #ffffff;
+      --st-ink: #101010;
+      --st-muted: #5a5a5a;
+      --st-yellow: #ffe24a;
+      --st-mint: #b8f2d8;
+      --st-pink: #ffc2d1;
+      --st-green: #0b7a3b;
+      --focus: #101010;
+      background: var(--st-base);
+      color: var(--st-ink);
+    }
+
+    .direction--sticker h2 {
+      font-family: "Rubik", sans-serif;
+      font-size: clamp(2.4rem, 4.2vw, 3.5rem);
+      font-weight: 900;
+      line-height: .96;
+      letter-spacing: -.03em;
+    }
+
+    .direction--sticker .thesis,
+    .direction--sticker .specs { font-family: "Onest", sans-serif; }
+    .direction--sticker .thesis { color: var(--st-muted); }
+    .direction--sticker .direction-footer { color: var(--st-muted); }
+
+    /* Знімаємо тільки дефолтні браузерні margin у заголовків і тих абзаців,
+       чий відступ задає сусідній блок. .action-note і .photo-credit свої
+       margin зберігають — інакше ритм картки провалюється в нуль. */
+    .sheet-card h3, .sticker-card h3, .night-card h3,
+    .sheet-kicker, .night-price, .sticker-price, .sheet-verified,
+    .sticker-verified { margin-bottom: 0; }
+    .sheet-kicker, .night-price { margin-top: 0; }
+
+    .sticker-card {
+      width: min(100%, 25rem);
+      padding: .9rem;
+      background: var(--st-base);
+      border: 2px solid var(--st-ink);
+      font-family: "Onest", sans-serif;
+    }
+
+    .sticker-photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border: 2px solid var(--st-ink); }
+    .sticker-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .sticker-photo .favorite {
+      position: absolute;
+      top: .55rem;
+      right: .55rem;
+      background: var(--st-base);
+      border: 2px solid var(--st-ink);
+      color: var(--st-ink);
+    }
+
+    .sticker-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      margin: .75rem 0 1rem;
+      padding: .42rem .7rem;
+      background: var(--st-green);
+      color: #ffffff;
+      font-size: .76rem;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .sticker-card h3 {
+      font-family: "Rubik", sans-serif;
+      font-size: 1.28rem;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .sticker-price {
+      display: inline-block;
+      margin-top: .75rem;
+      padding: .3rem .6rem;
+      background: var(--st-yellow);
+      border: 2px solid var(--st-ink);
+      font-family: "Rubik", sans-serif;
+      font-weight: 700;
+      transform: rotate(-1.5deg);
+    }
+
+    .sticker-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0; }
+
+    .sticker-chips span {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .38rem .6rem;
+      border: 2px solid var(--st-ink);
+      font-size: .78rem;
+      font-weight: 600;
+    }
+
+    .sticker-chips span:nth-child(1) { background: var(--st-mint); transform: rotate(-1deg); }
+    .sticker-chips span:nth-child(2) { background: var(--st-pink); transform: rotate(1.2deg); }
+    .sticker-chips span:nth-child(3) { background: var(--st-yellow); transform: rotate(-.8deg); }
+
+    .sticker-cta {
+      width: 100%;
+      min-height: 3.25rem;
+      background: var(--st-yellow);
+      border: 2px solid var(--st-ink);
+      color: var(--st-ink);
+      font-family: "Rubik", sans-serif;
+      font-size: .95rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 5px 5px 0 0 var(--st-ink);
+    }
+
+    .sticker-cta:hover { box-shadow: 2px 2px 0 0 var(--st-ink); }
+    .direction--sticker .action-note { background: var(--st-mint); border-color: var(--st-ink); color: var(--st-ink); }
+    .direction--sticker .photo-credit { color: var(--st-muted); }
+
+    /* ── Напрям 7: Денна зміна ─────────────────────────────────
+       Не новий концепт, а «Нічна зміна» в світлій темі: та сама сітка
+       картки, ті самі Manrope + Onest, ті самі Solar bold-duotone, та сама
+       роль бурштину. Змінюється лише полотно — і разом з ним правила
+       контрасту. Кожна пара порахована за WCAG 2.x (формула відносної
+       яскравості), значення нижче — фактичні, не на око.
+
+       Свідомо НЕ кремове полотно з теракотою (анти-референс проєкту):
+       ground — нейтральний холодний сірий, тепло дає тільки акцент.
+
+       #16181C ink   на #ECEEF1 ground   = 15.29:1  (AAA, дрібний текст)
+       #16181C ink   на #FFFFFF surface  = 17.77:1  (AAA)
+       #16181C ink   на #F4F5F7 facts    = 16.29:1  (AAA)
+       #575D66 muted на #ECEEF1 ground   =  5.71:1  (AA, дрібний текст)
+       #575D66 muted на #FFFFFF surface  =  6.64:1  (AA)
+       #575D66 muted на #F4F5F7 facts    =  6.09:1  (AA)
+       #16181C ink   на #FFB020 amber    =  9.72:1  (AAA) — бурштин лишається
+                     заливкою під темним ink-текстом, як у «Нічній зміні»
+       #16181C ink   на #E69A00 (hover)  =  7.61:1  (AAA)
+       #7A4B00 dark-amber на #FFFFFF     =  7.41:1  (AA) — ціна та іконки:
+                     сам #FFB020 як текст на білому дав би 1.83:1, тобто
+                     провал, тому для тексту бурштин затемнено до #7A4B00
+       #7A4B00 dark-amber на #F4F5F7     =  6.79:1  (AA, і >3:1 для іконок)
+       #FFFFFF       на #0E6B3D green    =  6.58:1  (AA) — бейдж перевірки
+       #16181C focus на #ECEEF1          = 15.29:1
+
+       МЕЖІ. Декоративні межі свідомо тримаються біля фону — вони відділяють
+       площини, а не малюють сітку поверх макета:
+       #D5D9DF рамка картки  на #FFFFFF  =  1.42:1  (декоративна)
+       #D5D9DF рамка картки  на #ECEEF1  =  1.22:1  (декоративна)
+       #DCDFE4 межа фактів   на #F4F5F7  =  1.22:1  (декоративна)
+       #DCDFE4 межа фактів   на #FFFFFF  =  1.34:1  (декоративна)
+       Картка лишається окремою площиною не рамкою, а різницею полотна й
+       поверхні (#ECEEF1 → #FFFFFF, 1.16:1) плюс дуже мʼякою тінню.
+
+       ВИНЯТОК — межі інтерактивних контролів. Для них вимога ≥3:1 чинна,
+       бо саме межа робить контрол упізнаваним і клікабельним:
+       #16181C рамка CTA     на #FFFFFF  = 17.77:1  (кнопка «Надіслати заявку»:
+                     заливка #FFB020 дає до білої картки лише 1.83:1, тож межу
+                     контрола тримає ink-рамка)
+       #16181C рамка «серденька» на фото = 17.77:1 до білої підкладки кнопки
+                     (кнопка «Зберегти оголошення» — теж контрол)
+       #16181C focus-ring    на #ECEEF1  = 15.29:1
+       ─────────────────────────────────────────────────────────── */
+    .direction--day {
+      --day-ground: #eceef1;
+      --day-surface: #ffffff;
+      --day-ink: #16181c;
+      --day-muted: #575d66;
+      --day-amber: #ffb020;      /* тільки заливка */
+      --day-amber-ink: #7a4b00;  /* той самий бурштин, затемнений під текст */
+      --day-green: #0e6b3d;
+      --day-line: #d5d9df;       /* декоративна межа, 1.42:1 до поверхні */
+      --day-line-soft: #dcdfe4;  /* декоративна межа всередині картки */
+      --day-facts: #f4f5f7;
+      --focus: #16181c;
+      background: var(--day-ground);
+      color: var(--day-ink);
+    }
+
+    .direction--day h2 {
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(2.4rem, 4.2vw, 3.6rem);
+      font-weight: 800;
+      line-height: .95;
+      letter-spacing: -.04em;
+    }
+
+    .direction--day .thesis,
+    .direction--day .specs { font-family: "Onest", sans-serif; }
+    .direction--day .thesis { color: var(--day-muted); }
+    .direction--day .direction-footer { color: var(--day-muted); }
+
+    .day-card {
+      width: min(100%, 25rem);
+      background: var(--day-surface);
+      /* межа мʼяка; окремою площиною картку робить різниця полотна й
+         поверхні (#ECEEF1 → #FFFFFF) і дуже розсіяна тінь, а не рамка */
+      border: 1px solid var(--day-line);
+      border-radius: 18px;
+      box-shadow: 0 10px 26px rgba(22, 24, 28, .07);
+      overflow: hidden;
+    }
+
+    .day-card h3 { margin-bottom: 0; }
+
+    .day-photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+    .day-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .day-photo .favorite {
+      position: absolute;
+      top: .7rem;
+      right: .7rem;
+      /* ВИНЯТОК: межа інтерактивного контролю лишається ≥3:1 (17.77:1) —
+         кнопка лежить на непередбачуваному фото, без неї межа контрола зникає */
+      border: 1px solid var(--day-ink);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .92);
+      color: var(--day-ink);
+    }
+
+    .day-photo .favorite[aria-pressed="true"] {
+      background: var(--day-amber);
+      color: var(--day-ink);
+    }
+
+    .day-verified {
+      position: absolute;
+      left: .75rem;
+      bottom: .75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .4rem .7rem;
+      border-radius: 999px;
+      background: var(--day-green);
+      color: #ffffff;
+      font-family: "Onest", sans-serif;
+      font-size: .74rem;
+      font-weight: 700;
+    }
+
+    .day-body { padding: 1.1rem 1.15rem 1.25rem; }
+
+    .day-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+    }
+
+    .day-title-row h3 {
+      font-family: "Manrope", sans-serif;
+      font-size: 1.12rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .day-price {
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: var(--day-amber-ink);
+      white-space: nowrap;
+    }
+
+    .day-facts {
+      display: grid;
+      gap: .55rem;
+      margin: 1rem 0;
+      padding: .8rem .85rem;
+      /* декоративна межа: лише відділяє панель фактів від поверхні картки */
+      border: 1px solid var(--day-line-soft);
+      border-radius: 12px;
+      background: var(--day-facts);
+      font-family: "Onest", sans-serif;
+      font-size: .82rem;
+    }
+
+    .day-facts div { display: flex; align-items: center; gap: .55rem; }
+    .day-facts iconify-icon { font-size: 1.15rem; color: var(--day-amber-ink); flex: none; }
+    .day-facts span { color: var(--day-muted); }
+    .day-facts strong { font-weight: 600; }
+
+    .day-cta {
+      width: 100%;
+      min-height: 3.25rem;
+      /* ВИНЯТОК: межа інтерактивного контролю. На світлому полотні заливка
+         #FFB020 сама по собі дає лише 1.83:1 до білої картки — межу кнопки
+         тримає ink-рамка (17.77:1), пом'якшенню вона не підлягає */
+      border: 1px solid var(--day-ink);
+      border-radius: 12px;
+      background: var(--day-amber);
+      color: var(--day-ink);
+      font-family: "Manrope", sans-serif;
+      font-size: .95rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .day-cta:hover { background: #e69a00; }
+    .direction--day .action-note { background: var(--day-facts); border-color: var(--day-line-soft); color: var(--day-ink); }
+    .direction--day .photo-credit { color: var(--day-muted); }
+
+    @media (max-width: 1180px) {
+      .direction-grid { grid-template-columns: 1fr; }
+      .direction + .direction {
+        border-top: 1px solid currentColor;
+        border-left: 0;
+      }
+      .direction {
+        display: grid;
+        grid-template-columns: minmax(17rem, .78fr) minmax(20rem, 1.22fr);
+        gap: clamp(2rem, 7vw, 6rem);
+        align-items: start;
+      }
+      .direction-header { min-height: 42rem; }
+      .demo-stage { margin-top: 0; }
+      .direction-footer { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 720px) {
+      .intro { grid-template-columns: 1fr; }
+      .direction { display: block; }
+      .direction-header { min-height: 0; }
+      .specs { margin-top: 2rem; }
+      .demo-stage { min-height: 0; margin-top: 2.5rem; padding-bottom: 1rem; }
+      .riso-poster { transform: none; }
+      .direction--riso h2 { max-width: 8ch; }
+    }
+
+    @media (max-width: 420px) {
+      .specs { grid-template-columns: 1fr; }
+      .route-title-row, .label-main { grid-template-columns: 1fr; }
+      .route-price, .label-price { text-align: left; }
+      .label-grid { grid-template-columns: 1fr; }
+      .label-cell + .label-cell { border-top: 1px solid #13222e; border-left: 0; }
+      .label-ticket::before, .label-ticket::after { top: 53%; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .favorite iconify-icon,
+      .route-cta,
+      .riso-cta,
+      .label-cta { transition: transform 180ms cubic-bezier(.22, 1, .36, 1), background-color 180ms ease-out; }
+      .favorite:hover iconify-icon { transform: scale(1.1) rotate(-7deg); }
+      .route-cta:active,
+      .riso-cta:active,
+      .label-cta:active { transform: translateY(1px); }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    THESIS: Three non-reflexive visual languages test trust, humanity and scanability without cream/terracotta property-portal shorthand.
+    OWN-WORLD: Route blue and linework; fluorescent riso overprint; official moving label with carbon-coded fields.
+    STORY: Compare the same verified Kyiv room, see how each system carries photo, proof, facts and one safe next action.
+    FIRST VIEWPORT: A dark title field leads into three equal-width color worlds, each with palette, type pair and a live listing card.
+    FORM: Direction comparison board; concept seed eed333f4 informed the moving-label lane. No direction is canon before the user chooses.
+    STATUS: Selection artifact only; DESIGN.md intentionally waits for the next lesson.
+  -->
+
+  <header class="intro">
+    <h1>Сім мов для Кутка</h1>
+    <p>Одна й та сама кімната, сім різних систем. Порівнюй не настрій, а те, як кожна мова несе фото, довіру, побутові факти й одну наступну дію.<span class="data-note">Фото реальне з Unsplash; Оксана, оголошення та статуси перевірки — демонстраційні дані концепту.</span></p>
+  </header>
+
+  <main class="direction-grid">
+    <section class="direction direction--route" aria-labelledby="route-title">
+      <div class="direction-header">
+        <h2 id="route-title">Маршрут додому</h2>
+        <p class="thesis">Куток як міська навігація: не обіцяє магічний метч, а показує зрозумілий маршрут від району до перевіреної людини. Спокій тут народжується з порядку й видимого прогресу.</p>
+        <div class="specs">
+          <div>
+            <h3>Палітра · full palette</h3>
+            <ul class="palette" aria-label="Палітра напряму Маршрут додому">
+              <li class="swatch" style="--swatch:#2457ff">#2457FF</li>
+              <li class="swatch" style="--swatch:#ddf529">#DDF529</li>
+              <li class="swatch" style="--swatch:#eef3ff">#EEF3FF</li>
+              <li class="swatch" style="--swatch:#111318">#111318</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Шрифти</h3>
+            <p class="type-pair"><strong>Unbounded</strong><br>+ Golos Text</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-stage">
+        <article class="route-card" aria-labelledby="route-listing-title">
+          <div class="route-photo">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&amp;fit=crop&amp;w=1200&amp;q=82" alt="Світлий житловий простір зі столом, кріслом і великим вікном">
+            <button class="favorite" type="button" aria-label="Зберегти оголошення" aria-pressed="false"><iconify-icon icon="solar:heart-linear" aria-hidden="true"></iconify-icon></button>
+            <span class="route-badge"><iconify-icon icon="solar:shield-check-linear" aria-hidden="true"></iconify-icon> Людину перевірено</span>
+          </div>
+          <div class="route-body">
+            <div class="route-title-row">
+              <h3 id="route-listing-title">Кімната біля Шулявської</h3>
+              <p class="route-price">7 200 грн</p>
+            </div>
+            <div class="route-line" aria-label="Ключові факти оголошення">
+              <div class="route-stop">
+                <iconify-icon icon="solar:map-point-linear" aria-hidden="true"></iconify-icon>
+                <div><strong>Солом’янський</strong><span>8 хв до метро</span></div>
+              </div>
+              <div class="route-stop">
+                <iconify-icon icon="solar:cat-linear" aria-hidden="true"></iconify-icon>
+                <div><strong>З котом можна</strong><span>У квартирі вже живе один</span></div>
+              </div>
+              <div class="route-stop">
+                <iconify-icon icon="solar:shield-check-linear" aria-hidden="true"></iconify-icon>
+                <div><strong>Оксана · приватне оголошення</strong><span>Телефон та Instagram перевірено</span></div>
+              </div>
+            </div>
+            <div class="route-actions">
+              <button class="route-cta" type="button" data-action="Заявку для Оксани підготовлено">Надіслати заявку</button>
+              <iconify-icon icon="solar:map-point-linear" aria-label="Іконки Solar Linear"></iconify-icon>
+            </div>
+            <p class="action-note" aria-live="polite"></p>
+            <p class="photo-credit route-credit">Фото: <a href="https://unsplash.com/photos/X5BWooeO4Cw" target="_blank" rel="noreferrer">Hutomo Abrianto / Unsplash</a></p>
+          </div>
+        </article>
+      </div>
+
+      <footer class="direction-footer"><strong>Ризик</strong>Може здатися надто службовим, якщо в профілях не лишити достатньо живого голосу й великих фото людей.</footer>
+    </section>
+
+    <section class="direction direction--riso" aria-labelledby="riso-title">
+      <div class="direction-header">
+        <h2 id="riso-title">Живий тираж</h2>
+        <p class="thesis">Куток як студентський самвидав, але зі структурою: енергія Telegram-посту лишається, а брехню й хаос прибирають фіксовані поля. Це не «мило» — це своє, голосне й людське.</p>
+        <div class="specs">
+          <div>
+            <h3>Палітра · drenched</h3>
+            <ul class="palette" aria-label="Палітра напряму Живий тираж">
+              <li class="swatch" style="--swatch:#ff4f22">#FF4F22</li>
+              <li class="swatch" style="--swatch:#5b2eff">#5B2EFF</li>
+              <li class="swatch" style="--swatch:#ece7ff">#ECE7FF</li>
+              <li class="swatch" style="--swatch:#19141c">#19141C</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Шрифти</h3>
+            <p class="type-pair"><strong>Sofia Sans Extra Condensed</strong><br>+ Commissioner</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-stage">
+        <article class="riso-poster" aria-labelledby="riso-listing-title">
+          <div class="riso-topline">
+            <span>Київ · оновлено сьогодні</span>
+            <button class="favorite" type="button" aria-label="Зберегти оголошення" aria-pressed="false"><iconify-icon icon="solar:heart-bold" aria-hidden="true"></iconify-icon></button>
+          </div>
+          <div class="riso-visual">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&amp;fit=crop&amp;w=1200&amp;q=82" alt="Світлий житловий простір зі столом, кріслом і великим вікном">
+            <span class="riso-stamp"><iconify-icon icon="solar:shield-check-bold" aria-hidden="true"></iconify-icon> Не рієлторка · перевірено</span>
+          </div>
+          <div class="riso-copy">
+            <h3 id="riso-listing-title">Є кімната. Шукаю свою людину.</h3>
+            <p class="riso-place"><iconify-icon icon="solar:map-point-bold" aria-hidden="true"></iconify-icon> Солом’янка · метро Шулявська</p>
+            <p class="riso-price">7 200 грн / місяць</p>
+            <ul class="riso-facts" aria-label="Побутові умови">
+              <li>без куріння</li>
+              <li>гості рідко</li>
+              <li>сова</li>
+              <li>з котом можна</li>
+            </ul>
+            <p class="riso-proof"><iconify-icon icon="solar:cat-bold" aria-hidden="true"></iconify-icon> Оксана працює з дому, любить тишу ввечері й відповідає цього тижня.</p>
+            <button class="riso-cta" type="button" data-action="Чернетку заявки відкрито — номер лишається приватним">Написати Оксані без обміну номером</button>
+            <p class="action-note" aria-live="polite"></p>
+            <p class="photo-credit riso-credit">Фото: <a href="https://unsplash.com/photos/X5BWooeO4Cw" target="_blank" rel="noreferrer">Hutomo Abrianto / Unsplash</a></p>
+          </div>
+        </article>
+      </div>
+
+      <footer class="direction-footer"><strong>Ризик</strong>Найхарактерніший напрям: потребує суворої дисципліни, щоб енергія не зруйнувала сканування довгих стрічок і форм.</footer>
+    </section>
+
+    <section class="direction direction--label" aria-labelledby="label-title">
+      <div class="direction-header">
+        <h2 id="label-title">Бірка переїзду</h2>
+        <p class="thesis">Куток як чесна маршрутна бірка: кожен факт має своє поле, кожна перевірка — штамп, кожен контакт — контрольований перехід. Відчуття не «нерухомість», а конкретний переїзд.</p>
+        <div class="specs">
+          <div>
+            <h3>Палітра · full palette</h3>
+            <ul class="palette" aria-label="Палітра напряму Бірка переїзду">
+              <li class="swatch" style="--swatch:#082c4c">#082C4C</li>
+              <li class="swatch" style="--swatch:#b52d17">#B52D17</li>
+              <li class="swatch" style="--swatch:#fafaf7">#FAFAF7</li>
+              <li class="swatch" style="--swatch:#5d2d91">#5D2D91</li>
+              <li class="swatch" style="--swatch:#0a6847">#0A6847</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Шрифти</h3>
+            <p class="type-pair"><strong>Fira Sans Condensed</strong><br>+ Golos Text</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-stage">
+        <article class="label-ticket" aria-labelledby="label-listing-title">
+          <div class="label-code"><span>KUTOK / KYIV</span><span>ROOM 07200</span></div>
+          <div class="label-photo">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&amp;fit=crop&amp;w=1200&amp;q=82" alt="Світлий житловий простір зі столом, кріслом і великим вікном">
+            <button class="favorite" type="button" aria-label="Зберегти оголошення" aria-pressed="false"><iconify-icon icon="solar:heart-bold-duotone" aria-hidden="true"></iconify-icon></button>
+            <span class="label-verified"><iconify-icon icon="solar:shield-check-bold-duotone" aria-hidden="true"></iconify-icon> Телефон + Instagram</span>
+          </div>
+          <div class="label-main">
+            <div>
+              <h3 id="label-listing-title">Кімната в Солом’янському</h3>
+              <p class="label-place"><iconify-icon icon="solar:map-point-bold-duotone" aria-hidden="true"></iconify-icon> Шулявська · заїзд із 15 серпня</p>
+            </div>
+            <p class="label-price">7 200 ₴<small>на місяць</small></p>
+          </div>
+          <div class="label-grid" aria-label="Ключові факти">
+            <div class="label-cell"><iconify-icon icon="solar:cat-bold-duotone" aria-hidden="true"></iconify-icon><strong>Тварини</strong><span>Можна з котом</span></div>
+            <div class="label-cell"><iconify-icon icon="solar:shield-check-bold-duotone" aria-hidden="true"></iconify-icon><strong>Авторка</strong><span>Оксана · не рієлторка</span></div>
+            <div class="label-cell"><iconify-icon icon="solar:map-point-bold-duotone" aria-hidden="true"></iconify-icon><strong>Статус</strong><span>Оновлено сьогодні</span></div>
+          </div>
+          <div class="label-actions">
+            <button class="label-cta" type="button" data-action="Заявку сформовано; чат відкриється після згоди">Надіслати заявку</button>
+            <span class="label-arrow" aria-hidden="true">KUT → OKS</span>
+          </div>
+          <p class="action-note" aria-live="polite"></p>
+          <p class="photo-credit label-credit">Фото: <a href="https://unsplash.com/photos/X5BWooeO4Cw" target="_blank" rel="noreferrer">Hutomo Abrianto / Unsplash</a></p>
+        </article>
+      </div>
+
+      <footer class="direction-footer"><strong>Ризик</strong>Коди й штампи легко можуть стати холодними; система працює лише якщо фото людини та її власні слова лишаються не меншими за службові дані.</footer>
+    </section>
+
+    <section class="direction direction--night" aria-labelledby="night-title">
+      <div class="direction-header">
+        <h2 id="night-title">Нічна зміна</h2>
+        <p class="thesis">Куток як вечірній екран: стрічку гортають об 11-й з телефона в ліжку. Темне полотно прибирає «ярмарок оголошень», світиться тільки фото кімнати й одна дія.</p>
+        <div class="specs">
+          <div>
+            <h3>Палітра · dark-first</h3>
+            <ul class="palette" aria-label="Палітра напряму Нічна зміна">
+              <li class="swatch" style="--swatch:#12100e">#12100E</li>
+              <li class="swatch" style="--swatch:#ffb020">#FFB020</li>
+              <li class="swatch" style="--swatch:#7be0a5">#7BE0A5</li>
+              <li class="swatch" style="--swatch:#f4efe6">#F4EFE6</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Шрифти</h3>
+            <p class="type-pair"><strong>Manrope</strong><br>+ Onest</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-stage">
+        <article class="night-card" aria-labelledby="night-listing-title">
+          <div class="night-photo">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&amp;fit=crop&amp;w=1200&amp;q=82" alt="Світлий житловий простір зі столом, кріслом і великим вікном">
+            <button class="favorite" type="button" aria-label="Зберегти оголошення" aria-pressed="false"><iconify-icon icon="solar:heart-bold-duotone" aria-hidden="true"></iconify-icon></button>
+            <span class="night-verified"><iconify-icon icon="solar:shield-check-bold-duotone" aria-hidden="true"></iconify-icon> Людину перевірено</span>
+          </div>
+          <div class="night-body">
+            <div class="night-title-row">
+              <h3 id="night-listing-title">Кімната біля Шулявської</h3>
+              <p class="night-price">7 200 грн</p>
+            </div>
+            <div class="night-facts" aria-label="Ключові факти оголошення">
+              <div><iconify-icon icon="solar:map-point-bold-duotone" aria-hidden="true"></iconify-icon><div><strong>Солом’янський</strong> · <span>8 хв до метро</span></div></div>
+              <div><iconify-icon icon="solar:cat-bold-duotone" aria-hidden="true"></iconify-icon><div><strong>З котом можна</strong> · <span>у квартирі вже живе один</span></div></div>
+              <div><iconify-icon icon="solar:moon-stars-bold-duotone" aria-hidden="true"></iconify-icon><div><strong>Сова</strong> · <span>тиша після 23:00</span></div></div>
+            </div>
+            <button class="night-cta" type="button" data-action="Заявку для Оксани підготовлено">Надіслати заявку</button>
+            <p class="action-note" aria-live="polite"></p>
+            <p class="photo-credit">Фото: <a href="https://unsplash.com/photos/X5BWooeO4Cw" target="_blank" rel="noreferrer">Hutomo Abrianto / Unsplash</a></p>
+          </div>
+        </article>
+      </div>
+
+      <footer class="direction-footer"><strong>Ризик</strong>Темна мова легко зчитується як «нічний нічний клуб» або як фінтех; тепло має нести фото людини й слова, інакше екран стає холодним.</footer>
+    </section>
+
+    <section class="direction direction--sheet" aria-labelledby="sheet-title">
+      <div class="direction-header">
+        <h2 id="sheet-title">Аркуш</h2>
+        <p class="thesis">Куток як опис, а не як вітрина: серифний заголовок, лінійки замість карток, майже без кольору. Довіру тут дає повнота полів — усе названо, нічого не сховано за красивою обгорткою.</p>
+        <div class="specs">
+          <div>
+            <h3>Палітра · майже без кольору</h3>
+            <ul class="palette" aria-label="Палітра напряму Аркуш">
+              <li class="swatch" style="--swatch:#f6f3ec">#F6F3EC</li>
+              <li class="swatch" style="--swatch:#17140f">#17140F</li>
+              <li class="swatch" style="--swatch:#0f5f5c">#0F5F5C</li>
+              <li class="swatch" style="--swatch:#d8d1c4">#D8D1C4</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Шрифти</h3>
+            <p class="type-pair"><strong>Literata</strong><br>+ IBM Plex Sans</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-stage">
+        <article class="sheet-card" aria-labelledby="sheet-listing-title">
+          <p class="sheet-kicker"><span>Оголошення · Київ</span><span>Оновлено сьогодні</span></p>
+          <div class="sheet-photo">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&amp;fit=crop&amp;w=1200&amp;q=82" alt="Світлий житловий простір зі столом, кріслом і великим вікном">
+            <button class="favorite" type="button" aria-label="Зберегти оголошення" aria-pressed="false"><iconify-icon icon="solar:heart-line-duotone" aria-hidden="true"></iconify-icon></button>
+          </div>
+          <h3 id="sheet-listing-title">Кімната біля Шулявської</h3>
+          <p class="sheet-verified"><iconify-icon icon="solar:shield-check-line-duotone" aria-hidden="true"></iconify-icon> Телефон та Instagram перевірено</p>
+          <div class="sheet-rows">
+            <div><span class="k">Ціна</span><span class="v">7 200 грн / місяць</span></div>
+            <div><span class="k">Район</span><span class="v">Солом’янський, 8 хв до метро</span></div>
+            <div><span class="k">Заїзд</span><span class="v">з 15 серпня</span></div>
+            <div><span class="k">Побут</span><span class="v">без куріння · гості рідко · кіт</span></div>
+            <div><span class="k">Авторка</span><span class="v">Оксана, приватне оголошення</span></div>
+          </div>
+          <button class="sheet-cta" type="button" data-action="Заявку для Оксани підготовлено">Надіслати заявку</button>
+          <p class="action-note" aria-live="polite"></p>
+          <p class="photo-credit">Фото: <a href="https://unsplash.com/photos/X5BWooeO4Cw" target="_blank" rel="noreferrer">Hutomo Abrianto / Unsplash</a></p>
+        </article>
+      </div>
+
+      <footer class="direction-footer"><strong>Ризик</strong>Мова документа заспокоює, але може здатися сухою й «дорослою» для 18–25: без великих фото людей екран легко стає схожим на договір оренди.</footer>
+    </section>
+
+    <section class="direction direction--sticker" aria-labelledby="sticker-title">
+      <div class="direction-header">
+        <h2 id="sticker-title">Стікер</h2>
+        <p class="thesis">Куток як дошка оголошень вишу, тільки чесна: кожен факт — окремий наліпок, який не можна написати «між іншим». Впізнавана мова каналу КНУсусіди, але з фіксованими полями замість вільного тексту.</p>
+        <div class="specs">
+          <div>
+            <h3>Палітра · наліпки</h3>
+            <ul class="palette" aria-label="Палітра напряму Стікер">
+              <li class="swatch" style="--swatch:#ffffff">#FFFFFF</li>
+              <li class="swatch" style="--swatch:#ffe24a">#FFE24A</li>
+              <li class="swatch" style="--swatch:#b8f2d8">#B8F2D8</li>
+              <li class="swatch" style="--swatch:#0b7a3b">#0B7A3B</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Шрифти</h3>
+            <p class="type-pair"><strong>Rubik</strong><br>+ Onest</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-stage">
+        <article class="sticker-card" aria-labelledby="sticker-listing-title">
+          <div class="sticker-photo">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&amp;fit=crop&amp;w=1200&amp;q=82" alt="Світлий житловий простір зі столом, кріслом і великим вікном">
+            <button class="favorite" type="button" aria-label="Зберегти оголошення" aria-pressed="false"><iconify-icon icon="solar:heart-bold" aria-hidden="true"></iconify-icon></button>
+          </div>
+          <p class="sticker-verified"><iconify-icon icon="solar:shield-check-bold" aria-hidden="true"></iconify-icon> Не рієлторка · перевірено</p>
+          <h3 id="sticker-listing-title">Кімната біля Шулявської</h3>
+          <p class="sticker-price">7 200 грн / місяць</p>
+          <div class="sticker-chips" aria-label="Ключові факти оголошення">
+            <span><iconify-icon icon="solar:map-point-bold" aria-hidden="true"></iconify-icon> Солом’янський</span>
+            <span><iconify-icon icon="solar:cat-bold" aria-hidden="true"></iconify-icon> З котом можна</span>
+            <span><iconify-icon icon="solar:calendar-bold" aria-hidden="true"></iconify-icon> Заїзд з 15 серпня</span>
+          </div>
+          <button class="sticker-cta" type="button" data-action="Заявку для Оксани підготовлено">Надіслати заявку</button>
+          <p class="action-note" aria-live="polite"></p>
+          <p class="photo-credit">Фото: <a href="https://unsplash.com/photos/X5BWooeO4Cw" target="_blank" rel="noreferrer">Hutomo Abrianto / Unsplash</a></p>
+        </article>
+      </div>
+
+      <footer class="direction-footer"><strong>Ризик</strong>Наліпки легко з'їжджають у дитячість і в «розпродаж»; кількість кольорових полів на екран доведеться жорстко обмежити, інакше зникає спокій.</footer>
+    </section>
+
+    <section class="direction direction--day" aria-labelledby="day-title">
+      <div class="direction-header">
+        <h2 id="day-title">Денна зміна</h2>
+        <p class="thesis">Та сама система, що й «Нічна зміна», але вдень: у метро, на парі, під сонцем на екрані. Порядок блоків, сітка картки й роль бурштину не змінюються — змінюється полотно, і разом з ним усі пороги контрасту.</p>
+        <div class="specs">
+          <div>
+            <h3>Палітра · light-first</h3>
+            <ul class="palette" aria-label="Палітра напряму Денна зміна">
+              <li class="swatch" style="--swatch:#eceef1">#ECEEF1</li>
+              <li class="swatch" style="--swatch:#ffb020">#FFB020</li>
+              <li class="swatch" style="--swatch:#7a4b00">#7A4B00</li>
+              <li class="swatch" style="--swatch:#0e6b3d">#0E6B3D</li>
+              <li class="swatch" style="--swatch:#16181c">#16181C</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Шрифти</h3>
+            <p class="type-pair"><strong>Manrope</strong><br>+ Onest</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-stage">
+        <article class="day-card" aria-labelledby="day-listing-title">
+          <div class="day-photo">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&amp;fit=crop&amp;w=1200&amp;q=82" alt="Світлий житловий простір зі столом, кріслом і великим вікном">
+            <button class="favorite" type="button" aria-label="Зберегти оголошення" aria-pressed="false"><iconify-icon icon="solar:heart-bold-duotone" aria-hidden="true"></iconify-icon></button>
+            <span class="day-verified"><iconify-icon icon="solar:shield-check-bold-duotone" aria-hidden="true"></iconify-icon> Людину перевірено</span>
+          </div>
+          <div class="day-body">
+            <div class="day-title-row">
+              <h3 id="day-listing-title">Кімната біля Шулявської</h3>
+              <p class="day-price">7 200 грн</p>
+            </div>
+            <div class="day-facts" aria-label="Ключові факти оголошення">
+              <div><iconify-icon icon="solar:map-point-bold-duotone" aria-hidden="true"></iconify-icon><div><strong>Солом’янський</strong> · <span>8 хв до метро</span></div></div>
+              <div><iconify-icon icon="solar:cat-bold-duotone" aria-hidden="true"></iconify-icon><div><strong>З котом можна</strong> · <span>у квартирі вже живе один</span></div></div>
+              <div><iconify-icon icon="solar:sun-bold-duotone" aria-hidden="true"></iconify-icon><div><strong>Жайворонок</strong> · <span>вдома до 19:00</span></div></div>
+            </div>
+            <button class="day-cta" type="button" data-action="Заявку для Оксани підготовлено">Надіслати заявку</button>
+            <p class="action-note" aria-live="polite"></p>
+            <p class="photo-credit">Фото: <a href="https://unsplash.com/photos/X5BWooeO4Cw" target="_blank" rel="noreferrer">Hutomo Abrianto / Unsplash</a></p>
+          </div>
+        </article>
+      </div>
+
+      <footer class="direction-footer"><strong>Ризик</strong>Світла версія втрачає «вечірню» інтимність нічної: бурштин на білому не світиться, а лише позначає дію, і система легко з’їжджає в нейтральний адмін-інтерфейс. Тепло тут доводиться нести фото й словам, а не полотну.</footer>
+    </section>
+
+  </main>
+
+  <script>
+    document.querySelectorAll('.favorite').forEach((button) => {
+      button.addEventListener('click', () => {
+        const isSaved = button.getAttribute('aria-pressed') === 'true';
+        button.setAttribute('aria-pressed', String(!isSaved));
+        button.setAttribute('aria-label', isSaved ? 'Зберегти оголошення' : 'Прибрати зі збережених');
+      });
+    });
+
+    document.querySelectorAll('[data-action]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const note = button.parentElement.parentElement.querySelector('.action-note');
+        if (note) note.textContent = button.dataset.action;
+      });
+    });
+  </script>
+<!-- comments-harness: тільки для локального ревʼю макетів, у прод не їде -->
+<script src="/comments-harness/static/overlay.js" defer></script>
+</body>
+</html>
