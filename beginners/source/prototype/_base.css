@@ -67,7 +67,6 @@ button:disabled { border-color: var(--neutral-300); background: var(--neutral-30
 .product-nav__link--create { background: var(--primary-700); color: var(--neutral-0); }
 .product-nav__link--create:hover { background: #294b40; color: var(--neutral-0); }
 
-.demo-label { order: -1; width: 100%; max-width: var(--content-max); margin: 0 auto; padding: 7px var(--gutter); background: var(--accent-100); color: #665d2d; font-size: 11px; font-weight: 600; line-height: 1.25; text-align: center; }
 .proto-note { display: none; }
 .prototype-device__content > header:not(.product-header) { width: 100%; max-width: var(--content-max); margin-inline: auto; padding: 20px var(--gutter) 14px; border: 0; background: var(--neutral-25); }
 header .product { margin: 0; color: var(--primary-600); font-size: 12px; font-weight: 600; }

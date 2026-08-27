@@ -52,3 +52,9 @@
 | Loading skeleton повторює вертикальну геометрію та не показує фото; success має 5 cards, перевірені trust-off і довгі українські назви | done | `/root/fable` | `scripts/qa-listing-cards.mjs`: success 5 cards/5 images/trust-off; loading 4 cards/0 images/4 placeholders/`background-image:none`; heading overflow `false` на 320/390/430/1440 |
 | Responsive QA 320/390/430/1440, device shell збережено, 0 overflow; card screenshots success+loading у 390 і desktop device | done | `/root/fable` | Card matrix 8/8, `failures:[]`; canvas 320/390/390/390, overflow 0, desktop device `416` + inner `390`; 4 screenshots visually reviewed in one pass, one bounded fix, one confirmation |
 | Crawler/diff-check clean та окремий commit без `figmosha2`/`.impeccable` | done | `/root/fable` | Local + LAN crawler: 81 HTML, 99 contexts, 6,229 checks each, 0 broken/redirects; full QA 64/64 + 14 screenshots, 0 failures; detector degraded regex, 0 findings; explicit staging, hash in handoff |
+
+## Lesson 6 prototype label cleanup
+
+| Вимога | Status | Owner | Evidence |
+|---|---|---|---|
+| Прибрати видимий `Навчальний прототип · дані демонстраційні` з усіх 13 lesson-6 states, видалити dead `.demo-label` CSS без порожнього gap; зберегти green canon, navigation, course tree, 390 canvas, device shell і cards | done | `/root/fable` | Source scan: 13/13 markup removed, label/CSS matches 0; LAN URLs 13/13 HTTP 200; `qa-web-app`: canvas 320/390/390/390, max overflow 0, 64 checks + 14 screenshots, `failures:[]`; focused diff: тільки 13 labels, 1 dead CSS rule і цей plan row |
