@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Куток — Скарга</title>
+<link rel="stylesheet" href="_wireframe.css">
+<script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
+</head>
+<body data-page="report">
+
+<div class="app">
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     СПІЛЬНА ЛІВА ПАНЕЛЬ ВАЙРФРЕЙМІВ — згенерована, редагувати в gen.py.
+     Поточний вузол підсвічує скрипт унизу за <body data-page="…">.
+     Структура: розділ (sitemap.md, I–VII) → екран (15) → стан (_screens.md).
+     ═══════════════════════════════════════════════════════════════════ -->
+<aside class="sidebar">
+<details open>
+<summary>Структура вайрфреймів ▾</summary>
+
+<div class="brand"><b>Куток</b><span>вайрфрейми · мобільний прототип</span></div>
+
+<ul class="tree">
+
+  <li>
+    <span class="group">I. Стати учасником Кутка</span>
+    <ul class="screens">
+      <li><a href="signup.html" data-page="signup">Реєстрація і верифікація телефону</a>
+        <ul class="states">
+          <li><a href="signup.html" data-page="signup">основний вигляд</a></li>
+          <li><a href="signup-empty.html" data-page="signup-empty">порожній</a></li>
+          <li><a href="signup-error.html" data-page="signup-error">помилка</a></li>
+          <li><a href="signup-loading.html" data-page="signup-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="role.html" data-page="role">Вибір ролі</a>
+        <ul class="states">
+          <li><a href="role.html" data-page="role">основний вигляд</a></li>
+          <li><a href="role-empty.html" data-page="role-empty">порожній</a></li>
+          <li><a href="role-error.html" data-page="role-error">помилка</a></li>
+          <li><a href="role-loading.html" data-page="role-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">II. Мій профіль</span>
+    <ul class="screens">
+      <li><a href="profile-edit.html" data-page="profile-edit">Створити / редагувати профіль</a>
+        <ul class="states">
+          <li><a href="profile-edit.html" data-page="profile-edit">основний вигляд</a></li>
+          <li><a href="profile-edit-empty.html" data-page="profile-edit-empty">порожній</a></li>
+          <li><a href="profile-edit-error.html" data-page="profile-edit-error">помилка</a></li>
+          <li><a href="profile-edit-loading.html" data-page="profile-edit-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="profile-social.html" data-page="profile-social">Додати соцлінк</a>
+        <ul class="states">
+          <li><a href="profile-social.html" data-page="profile-social">основний вигляд</a></li>
+          <li><a href="profile-social-empty.html" data-page="profile-social-empty">порожній</a></li>
+          <li><a href="profile-social-error.html" data-page="profile-social-error">помилка</a></li>
+          <li><a href="profile-social-loading.html" data-page="profile-social-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">III. Знайти кімнату або людину</span>
+    <ul class="screens">
+      <li><a href="listings.html" data-page="listings">Стрічка кімнат</a>
+        <ul class="states">
+          <li><a href="listings.html" data-page="listings">успіх</a></li>
+          <li><a href="listings-empty.html" data-page="listings-empty">порожній</a></li>
+          <li><a href="listings-error.html" data-page="listings-error">помилка *</a></li>
+          <li><a href="listings-loading.html" data-page="listings-loading">завантаження *</a></li>
+        </ul>
+      </li>
+      <li><a href="seekers.html" data-page="seekers">Стрічка людей-шукачів</a>
+        <ul class="states">
+          <li><a href="seekers.html" data-page="seekers">основний вигляд</a></li>
+          <li><a href="seekers-empty.html" data-page="seekers-empty">порожній</a></li>
+          <li><a href="seekers-error.html" data-page="seekers-error">помилка</a></li>
+          <li><a href="seekers-loading.html" data-page="seekers-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="filters.html" data-page="filters">Налаштувати фільтри</a>
+        <ul class="states">
+          <li><a href="filters.html" data-page="filters">основний вигляд</a></li>
+          <li><a href="filters-empty.html" data-page="filters-empty">порожній</a></li>
+          <li><a href="filters-error.html" data-page="filters-error">помилка</a></li>
+          <li><a href="filters-loading.html" data-page="filters-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">IV. Розглянути варіант</span>
+    <ul class="screens">
+      <li><a href="listing.html" data-page="listing">Картка оголошення кімнати</a>
+        <ul class="states">
+          <li><a href="listing.html" data-page="listing">основний вигляд</a></li>
+          <li><a href="listing-empty.html" data-page="listing-empty">порожній</a></li>
+          <li><a href="listing-error.html" data-page="listing-error">помилка</a></li>
+          <li><a href="listing-loading.html" data-page="listing-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="person.html" data-page="person">Картка профілю людини</a>
+        <ul class="states">
+          <li><a href="person.html" data-page="person">основний вигляд</a></li>
+          <li><a href="person-empty.html" data-page="person-empty">порожній</a></li>
+          <li><a href="person-error.html" data-page="person-error">помилка</a></li>
+          <li><a href="person-loading.html" data-page="person-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">V. Запропонувати кімнату</span>
+    <ul class="screens">
+      <li><a href="listing-new.html" data-page="listing-new">Опублікувати оголошення</a>
+        <ul class="states">
+          <li><a href="listing-new.html" data-page="listing-new">основний вигляд</a></li>
+          <li><a href="listing-new-empty.html" data-page="listing-new-empty">порожній</a></li>
+          <li><a href="listing-new-error.html" data-page="listing-new-error">помилка</a></li>
+          <li><a href="listing-new-loading.html" data-page="listing-new-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="my-listings.html" data-page="my-listings">Мої оголошення</a>
+        <ul class="states">
+          <li><a href="my-listings.html" data-page="my-listings">основний вигляд</a></li>
+          <li><a href="my-listings-empty.html" data-page="my-listings-empty">порожній</a></li>
+          <li><a href="my-listings-error.html" data-page="my-listings-error">помилка</a></li>
+          <li><a href="my-listings-loading.html" data-page="my-listings-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">VI. Домовитися</span>
+    <ul class="screens">
+      <li><a href="chats.html" data-page="chats">Заявки і чати (список)</a>
+        <ul class="states">
+          <li><a href="chats.html" data-page="chats">успіх</a></li>
+          <li><a href="chats-empty.html" data-page="chats-empty">порожній</a></li>
+          <li><a href="chats-error.html" data-page="chats-error">помилка</a></li>
+          <li><a href="chats-loading.html" data-page="chats-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="chat.html" data-page="chat">Чат — переписка</a>
+        <ul class="states">
+          <li><a href="chat.html" data-page="chat">успіх</a></li>
+          <li><a href="chat-empty.html" data-page="chat-empty">порожній</a></li>
+          <li><a href="chat-error.html" data-page="chat-error">помилка</a></li>
+          <li><a href="chat-loading.html" data-page="chat-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="report.html" data-page="report">Поскаржитись / заблокувати</a>
+        <ul class="states">
+          <li><a href="report.html" data-page="report">основний вигляд</a></li>
+          <li><a href="report-empty.html" data-page="report-empty">порожній</a></li>
+          <li><a href="report-error.html" data-page="report-error">помилка</a></li>
+          <li><a href="report-loading.html" data-page="report-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">VII. Після заселення</span>
+    <ul class="screens">
+      <li><a href="review.html" data-page="review">Залишити відгук</a>
+        <ul class="states">
+          <li><a href="review.html" data-page="review">основний вигляд</a></li>
+          <li><a href="review-empty.html" data-page="review-empty">порожній</a></li>
+          <li><a href="review-error.html" data-page="review-error">помилка</a></li>
+          <li><a href="review-loading.html" data-page="review-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+</ul>
+
+<div class="legend">
+  <p>Розділи I–VII і 15 екранів — з <code>sitemap.md</code>.</p>
+  <p>Стан без позначки — підтверджений таблицею <code>_screens.md</code>.</p>
+  <p>* — стан намальовано на пряме замовлення, хоча в таблиці стоїть прочерк. Розбіжність не згладжена: див. примітку на сторінці.</p>
+  <p>Усі стани промальовано як мобільні web-прототипи.</p>
+  <p>Системні стани поза flow пояснені в анотації сторінки.</p>
+</div>
+
+<p class="backlink"><a href="../ia.html">← До документів Кутка</a></p>
+
+</details>
+</aside>
+<!-- ══ кінець спільної панелі ═══════════════════════════════════════ -->
+
+<div class="stage">
+<div class="sheet">
+
+  <nav class="state-switch" aria-label="Стани екрана «Поскаржитись / заблокувати»">
+    <span>Стани цього екрана:</span>
+    <a href="report.html" data-page="report">основний вигляд</a>
+    <a href="report-empty.html" data-page="report-empty">порожній</a>
+    <a href="report-error.html" data-page="report-error">помилка</a>
+    <a href="report-loading.html" data-page="report-loading">завантаження</a>
+  </nav>
+
+  <!-- Підпис до макета: не частина інтерфейсу -->
+  <div class="annotation">
+    <h1>Поскаржитись / заблокувати — основний вигляд</h1>
+    <p><code>sitemap.md</code> VI.3 · <code>flows.md</code>, Flow 4: вузол
+       <strong>L</strong>. Сюди веде <strong>K</strong> («Червоний прапорець:
+       вимагають гроші наперед») з гілки <strong>J</strong>-так («Просять
+       передоплату до перегляду кімнати?»). Вихід зі стану — кінцева точка
+       <strong>M</strong> («Безпечно уникнула шахрайства, контакт розірвано»),
+       тобто надсилання скарги з одночасним блокуванням.</p>
+    <p><code>jtbd.md</code>, Emotional 1, дослівно: «Коли я обираю майбутнього
+       співмешканця, я хочу почуватися в безпеці, а не ризикувати нарватися на
+       шахрая, фейкове оголошення чи брехню, щоб не витрачати гроші, час і
+       нерви на варіанти, яких не існує».</p>
+    <p><strong>Розбіжність, яку не згладжено: це екран-сирота.</strong>
+       <code>sitemap.md</code> (розділ «Трасування», секція «Екрани-сироти»)
+       прямо пише, що жоден наративний job у <code>jtbd.md</code> не формулює
+       «хочу поскаржитись»; прив'язку до Emotional 1 (<code>E1 × VI.3 = ✓*</code>)
+       взято з колонки <strong>ФУНКЦІЯ</strong> рядка «Емоційний 1»
+       JTBD-матриці, де серед функцій перелічено «скарги/модерація». Це
+       найслабша прив'язка в усьому дереві екранів: екран існує тому, що його
+       вимагає CLAUDE.md у флоу «Чат», а не тому, що його породив job.</p>
+    <p>Рівень видимості — <strong>«глибоке»</strong> (<code>sitemap.md</code>,
+       «Навігація»): дія за меню «…» усередині чату, не пункт навігації. Тому
+       шапка веде назад у чат, а поточний пункт таб-панелі — «Чати».</p>
+    <p>Співрозмовник тут — Дмитро, автор <em>без</em> бейджа «перевірено»: у
+       Flow 4 до чату з червоним прапорцем людина потрапляє гілкою
+       <strong>E</strong>-ні → <strong>F</strong> («Обережно: немає
+       підтвердженої верифікації») → <strong>G</strong>-так. Це інша нитка, ніж
+       намальований чат з Оксаною (<code>chat.html</code>), але окремого
+       вайрфрейму «чат без верифікації» немає, тому «Назад у чат» веде туди ж.</p>
+    <p>Причини скарги — з підтверджених джерел <code>research.md</code>
+       (розділ 6): аванс/завдаток до перегляду [S57], [S58], [S59]; фіктивні
+       та неактуальні оголошення [S58], [S61]; комісія посереднику під виглядом
+       приватного оголошення [S62], [S67]. Четверта причина, «образлива
+       поведінка», такого джерела в <code>research.md</code> <strong>не
+       має</strong> — вона тримається лише на рішенні CLAUDE.md «чат можна
+       модерувати, є скарги/блокування». Лишаю з позначкою, а не вдаваним
+       підтвердженням.</p>
+    <p>Куди продукт веде людину після <strong>M</strong>, <code>flows.md</code>
+       не визначає: це кінцева точка без наступного екрана, тому форма веде сама
+       в себе. Хто саме обробляє скаргу — відкрите питання CLAUDE.md
+       («Модерація: хто і як обробляє скарги на старті»), тому жодних обіцянок
+       на кшталт «розглянемо за 24 години» на екрані немає.</p>
+  </div>
+
+  <div class="phone">
+    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
+
+    <header class="app-bar">
+      <h2>Скарга</h2>
+      <a class="back-btn" href="chat.html">Повернутися до чату</a>
+    </header>
+
+    <main>
+      <section aria-labelledby="report-heading">
+        <div class="detail-photos" aria-label="Фото профілю, на який подається скарга"><span class="photo main"><span>Фото Дмитра</span></span></div>
+        <h3 id="report-heading" class="results-count">Чат з Дмитром · кімната в
+           Оболонському районі, 9 800 грн/міс</h3>
+
+        <p class="sys">Дмитро просить переказати 200 грн «за бронювання» до
+           перегляду кімнати. Куток не приймає завдатки й не проводить платежі.</p>
+
+        <form action="report-loading.html" method="get">
+          <p class="form-intro">Скаргу отримає команда Кутка. Дмитро не побачить
+             автора й текст скарги.</p>
+
+          <fieldset>
+            <legend>Що сталося</legend>
+            <div class="choice">
+              <input type="radio" id="r-prepay" name="reason" value="prepay" checked>
+              <label for="r-prepay">Вимагає передоплату до перегляду<span>Просить завдаток на картку, перш ніж показати кімнату</span></label>
+            </div>
+            <div class="choice">
+              <input type="radio" id="r-fake" name="reason" value="fake">
+              <label for="r-fake">Несправжнє або неактуальне оголошення<span>Кімнати не існує, вона вже здана або фото не її</span></label>
+            </div>
+            <div class="choice">
+              <input type="radio" id="r-agent" name="reason" value="agent">
+              <label for="r-agent">Рієлтор під виглядом господаря<span>Просить комісію, хоча оголошення подане як приватне</span></label>
+            </div>
+            <div class="choice">
+              <input type="radio" id="r-abuse" name="reason" value="abuse">
+              <label for="r-abuse">Образлива поведінка<span>Грубощі, тиск, недоречні повідомлення в чаті</span></label>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="details">Опиши детальніше</label>
+            <textarea id="details" name="details">Дмитро попросив 200 грн на картку, щоб «забронювати» кімнату, і відмовився показати її до оплати. Ті самі фото я бачила в іншому оголошенні на OLX за іншою ціною.</textarea>
+          </div>
+
+          <fieldset>
+            <legend>Заблокувати</legend>
+            <div class="choice">
+              <input type="checkbox" id="block" name="block" value="yes" checked>
+              <label for="block">Заблокувати Дмитра<span>Він більше не зможе тобі писати, а чат зникне зі списку</span></label>
+            </div>
+          </fieldset>
+
+          <button class="btn cta" type="submit">Надіслати скаргу й заблокувати Дмитра</button>
+          <p class="hint">Куток збереже переписку для перевірки скарги навіть
+             після блокування Дмитра.</p>
+        </form>
+      </section>
+
+      <footer>
+        <p>Куток · пошук співмешканців і кімнат у Києві</p>
+      </footer>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Глобальна навігація">
+      <ul>
+        <li><a href="listings.html">Оголошення</a></li>
+        <li><a href="chats.html" aria-current="page">Чати</a></li>
+        <li><a href="profile-edit.html">Профіль</a></li>
+      </ul>
+    </nav>
+
+  </div>
+</div>
+</div>
+
+</div>
+
+<!-- Позначає поточний вузол дерева й перемикача станів. Розмітка панелі
+     завдяки цьому лишається байт-у-байт однаковою на всіх сторінках. -->
+<script>
+(function(){
+  var page = document.body.dataset.page;
+  document.querySelectorAll('a[data-page="' + page + '"]').forEach(function(a){
+    a.setAttribute('aria-current', 'page');
+    a.classList.remove('pending');
+  });
+})();
+</script>
+
+</body>
+</html>

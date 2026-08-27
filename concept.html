@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Куток — концепт «Денна зміна»</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Onest:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  <style>
+    :root{--paper:#eceef1;--white:#fff;--ink:#16181c;--muted:#555b65;--line:#d4d8de;--blue:#ffb020;--blue-soft:#fff0ce;--green:#0e6b3d;--green-soft:#dff3e8;--red:#c9352b;--red-soft:#fae5e2;--focus:#2457ff;--shadow:0 10px 30px rgba(22,24,28,.11)}
+    *{box-sizing:border-box}html{background:var(--paper);color:var(--ink);font-family:Onest,sans-serif;scroll-behavior:smooth}body{margin:0}h1,h2,h3,nav b,.price{font-family:Manrope,sans-serif}
+    body>nav{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(20px,4vw,56px);background:rgba(244,242,236,.93);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+    nav b{font-size:18px}nav div{display:flex;gap:14px;flex-wrap:wrap}nav a{color:var(--ink);font-weight:700;text-underline-offset:4px}
+    main{max-width:1180px;margin:auto;padding:clamp(32px,7vw,96px) clamp(20px,4vw,56px) 100px}
+    h1{font-size:clamp(48px,9vw,110px);line-height:.96;letter-spacing:-.04em;max-width:920px;margin:0 0 28px}h1 span{color:#7a4b00}
+    .lead{font-size:clamp(19px,2vw,26px);line-height:1.45;max-width:760px;color:var(--muted);margin:0 0 52px}
+    .proofline{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:90px}.proofline div{background:var(--white);padding:18px}.proofline b{display:block;font-size:14px}.proofline span{color:var(--muted);font-size:13px}
+    section{margin-top:92px}h2{font-size:clamp(31px,5vw,58px);line-height:1;letter-spacing:-.035em;margin:0 0 30px;max-width:760px}.section-lead{max-width:65ch;color:var(--muted);font-size:17px;line-height:1.65}
+    .palette{display:grid;grid-template-columns:repeat(5,1fr);margin-top:28px}.color{min-height:190px;padding:16px;display:flex;flex-direction:column;justify-content:flex-end}.color b{font-size:14px}.color code{font:500 12px 'IBM Plex Mono',monospace;margin-top:4px}
+    .type-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:24px;margin-top:28px}.type-sample{background:var(--white);padding:30px;box-shadow:var(--shadow);border-radius:14px}.type-display{font-size:clamp(42px,6vw,76px);font-weight:800;line-height:.92;letter-spacing:-.04em;margin:0}.type-body{font-size:18px;line-height:1.65;color:var(--muted);max-width:48ch}.mono{font:500 13px/1.7 'IBM Plex Mono',monospace;color:var(--green)}
+    .components{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;margin-top:28px;align-items:start}.room-card{background:var(--white);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}.room-card img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}.room-body{padding:20px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px}.price{font-size:28px;font-weight:800}.verified{display:inline-flex;align-items:center;gap:6px;color:var(--green);background:var(--green-soft);padding:6px 9px;border-radius:999px;font-size:12px;font-weight:800}.room-body h3{font-size:22px;margin:16px 0 3px;letter-spacing:-.025em}.room-body p{margin:0;color:var(--muted)}
+    .chips{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0}.chip{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;background:var(--blue-soft);color:#684100;border-radius:999px;font-size:12px;font-weight:700}.primary{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;background:var(--blue);color:var(--ink);border-radius:12px;text-decoration:none;font-weight:800;box-shadow:0 6px 16px rgba(22,24,28,.14)}
+    .state-stack{display:grid;gap:12px}.state{padding:18px;border-radius:14px;background:var(--white);box-shadow:var(--shadow)}.state h3{margin:0 0 6px;font-size:17px}.state p{margin:0;color:var(--muted);font-size:14px}.state.error{background:var(--red-soft)}.state.error h3{color:#861f19}.state.loading{background:#e3e5e2}.state .line{height:10px;background:#cbd0cc;border-radius:4px;margin:8px 0}.state .line.short{width:55%}
+    .icon-plan{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}.icon-item{min-height:130px;background:var(--white);border-radius:14px;padding:18px;display:flex;flex-direction:column;justify-content:space-between}.icon-item iconify-icon{font-size:30px;color:var(--blue)}.icon-item b{font-size:13px}.icon-item span{font-size:12px;color:var(--muted)}
+    .source{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+    ::selection{background:var(--focus);color:var(--ink)}a:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+    @media(max-width:760px){.proofline,.type-grid,.components{grid-template-columns:1fr}.palette{grid-template-columns:1fr 1fr}.icon-plan{grid-template-columns:1fr 1fr}.color{min-height:130px}.proofline{margin-bottom:60px}}
+  </style>
+</head>
+<body>
+<!--
+THESIS: денне світло показує реальне, статус доводить конкретне; відмова від бежевого каталогу.
+OWN-WORLD: холодне daylight-полотно, white-картки, ink, amber-action, verified-green, signal-red; 14px картки.
+STORY: побачити реальний варіант → звірити факти → зрозуміти довіру → діяти.
+FIRST VIEWPORT: велика теза, три докази механізму та жодна декоративна обіцянка.
+FORM: «Денна зміна», Sol-selected direction against seed e0393f71.
+FINISH: unreviewed is unfinished; this stage ends with browser review, a defect table, and provenance for every shipping raster. DESIGN.md belongs to lesson 7.
+-->
+<nav><b>Куток · Денна зміна</b><div><a href="concept/directions.html">Три напрями</a><a href="research/wireframes/listings.html">Стрічка</a><a href="research/wireframes/person.html">Профіль</a></div></nav>
+<main>
+  <h1>Фото показує.<br><span>Факти доводять.</span></h1>
+  <p class="lead">«Денна зміна» — операційна мова довіри для пошуку кімнат і співмешканців. Вона не обіцяє безпеку кольором: кожен доказ має назву, кожне фото — предмет, кожен стан — вихід.</p>
+  <div class="proofline"><div><b>Реальна кімната</b><span>Тематичне фото до параметрів</span></div><div><b>Конкретна перевірка</b><span>Телефон, соцмережа або відгук</span></div><div><b>Взаємна дія</b><span>Контакт лише після згоди</span></div></div>
+
+  <section><h2>Колір веде й пояснює</h2><p class="section-lead">Нейтральна поверхня тримає довгі сесії. Бурштиновий означає головну дію, зелений — лише названий доказ, червоний — конкретну проблему. Тепло приходить із денного світла фотографій.</p>
+    <div class="palette"><div class="color" style="background:#eceef1"><b>Daylight</b><code>#ECEEF1</code></div><div class="color" style="background:#16181c;color:white"><b>Ink</b><code>#16181C</code></div><div class="color" style="background:#ffb020"><b>Action</b><code>#FFB020</code></div><div class="color" style="background:#0e6b3d;color:white"><b>Verified</b><code>#0E6B3D</code></div><div class="color" style="background:#c9352b;color:white"><b>Signal</b><code>#C9352B</code></div></div>
+  </section>
+
+  <section><h2>Типографіка без рекламного голосу</h2><div class="type-grid"><div class="type-sample"><p class="type-display">Кімната.<br>Людина.<br>Довіра.</p><p class="type-body">Manrope дає заголовкам ясну вагу. Великі кеглі потрібні лише для орієнтації, не для обіцянок.</p></div><div class="type-sample"><p class="mono">Фото кімнати<br>Соломʼянський район<br>Оновлено 2 дні тому<br>Телефон перевірено</p><p class="type-body">Onest спокійно тримає кирилицю, довгі побутові факти й службові підписи.</p></div></div></section>
+
+  <section><h2>Три компоненти доводять мову</h2><div class="components"><article class="room-card"><img data-photo-origin="unsplash:photo-1522708323590-d24dbb6b0267" src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1000&q=82" alt="Світла кімната з диваном"><div class="room-body"><div class="row"><span class="price">7 200 грн/міс</span><span class="verified"><iconify-icon icon="solar:verified-check-bold-duotone"></iconify-icon>Телефон перевірено</span></div><h3>Кімната біля Шулявської</h3><p>Заїзд 15 серпня · живуть двоє</p><div class="chips"><span class="chip"><iconify-icon icon="solar:moon-sleep-bold-duotone"></iconify-icon>Сова</span><span class="chip"><iconify-icon icon="solar:smoking-bold-duotone"></iconify-icon>Без куріння</span><span class="chip"><iconify-icon icon="solar:cat-bold-duotone"></iconify-icon>З котом можна</span></div><a class="primary" href="research/wireframes/listings.html">Переглянути оголошення <iconify-icon icon="solar:arrow-right-bold-duotone"></iconify-icon></a></div></article><div class="state-stack"><div class="state"><h3>За цими фільтрами оголошень немає</h3><p>Зміни район або межу бюджету.</p></div><div class="state error"><h3>Не вдалося завантажити оголошення</h3><p>Перевір зʼєднання і спробуй ще раз.</p></div><div class="state loading" aria-label="Стан завантаження"><div class="line"></div><div class="line short"></div><div class="line"></div></div></div></div></section>
+
+  <section><h2>Solar Bold Duotone покриває дію, факт і стан</h2><p class="section-lead">Один набір, одна вага. Іконка не замінює текст — вона допомагає сканувати повторювані сутності.</p><div class="icon-plan"><div class="icon-item"><iconify-icon icon="solar:home-2-bold-duotone"></iconify-icon><div><b>Навігація</b><br><span>Пошук, чати, профіль</span></div></div><div class="icon-item"><iconify-icon icon="solar:map-point-bold-duotone"></iconify-icon><div><b>Метадані</b><br><span>Район, метро, заїзд</span></div></div><div class="icon-item"><iconify-icon icon="solar:verified-check-bold-duotone"></iconify-icon><div><b>Довіра</b><br><span>Телефон, соцмережа, відгук</span></div></div><div class="icon-item"><iconify-icon icon="solar:danger-triangle-bold-duotone"></iconify-icon><div><b>Стани</b><br><span>Помилка й відновлення</span></div></div></div></section>
+
+  <p class="source">Фото: Unsplash, origin записаний у `data-photo-origin`. Контраст цільових пар перевіряється до sign-off. Повний rationale — `concept.md`; джерела прийомів — `concept/references.md`.</p>
+</main>
+</body>
+</html>

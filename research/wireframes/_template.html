@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Куток — НАЗВА ЕКРАНА · СТАН</title>
+<link rel="stylesheet" href="_wireframe.css">
+<script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
+</head>
+<body data-page="ІМʼЯ-ФАЙЛУ-БЕЗ-HTML">
+
+<div class="app">
+
+<!--NAV-->
+
+<div class="stage">
+<div class="sheet">
+
+<!--SWITCH-->
+
+  <!-- Підпис до макета: не частина інтерфейсу -->
+  <div class="annotation">
+    <h1>НАЗВА ЕКРАНА зі sitemap.md — стан «СТАН»</h1>
+    <p><code>sitemap.md</code> КОД (напр. V.2) · <code>flows.md</code>, Flow N:
+       вузол <strong>X</strong>. Куди веде далі.</p>
+    <p><code>jtbd.md</code>: який job закриває, дослівним формулюванням.</p>
+    <p>Вихід зі стану: яка дія і чим вона підтверджена у flows.md.</p>
+  </div>
+
+  <div class="phone">
+    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
+
+    <header class="app-bar">
+      <h2>Заголовок екрана</h2>
+      <a class="btn" href="куди.html">Дія</a>
+    </header>
+
+    <main>
+      <section aria-labelledby="s-heading">
+        <h3 id="s-heading" class="results-count">Підзаголовок / лічильник</h3>
+
+        <!-- ВМІСТ ЕКРАНА -->
+
+      </section>
+
+      <footer>
+        <p>Куток · пошук співмешканців і кімнат у Києві</p>
+      </footer>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Глобальна навігація">
+      <ul>
+        <li><a href="listings.html">Пошук</a></li>
+        <li><a href="chats.html">Чати</a></li>
+        <li><a href="my-listings.html">Оголошення</a></li>
+        <li><a href="profile-edit.html">Профіль</a></li>
+      </ul>
+    </nav>
+
+  </div>
+</div>
+</div>
+
+</div>
+
+<!-- Позначає поточний вузол дерева й перемикача станів. Розмітка панелі
+     завдяки цьому лишається байт-у-байт однаковою на всіх сторінках. -->
+<script>
+(function(){
+  var page = document.body.dataset.page;
+  document.querySelectorAll('a[data-page="' + page + '"]').forEach(function(a){
+    a.setAttribute('aria-current', 'page');
+    a.classList.remove('pending');
+  });
+})();
+</script>
+
+</body>
+</html>

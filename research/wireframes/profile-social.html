@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Куток — Додати посилання на соцмережу</title>
+<link rel="stylesheet" href="_wireframe.css">
+<script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
+</head>
+<body data-page="profile-social">
+
+<div class="app">
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     СПІЛЬНА ЛІВА ПАНЕЛЬ ВАЙРФРЕЙМІВ — згенерована, редагувати в gen.py.
+     Поточний вузол підсвічує скрипт унизу за <body data-page="…">.
+     Структура: розділ (sitemap.md, I–VII) → екран (15) → стан (_screens.md).
+     ═══════════════════════════════════════════════════════════════════ -->
+<aside class="sidebar">
+<details open>
+<summary>Структура вайрфреймів ▾</summary>
+
+<div class="brand"><b>Куток</b><span>вайрфрейми · мобільний прототип</span></div>
+
+<ul class="tree">
+
+  <li>
+    <span class="group">I. Стати учасником Кутка</span>
+    <ul class="screens">
+      <li><a href="signup.html" data-page="signup">Реєстрація і верифікація телефону</a>
+        <ul class="states">
+          <li><a href="signup.html" data-page="signup">основний вигляд</a></li>
+          <li><a href="signup-empty.html" data-page="signup-empty">порожній</a></li>
+          <li><a href="signup-error.html" data-page="signup-error">помилка</a></li>
+          <li><a href="signup-loading.html" data-page="signup-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="role.html" data-page="role">Вибір ролі</a>
+        <ul class="states">
+          <li><a href="role.html" data-page="role">основний вигляд</a></li>
+          <li><a href="role-empty.html" data-page="role-empty">порожній</a></li>
+          <li><a href="role-error.html" data-page="role-error">помилка</a></li>
+          <li><a href="role-loading.html" data-page="role-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">II. Мій профіль</span>
+    <ul class="screens">
+      <li><a href="profile-edit.html" data-page="profile-edit">Створити / редагувати профіль</a>
+        <ul class="states">
+          <li><a href="profile-edit.html" data-page="profile-edit">основний вигляд</a></li>
+          <li><a href="profile-edit-empty.html" data-page="profile-edit-empty">порожній</a></li>
+          <li><a href="profile-edit-error.html" data-page="profile-edit-error">помилка</a></li>
+          <li><a href="profile-edit-loading.html" data-page="profile-edit-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="profile-social.html" data-page="profile-social">Додати соцлінк</a>
+        <ul class="states">
+          <li><a href="profile-social.html" data-page="profile-social">основний вигляд</a></li>
+          <li><a href="profile-social-empty.html" data-page="profile-social-empty">порожній</a></li>
+          <li><a href="profile-social-error.html" data-page="profile-social-error">помилка</a></li>
+          <li><a href="profile-social-loading.html" data-page="profile-social-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">III. Знайти кімнату або людину</span>
+    <ul class="screens">
+      <li><a href="listings.html" data-page="listings">Стрічка кімнат</a>
+        <ul class="states">
+          <li><a href="listings.html" data-page="listings">успіх</a></li>
+          <li><a href="listings-empty.html" data-page="listings-empty">порожній</a></li>
+          <li><a href="listings-error.html" data-page="listings-error">помилка *</a></li>
+          <li><a href="listings-loading.html" data-page="listings-loading">завантаження *</a></li>
+        </ul>
+      </li>
+      <li><a href="seekers.html" data-page="seekers">Стрічка людей-шукачів</a>
+        <ul class="states">
+          <li><a href="seekers.html" data-page="seekers">основний вигляд</a></li>
+          <li><a href="seekers-empty.html" data-page="seekers-empty">порожній</a></li>
+          <li><a href="seekers-error.html" data-page="seekers-error">помилка</a></li>
+          <li><a href="seekers-loading.html" data-page="seekers-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="filters.html" data-page="filters">Налаштувати фільтри</a>
+        <ul class="states">
+          <li><a href="filters.html" data-page="filters">основний вигляд</a></li>
+          <li><a href="filters-empty.html" data-page="filters-empty">порожній</a></li>
+          <li><a href="filters-error.html" data-page="filters-error">помилка</a></li>
+          <li><a href="filters-loading.html" data-page="filters-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">IV. Розглянути варіант</span>
+    <ul class="screens">
+      <li><a href="listing.html" data-page="listing">Картка оголошення кімнати</a>
+        <ul class="states">
+          <li><a href="listing.html" data-page="listing">основний вигляд</a></li>
+          <li><a href="listing-empty.html" data-page="listing-empty">порожній</a></li>
+          <li><a href="listing-error.html" data-page="listing-error">помилка</a></li>
+          <li><a href="listing-loading.html" data-page="listing-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="person.html" data-page="person">Картка профілю людини</a>
+        <ul class="states">
+          <li><a href="person.html" data-page="person">основний вигляд</a></li>
+          <li><a href="person-empty.html" data-page="person-empty">порожній</a></li>
+          <li><a href="person-error.html" data-page="person-error">помилка</a></li>
+          <li><a href="person-loading.html" data-page="person-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">V. Запропонувати кімнату</span>
+    <ul class="screens">
+      <li><a href="listing-new.html" data-page="listing-new">Опублікувати оголошення</a>
+        <ul class="states">
+          <li><a href="listing-new.html" data-page="listing-new">основний вигляд</a></li>
+          <li><a href="listing-new-empty.html" data-page="listing-new-empty">порожній</a></li>
+          <li><a href="listing-new-error.html" data-page="listing-new-error">помилка</a></li>
+          <li><a href="listing-new-loading.html" data-page="listing-new-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="my-listings.html" data-page="my-listings">Мої оголошення</a>
+        <ul class="states">
+          <li><a href="my-listings.html" data-page="my-listings">основний вигляд</a></li>
+          <li><a href="my-listings-empty.html" data-page="my-listings-empty">порожній</a></li>
+          <li><a href="my-listings-error.html" data-page="my-listings-error">помилка</a></li>
+          <li><a href="my-listings-loading.html" data-page="my-listings-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">VI. Домовитися</span>
+    <ul class="screens">
+      <li><a href="chats.html" data-page="chats">Заявки і чати (список)</a>
+        <ul class="states">
+          <li><a href="chats.html" data-page="chats">успіх</a></li>
+          <li><a href="chats-empty.html" data-page="chats-empty">порожній</a></li>
+          <li><a href="chats-error.html" data-page="chats-error">помилка</a></li>
+          <li><a href="chats-loading.html" data-page="chats-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="chat.html" data-page="chat">Чат — переписка</a>
+        <ul class="states">
+          <li><a href="chat.html" data-page="chat">успіх</a></li>
+          <li><a href="chat-empty.html" data-page="chat-empty">порожній</a></li>
+          <li><a href="chat-error.html" data-page="chat-error">помилка</a></li>
+          <li><a href="chat-loading.html" data-page="chat-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="report.html" data-page="report">Поскаржитись / заблокувати</a>
+        <ul class="states">
+          <li><a href="report.html" data-page="report">основний вигляд</a></li>
+          <li><a href="report-empty.html" data-page="report-empty">порожній</a></li>
+          <li><a href="report-error.html" data-page="report-error">помилка</a></li>
+          <li><a href="report-loading.html" data-page="report-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">VII. Після заселення</span>
+    <ul class="screens">
+      <li><a href="review.html" data-page="review">Залишити відгук</a>
+        <ul class="states">
+          <li><a href="review.html" data-page="review">основний вигляд</a></li>
+          <li><a href="review-empty.html" data-page="review-empty">порожній</a></li>
+          <li><a href="review-error.html" data-page="review-error">помилка</a></li>
+          <li><a href="review-loading.html" data-page="review-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+</ul>
+
+<div class="legend">
+  <p>Розділи I–VII і 15 екранів — з <code>sitemap.md</code>.</p>
+  <p>Стан без позначки — підтверджений таблицею <code>_screens.md</code>.</p>
+  <p>* — стан намальовано на пряме замовлення, хоча в таблиці стоїть прочерк. Розбіжність не згладжена: див. примітку на сторінці.</p>
+  <p>Усі стани промальовано як мобільні web-прототипи.</p>
+  <p>Системні стани поза flow пояснені в анотації сторінки.</p>
+</div>
+
+<p class="backlink"><a href="../ia.html">← До документів Кутка</a></p>
+
+</details>
+</aside>
+<!-- ══ кінець спільної панелі ═══════════════════════════════════════ -->
+
+<div class="stage">
+<div class="sheet">
+
+  <nav class="state-switch" aria-label="Стани екрана «Додати соцлінк»">
+    <span>Стани цього екрана:</span>
+    <a href="profile-social.html" data-page="profile-social">основний вигляд</a>
+    <a href="profile-social-empty.html" data-page="profile-social-empty">порожній</a>
+    <a href="profile-social-error.html" data-page="profile-social-error">помилка</a>
+    <a href="profile-social-loading.html" data-page="profile-social-loading">завантаження</a>
+  </nav>
+
+  <!-- Підпис до макета: не частина інтерфейсу -->
+  <div class="annotation">
+    <h1>Додати соцлінк для верифікації — основний вигляд</h1>
+    <p><code>sitemap.md</code> II.2 · рівень <strong>контекстне</strong>:
+       «крок усередині редагування профілю, не окрема точка входу»
+       (<code>sitemap.md</code>, розділ «Глобальне / контекстне / глибоке»).
+       Тому власного пункту таб-бару немає: вхід — кнопка «Додати соцлінк» на
+       II.1, вихід — назад у <code>profile-edit.html</code>. Поточний пункт
+       нав-панелі лишається «Профіль».</p>
+    <p><strong>Цього екрана немає в жодному з 4 флоу</strong>
+       <code>flows.md</code>. Перевірено по всіх прямокутних вузлах-екранах:
+       Flow 1 — Реєстрація, Вибір ролі, Стрічка кімнат, Налаштувати фільтри,
+       Картка оголошення, Чат; Flow 2 — Заявки і чати, Стрічка кімнат, Чат;
+       Flow 3 — Мої оголошення, Опублікувати оголошення, Стрічка людей-шукачів,
+       Налаштувати фільтри, Картка профілю людини, Чат; Flow 4 — Стрічка кімнат,
+       Картка оголошення, Чат, Поскаржитись / заблокувати, Залишити відгук.
+       Flow 4 працює лише з <em>наслідком</em> верифікації (ромб «Є бейдж
+       «перевірено» і оголошення виглядає актуальним?»), сам крок додавання
+       соцлінка в діаграмі не зʼявляється. У <code>_screens.md</code> цього
+       екрана теж немає. Для цілісного mobile-web прототипу додано початкову
+       форму, помилку формату посилання та короткий стан збереження.</p>
+    <p><code>jtbd.md</code>, дослівно — <strong>Emotional 1</strong>: «Коли я
+       обираю майбутнього співмешканця, я хочу почуватися в безпеці, а не
+       ризикувати нарватися на шахрая, фейкове оголошення чи брехню, щоб не
+       витрачати гроші, час і нерви на варіанти, яких не існує».</p>
+    <p>Екран формалізує наявну поведінку ринку: власники кімнат уже вручну
+       вимагають лінки на соцмережі кандидатів [S63] — саме через це
+       <code>jtbd.md</code> зняв функцію F2 з кандидатів на виліт.</p>
+    <p>Поле «соцлінк (Instagram/LinkedIn)» у <code>sitemap.md</code>, сутність 2,
+       позначене <code>[?]</code> (позначку лишено, хоча доресерч її зняв).
+       <strong>Бейдж «перевірено»</strong> показаний як стан, не як поле: він
+       похідний і залежить ще й від відгуків (сутність 5), а механізму
+       підтвердити заселення документи не дають (Прогалина 2).</p>
+  </div>
+
+  <div class="phone">
+    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
+
+    <header class="app-bar">
+      <h2>Посилання на соцмережу</h2>
+      <a class="btn" href="profile-edit.html">Повернутися до профілю</a>
+    </header>
+
+    <main>
+      <section aria-labelledby="social-heading">
+        <h3 id="social-heading" class="results-count">Додай посилання на соцмережу</h3>
+
+        <form action="profile-edit.html" method="get">
+          <p class="form-intro">Додай посилання один раз — воно буде у твоєму
+             профілі, і його не доведеться надсилати в кожному чаті.</p>
+
+          <span class="photo"><span>Аватар Марічки</span></span>
+
+          <fieldset>
+            <legend>Соцмережа</legend>
+            <div class="choice">
+              <input type="radio" id="net-ig" name="net" value="instagram" checked>
+              <label for="net-ig">Instagram<span>Особистий профіль</span></label>
+            </div>
+            <div class="choice">
+              <input type="radio" id="net-li" name="net" value="linkedin">
+              <label for="net-li">LinkedIn<span>Професійний профіль</span></label>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="link">Посилання на профіль</label>
+            <input type="text" id="link" name="link" value="instagram.com/marichka.knu">
+          </div>
+
+          <fieldset>
+            <legend>Що бачитимуть інші</legend>
+            <div class="choice">
+              <input type="radio" id="show-badge" name="show" value="badge" checked>
+              <label for="show-badge">Тільки позначку «Instagram перевірено»
+                 <span>Посилання не показуємо іншим</span></label>
+            </div>
+            <div class="choice">
+              <input type="radio" id="show-link" name="show" value="link">
+              <label for="show-link">Позначку й посилання
+                 <span>Посилання зможе відкрити будь-хто в Кутку</span></label>
+            </div>
+          </fieldset>
+
+          <section class="block" aria-labelledby="trust-now">
+            <h4 id="trust-now">Що вже перевірено</h4>
+            <p class="author-name">Марічка <span class="badge">позначки поки немає</span></p>
+            <ul class="trust">
+              <li>Телефон +380 67 214 88 03 — перевірено</li>
+              <li>Посилання на соцмережу — додай на цьому кроці</li>
+              <li>Відгуків після заселення — жодного</li>
+            </ul>
+          </section>
+
+          <button class="btn cta" type="submit" formaction="profile-social-loading.html">Додати посилання на соцмережу</button>
+          <p class="hint">Куток не публікує нічого від твого імені й не читає
+             повідомлення в соцмережі. Посилання потрібне для перевірки профілю.</p>
+        </form>
+      </section>
+
+      <footer>
+        <p>Куток · пошук співмешканців і кімнат у Києві</p>
+      </footer>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Глобальна навігація">
+      <ul>
+        <li><a href="listings.html">Оголошення</a></li>
+        <li><a href="chats.html">Чати</a></li>
+        <li><a href="profile-edit.html" aria-current="page">Профіль</a></li>
+      </ul>
+    </nav>
+
+  </div>
+</div>
+</div>
+
+</div>
+
+<!-- Позначає поточний вузол дерева й перемикача станів. Розмітка панелі
+     завдяки цьому лишається байт-у-байт однаковою на всіх сторінках. -->
+<script>
+(function(){
+  var page = document.body.dataset.page;
+  document.querySelectorAll('a[data-page="' + page + '"]').forEach(function(a){
+    a.setAttribute('aria-current', 'page');
+    a.classList.remove('pending');
+  });
+})();
+</script>
+
+</body>
+</html>
