@@ -42,3 +42,13 @@
 | На desktop device shell співіснує з course tree, не перекриває його; inner product canvas лишається 390 px | done | `/root/green_mobile_lesson6` | 13/13 CDP at 1440×900: shell 416 px, inner screen/main/nav 390 px; device left ≥ course tree right; 0 overlap/overflow |
 | QA 13/13: inner canvas 320/390/390/390 на viewport 320/390/430/1440, 0 overflow; screenshots 390×844 і 1440×900 з tree open/closed; crawler 0 broken | done | `/root/green_mobile_lesson6` | `scripts/qa-web-app.mjs`: 64 layout checks, 14 screenshots, 0 failures; mobile and desktop tree open/closed visually reviewed; crawler 81 HTML/99 contexts/6,229 checks, 0 broken/redirects; detector 0 findings |
 | Окремий commit без `figmosha2` та `.impeccable` | done | `/root/green_mobile_lesson6` | Production/docs/scripts staged explicitly; screenshots and `figmosha2` excluded |
+
+## Lesson 6 vertical listing cards
+
+| Вимога | Status | Owner | Evidence |
+|---|---|---|---|
+| У всіх відповідних lesson-6 states фото картки зверху на всю ширину; explicit horizontal `aspect-ratio: 3 / 2`, `object-fit: cover`, intrinsic dimensions/CLS; loading placeholder має ті самі computed width/height; контент вертикально нижче | done | `/root/fable` | `_base.css` + 5 semantic local images з intrinsic dimensions; CDP 390: success і loading media `358 × 238.66`, ratio `1.5`, media width = card width, body одразу нижче |
+| Ієрархія без зміни copy/product truth: фото → тип/бейдж → назва → ціна → короткі факти → trust proof/актуальність; виразний, але стриманий green card, стабільні radius/shadow/spacing, stretched link/focus | done | `/root/fable` | 5/5 success cards: 16 px radius, один `--shadow-soft`, 18 px title, 20 px price, facts grid, green/error trust footer; stretched `listing.html` link і card-level focus ring |
+| Loading skeleton повторює вертикальну геометрію та не показує фото; success має 5 cards, перевірені trust-off і довгі українські назви | done | `/root/fable` | `scripts/qa-listing-cards.mjs`: success 5 cards/5 images/trust-off; loading 4 cards/0 images/4 placeholders/`background-image:none`; heading overflow `false` на 320/390/430/1440 |
+| Responsive QA 320/390/430/1440, device shell збережено, 0 overflow; card screenshots success+loading у 390 і desktop device | done | `/root/fable` | Card matrix 8/8, `failures:[]`; canvas 320/390/390/390, overflow 0, desktop device `416` + inner `390`; 4 screenshots visually reviewed in one pass, one bounded fix, one confirmation |
+| Crawler/diff-check clean та окремий commit без `figmosha2`/`.impeccable` | done | `/root/fable` | Local + LAN crawler: 81 HTML, 99 contexts, 6,229 checks each, 0 broken/redirects; full QA 64/64 + 14 screenshots, 0 failures; detector degraded regex, 0 findings; explicit staging, hash in handoff |
