@@ -1,0 +1,1210 @@
+@import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Onest:wght@400;500;600;700&display=swap");
+
+/* Спільний структурний каркас для всіх екранів прототипу «Кутка».
+   Прототип мобільний: полотно екрана — 390 px (iPhone 14/15 logical width).
+   На ширшому вікні полотно центрується, щоб читалось як екран телефона,
+   а не розтягувалось у десктопну сітку — десктопна адаптація буде окремо.
+   Тільки сіра шкала, системний шрифт, без тіней і заокруглень.
+   Колір, шрифт бренду, іконки, рух — наступна ітерація (prototype/_rules.md). */
+
+:root {
+  --canvas: 390px;      /* ширина екрана, під яку зроблено прототип */
+  --bg: #ffffff;
+  --surface: #f2f2f2;
+  --surface-2: #e6e6e6;
+  --outside: #dcdcdc;   /* поле навколо полотна на широкому вікні */
+  --border: #cccccc;
+  --border-strong: #8c8c8c;
+  --text: #1a1a1a;
+  --text-muted: #5e5e5e;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --tap: 44px;          /* мінімальна зона дотику */
+  --gutter: 12px;       /* бічні поля: 390 − 24 = 366 px контенту */
+  --tabbar-h: 56px;     /* висота нижньої навігації */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Нативні контроли (радіо, чекбокси, повзунки) типово малюються
+   системним синім — гасимо, бо прототип суто сірий. */
+input,
+select,
+textarea,
+button {
+  accent-color: var(--text);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--outside);
+}
+
+body {
+  width: 100%;
+  max-width: var(--canvas);
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--bg);
+  border-inline: 1px solid var(--border-strong);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--text);
+  /* колонка, щоб нижня навігація трималась низу навіть на короткій сторінці */
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--text);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 1rem; /* 16px — інакше iOS зумить сторінку при фокусі */
+  color: var(--text);
+}
+
+button {
+  min-height: var(--tap);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  padding: 0.6rem 0.8rem;
+  cursor: pointer;
+}
+
+button.primary {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+button.block {
+  width: 100%;
+}
+
+/* Технічна примітка прототипу — не елемент продукту */
+.proto-note {
+  margin: 0;
+  padding: 6px var(--gutter);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+/* ---------- Шапка ---------- */
+
+header {
+  padding: 10px var(--gutter);
+  border-bottom: 1px solid var(--border);
+}
+
+header .product {
+  margin: 0;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+header h1 {
+  margin: 2px 0 0;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+/* ---------- Фільтри: згорнута панель, липка при прокрутці ---------- */
+
+.filters {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.filters > summary {
+  min-height: var(--tap);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px var(--gutter);
+  cursor: pointer;
+  list-style: none;
+}
+
+.filters > summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-label {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.summary-state {
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.summary-toggle {
+  flex: none;
+  border: 1px solid var(--border-strong);
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.filters-body {
+  padding: 0 var(--gutter) 14px;
+  border-top: 1px solid var(--border);
+}
+
+/* ---------- Форми ---------- */
+
+fieldset {
+  border: 1px solid var(--border);
+  padding: 4px 10px 8px;
+  margin: 12px 0;
+}
+
+legend {
+  padding: 0 4px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--tap);
+  font-size: 14px;
+}
+
+.field {
+  margin: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field > label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.field input,
+.field select,
+.field textarea {
+  min-height: var(--tap);
+  width: 100%;
+  padding: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+}
+
+.field-row {
+  display: flex;
+  gap: 8px;
+}
+
+.field-row .field {
+  flex: 1;
+  min-width: 0;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.form-actions .primary {
+  flex: 1;
+}
+
+/* ---------- Головна частина ---------- */
+
+main {
+  padding: 14px var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+main > section > h2 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+/* ---------- Список оголошень ---------- */
+
+.listing-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Горизонтальна компактна картка: на 390 px так на екран влазить 3–4
+   оголошення замість одного — це і є те, що закриває Задачу 1
+   (сканувати тип оголошення, не читаючи текст). */
+article.listing-card {
+  position: relative;
+  border: 1px solid var(--border);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 10px;
+}
+
+article.listing-card .card-body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+article.listing-card h3 {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+/* Уся картка — одна зона дотику; посилання лишається в заголовку,
+   тому текстом посилання є назва оголошення, а не «Детальніше». */
+article.listing-card h3 a {
+  text-decoration: none;
+}
+
+article.listing-card h3 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.placeholder {
+  background: var(--surface);
+  border: 1px dashed var(--border-strong);
+  color: var(--text-muted);
+  font-size: 10px;
+  text-align: center;
+  padding: 2px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tag {
+  align-self: flex-start;
+  border: 1px solid var(--text);
+  padding: 0 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.price {
+  margin: 0;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* Ключові факти картки: підпис + значення */
+.facts {
+  margin: 0;
+  font-size: 12px;
+}
+
+.facts > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.facts dt {
+  color: var(--text-muted);
+}
+
+.facts dd {
+  margin: 0;
+}
+
+.trust {
+  margin: 2px 0 0;
+  font-size: 12px;
+  line-height: 1.3;
+  border-top: 1px solid var(--border);
+  padding-top: 4px;
+}
+
+.trust .trust-off {
+  color: var(--text-muted);
+}
+
+.meta {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* ---------- Стани списку: порожньо / помилка ---------- */
+/* Той самий каркас секції (h2 + один блок замість <ul class="listing-list">),
+   тому structурно секція лишається сумісною з успіхом. */
+
+.state-block {
+  border: 1px dashed var(--border-strong);
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+}
+
+.state-block p {
+  margin: 0;
+}
+
+.state-block .state-title {
+  font-weight: 700;
+}
+
+.state-block .meta {
+  font-size: 12px;
+}
+
+a.btn {
+  display: block;
+  min-height: var(--tap);
+  line-height: calc(var(--tap) - 2px);
+  padding: 0 12px;
+  background: var(--text);
+  color: var(--bg);
+  border: 1px solid var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  text-align: center;
+}
+
+a.btn.secondary {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ---------- Стан очікування: скелетон карток ---------- */
+
+.skeleton-line {
+  display: block;
+  height: 11px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+article.listing-card.is-loading .card-body {
+  justify-content: center;
+  gap: 8px;
+}
+
+.placeholder.is-loading {
+  color: var(--text-muted);
+}
+
+/* ---------- Шапка з кнопкою назад (усі екрани, крім стрічки) ---------- */
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 4px;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+/* ---------- Сторінка оголошення ---------- */
+
+.gallery {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gallery li {
+  flex: none;
+}
+
+.gallery .placeholder {
+  width: 150px;
+  height: 110px;
+  aspect-ratio: auto;
+}
+
+.person + .person {
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+  padding-top: 8px;
+}
+
+.person .name {
+  margin: 0;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.person .bio {
+  margin: 2px 0 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.trust-list {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  font-size: 13px;
+}
+
+.trust-list li {
+  margin-bottom: 4px;
+}
+
+.description {
+  margin: 0;
+  font-size: 14px;
+  white-space: pre-line;
+}
+
+footer.cta-footer {
+  border-top: 1px solid var(--border);
+  padding: 14px var(--gutter) 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ---------- Заявка: короткий підсумок оголошення ---------- */
+
+.recap {
+  border: 1px solid var(--border);
+  padding: 10px;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.recap .recap-title {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.field textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+/* ---------- Підтвердження (успіх заявки) ---------- */
+
+.confirmation {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.confirmation .state-title {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* ---------- Підвал списку ---------- */
+
+footer.list-footer {
+  padding: 0 var(--gutter) 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ---------- Нижня навігація (у зоні великого пальця) ---------- */
+
+/* sticky, а не fixed: панель сама тримається ширини полотна екрана
+   і не роз'їжджається з ним, коли поруч відкрита панель прототипу */
+nav.tabbar {
+  position: sticky;
+  bottom: 0;
+  margin-top: auto;
+  z-index: 3;
+  height: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--surface);
+  border-top: 1px solid var(--border-strong);
+  display: flex;
+  align-items: stretch;
+}
+
+nav.tabbar ul {
+  flex: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  min-width: 0;
+}
+
+nav.tabbar li {
+  flex: 1;
+  min-width: 0;
+}
+
+nav.tabbar a {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+nav.tabbar a[aria-current="page"] {
+  font-weight: 700;
+  border-top: 3px solid var(--text);
+}
+
+/* «Створити оголошення» — окрема кнопка, не таб (product/structure.md) */
+nav.tabbar .create {
+  flex: none;
+  width: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid var(--border-strong);
+  background: var(--text);
+  color: var(--bg);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+/* ---------- Службова панель прототипу (не елемент продукту) ---------- */
+/* Дерево: розділ → екран → стани. Живе поза полотном 390 px,
+   тому не впливає на сам мобільний екран. Ховається, коли поруч
+   з полотном для неї немає місця. */
+
+.proto-tree {
+  position: fixed;
+  inset-block: 0;
+  left: 0;
+  width: 248px;
+  overflow-y: auto;
+  z-index: 5;
+  padding: 12px 10px 20px;
+  background: var(--surface-2);
+  border-right: 1px solid var(--border-strong);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.proto-tree h2 {
+  margin: 0 0 2px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.proto-tree .hint {
+  margin: 0 0 10px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.proto-tree ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Кожен рівень дерева — свій відступ */
+.proto-tree .level-screen {
+  padding-left: 10px;
+  border-left: 1px solid var(--border);
+  margin-left: 4px;
+}
+
+.proto-tree .level-state {
+  padding-left: 10px;
+  border-left: 1px solid var(--border);
+  margin-left: 4px;
+}
+
+.proto-tree .group {
+  display: block;
+  margin: 10px 0 4px;
+  font-weight: 700;
+}
+
+.proto-tree a {
+  display: block;
+  padding: 3px 4px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.proto-tree a:hover {
+  background: var(--surface);
+}
+
+.proto-tree .screen > a {
+  font-weight: 700;
+}
+
+/* Екран, усередині якого зараз відкрита сторінка */
+.proto-tree .screen.is-open > a {
+  background: var(--surface);
+}
+
+/* Саме поточна сторінка */
+.proto-tree a[aria-current="page"] {
+  background: var(--text);
+  color: var(--bg);
+}
+
+@media (max-width: 899px) {
+  .proto-tree {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  html {
+    padding-left: 248px;
+  }
+}
+
+/* ================================================================
+   LISTINGS — VISUAL LAYER: «ЗЕЛЕНИЙ ДВІР»
+   Scoped to the four listings states. Structure and copy stay intact.
+   Source of truth: ../concept.html.
+   ================================================================ */
+
+body:has(#listings-heading) {
+  --primary-700: #365c4f;
+  --primary-600: #4f7969;
+  --primary-100: #d7e8e0;
+  --accent-300: #eee3a9;
+  --neutral-0: #ffffff;
+  --neutral-25: #fbfcf9;
+  --neutral-100: #eaf2ed;
+  --neutral-300: #c6d2cc;
+  --neutral-600: #5b6f67;
+  --neutral-900: #263b33;
+  --success-bg: #dcefe7;
+  --success-text: #225541;
+  --error-bg: #f7e0e2;
+  --error-text: #863039;
+  --info-bg: #e0ecf4;
+  --info-text: #315a7c;
+  --shadow-card: 0 16px 38px rgba(24, 42, 34, .12);
+  --bg: var(--neutral-25);
+  --surface: var(--neutral-100);
+  --surface-2: var(--primary-100);
+  --outside: var(--neutral-100);
+  --border: var(--neutral-300);
+  --border-strong: var(--primary-600);
+  --text: var(--neutral-900);
+  --text-muted: var(--neutral-600);
+  --font: "Golos Text", sans-serif;
+  --gutter: 16px;
+  --tabbar-h: 72px;
+  overflow-x: hidden;
+  background: var(--neutral-25);
+  border-inline: 0;
+  font-family: "Golos Text", sans-serif;
+  line-height: 1.5;
+}
+
+body:has(#listings-heading) input,
+body:has(#listings-heading) select,
+body:has(#listings-heading) textarea,
+body:has(#listings-heading) button {
+  accent-color: var(--primary-700);
+}
+
+body:has(#listings-heading) button,
+body:has(#listings-heading) a.btn {
+  min-height: 46px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--primary-100);
+  color: var(--primary-700);
+  font-weight: 600;
+}
+
+body:has(#listings-heading) button:not(.primary):not(:disabled) {
+  border: 1px solid var(--primary-600);
+}
+
+body:has(#listings-heading) button.primary,
+body:has(#listings-heading) a.btn {
+  background: var(--primary-700);
+  color: var(--neutral-0);
+}
+
+body:has(#listings-heading) button:focus-visible,
+body:has(#listings-heading) a:focus-visible,
+body:has(#listings-heading) input:focus-visible,
+body:has(#listings-heading) select:focus-visible {
+  outline: 3px solid #416b8e;
+  outline-offset: 3px;
+}
+
+body:has(#listings-heading) .proto-note {
+  display: none;
+}
+
+body:has(#listings-heading) > header {
+  padding: 14px var(--gutter) 12px;
+  border-bottom: 0;
+  background: var(--neutral-25);
+}
+
+body:has(#listings-heading) header .product {
+  color: var(--primary-600);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+body:has(#listings-heading) header h1 {
+  margin-top: 5px;
+  color: var(--primary-700);
+  font-family: "Onest", sans-serif;
+  font-size: 20px;
+  line-height: 1.12;
+  letter-spacing: -.025em;
+}
+
+body:has(#listings-heading) .filters {
+  top: 0;
+  margin-inline: var(--gutter);
+  overflow: hidden;
+  border: 0;
+  border-radius: 16px;
+  background: var(--neutral-0);
+  box-shadow: 0 8px 24px rgba(24, 42, 34, .09);
+}
+
+body:has(#listings-heading) .filters > summary {
+  min-height: 58px;
+  padding: 9px 12px;
+}
+
+body:has(#listings-heading) .summary-label {
+  color: var(--neutral-900);
+  font-family: "Onest", sans-serif;
+  font-size: 14px;
+}
+
+body:has(#listings-heading) .summary-state {
+  color: var(--neutral-600);
+}
+
+body:has(#listings-heading) .summary-toggle {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 32px;
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--primary-100);
+  color: var(--primary-700);
+  font-weight: 600;
+}
+
+body:has(#listings-heading) .summary-toggle::before,
+body:has(#listings-heading) .trust::before,
+body:has(#listings-heading) .state-title::before,
+body:has(#listings-heading) nav.tabbar a::before,
+body:has(#listings-heading) nav.tabbar .create::before {
+  content: "";
+  display: inline-block;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  background: currentColor;
+  -webkit-mask: var(--solar-icon) center / contain no-repeat;
+  mask: var(--solar-icon) center / contain no-repeat;
+}
+
+body:has(#listings-heading) .summary-toggle::before {
+  --solar-icon: url("assets/solar/tuning-2-linear.svg");
+  margin-right: 5px;
+}
+
+body:has(#listings-heading) .filters-body {
+  padding: 0 12px 14px;
+  border-top: 1px solid var(--neutral-300);
+}
+
+body:has(#listings-heading) .filters[open] > summary {
+  background: var(--primary-100);
+}
+
+body:has(#listings-heading) .filters[open] .filters-body {
+  max-height: 42vh;
+  overflow-y: auto;
+}
+
+body:has(#listings-heading) fieldset {
+  margin: 14px 0;
+  padding: 7px 12px 9px;
+  border: 1px solid var(--neutral-300);
+  border-radius: 12px;
+}
+
+body:has(#listings-heading) legend,
+body:has(#listings-heading) .field > label {
+  color: var(--neutral-600);
+  font-weight: 500;
+}
+
+body:has(#listings-heading) .field input,
+body:has(#listings-heading) .field select,
+body:has(#listings-heading) .field textarea {
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid var(--primary-600);
+  border-radius: 12px;
+  background: var(--neutral-25);
+  color: var(--neutral-900);
+}
+
+body:has(#listings-heading) .form-actions {
+  gap: 10px;
+}
+
+body:has(#listings-heading) main {
+  padding: 24px var(--gutter);
+  gap: 24px;
+}
+
+body:has(#listings-heading) main > section > h2 {
+  margin-bottom: 14px;
+  color: var(--neutral-900);
+  font-family: "Onest", sans-serif;
+  font-size: 18px;
+  line-height: 1.25;
+  letter-spacing: -.015em;
+}
+
+body:has(#listings-heading) .listing-list {
+  gap: 12px;
+}
+
+body:has(#listings-heading) article.listing-card {
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  min-height: 244px;
+  border-radius: 16px;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 0;
+  background: var(--neutral-0);
+  box-shadow: var(--shadow-card);
+}
+
+body:has(#listings-heading) article.listing-card .placeholder {
+  width: 112px;
+  height: 100%;
+  min-height: 244px;
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: 0;
+  background-color: var(--neutral-100);
+  background-position: center;
+  background-size: cover;
+  color: transparent;
+  font-size: 0;
+  text-indent: -9999px;
+}
+
+body:has(#listings-heading) .listing-list > li:nth-child(1) .placeholder {
+  background-image: url("assets/listings/room-01.jpg");
+}
+
+body:has(#listings-heading) .listing-list > li:nth-child(2) .placeholder {
+  background-image: url("assets/listings/room-02.jpg");
+}
+
+body:has(#listings-heading) .listing-list > li:nth-child(3) .placeholder {
+  background-image: url("assets/listings/room-03.jpg");
+}
+
+body:has(#listings-heading) .listing-list > li:nth-child(4) .placeholder {
+  background-image: url("assets/listings/room-04.jpg");
+}
+
+body:has(#listings-heading) .listing-list > li:nth-child(5) .placeholder {
+  background-image: url("assets/listings/room-05.jpg");
+}
+
+body:has(#listings-heading) article.listing-card .card-body {
+  gap: 6px;
+  padding: 12px 13px 13px;
+}
+
+body:has(#listings-heading) article.listing-card .tag { order: 1; }
+body:has(#listings-heading) article.listing-card h3 { order: 2; }
+body:has(#listings-heading) article.listing-card .trust { order: 3; }
+body:has(#listings-heading) article.listing-card .price { order: 4; }
+body:has(#listings-heading) article.listing-card .facts { order: 5; }
+
+body:has(#listings-heading) article.listing-card h3 {
+  font-family: "Onest", sans-serif;
+  font-size: 15px;
+  line-height: 1.25;
+  letter-spacing: -.015em;
+}
+
+body:has(#listings-heading) .tag {
+  align-self: flex-start;
+  width: fit-content;
+  padding: 4px 9px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--primary-100);
+  color: var(--primary-700);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+body:has(#listings-heading) .price {
+  color: var(--neutral-900);
+  font-family: "Onest", sans-serif;
+  font-size: 16px;
+}
+
+body:has(#listings-heading) .facts {
+  color: var(--neutral-900);
+  font-size: 13px;
+}
+
+body:has(#listings-heading) .facts > div {
+  gap: 5px;
+}
+
+body:has(#listings-heading) .facts dt {
+  color: var(--neutral-600);
+}
+
+body:has(#listings-heading) .trust {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 3px;
+  padding-top: 8px;
+  border-top: 1px solid var(--neutral-300);
+  color: var(--success-text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+body:has(#listings-heading) .trust::before {
+  --solar-icon: url("assets/solar/shield-check-linear.svg");
+  width: 16px;
+  height: 16px;
+}
+
+body:has(#listings-heading) .trust .trust-off {
+  color: var(--error-text);
+}
+
+body:has(#listings-heading) .trust:has(.trust-off)::before {
+  --solar-icon: url("assets/solar/shield-warning-linear.svg");
+  color: var(--error-text);
+}
+
+body:has(#listings-heading) .state-block {
+  padding: 28px 20px;
+  gap: 12px;
+  border: 0;
+  border-radius: 20px;
+  background: var(--neutral-100);
+  text-align: left;
+}
+
+body:has(#listings-heading) .state-block[role="alert"] {
+  background: var(--error-bg);
+  color: var(--error-text);
+}
+
+body:has(#listings-heading) .state-block .state-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Onest", sans-serif;
+  font-size: 17px;
+}
+
+body:has(#listings-heading) .state-block .state-title::before {
+  --solar-icon: url("assets/solar/filter-linear.svg");
+  width: 22px;
+  height: 22px;
+}
+
+body:has(#listings-heading) .state-block[role="alert"] .state-title::before {
+  --solar-icon: url("assets/solar/danger-circle-linear.svg");
+}
+
+body:has(#listings-heading) .state-block[role="alert"] .meta {
+  color: var(--error-text);
+}
+
+body:has(#listings-heading) .state-block a.btn {
+  align-self: flex-start;
+  width: fit-content;
+  padding-inline: 16px;
+  line-height: 46px;
+}
+
+body:has(#listings-heading) article.listing-card.is-loading {
+  min-height: 244px;
+  box-shadow: none;
+}
+
+body:has(#listings-heading) article.listing-card.is-loading .placeholder.is-loading {
+  width: 112px;
+  height: 100%;
+  min-height: 244px;
+  background: var(--primary-100);
+  background-image: none;
+}
+
+body:has(#listings-heading) .skeleton-line {
+  height: 11px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--neutral-300);
+}
+
+body:has(#listings-heading) button:disabled {
+  background: var(--neutral-300);
+  color: var(--neutral-900);
+  cursor: not-allowed;
+}
+
+body:has(#listings-heading) footer.list-footer {
+  padding: 0 var(--gutter) 22px;
+  gap: 10px;
+}
+
+body:has(#listings-heading) .meta {
+  color: var(--neutral-600);
+  font-size: 12px;
+}
+
+body:has(#listings-heading) nav.tabbar {
+  height: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px));
+  padding: 5px 6px env(safe-area-inset-bottom, 0px);
+  border-top: 0;
+  background: var(--neutral-0);
+  box-shadow: 0 -8px 24px rgba(24, 42, 34, .09);
+}
+
+body:has(#listings-heading) nav.tabbar a {
+  flex-direction: column;
+  gap: 2px;
+  border-radius: 10px;
+  color: var(--neutral-600);
+  font-size: 11px;
+}
+
+body:has(#listings-heading) nav.tabbar li:nth-child(1) a::before {
+  --solar-icon: url("assets/solar/home-angle-linear.svg");
+}
+
+body:has(#listings-heading) nav.tabbar li:nth-child(2) a::before {
+  --solar-icon: url("assets/solar/document-text-linear.svg");
+}
+
+body:has(#listings-heading) nav.tabbar li:nth-child(3) a::before {
+  --solar-icon: url("assets/solar/chat-round-line-linear.svg");
+}
+
+body:has(#listings-heading) nav.tabbar li:nth-child(4) a::before {
+  --solar-icon: url("assets/solar/user-rounded-linear.svg");
+}
+
+body:has(#listings-heading) nav.tabbar a[aria-current="page"] {
+  border-top: 0;
+  background: var(--primary-100);
+  color: var(--primary-700);
+}
+
+body:has(#listings-heading) nav.tabbar .create {
+  width: 68px;
+  border-left: 0;
+  border-radius: 12px;
+  background: var(--primary-700);
+  color: var(--neutral-0);
+  font-size: 0;
+}
+
+body:has(#listings-heading) nav.tabbar .create::before {
+  --solar-icon: url("assets/solar/add-circle-linear.svg");
+}
+
+body:has(#listings-heading) nav.tabbar .create::after {
+  content: "Додати";
+  font-size: 11px;
+}
+
+body:has(#listings-heading) article.listing-card:has(h3 a:focus-visible) {
+  outline: 3px solid #416b8e;
+  outline-offset: 3px;
+}
+
+body:has(#listings-heading) .proto-tree {
+  background: var(--neutral-100);
+  border-right-color: var(--neutral-300);
+  color: var(--neutral-900);
+}
+
+body:has(#listings-heading) .proto-tree a[aria-current="page"] {
+  border-radius: 6px;
+  background: var(--primary-700);
+  color: var(--neutral-0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body:has(#listings-heading) .skeleton-line,
+  body:has(#listings-heading) article.listing-card.is-loading .placeholder.is-loading {
+    animation: listings-pulse 1.5s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes listings-pulse {
+  from { opacity: .55; }
+  to { opacity: 1; }
+}

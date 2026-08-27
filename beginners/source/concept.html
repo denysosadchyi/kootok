@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Пробний стенд обраної візуальної мови Кутка — Зелений двір.">
+  <title>Куток: візуальна мова «Зелений двір»</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js" defer></script>
+  <style>
+    :root {
+      --primary-700: #365c4f;
+      --primary-600: #4f7969;
+      --primary-100: #d7e8e0;
+      --accent-300: #eee3a9;
+      --accent-700: #625817;
+      --neutral-0: #ffffff;
+      --neutral-25: #fbfcf9;
+      --neutral-100: #eaf2ed;
+      --neutral-300: #c6d2cc;
+      --neutral-600: #5b6f67;
+      --neutral-900: #263b33;
+      --success: #2f6b55;
+      --warning: #856b08;
+      --error: #a83f47;
+      --info: #416b8e;
+      --shadow-card: 0 16px 38px rgba(24, 42, 34, .12);
+      --font-display: "Onest", sans-serif;
+      --font-text: "Golos Text", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { color-scheme: light; scroll-behavior: smooth; }
+    body { margin: 0; background: var(--neutral-100); color: var(--neutral-900); font-family: var(--font-text); line-height: 1.5; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    iconify-icon { font-size: 1.25rem; }
+    img { display: block; max-width: 100%; }
+    .shell { width: min(100% - 2rem, 76rem); margin-inline: auto; }
+    .attribute { display: inline-flex; align-items: center; justify-self: start; width: fit-content; max-width: 100%; min-height: 1.65rem; padding: .22rem .55rem; border-radius: 999px; background: var(--primary-100); color: var(--primary-700); font-size: .68rem; font-weight: 600; letter-spacing: .025em; }
+    .section-head { display: grid; gap: .45rem; max-width: 46rem; margin-bottom: 2rem; }
+    .section-head h2 { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.75rem); line-height: 1.02; letter-spacing: -.035em; text-wrap: balance; }
+    .section-head p { max-width: 64ch; margin: 0; color: var(--neutral-600); }
+
+    .live { padding: clamp(1.5rem, 4vw, 4rem) 0 clamp(3rem, 7vw, 7rem); }
+    .live-head { display: grid; grid-template-columns: 1.15fr .85fr; gap: 3rem; align-items: end; margin-bottom: 2.5rem; }
+    .live-head h1 { max-width: 12ch; margin: 0; color: var(--primary-700); font-family: var(--font-display); font-size: clamp(3rem, 7vw, 6.5rem); line-height: .94; letter-spacing: -.04em; text-wrap: balance; }
+    .live-head p { max-width: 52ch; margin: 0; color: var(--neutral-600); font-size: 1.05rem; }
+    .demo-stage { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(18rem, .75fr); gap: clamp(1.2rem, 3vw, 2.5rem); align-items: start; padding: clamp(1rem, 3vw, 2.5rem); border-radius: 1.5rem; background: var(--neutral-25); box-shadow: var(--shadow-card); }
+    .listing-card { overflow: hidden; border-radius: 1.25rem; background: var(--neutral-0); box-shadow: var(--shadow-card); }
+    .media-grid { position: relative; display: grid; grid-template-columns: 1.45fr .75fr; grid-template-rows: 1fr 1fr; gap: .35rem; height: clamp(22rem, 48vw, 34rem); padding: .55rem; background: var(--neutral-0); }
+    .media-grid img { width: 100%; height: 100%; min-height: 0; object-fit: cover; }
+    .media-grid img:first-of-type { grid-row: 1 / 3; border-radius: .9rem 0 0 .9rem; }
+    .media-grid img:nth-of-type(2) { border-radius: 0 .9rem 0 0; }
+    .media-grid img:nth-of-type(3) { border-radius: 0 0 .9rem 0; }
+    .verification { position: absolute; top: 1.2rem; left: 1.2rem; display: inline-flex; align-items: center; width: fit-content; max-width: calc(100% - 2.4rem); gap: .4rem; min-height: 2.15rem; padding: .45rem .72rem; border-radius: 999px; background: rgba(255,255,255,.96); color: var(--primary-700); font-size: .76rem; font-weight: 700; box-shadow: 0 4px 14px rgba(24,42,34,.12); }
+    .save-button { position: absolute; top: 1.1rem; right: 1.1rem; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; padding: 0; border: 0; border-radius: 999px; background: var(--accent-300); color: var(--neutral-900); }
+    .listing-copy { padding: 1.15rem 1.25rem 1.35rem; }
+    .listing-copy h2 { max-width: 25ch; margin: 0; font-family: var(--font-display); font-size: clamp(1.35rem, 2.5vw, 2rem); line-height: 1.12; letter-spacing: -.025em; }
+    .metadata { display: flex; flex-wrap: wrap; gap: .65rem 1.1rem; margin: .8rem 0 1.2rem; padding: 0; color: var(--neutral-600); list-style: none; font-size: .84rem; }
+    .metadata li { display: inline-flex; align-items: center; gap: .38rem; }
+    .listing-actions { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .price { font-weight: 700; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: .45rem; min-height: 2.9rem; padding: .68rem 1.05rem; border: 0; border-radius: .75rem; font-weight: 650; text-decoration: none; }
+    .button-primary { background: var(--primary-700); color: var(--neutral-0); }
+    .button-secondary { background: var(--primary-100); color: var(--primary-700); }
+    .button-quiet { background: transparent; color: var(--primary-700); }
+    .demo-side { display: grid; gap: 1rem; }
+    .person-card { display: grid; grid-template-columns: 4rem 1fr; gap: .8rem; align-items: center; padding: 1rem; border-radius: 1rem; background: var(--neutral-100); }
+    .person-card img { width: 4rem; height: 4rem; border-radius: 50%; object-fit: cover; }
+    .person-card strong, .person-card span { display: block; }
+    .person-card span { margin-top: .2rem; color: var(--neutral-600); font-size: .78rem; }
+    .field { display: grid; gap: .42rem; padding: 1.15rem; border-radius: 1rem; background: var(--neutral-0); }
+    .field label { font-size: .82rem; font-weight: 600; }
+    .field input { width: 100%; min-height: 3rem; padding: .72rem .85rem; border: 1px solid var(--neutral-300); border-radius: .75rem; background: var(--neutral-25); color: var(--neutral-900); }
+    .field small { color: var(--neutral-600); }
+    .state-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: .65rem; }
+    .state { display: flex; align-items: center; gap: .45rem; padding: .75rem; border-radius: .75rem; font-size: .75rem; font-weight: 600; }
+    .state-success { background: #dcefe7; color: #225541; }
+    .state-info { background: #e0ecf4; color: #315a7c; }
+    .tabbar { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: .25rem; margin-top: .25rem; padding: .45rem; border-radius: 1rem; background: var(--neutral-0); box-shadow: 0 8px 24px rgba(24,42,34,.09); }
+    .tab { display: grid; justify-items: center; gap: .18rem; min-height: 3.35rem; padding: .42rem .2rem; border: 0; border-radius: .7rem; background: transparent; color: var(--neutral-600); font-size: .68rem; }
+    .tab[aria-current="page"] { background: var(--primary-100); color: var(--primary-700); font-weight: 700; }
+
+    .specs { padding: clamp(3rem, 7vw, 7rem) 0; background: var(--neutral-0); }
+    .spec-block { padding: 2.5rem 0; border-top: 1px solid var(--neutral-300); }
+    .spec-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
+    .color-card { grid-column: span 3; min-height: 10rem; padding: 1rem; border-radius: 1rem; display: flex; flex-direction: column; justify-content: space-between; }
+    .color-card strong, .color-card code, .color-card small { display: block; }
+    .color-card code { margin-top: .25rem; font-size: .78rem; }
+    .color-card small { max-width: 24ch; margin-top: 1rem; font-size: .72rem; line-height: 1.45; }
+    .primary-card { background: var(--primary-700); color: var(--neutral-0); }
+    .accent-card { background: var(--accent-300); color: var(--neutral-900); }
+    .neutral-card { background: var(--neutral-100); color: var(--neutral-900); }
+    .ink-card { background: var(--neutral-900); color: var(--neutral-0); }
+    .success-card { background: #dcefe7; color: #225541; }
+    .warning-card { background: #f6edbf; color: #594704; }
+    .error-card { background: #f7e0e2; color: #863039; }
+    .info-card { background: #e0ecf4; color: #315a7c; }
+    .type-pair { grid-column: span 5; padding: 1.4rem; border-radius: 1rem; background: var(--neutral-100); }
+    .type-pair strong { display: block; margin-bottom: 1rem; }
+    .type-display-sample { margin: 0; font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 4.5rem); line-height: .98; letter-spacing: -.04em; }
+    .type-text-sample { max-width: 48ch; margin: 1rem 0 0; font-family: var(--font-text); color: var(--neutral-600); }
+    .type-scale { grid-column: span 7; display: grid; align-content: start; }
+    .scale-row { display: grid; grid-template-columns: 5rem 6rem 1fr; gap: 1rem; align-items: baseline; padding: .7rem 0; border-bottom: 1px solid var(--neutral-300); }
+    .scale-row code, .scale-row span { color: var(--neutral-600); font-size: .75rem; }
+    .scale-row b { font-family: var(--font-display); }
+    .shape-card { grid-column: span 4; padding: 1.25rem; border-radius: 1rem; background: var(--neutral-100); }
+    .shape-demo { display: grid; place-items: center; min-height: 7rem; margin-top: 1rem; background: var(--neutral-0); color: var(--neutral-600); }
+    .radius-demo { border-radius: 1.25rem; }
+    .shadow-demo { border-radius: 1rem; box-shadow: var(--shadow-card); }
+    .spacing-demo { grid-template-columns: repeat(3, 1fr); gap: 1rem; padding: 1rem; }
+    .spacing-demo i { display: block; height: 3rem; border-radius: .5rem; background: var(--primary-100); }
+    .coverage { width: 100%; border-collapse: collapse; font-size: .86rem; }
+    .coverage th, .coverage td { padding: .9rem .7rem; border-bottom: 1px solid var(--neutral-300); text-align: left; vertical-align: middle; }
+    .coverage th { color: var(--neutral-600); font-size: .72rem; font-weight: 600; }
+    .icon-cell { display: inline-flex; align-items: center; gap: .55rem; color: var(--primary-700); }
+    .component-demo { grid-column: span 4; display: grid; align-content: start; gap: 1rem; padding: 1.25rem; border-radius: 1rem; background: var(--neutral-100); }
+    .component-demo .mini-listing { overflow: hidden; border-radius: 1rem; background: var(--neutral-0); box-shadow: 0 8px 24px rgba(24,42,34,.09); }
+    .mini-listing img { width: 100%; height: 11rem; object-fit: cover; }
+    .mini-listing div { padding: .8rem; }
+    .mini-listing strong { display: block; }
+    .mini-listing span { color: var(--neutral-600); font-size: .75rem; }
+    button:focus-visible, input:focus-visible { outline: 3px solid var(--info); outline-offset: 3px; }
+
+    @media (max-width: 900px) {
+      .live-head, .demo-stage { grid-template-columns: 1fr; }
+      .tabbar { grid-column: 1; }
+      .color-card { grid-column: span 6; }
+      .type-pair, .type-scale { grid-column: 1 / -1; }
+      .shape-card, .component-demo { grid-column: span 6; }
+    }
+    @media (max-width: 600px) {
+      .shell { width: min(100% - 1rem, 76rem); }
+      .live-head { gap: 1.25rem; }
+      .demo-stage { padding: .5rem; border-radius: 1rem; }
+      .media-grid { grid-template-columns: 1fr; grid-template-rows: 1fr; height: 24rem; }
+      .media-grid img:first-of-type { grid-row: auto; border-radius: .8rem; }
+      .media-grid img:not(:first-of-type) { display: none; }
+      .listing-actions { align-items: stretch; flex-direction: column; }
+      .button { width: 100%; }
+      .color-card, .shape-card, .component-demo { grid-column: 1 / -1; }
+      .scale-row { grid-template-columns: 4rem 4rem 1fr; gap: .5rem; }
+      .coverage { display: block; overflow-x: auto; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .button, .save-button, .tab { transition: transform 160ms cubic-bezier(.2,.8,.2,1), background-color 160ms cubic-bezier(.2,.8,.2,1); }
+      .button:hover, .save-button:hover { transform: translateY(-2px); }
+    }
+  </style>
+</head>
+<body>
+  <!--
+  THESIS: «Зелений двір» будує довіру через живі побутові сцени, спокійний ритм і конкретний доказ перевірки; не через візуальний сигнал тривоги.
+  OWN-WORLD: холоднувато-зелена канва, приглушений primary, м'який жовтий accent, Onest + Golos Text, Solar Linear, радіуси 12–20 px.
+  STORY: спочатку людина бачить кімнату й співмешканців, потім конкретний статус перевірки, побутові факти та дію.
+  FIRST VIEWPORT: великий живий стенд із фото-карткою, людиною, полем, станами, кнопками й таб-баром; специфікація починається нижче.
+  FORM: обраний напрям «Зелений двір», seed 54319d9f; деталізований продуктовий стенд після вибору користувача.
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+  -->
+  <main>
+    <section class="live" aria-labelledby="live-title">
+      <div class="shell">
+        <header class="live-head">
+          <div><span class="attribute">Атрибут: спокійна довіра</span><h1 id="live-title">Зелений двір живцем</h1></div>
+          <p>Кімната, люди й конкретна перевірка зʼявляються в одному спокійному полі. Колір підтримує стан, а не переконує емоцією.</p>
+        </header>
+
+        <div class="demo-stage" data-attribute="Мова живцем: фото веде, доказ передує ціні">
+          <article class="listing-card" aria-labelledby="listing-title">
+            <div class="media-grid" data-attribute="Фото: інтер'єр + люди, без декоративної підміни">
+              <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&amp;fit=crop&amp;w=1200&amp;q=88" alt="Світла кімната з деревʼяною підлогою та рослинами">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&amp;fit=crop&amp;w=700&amp;q=88" alt="Співмешканці спілкуються за спільним столом">
+              <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?auto=format&amp;fit=crop&amp;w=700&amp;q=88" alt="Портрет майбутньої співмешканки">
+              <span class="verification" data-attribute="Бейдж: конкретний датований доказ"><iconify-icon icon="solar:shield-check-linear"></iconify-icon> Особу й адресу перевірено 14 серпня</span>
+              <button class="save-button" type="button" aria-label="Зберегти оголошення" data-attribute="Кнопка: збереження"><iconify-icon icon="solar:heart-linear"></iconify-icon></button>
+            </div>
+            <div class="listing-copy">
+              <h2 id="listing-title">Кімната на Подолі з двома співмешканками</h2>
+              <ul class="metadata" data-attribute="Метадані: скановані факти"><li><iconify-icon icon="solar:map-point-linear"></iconify-icon> Контрактова, 8 хв</li><li><iconify-icon icon="solar:users-group-rounded-linear"></iconify-icon> 2 співмешканки</li><li><iconify-icon icon="solar:cat-linear"></iconify-icon> Без тварин</li></ul>
+              <div class="listing-actions"><span class="price">9 500 ₴ / місяць</span><button class="button button-primary" type="button" data-attribute="Кнопка дії: primary"><iconify-icon icon="solar:chat-round-line-linear"></iconify-icon> Надіслати заявку</button></div>
+            </div>
+          </article>
+
+          <aside class="demo-side" aria-label="Допоміжні компоненти">
+            <div class="person-card" data-attribute="Людина: портрет і конкретний статус"><img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?auto=format&amp;fit=crop&amp;w=300&amp;q=88" alt="Портрет Дарини"><div><strong>Дарина, 27</strong><span>Профіль підтверджено по відеодзвінку</span></div></div>
+            <div class="field" data-attribute="Поле форми: спокійна межа, явний label"><label for="move-date">Коли хочеш заїхати?</label><input id="move-date" name="move-date" type="text" value="1 вересня" aria-describedby="move-hint"><small id="move-hint">Люди з оголошення побачать цю дату в заявці.</small></div>
+            <div class="state-row" data-attribute="Стани: іконка + текст + семантичний колір"><div class="state state-success"><iconify-icon icon="solar:check-circle-linear"></iconify-icon> Анкету збережено</div><div class="state state-info"><iconify-icon icon="solar:lock-keyhole-linear"></iconify-icon> Номер приховано</div></div>
+            <button class="button button-secondary" type="button" data-attribute="Кнопка: secondary"><iconify-icon icon="solar:calendar-linear"></iconify-icon> Запропонувати перегляд</button>
+          </aside>
+
+          <nav class="tabbar" aria-label="Основна навігація" data-attribute="Таб-бар: Solar Linear, активний стан площиною"><button class="tab" type="button" aria-current="page"><iconify-icon icon="solar:home-angle-linear"></iconify-icon> Оголошення</button><button class="tab" type="button"><iconify-icon icon="solar:heart-linear"></iconify-icon> Збережені</button><button class="tab" type="button"><iconify-icon icon="solar:chat-round-line-linear"></iconify-icon> Чати</button><button class="tab" type="button"><iconify-icon icon="solar:user-rounded-linear"></iconify-icon> Профіль</button></nav>
+        </div>
+      </div>
+    </section>
+
+    <section class="specs" aria-label="Специфікація візуальної мови">
+      <div class="shell">
+        <header class="section-head"><span class="attribute">Атрибут: система нижче досвіду</span><h2>Специфікація</h2><p>Токени описують уже показану мову. Вони не замінюють фотографії, ясну ієрархію та конкретні сигнали довіри.</p></header>
+
+        <section class="spec-block" aria-labelledby="palette-title"><div class="section-head"><span class="attribute">Атрибут: колір має роль</span><h2 id="palette-title">Палітра</h2><p>Primary відповідає за дію й довіру, accent позначає увагу без тривоги, neutral створює повітря. Семантичні кольори завжди йдуть з іконкою та текстом.</p></div><div class="spec-grid">
+          <article class="color-card primary-card"><div><strong>Primary / дія</strong><code>#365C4F</code></div><small>Основні кнопки, активний таб, фокус на ключовій дії.</small></article>
+          <article class="color-card accent-card"><div><strong>Accent / увага</strong><code>#EEE3A9</code></div><small>Збереження, тихе виділення, ніколи не основний текст.</small></article>
+          <article class="color-card neutral-card"><div><strong>Neutral / канва</strong><code>#EAF2ED</code></div><small>Фон сторінки та спокійне групування блоків.</small></article>
+          <article class="color-card ink-card"><div><strong>Neutral / текст</strong><code>#263B33</code></div><small>Основний текст і заголовки на світлих поверхнях.</small></article>
+          <article class="color-card success-card"><div><strong>Success / підтверджено</strong><code>#225541 on #DCEFE7</code></div><small>Збереження, завершена перевірка, позитивний результат.</small></article>
+          <article class="color-card warning-card"><div><strong>Warning / потрібна увага</strong><code>#594704 on #F6EDBF</code></div><small>Неповні дані або дія, яку варто перевірити.</small></article>
+          <article class="color-card error-card"><div><strong>Error / не виконано</strong><code>#863039 on #F7E0E2</code></div><small>Помилка з поясненням причини та наступним кроком.</small></article>
+          <article class="color-card info-card"><div><strong>Info / приватність</strong><code>#315A7C on #E0ECF4</code></div><small>Нейтральне пояснення даних, безпеки або процесу.</small></article>
+        </div></section>
+
+        <section class="spec-block" aria-labelledby="type-title"><div class="section-head"><span class="attribute">Атрибут: людяно, не декоративно</span><h2 id="type-title">Типографіка</h2><p>Onest тримає характер і мʼяку геометрію. Golos Text забезпечує читабельність інтерфейсу й довших пояснень українською.</p></div><div class="spec-grid"><article class="type-pair"><strong>Onest / заголовки й числа</strong><p class="type-display-sample">З ким житимеш</p><p class="type-text-sample">Golos Text / основний текст, підписи полів, метадані й системні повідомлення.</p></article><div class="type-scale" aria-label="Шкала типографіки"><div class="scale-row"><code>Display</code><span>64/61</span><b style="font-size:2.5rem">Куток</b></div><div class="scale-row"><code>H1</code><span>40/42</span><b style="font-size:2rem">Оголошення</b></div><div class="scale-row"><code>H2</code><span>28/31</span><b style="font-size:1.6rem">Про кімнату</b></div><div class="scale-row"><code>Title</code><span>20/24</span><b style="font-size:1.25rem">Поділ, 8 хв</b></div><div class="scale-row"><code>Body</code><span>16/24</span><b style="font:500 1rem/1.5 var(--font-text)">Спокійний основний текст</b></div><div class="scale-row"><code>Meta</code><span>13/18</span><b style="font:500 .8125rem/1.4 var(--font-text)">Перевірено 14 серпня</b></div></div></div></section>
+
+        <section class="spec-block" aria-labelledby="shape-title"><div class="section-head"><span class="attribute">Атрибут: мʼякість без пухкості</span><h2 id="shape-title">Форма</h2><p>Заокруглення належать контейнерам і контролам, тінь лише відділяє поверхню, відступи будують спокійний вертикальний ритм.</p></div><div class="spec-grid"><article class="shape-card"><strong>Радіуси</strong><div class="shape-demo radius-demo">12 px контрол · 16 px блок · 20 px картка</div></article><article class="shape-card"><strong>Тінь</strong><div class="shape-demo shadow-demo">0 16 38 / 12% neutral ink</div></article><article class="shape-card"><strong>Відступи</strong><div class="shape-demo spacing-demo"><i></i><i></i><i></i></div><small>Шкала 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64</small></article></div></section>
+
+        <section class="spec-block" aria-labelledby="icons-title"><div class="section-head"><span class="attribute">Атрибут: одна іконкова граматика</span><h2 id="icons-title">Покриття Solar Linear</h2><p>Іконка прискорює сканування, але не замінює назву дії або стану.</p></div><table class="coverage"><thead><tr><th>Зона</th><th>Набір</th><th>Правило</th></tr></thead><tbody><tr><td><span class="icon-cell"><iconify-icon icon="solar:home-angle-linear"></iconify-icon><iconify-icon icon="solar:heart-linear"></iconify-icon><iconify-icon icon="solar:chat-round-line-linear"></iconify-icon><iconify-icon icon="solar:user-rounded-linear"></iconify-icon> Таб-бар</span></td><td>home, heart, chat, user</td><td>24 px, підпис завжди видимий</td></tr><tr><td><span class="icon-cell"><iconify-icon icon="solar:map-point-linear"></iconify-icon><iconify-icon icon="solar:users-group-rounded-linear"></iconify-icon> Метадані</span></td><td>map-point, users-group</td><td>16–18 px, neutral-600</td></tr><tr><td><span class="icon-cell"><iconify-icon icon="solar:shield-check-linear"></iconify-icon> Бейдж</span></td><td>shield-check</td><td>16 px, тільки з конкретним текстом</td></tr><tr><td><span class="icon-cell"><iconify-icon icon="solar:calendar-linear"></iconify-icon><iconify-icon icon="solar:heart-linear"></iconify-icon> Кнопки</span></td><td>calendar, heart</td><td>20 px, іконка пояснює дію</td></tr><tr><td><span class="icon-cell"><iconify-icon icon="solar:check-circle-linear"></iconify-icon><iconify-icon icon="solar:danger-circle-linear"></iconify-icon><iconify-icon icon="solar:info-circle-linear"></iconify-icon> Стани</span></td><td>check, danger, info</td><td>20 px, разом із текстом і кольором</td></tr></tbody></table></section>
+
+        <section class="spec-block" aria-labelledby="components-title"><div class="section-head"><span class="attribute">Атрибут: компоненти в реальному контексті</span><h2 id="components-title">Три живі компоненти</h2><p>Мінімальний набір перевіряє дію, контент і введення даних.</p></div><div class="spec-grid"><article class="component-demo"><strong>Кнопка дії</strong><button class="button button-primary" type="button"><iconify-icon icon="solar:chat-round-line-linear"></iconify-icon> Надіслати заявку</button><button class="button button-quiet" type="button">Переглянути профіль</button><span class="attribute">Primary + quiet</span></article><article class="component-demo"><strong>Картка оголошення</strong><div class="mini-listing"><img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&amp;fit=crop&amp;w=700&amp;q=86" alt="Світла кімната на Подолі"><div><span><iconify-icon icon="solar:shield-check-linear"></iconify-icon> Перевірено 14 серпня</span><strong>Кімната на Подолі</strong><span>9 500 ₴ / місяць</span></div></div><span class="attribute">Фото + доказ + ціна</span></article><article class="component-demo"><strong>Поле форми</strong><div class="field"><label for="about-you">Коротко про себе</label><input id="about-you" name="about-you" type="text" placeholder="Розкажи про свій ритм життя"><small>До 240 символів. Це побачать люди з оголошення.</small></div><span class="attribute">Label + input + допомога</span></article></div></section>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

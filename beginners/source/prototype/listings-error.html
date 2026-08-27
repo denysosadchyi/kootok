@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Куток — Стрічка оголошень (помилка)</title>
+<link rel="stylesheet" href="_base.css">
+<script type="module" src="../comments-harness/static/annotator.js?v=3"></script>
+</head>
+<body>
+
+<p class="proto-note">
+  Прототип 390&nbsp;px · стан «помилка» · крок 1 з 4 головного сценарію
+  (Соломія шукає підселення) · вихід — спробувати ще раз, а не глухий кут
+</p>
+
+<header>
+  <p class="product">Куток — кімнати та співмешканці в Києві</p>
+  <h1>Стрічка оголошень + фільтри</h1>
+</header>
+
+<!-- Фільтри лишаються доступними й незмінними: помилка сталась на етапі
+     завантаження результатів, а не самої форми фільтрів. -->
+<details class="filters">
+  <summary>
+    <span class="summary-text">
+      <span class="summary-label">Фільтри</span>
+      <span class="summary-state">Підселення · Голосіївський · до 10 000 грн</span>
+    </span>
+    <span class="summary-toggle">Змінити</span>
+  </summary>
+  <div class="filters-body">
+    <form aria-label="Фільтри оголошень">
+      <fieldset>
+        <legend>Тип оголошення</legend>
+        <label class="choice"><input type="radio" name="type" value="all"> Усі оголошення</label>
+        <label class="choice"><input type="radio" name="type" value="sublet" checked> Підселення до співмешканців</label>
+        <label class="choice"><input type="radio" name="type" value="fresh"> Оренда з нуля</label>
+      </fieldset>
+
+      <div class="field">
+        <label for="district">Район Києва</label>
+        <select id="district" name="district">
+          <option value="">Будь-який район</option>
+          <option selected>Голосіївський</option>
+          <option>Дарницький</option>
+          <option>Деснянський</option>
+          <option>Дніпровський</option>
+          <option>Оболонський</option>
+          <option>Печерський</option>
+          <option>Подільський</option>
+          <option>Святошинський</option>
+          <option>Солом'янський</option>
+          <option>Шевченківський</option>
+        </select>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="price-min">Ціна від, грн/міс</label>
+          <input type="number" id="price-min" name="price-min" min="0" step="500" value="5000">
+        </div>
+        <div class="field">
+          <label for="price-max">Ціна до, грн/міс</label>
+          <input type="number" id="price-max" name="price-max" min="0" step="500" value="10000">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="move-in">Заїзд не пізніше</label>
+        <input type="date" id="move-in" name="move-in" value="2026-09-01">
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="primary">Показати оголошення</button>
+        <button type="reset">Скинути</button>
+      </div>
+    </form>
+  </div>
+</details>
+
+<main>
+  <section aria-labelledby="listings-heading">
+    <h2 id="listings-heading">Оголошення в Києві</h2>
+
+    <div class="state-block" role="alert">
+      <p class="state-title">Не вдалося завантажити оголошення</p>
+      <p class="meta">
+        Перевірте інтернет-з'єднання і спробуйте ще раз. Вибрані фільтри
+        збереглися.
+      </p>
+      <a class="btn" href="listings.html">Спробувати ще раз</a>
+    </div>
+  </section>
+</main>
+
+<footer class="list-footer">
+  <p class="meta">Оновлення не вдалося</p>
+</footer>
+
+<!-- Службова панель прототипу: розділ → екран → стани.
+     Структура з prototype/_screens.md, імена файлів з prototype/_rules.md.
+     Не елемент продукту — на полотні 390 px не показується. -->
+<aside class="proto-tree">
+  <h2>Прототип «Кутка»</h2>
+  <p class="hint">Головний сценарій Соломії</p>
+
+  <nav aria-label="Навігація прототипом">
+    <ul>
+
+      <li>
+        <span class="group">Оголошення (кімната / квартира)</span>
+        <ul class="level-screen">
+
+          <li class="screen is-open">
+            <a href="listings.html">Стрічка оголошень + фільтри</a>
+            <ul class="level-state">
+              <li><a href="listings.html">успіх</a></li>
+              <li><a href="listings-empty.html">порожньо</a></li>
+              <li><a href="listings-error.html" aria-current="page">помилка</a></li>
+              <li><a href="listings-loading.html">очікування</a></li>
+            </ul>
+          </li>
+
+          <li class="screen">
+            <a href="listing.html">Сторінка оголошення</a>
+            <ul class="level-state">
+              <li><a href="listing.html">успіх</a></li>
+              <li><a href="listing-error.html">помилка</a></li>
+              <li><a href="listing-loading.html">очікування</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </li>
+
+      <li>
+        <span class="group">Профіль людини</span>
+        <ul class="level-screen">
+          <li class="screen">
+            <a href="compatibility-form.html">Анкета сумісності — заповнення власного профілю</a>
+            <ul class="level-state">
+              <li><a href="compatibility-form.html">успіх</a></li>
+              <li><a href="compatibility-form-error.html">помилка</a></li>
+              <li><a href="compatibility-form-loading.html">очікування</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <span class="group">Заявка</span>
+        <ul class="level-screen">
+          <li class="screen">
+            <a href="application.html">Форма заявки</a>
+            <ul class="level-state">
+              <li><a href="application.html">успіх</a></li>
+              <li><a href="application-error.html">помилка</a></li>
+              <li><a href="application-loading.html">очікування</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+  </nav>
+</aside>
+
+<nav class="tabbar" aria-label="Головне меню">
+  <ul>
+    <li><a href="listings.html" aria-current="page">Стрічка</a></li>
+    <li><a href="#">Заявки</a></li>
+    <li><a href="#">Чат</a></li>
+    <li><a href="#">Профіль</a></li>
+  </ul>
+  <a class="create" href="#" aria-label="Створити оголошення">+ Додати</a>
+</nav>
+
+</body>
+</html>

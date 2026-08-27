@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Куток — Анкета сумісності</title>
+<link rel="stylesheet" href="_base.css">
+</head>
+<body>
+
+<p class="proto-note">
+  Прототип 390&nbsp;px · екран «Анкета сумісності — заповнення власного
+  профілю» (_screens.md) · крок 3 з 4 головного сценарію · Задача 4
+  (відсіяти несумісних ще до зустрічі) · назад → оголошення · далі →
+  заявка
+</p>
+
+<header>
+  <a class="back-link" href="listing.html">← Кімната в Голосіївському районі</a>
+  <p class="product">Куток — профіль людини</p>
+  <h1>Анкета сумісності</h1>
+</header>
+
+<main>
+  <section aria-labelledby="form-heading">
+    <h2 id="form-heading">Розкажіть про свій побут</h2>
+    <p class="meta">
+      Марія та Олег побачать цю анкету разом із вашою заявкою на кімнату
+      в Голосіївському районі.
+    </p>
+
+    <form aria-label="Анкета сумісності" action="application.html" method="get">
+
+      <fieldset>
+        <legend>Сон</legend>
+        <label class="choice"><input type="radio" name="sleep" value="early" checked> Рано лягаю, до 23:00</label>
+        <label class="choice"><input type="radio" name="sleep" value="late"> Пізно лягаю, після півночі</label>
+        <label class="choice"><input type="radio" name="sleep" value="varies"> По-різному, залежить від дня</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Чистота</legend>
+        <label class="choice"><input type="radio" name="cleanliness" value="daily" checked> Прибираю щодня</label>
+        <label class="choice"><input type="radio" name="cleanliness" value="weekly"> Раз-два на тиждень</label>
+        <label class="choice"><input type="radio" name="cleanliness" value="occasional"> Коли трапляється</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Гості</legend>
+        <label class="choice"><input type="radio" name="guests" value="rarely" checked> Рідко, і завжди попереджаю</label>
+        <label class="choice"><input type="radio" name="guests" value="weekends"> Іноді на вихідних</label>
+        <label class="choice"><input type="radio" name="guests" value="often"> Часто</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Тварини</legend>
+        <label class="choice"><input type="radio" name="pets" value="none" checked> Немає і не планую</label>
+        <label class="choice"><input type="radio" name="pets" value="allergy"> Немає, є алергія</label>
+        <label class="choice"><input type="radio" name="pets" value="have"> Тримаю тварину</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Куріння</legend>
+        <label class="choice"><input type="radio" name="smoking" value="no" checked> Не курю</label>
+        <label class="choice"><input type="radio" name="smoking" value="outside"> Курю, але не вдома</label>
+        <label class="choice"><input type="radio" name="smoking" value="yes"> Курю</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Графік</legend>
+        <label class="choice"><input type="radio" name="schedule" value="office" checked> Стандартний офісний</label>
+        <label class="choice"><input type="radio" name="schedule" value="remote"> Віддалено, гнучкий</label>
+        <label class="choice"><input type="radio" name="schedule" value="shift"> Змінний або нічний</label>
+      </fieldset>
+
+      <div class="field">
+        <label for="about">Коротко про себе</label>
+        <textarea id="about" name="about">Переїжджаю в Київ на нову роботу 1 вересня. Люблю готувати, спокійна, працюю в офісі з 9 до 18. Шукаю тиху квартиру без гучних вечірок.</textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="primary">Зберегти й продовжити</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<!-- Службова панель прототипу: розділ → екран → стани.
+     Структура з prototype/_screens.md, імена файлів з prototype/_rules.md.
+     Не елемент продукту — на полотні 390 px не показується. -->
+<aside class="proto-tree">
+  <h2>Прототип «Кутка»</h2>
+  <p class="hint">Головний сценарій Соломії</p>
+
+  <nav aria-label="Навігація прототипом">
+    <ul>
+
+      <li>
+        <span class="group">Оголошення (кімната / квартира)</span>
+        <ul class="level-screen">
+
+          <li class="screen">
+            <a href="listings.html">Стрічка оголошень + фільтри</a>
+            <ul class="level-state">
+              <li><a href="listings.html">успіх</a></li>
+              <li><a href="listings-empty.html">порожньо</a></li>
+              <li><a href="listings-error.html">помилка</a></li>
+              <li><a href="listings-loading.html">очікування</a></li>
+            </ul>
+          </li>
+
+          <li class="screen">
+            <a href="listing.html">Сторінка оголошення</a>
+            <ul class="level-state">
+              <li><a href="listing.html">успіх</a></li>
+              <li><a href="listing-error.html">помилка</a></li>
+              <li><a href="listing-loading.html">очікування</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </li>
+
+      <li>
+        <span class="group">Профіль людини</span>
+        <ul class="level-screen">
+          <li class="screen is-open">
+            <a href="compatibility-form.html">Анкета сумісності — заповнення власного профілю</a>
+            <ul class="level-state">
+              <li><a href="compatibility-form.html" aria-current="page">успіх</a></li>
+              <li><a href="compatibility-form-error.html">помилка</a></li>
+              <li><a href="compatibility-form-loading.html">очікування</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <span class="group">Заявка</span>
+        <ul class="level-screen">
+          <li class="screen">
+            <a href="application.html">Форма заявки</a>
+            <ul class="level-state">
+              <li><a href="application.html">успіх</a></li>
+              <li><a href="application-error.html">помилка</a></li>
+              <li><a href="application-loading.html">очікування</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+  </nav>
+</aside>
+
+<nav class="tabbar" aria-label="Головне меню">
+  <ul>
+    <li><a href="listings.html" aria-current="page">Стрічка</a></li>
+    <li><a href="#">Заявки</a></li>
+    <li><a href="#">Чат</a></li>
+    <li><a href="#">Профіль</a></li>
+  </ul>
+  <a class="create" href="#" aria-label="Створити оголошення">+ Додати</a>
+</nav>
+
+</body>
+</html>

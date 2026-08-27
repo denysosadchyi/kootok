@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Куток — Кімната в Голосіївському районі</title>
+<link rel="stylesheet" href="_base.css">
+</head>
+<body>
+
+<p class="proto-note">
+  Прототип 390&nbsp;px · екран «Сторінка оголошення» (_screens.md) ·
+  крок 2 з 4 головного сценарію · Задача 2 (оцінити довіру) і Задача 3
+  (написати, не розкриваючи номер) · назад → стрічка · далі → анкета
+  сумісності
+</p>
+
+<header>
+  <a class="back-link" href="listings.html">← Стрічка</a>
+  <p class="product">Куток — кімнати та співмешканці в Києві</p>
+  <h1>Кімната в 3-кімнатній, Голосіївський район</h1>
+</header>
+
+<main>
+
+  <section aria-label="Фото оголошення">
+    <ul class="gallery">
+      <li><div class="placeholder" aria-hidden="true">фото 1 з 3 — кімната</div></li>
+      <li><div class="placeholder" aria-hidden="true">фото 2 з 3 — кухня</div></li>
+      <li><div class="placeholder" aria-hidden="true">фото 3 з 3 — санвузол</div></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="about-heading">
+    <h2 id="about-heading">Про кімнату</h2>
+    <span class="tag">Підселення</span>
+    <p class="price">7 500 грн/міс, комунальні окремо</p>
+    <dl class="facts">
+      <div><dt>Район:</dt><dd>Голосіївський, вул. Васильківська</dd></div>
+      <div><dt>Заїзд:</dt><dd>з 1 вересня</dd></div>
+      <div><dt>Кімната:</dt><dd>окрема, 12 м², своє вікно</dd></div>
+    </dl>
+  </section>
+
+  <section aria-labelledby="residents-heading">
+    <h2 id="residents-heading">Хто зараз живе</h2>
+    <div class="person">
+      <p class="name">Марія, 26</p>
+      <p class="bio">Дизайнерка, не курить, тварин немає. Живе тут з січня 2025.</p>
+    </div>
+    <div class="person">
+      <p class="name">Олег, 29</p>
+      <p class="bio">Розробник, часто працює з дому, любить тишу вранці.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="trust-heading">
+    <h2 id="trust-heading">Довіра</h2>
+    <p class="trust">Перевірено по відеодзвінку — звіт від 28 лип.</p>
+    <ul class="trust-list">
+      <li>Особу орендаря (Марії) підтверджено за документом</li>
+      <li>Номер телефону підтверджено</li>
+      <li>Договір оренди квартири перевірено</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="description-heading">
+    <h2 id="description-heading">Опис від мешканців</h2>
+    <p class="description">Шукаємо спокійну дівчину чи хлопця на третю кімнату. У нас затишно, є посудомийна машина і хороший інтернет. Гостей попереджаємо заздалегідь, тварин поки не тримаємо. Комунальні ділимо порівну, платимо через застосунок для сумісних витрат.</p>
+  </section>
+
+</main>
+
+<footer class="cta-footer">
+  <p class="meta">Щоб написати Марії та Олегу, спершу заповніть коротку анкету сумісності</p>
+  <a class="btn" href="compatibility-form.html">Подати заявку</a>
+</footer>
+
+<!-- Службова панель прототипу: розділ → екран → стани.
+     Структура з prototype/_screens.md, імена файлів з prototype/_rules.md.
+     Не елемент продукту — на полотні 390 px не показується. -->
+<aside class="proto-tree">
+  <h2>Прототип «Кутка»</h2>
+  <p class="hint">Головний сценарій Соломії</p>
+
+  <nav aria-label="Навігація прототипом">
+    <ul>
+
+      <li>
+        <span class="group">Оголошення (кімната / квартира)</span>
+        <ul class="level-screen">
+
+          <li class="screen">
+            <a href="listings.html">Стрічка оголошень + фільтри</a>
+            <ul class="level-state">
+              <li><a href="listings.html">успіх</a></li>
+              <li><a href="listings-empty.html">порожньо</a></li>
+              <li><a href="listings-error.html">помилка</a></li>
+              <li><a href="listings-loading.html">очікування</a></li>
+            </ul>
+          </li>
+
+          <li class="screen is-open">
+            <a href="listing.html">Сторінка оголошення</a>
+            <ul class="level-state">
+              <li><a href="listing.html" aria-current="page">успіх</a></li>
+              <li><a href="listing-error.html">помилка</a></li>
+              <li><a href="listing-loading.html">очікування</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </li>
+
+      <li>
+        <span class="group">Профіль людини</span>
+        <ul class="level-screen">
+          <li class="screen">
+            <a href="compatibility-form.html">Анкета сумісності — заповнення власного профілю</a>
+            <ul class="level-state">
+              <li><a href="compatibility-form.html">успіх</a></li>
+              <li><a href="compatibility-form-error.html">помилка</a></li>
+              <li><a href="compatibility-form-loading.html">очікування</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <span class="group">Заявка</span>
+        <ul class="level-screen">
+          <li class="screen">
+            <a href="application.html">Форма заявки</a>
+            <ul class="level-state">
+              <li><a href="application.html">успіх</a></li>
+              <li><a href="application-error.html">помилка</a></li>
+              <li><a href="application-loading.html">очікування</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+  </nav>
+</aside>
+
+<nav class="tabbar" aria-label="Головне меню">
+  <ul>
+    <li><a href="listings.html" aria-current="page">Стрічка</a></li>
+    <li><a href="#">Заявки</a></li>
+    <li><a href="#">Чат</a></li>
+    <li><a href="#">Профіль</a></li>
+  </ul>
+  <a class="create" href="#" aria-label="Створити оголошення">+ Додати</a>
+</nav>
+
+</body>
+</html>
