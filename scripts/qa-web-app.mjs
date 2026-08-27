@@ -132,7 +132,8 @@ for (const item of layout) {
     const expected = Math.min(390, item.size.width);
     if (!item.main || Math.abs(item.main.width - expected) > 1) failures.push(`${item.path} ${item.size.width}: canvas=${item.main?.width}, expected=${expected}`);
     if (!item.deviceScreen || Math.abs(item.deviceScreen.width - expected) > 1) failures.push(`${item.path} ${item.size.width}: device screen=${item.deviceScreen?.width}, expected=${expected}`);
-    if (!item.product || Math.abs(item.product.width - expected) > 1) failures.push(`${item.path} ${item.size.width}: product nav=${item.product?.width}, expected=${expected}`);
+    const expectedNav = item.size.width <= 430 ? expected - 24 : expected - 20;
+    if (!item.product || Math.abs(item.product.width - expectedNav) > 1) failures.push(`${item.path} ${item.size.width}: product nav=${item.product?.width}, expected floating width=${expectedNav}`);
     if (item.productLinks !== 5) failures.push(`${item.path}: product links=${item.productLinks}`);
     if (item.size.width <= 430 && (item.deviceStyle.borderTopWidth !== "0px" || item.deviceStyle.paddingLeft !== "0px" || item.deviceStyle.borderRadius !== "0px")) failures.push(`${item.path} ${item.size.width}: mobile device chrome is visible`);
     if (item.size.width > 430 && (item.device?.width !== 416 || item.deviceScreen?.width !== 390 || item.deviceStyle.borderTopWidth === "0px")) failures.push(`${item.path} ${item.size.width}: desktop device geometry incorrect`);

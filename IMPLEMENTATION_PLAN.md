@@ -58,3 +58,12 @@
 | Вимога | Status | Owner | Evidence |
 |---|---|---|---|
 | Прибрати видимий `Навчальний прототип · дані демонстраційні` з усіх 13 lesson-6 states, видалити dead `.demo-label` CSS без порожнього gap; зберегти green canon, navigation, course tree, 390 canvas, device shell і cards | done | `/root/fable` | Source scan: 13/13 markup removed, label/CSS matches 0; LAN URLs 13/13 HTTP 200; `qa-web-app`: canvas 320/390/390/390, max overflow 0, 64 checks + 14 screenshots, `failures:[]`; focused diff: тільки 13 labels, 1 dead CSS rule і цей plan row |
+
+## Lesson 6 compact product navigation
+
+| Вимога | Status | Owner | Evidence |
+|---|---|---|---|
+| Перебудувати product nav як compact floating bottom bar: 4 stable tabs `Пошук / Чати / Оголошення / Профіль` + visually distinct primary `Додати` в тому самому footprint; DOM/ARIA order = visual order, hrefs збережені, create має explicit accessible label | done | `/root` | Shared CSS; 13/13 create links мають `aria-label="Додати нове оголошення"`; порядок 4 tabs + create збережено |
+| Mobile 320/390: зовнішні side/bottom margins, safe-area support, radius 14–18 px, рівні 5 columns без horizontal scroll, Solar icons, labels readable, кожна target ≥44 px; course drawer і contextual back links не змінювати | done | `/root` | 320 nav 296px із 12px side margins; 390 nav 366px; висота 66px; 5 рівних columns, min-height link 54px; max overflow 0 |
+| Active state очевидний через icon + label weight + bounded shape, не лише колір; рівно один коректний `aria-current="page"` за family на всіх 13 states; keyboard focus visible | done | `/root` | Active має mint bounded shape + border + 700 weight; shared `:focus-visible`; `qa-web-app` activeCount=1 і productLinks=5 на всіх states |
+| На 430/1440 nav лишається всередині 390 canvas/device bezel та вище home indicator; bounded mobile+device visual pass, crawler/diff-check, окремий commit без `figmosha2`/`.impeccable` | done | `/root` | 430 floating nav 366px; desktop nav 370px з 10px inset у 390px device screen; 64 layout checks, 0 overflow; QA screenshots generated |
