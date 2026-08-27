@@ -83,6 +83,9 @@ async function metrics(path, size) {
     const prototype = document.body.classList.contains("course-nav--prototype");
     const main = document.querySelector("main");
     const product = document.querySelector(".product-header");
+    const device = document.querySelector(".prototype-device");
+    const deviceScreen = document.querySelector(".prototype-device__screen");
+    const courseShell = document.querySelector("#course-shell");
     const oldSidebars = document.querySelectorAll("body > .mobtop, body > .mobile, .app > .sidebar").length;
     const rect = (node) => node ? Object.fromEntries(["left","right","top","bottom","width","height"].map(k => [k, Math.round(node.getBoundingClientRect()[k] * 100) / 100])) : null;
     return {
@@ -90,6 +93,8 @@ async function metrics(path, size) {
       documentWidth: document.documentElement.scrollWidth, bodyWidth: document.body.scrollWidth,
       overflow: Math.max(0, document.documentElement.scrollWidth - innerWidth),
       main: rect(main), product: rect(product),
+      device: rect(device), deviceScreen: rect(deviceScreen), courseShell: rect(courseShell),
+      deviceStyle: device ? {borderTopWidth:getComputedStyle(device).borderTopWidth, paddingLeft:getComputedStyle(device).paddingLeft, borderRadius:getComputedStyle(device).borderRadius} : null,
       productStyle: product ? {display:getComputedStyle(product).display, visibility:getComputedStyle(product).visibility, opacity:getComputedStyle(product).opacity, zIndex:getComputedStyle(product).zIndex} : null,
       oldSidebars,
       shellCount: document.querySelectorAll("#course-shell").length,
@@ -126,8 +131,12 @@ for (const item of layout) {
   if (item.prototype) {
     const expected = Math.min(390, item.size.width);
     if (!item.main || Math.abs(item.main.width - expected) > 1) failures.push(`${item.path} ${item.size.width}: canvas=${item.main?.width}, expected=${expected}`);
+    if (!item.deviceScreen || Math.abs(item.deviceScreen.width - expected) > 1) failures.push(`${item.path} ${item.size.width}: device screen=${item.deviceScreen?.width}, expected=${expected}`);
     if (!item.product || Math.abs(item.product.width - expected) > 1) failures.push(`${item.path} ${item.size.width}: product nav=${item.product?.width}, expected=${expected}`);
     if (item.productLinks !== 5) failures.push(`${item.path}: product links=${item.productLinks}`);
+    if (item.size.width <= 430 && (item.deviceStyle.borderTopWidth !== "0px" || item.deviceStyle.paddingLeft !== "0px" || item.deviceStyle.borderRadius !== "0px")) failures.push(`${item.path} ${item.size.width}: mobile device chrome is visible`);
+    if (item.size.width > 430 && (item.device?.width !== 416 || item.deviceScreen?.width !== 390 || item.deviceStyle.borderTopWidth === "0px")) failures.push(`${item.path} ${item.size.width}: desktop device geometry incorrect`);
+    if (item.size.width >= 900 && item.device.left < item.courseShell.right) failures.push(`${item.path} ${item.size.width}: device overlaps course tree`);
   }
 }
 
@@ -162,6 +171,17 @@ for (const [name, path] of Object.entries(screenshotPages)) {
   await capture(name, path, true);
 }
 
+async function captureDesktopDevice(collapsed) {
+  await viewport(1440, 900);
+  await navigate("/kootok/lesson-6/listings-empty.html");
+  await evaluate(`localStorage.setItem('kootok-course-sidebar-collapsed','${collapsed ? "1" : "0"}'); document.documentElement.classList.toggle('course-sidebar-collapsed',${collapsed});`);
+  await new Promise((ok) => setTimeout(ok, 260));
+  const { data } = await send("Page.captureScreenshot", { format: "png", fromSurface: true, captureBeyondViewport: false });
+  await writeFile(resolve(screenshotDir, `device-desktop-tree-${collapsed ? "closed" : "open"}.png`), Buffer.from(data, "base64"));
+}
+await captureDesktopDevice(false);
+await captureDesktopDevice(true);
+
 const prototypeSummary = layout.filter((item) => item.prototype).reduce((acc, item) => {
   const key = String(item.size.width);
   acc[key] ||= { pages: 0, maxOverflow: 0, canvasWidths: new Set() };
@@ -190,7 +210,7 @@ const contrasts = Object.fromEntries(Object.entries(contrastPairs).map(([name, p
 for (const [name, ratio] of Object.entries(contrasts)) if (ratio < 4.5) failures.push(`Contrast ${name}=${ratio}:1`);
 
 const acceptance390 = layout.find((item) => item.path.endsWith("/lesson-6/listings-empty.html") && item.size.width === 390);
-console.log(JSON.stringify({ origin, pages: matrixPaths.length, layoutChecks: layout.length, prototypeSummary, acceptance390, contrasts, aria: { before: ariaBefore, open: ariaOpen, closed: ariaClosed, persistence }, screenshots: Object.keys(screenshotPages).length * 2, failures }, null, 2));
+console.log(JSON.stringify({ origin, pages: matrixPaths.length, layoutChecks: layout.length, prototypeSummary, acceptance390, contrasts, aria: { before: ariaBefore, open: ariaOpen, closed: ariaClosed, persistence }, screenshots: Object.keys(screenshotPages).length * 2 + 2, failures }, null, 2));
 await cdp.send("Target.closeTarget", { targetId });
 cdp.socket.close();
 if (failures.length) process.exitCode = 1;

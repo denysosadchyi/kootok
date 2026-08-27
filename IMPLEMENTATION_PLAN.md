@@ -32,3 +32,13 @@
 | Єдині shared color tokens для app shell/root/research/lesson6: green primary, green surfaces, neutral text/borders, role-bound cream accent, semantic success/error/info; без видимих purple/Notion-like shared surfaces | done | `/root/green_mobile_lesson6` | Shared tokens in `site-theme.css`; research hero purple glow/text overridden; tested contrast ratios 5.21:1–11.62:1 across text, muted, primary, accent and semantic roles |
 | Фінальний crawl, 0 broken targets, 0 overflow, screenshots 6 surfaces open/closed, keyboard/ARIA smoke | done | `/root/green_mobile_lesson6` | `scripts/audit-local-links.mjs` + `scripts/qa-web-app.mjs`: 12 screenshots, 64 layout checks, 0 failures; keyboard/ARIA clean |
 | Окремий commit без `figmosha2` та `.impeccable` | done | `/root/green_mobile_lesson6` | Production/docs/scripts staged explicitly; `.impeccable` screenshots and `figmosha2` excluded from commit |
+
+## Lesson 6 desktop device shell
+
+| Вимога | Status | Owner | Evidence |
+|---|---|---|---|
+| Спільний стриманий device mockup навколо незмінного канонічного lesson-6 canvas 390 px на wider screens: корпус, bezel, speaker/dynamic-island detail, home indicator і м’яка тінь без дублювання у 13 HTML | done | `/root/green_mobile_lesson6` | Один runtime wrapper у `course-nav.js`, shared presentation у `prototype/_base.css`; 13 HTML не дублюють markup |
+| На viewport ≤430 shell повністю відсутній: edge-to-edge 320/390 mobile, без рамки й horizontal overflow | done | `/root/green_mobile_lesson6` | 13/13 CDP: screen 320/390/390 px на 320/390/430; computed border/padding/radius = 0; max overflow 0 |
+| На desktop device shell співіснує з course tree, не перекриває його; inner product canvas лишається 390 px | done | `/root/green_mobile_lesson6` | 13/13 CDP at 1440×900: shell 416 px, inner screen/main/nav 390 px; device left ≥ course tree right; 0 overlap/overflow |
+| QA 13/13: inner canvas 320/390/390/390 на viewport 320/390/430/1440, 0 overflow; screenshots 390×844 і 1440×900 з tree open/closed; crawler 0 broken | done | `/root/green_mobile_lesson6` | `scripts/qa-web-app.mjs`: 64 layout checks, 14 screenshots, 0 failures; mobile and desktop tree open/closed visually reviewed; crawler 81 HTML/99 contexts/6,229 checks, 0 broken/redirects; detector 0 findings |
+| Окремий commit без `figmosha2` та `.impeccable` | done | `/root/green_mobile_lesson6` | Production/docs/scripts staged explicitly; screenshots and `figmosha2` excluded |

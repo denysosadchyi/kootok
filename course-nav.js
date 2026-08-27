@@ -9,6 +9,7 @@
   var collapseKey = "kootok-course-sidebar-collapsed";
   var groupKey = "kootok-course-group-";
   var previousFocus = null;
+  var isPrototype = path.indexOf(base + "lesson-6/") === 0 || path.indexOf(base + "beginners/source/prototype/") === 0;
 
   var lessons = [
     { short: "01", label: "01 · Продукт і бриф", href: "index.html#lesson-1", paths: ["/kootok/index.html"] },
@@ -59,12 +60,30 @@
 
   document.documentElement.classList.add("has-course-nav");
   if (localStorage.getItem(collapseKey) === "1") document.documentElement.classList.add("course-sidebar-collapsed");
-  if (path.indexOf(base + "lesson-6/") === 0 || path.indexOf(base + "beginners/source/prototype/") === 0) {
+  if (isPrototype) {
     document.body.classList.add("course-nav--prototype");
   }
 
   var main = document.querySelector("main");
   if (main && !main.id) main.id = "course-main";
+
+  if (isPrototype && !document.querySelector(".prototype-device")) {
+    var device = document.createElement("div");
+    var deviceScreen = document.createElement("div");
+    var deviceContent = document.createElement("div");
+    var productHeader = document.querySelector(".product-header");
+    device.className = "prototype-device";
+    deviceScreen.className = "prototype-device__screen";
+    deviceContent.className = "prototype-device__content";
+    deviceScreen.setAttribute("data-device-screen", "390 × 844");
+    Array.from(document.body.childNodes).forEach(function (node) {
+      if (node !== productHeader) deviceContent.appendChild(node);
+    });
+    deviceScreen.appendChild(deviceContent);
+    if (productHeader) deviceScreen.appendChild(productHeader);
+    device.appendChild(deviceScreen);
+    document.body.appendChild(device);
+  }
 
   var sidebar = document.createElement("aside");
   sidebar.className = "course-shell";
