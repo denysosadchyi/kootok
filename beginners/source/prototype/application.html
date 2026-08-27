@@ -3,21 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Куток — Заявку надіслано</title>
+<title>Куток: Заявку надіслано</title>
 <link rel="stylesheet" href="_base.css">
 </head>
 <body>
 
+<header class="product-header">
+  <a class="product-header__brand" href="listings.html" aria-label="Куток: на головну">Куток</a>
+  <nav class="product-nav" aria-label="Навігація продуктом">
+    <a class="product-nav__link" href="listings.html">Пошук</a>
+    <a class="product-nav__link" href="application.html" aria-current="page">Чати</a>
+    <a class="product-nav__link" href="listing.html">Оголошення</a>
+    <a class="product-nav__link" href="compatibility-form.html">Профіль</a>
+    <a class="product-nav__link product-nav__link--create" href="/kootok/research/wireframes/listing-new.html">Додати</a>
+  </nav>
+</header>
+
+<p class="demo-label">Навчальний прототип · дані демонстраційні</p>
+
 <p class="proto-note">
   Прототип 390&nbsp;px · екран «Форма заявки» (_screens.md) · крок 4 з
   4, останній у головному сценарії · Задача 3 (написати без номера) і
-  Задача 4 (сумісність додається автоматично) · вихід — повернутися до
+  Задача 4 (сумісність додається автоматично) · вихід: повернутися до
   стрічки й шукати далі, поки немає відповіді
 </p>
 
 <header>
   <a class="back-link" href="compatibility-form.html">← Анкета сумісності</a>
-  <p class="product">Куток — заявка на підселення</p>
+  <p class="product">Куток: заявка на підселення</p>
   <h1>Заявку надіслано</h1>
 </header>
 
@@ -32,8 +45,8 @@
 
   <section aria-labelledby="message-heading">
     <h2 id="message-heading">Ваше повідомлення</h2>
-    <p class="description">«Привіт! Мене звати Соломія, переїжджаю в Київ 1 вересня на нову роботу. Ваша кімната виглядає чудово — можемо познайомитись і домовитись про перегляд?»</p>
-    <p class="meta">Анкету сумісності додано автоматично — Марія та Олег бачать її разом із цим повідомленням.</p>
+    <p class="description">«Привіт! Мене звати Соломія, переїжджаю в Київ 1 вересня на нову роботу. Ваша кімната виглядає чудово: можемо познайомитись і домовитись про перегляд?»</p>
+    <p class="meta">Анкету сумісності додано автоматично: Марія та Олег бачать її разом із цим повідомленням.</p>
   </section>
 
   <section aria-labelledby="status-heading">
@@ -42,11 +55,11 @@
       <p class="state-title">Ще немає відповіді</p>
       <p class="meta">
         Марія та Олег зазвичай відповідають протягом 1–2 днів. Номер
-        телефону нікому не показано — власники бачать лише повідомлення
+        телефону нікому не показано: власники бачать лише повідомлення
         всередині Кутка.
       </p>
       <p class="meta">
-        Якщо вони відмовлять, заявка просто зникне з очікування — це
+        Якщо вони відмовлять, заявка просто зникне з очікування: це
         нормально, шукайте інші варіанти, не чекаючи однієї відповіді.
       </p>
     </div>
@@ -60,7 +73,7 @@
 
 <!-- Службова панель прототипу: розділ → екран → стани.
      Структура з prototype/_screens.md, імена файлів з prototype/_rules.md.
-     Не елемент продукту — на полотні 390 px не показується. -->
+     Не елемент продукту: на полотні 390 px не показується. -->
 <aside class="proto-tree">
   <h2>Прототип «Кутка»</h2>
   <p class="hint">Головний сценарій Соломії</p>
@@ -98,7 +111,7 @@
         <span class="group">Профіль людини</span>
         <ul class="level-screen">
           <li class="screen">
-            <a href="compatibility-form.html">Анкета сумісності — заповнення власного профілю</a>
+            <a href="compatibility-form.html">Анкета сумісності: заповнення власного профілю</a>
             <ul class="level-state">
               <li><a href="compatibility-form.html">успіх</a></li>
               <li><a href="compatibility-form-error.html">помилка</a></li>
@@ -125,16 +138,6 @@
     </ul>
   </nav>
 </aside>
-
-<nav class="tabbar" aria-label="Головне меню">
-  <ul>
-    <li><a href="listings.html" aria-current="page">Стрічка</a></li>
-    <li><a href="#">Заявки</a></li>
-    <li><a href="#">Чат</a></li>
-    <li><a href="#">Профіль</a></li>
-  </ul>
-  <a class="create" href="#" aria-label="Створити оголошення">+ Додати</a>
-</nav>
 
 </body>
 </html>
