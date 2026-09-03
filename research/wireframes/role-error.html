@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Вибір ролі</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -217,14 +221,25 @@
 
   <!-- Підпис до макета: не частина інтерфейсу -->
   <div class="annotation"><h1>Вибір ролі — помилка збереження</h1><p>Вибір не втрачено; основна дія пропонує повторити спробу.</p></div>
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-    <header class="app-bar"><h2>Вибір ролі</h2></header>
-    <main><section aria-labelledby="role-heading"><h3 id="role-heading" class="results-count">Не вдалося зберегти роль</h3>
-      <p class="sys">Твій вибір лишився у формі. Перевір зʼєднання й спробуй ще раз.</p>
-      <form action="listings.html" method="get"><fieldset><legend>Вибрана роль</legend><div class="choice"><input type="radio" id="r-seek" name="role" checked><label for="r-seek">Шукаю кімнату<span>Стрічка оголошень відкриється першою</span></label></div></fieldset>
-      <button class="btn cta" type="submit">Зберегти роль</button><a class="btn" href="role.html">Змінити роль</a></form>
-    </section></main>
+  <div class="kit-shell kit-shell--bare">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <h1 class="kit-headline">Вибір ролі</h1>
+      <section class="kit-section" aria-labelledby="role-heading">
+        <h2 id="role-heading" class="kit-meta">Не вдалося зберегти роль</h2>
+        <p class="kit-note kit-note--error" role="alert">Твій вибір лишився у формі. Перевір зʼєднання й спробуй ще раз.</p>
+        <form class="kit-form" action="listings.html" method="get">
+          <fieldset class="kit-fieldset"><legend>Вибрана роль</legend>
+            <label class="kit-choice kit-choice--stacked"><input type="radio" id="r-seek" name="role" checked><span class="kit-choice__text"><strong>Шукаю кімнату</strong><span class="kit-choice__hint">Стрічка оголошень відкриється першою</span></span></label>
+          </fieldset>
+          <div class="kit-actions">
+            <button class="kit-button kit-button--block" type="submit">Зберегти роль</button>
+            <a class="kit-button kit-button--secondary kit-button--block" href="role.html">Змінити роль</a>
+          </div>
+        </form>
+      </section>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+    </main>
   </div>
 </div>
 </div>

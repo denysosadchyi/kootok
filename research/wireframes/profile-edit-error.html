@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Мій профіль</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -217,19 +221,30 @@
 
   <!-- Підпис до макета: не частина інтерфейсу -->
   <div class="annotation"><h1>Редагувати профіль — помилка форми</h1><p>Помилка показана біля поля, введені дані не скидаються.</p></div>
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-    <header class="app-bar"><h2>Мій профіль</h2></header>
-    <main><section aria-labelledby="profile-heading"><h3 id="profile-heading" class="results-count">Перевір бюджет</h3>
-      <p class="sys">Не вдалося зберегти профіль. Верхня межа бюджету має бути більшою за нижню.</p>
-      <form action="profile-edit-loading.html" method="get">
-        <span class="photo"><span>Аватар Марічки</span></span><button class="btn" type="button">Змінити фото</button>
-        <div class="field"><label for="name">Імʼя</label><input id="name" value="Марічка"></div>
-        <fieldset><legend>Бюджет, грн/міс</legend><div class="grid2"><div class="field"><label for="bmin">Від</label><input type="number" id="bmin" value="11000"></div><div class="field"><label for="bmax">До</label><input type="number" id="bmax" value="5000" aria-invalid="true" aria-describedby="budget-error"></div></div><p class="hint" id="budget-error">Вкажи суму понад 11 000 грн або зміни нижню межу.</p></fieldset>
-        <button class="btn cta" type="submit">Зберегти профіль</button>
-      </form>
-    </section></main>
-    <nav class="bottom-nav" aria-label="Глобальна навігація"><ul><li><a href="listings.html">Оголошення</a></li><li><a href="chats.html">Чати</a></li><li><a href="profile-edit.html" aria-current="page">Профіль</a></li></ul></nav>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <section class="kit-profile-hero"><img class="kit-profile-avatar" src="../../ui/assets/avatars/solomiia.png" alt="Аватар Марічки"><div><p class="kit-profile-status">Мій профіль</p><h1 class="kit-headline">Марічка</h1><p id="profile-heading" class="kit-meta">Перевір бюджет</p><button class="kit-button kit-button--secondary kit-button--compact" type="button">Змінити фото</button></div></section>
+      <section class="kit-section" aria-labelledby="profile-heading">
+        <p class="kit-note kit-note--error" role="alert">Не вдалося зберегти профіль. Верхня межа бюджету має бути більшою за нижню.</p>
+        <form class="kit-form" action="profile-edit-loading.html" method="get">
+          <div class="kit-field"><label for="name">Імʼя</label><input id="name" value="Марічка"></div>
+          <fieldset class="kit-fieldset"><legend>Бюджет, грн/міс</legend>
+            <div class="kit-field-row"><div class="kit-field"><label for="bmin">Від</label><input type="number" id="bmin" value="11000"></div><div class="kit-field kit-field--error"><label for="bmax">До</label><input type="number" id="bmax" value="5000" aria-invalid="true" aria-describedby="budget-error"><span class="kit-field__message" id="budget-error">Вкажи суму понад 11 000 грн або зміни нижню межу.</span></div></div>
+          </fieldset>
+          <div class="kit-actions">
+            <button class="kit-button kit-button--block" type="submit">Зберегти профіль</button>
+          </div>
+        </form>
+      </section>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+    </main>
+    <nav class="kit-tabbar" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html" aria-current="page">Профіль</a>
+      <a class="kit-tab kit-tab--create" href="listing-new.html" aria-label="Додати оголошення">Додати</a>
+    </nav>
   </div>
 </div>
 </div>

@@ -389,13 +389,13 @@
                     border-color var(--dur-fast) var(--ease-out),
                     background-color var(--dur-fast) var(--ease-out);
       }
-      .reload:hover { background: var(--bg-hover); color: var(--ink); }
+      .reload:where(.__hover-disabled) { background: var(--bg-hover); color: var(--ink); }
       .reload:focus-visible { outline: none; box-shadow: var(--ring); }
       /* Housekeeping, not a primary action: it clears the browser's own copies
          and is reached for once a week, so it rests borderless at label weight
          and only grows an edge on approach. */
       .reload--quiet { border-color: transparent; background: none; color: var(--muted); }
-      .reload--quiet:hover { border-color: var(--line-strong); background: var(--bg-raised); color: var(--ink-2); }
+      .reload--quiet:where(.__hover-disabled) { border-color: var(--line-strong); background: var(--bg-raised); color: var(--ink-2); }
 
       /* ── Segmented switch (Всі / По сторінках) ────────────────────────────
          Раніше це була одна кнопка-тумблер «За сторінками»: увімкнений режим
@@ -420,7 +420,7 @@
         transition: color var(--dur-fast) var(--ease-out),
                     background-color var(--dur-fast) var(--ease-out);
       }
-      .seg__b:hover { color: var(--ink-2); }
+      .seg__b:where(.__hover-disabled) { color: var(--ink-2); }
       .seg__b:focus-visible { outline: none; box-shadow: var(--ring); }
       /* Вибраний сегмент — підняте тло на вдавленому ґрунті смуги: та сама
          пара поверхонь, що й у решти сторінки, замість окремого акценту. */
@@ -501,7 +501,7 @@
          casts. The .is-stuck class comes from a passive scroll listener —
          CSS alone cannot know that sticky has engaged. */
       .t-wrap.is-stuck th { box-shadow: var(--shadow-stuck); }
-      th:hover { color: var(--ink-2); }
+      th:where(.__hover-disabled) { color: var(--ink-2); }
       /* The sorted column is simply the brightest header — on a monochrome
          page, white IS the accent. */
       th.is-sorted { color: var(--ink); }
@@ -557,7 +557,7 @@
          would cost half the surface calm, and every row here is CLICKABLE:
          the hover fill is not decoration, it is the affordance that says so,
          and it tracks the row you are reading across all eight columns. */
-      tbody tr:hover td { background: var(--row-hover); }
+      tbody tr:where(.__hover-disabled) td { background: var(--row-hover); }
       /* The two states that are not at rest tint their whole row, so they are
          findable without reading — and they win over the hover fill. */
       tbody tr.is-wip td  { background: var(--info-soft); }
@@ -642,12 +642,12 @@
         cursor: pointer;
         transition: color var(--dur-fast) var(--ease-out);
       }
-      .grp__route:hover { color: var(--ink); text-decoration: underline; }
+      .grp__route:where(.__hover-disabled) { color: var(--ink); text-decoration: underline; }
       .grp__route:focus-visible { outline: none; box-shadow: var(--ring); color: var(--ink); }
       .grp__route svg { flex: none; color: var(--muted); }
       /* «інше» is a bucket, not a screen: no glyph, no link, quieter ink. */
       .grp__route--plain { color: var(--muted); cursor: default; }
-      .grp__route--plain:hover { color: var(--muted); text-decoration: none; }
+      .grp__route--plain:where(.__hover-disabled) { color: var(--muted); text-decoration: none; }
       .grp__n { margin-left: 8px; color: var(--muted); font: 400 11px/1.5 var(--font-ui); font-variant-numeric: tabular-nums; }
 
       /* ── Index & supporting data ──────────────────────────────────────────
@@ -916,7 +916,7 @@
                     border-color var(--dur-fast) var(--ease-out),
                     background-color var(--dur-fast) var(--ease-out);
       }
-      .icon-btn:hover { border-color: var(--line-strong); background: var(--bg-hover); }
+      .icon-btn:where(.__hover-disabled) { border-color: var(--line-strong); background: var(--bg-hover); }
       /* One glyph size for every 20px button — the SVG strings carry their
          own width/height, this overrides them all so Details, send-back,
          resolve and delete weigh the same in a row. */
@@ -929,14 +929,14 @@
       .id { font-family: var(--font-ui); font-size: 11px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; user-select: all; font-variant-numeric: tabular-nums; }
       .redo, .info, .dr__nav, .dr__x { display: inline-flex; align-items: center; justify-content: center; }
       .info { color: var(--muted); }
-      .info:hover, .info:focus-visible { color: var(--ink); }
+      .info:where(.__hover-disabled), .info:focus-visible { color: var(--ink); }
       .info--redo { color: var(--danger); }
 
       /* Send-back. Quiet by default — it is the exception, not the expected
          action — and only turns danger-coloured on approach, or for good once
          a rework is actually outstanding. */
       .redo { color: var(--faint); }
-      .redo:hover, .redo:focus-visible { color: var(--danger); }
+      .redo:where(.__hover-disabled), .redo:focus-visible { color: var(--danger); }
       .redo--on { color: var(--danger); background: var(--danger-soft); border-color: var(--danger-line); }
 
       /* The Доробки cell: the send-back glyph plus, once a thread exists, its
@@ -950,10 +950,10 @@
          rarest inputs on the page and thirty rows of glyphs would be noise.
          Keyboard users get them via :focus-within, no hover needed. */
       .acts { opacity: 0; transition: opacity var(--dur-fast) var(--ease-out); }
-      tbody tr:hover .acts, .acts:focus-within { opacity: 1; }
+      tbody tr:where(.__hover-disabled) .acts, .acts:focus-within { opacity: 1; }
       .act { color: var(--muted); }
-      .act:hover { color: var(--ink); }
-      .act--del:hover { color: var(--danger); }
+      .act:where(.__hover-disabled) { color: var(--ink); }
+      .act--del:where(.__hover-disabled) { color: var(--danger); }
       /* Armed = one click from gone. Loud on purpose, and self-disarms. */
       .act--del.is-armed { opacity: 1; color: var(--danger); background: var(--danger-soft); border-color: var(--danger-line); }
 
@@ -1038,7 +1038,7 @@
         transition: color var(--dur-fast) var(--ease-out),
                     background-color var(--dur-fast) var(--ease-out);
       }
-      .dr__nav:hover:not([disabled]), .dr__x:hover { color: var(--ink); background: var(--bg-hover); }
+      .dr__nav:where(.__hover-disabled):not([disabled]), .dr__x:where(.__hover-disabled) { color: var(--ink); background: var(--bg-hover); }
       .dr__nav:focus-visible, .dr__x:focus-visible { outline: none; box-shadow: var(--ring); }
       .dr__nav[disabled] { opacity: .35; cursor: default; }
       .dr__pos {
@@ -1083,7 +1083,7 @@
         font: 500 12px/1 var(--font-ui);
         text-decoration: none;
       }
-      .dr__open:hover, .dr__open:focus-visible { outline: none; text-decoration: underline; }
+      .dr__open:where(.__hover-disabled), .dr__open:focus-visible { outline: none; text-decoration: underline; }
       /* The frame hosts the LIGHT app: a white ground under it means loading
          is a white flash into a white page, not a dark hole into a white one. */
       .dr__frame { flex: 1 1 auto; width: 100%; border: 0; background: oklch(1 0 0); }
@@ -1246,7 +1246,7 @@
         resize: vertical;
       }
       .pop__note::placeholder { color: var(--muted); }
-      .pop__note:hover { border-color: var(--line-hover); }
+      .pop__note:where(.__hover-disabled) { border-color: var(--line-hover); }
       .pop__note:focus { outline: none; box-shadow: var(--ring); border-color: transparent; }
       .pop__foot { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
       .pop__err { flex: 1 1 auto; color: var(--danger); font: 500 12px/1.4 var(--font-ui); }
@@ -1261,11 +1261,11 @@
                     background-color var(--dur-fast) var(--ease-out);
       }
       .pop__cancel { border: 1px solid var(--line-strong); background: none; color: var(--ink-2); }
-      .pop__cancel:hover { background: var(--bg-hover); color: var(--ink); }
+      .pop__cancel:where(.__hover-disabled) { background: var(--bg-hover); color: var(--ink); }
       /* The one filled button on the page — primary is ink-coloured; the
          text borrows the panel surface so it flips with the theme for free. */
       .pop__send { border: 1px solid transparent; background: var(--ink); color: var(--bg-raised); }
-      .pop__send:hover { background: var(--btn-primary-hover); }
+      .pop__send:where(.__hover-disabled) { background: var(--btn-primary-hover); }
       .pop__cancel:focus-visible, .pop__send:focus-visible { outline: none; box-shadow: var(--ring); }
       .pop__send[disabled] { opacity: .5; cursor: default; }
 

@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Реєстрація і підтвердження номера · початок</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -221,23 +225,26 @@
     <p>Порожня форма до введення номера. CTA лишається недоступним, доки номер не заповнено.</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-    <header class="app-bar"><h2>Реєстрація</h2></header>
-    <main>
-      <section aria-labelledby="signup-heading">
-        <h3 id="signup-heading" class="results-count">Підтвердження номера</h3>
-        <form action="signup-loading.html" method="get">
-          <p class="form-intro">Підтвердь номер. Інші побачать у профілі статус «Телефон перевірено», але не сам номер.</p>
-          <div class="field"><label for="phone">Номер телефону</label><input type="tel" id="phone" name="phone" placeholder="+380 00 000 00 00" autocomplete="tel"></div>
-          <fieldset><legend>Куди надіслати код</legend>
-            <div class="choice"><input type="radio" id="ch-sms" name="channel" checked><label for="ch-sms">SMS<span>Код із 6 цифр</span></label></div>
-            <div class="choice"><input type="radio" id="ch-tg" name="channel"><label for="ch-tg">Telegram<span>Якщо номер привʼязаний до акаунта</span></label></div>
+  <div class="kit-shell kit-shell--bare">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <h1 class="kit-headline">Реєстрація</h1>
+      <section class="kit-section" aria-labelledby="signup-heading">
+        <h2 id="signup-heading" class="kit-meta">Підтвердження номера</h2>
+        <form class="kit-form" action="signup-loading.html" method="get">
+          <p class="kit-description">Підтвердь номер. Інші побачать у профілі статус «Телефон перевірено», але не сам номер.</p>
+          <div class="kit-field"><label for="phone">Номер телефону</label><input type="tel" id="phone" name="phone" placeholder="+380 00 000 00 00" autocomplete="tel"></div>
+          <fieldset class="kit-fieldset"><legend>Куди надіслати код</legend>
+            <label class="kit-choice kit-choice--stacked"><input type="radio" id="ch-sms" name="channel" checked><span class="kit-choice__text"><strong>SMS</strong><span class="kit-choice__hint">Код із 6 цифр</span></span></label>
+            <label class="kit-choice kit-choice--stacked"><input type="radio" id="ch-tg" name="channel"><span class="kit-choice__text"><strong>Telegram</strong><span class="kit-choice__hint">Якщо номер привʼязаний до акаунта</span></span></label>
           </fieldset>
-          <button class="btn cta" type="submit" disabled>Надіслати код</button>
-          <p class="hint">Введи номер у форматі +380.</p>
+          <div class="kit-actions">
+            <button class="kit-button kit-button--block" type="submit" disabled>Надіслати код</button>
+            <p class="kit-hint">Введи номер у форматі +380.</p>
+          </div>
         </form>
       </section>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
   </div>
 </div>

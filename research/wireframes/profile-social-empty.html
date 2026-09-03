@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Додати посилання на соцмережу</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -217,16 +221,34 @@
 
   <!-- Підпис до макета: не частина інтерфейсу -->
   <div class="annotation"><h1>Додати соцлінк — початковий стан</h1><p>Посилання ще не додано; користувач бачить користь, приватність і одну основну дію.</p></div>
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-    <header class="app-bar"><a class="back-btn" href="profile-edit.html">Повернутися до профілю</a><h2>Посилання на соцмережу</h2></header>
-    <main><section aria-labelledby="social-heading"><h3 id="social-heading" class="results-count">Додай посилання на соцмережу</h3>
-      <span class="photo"><span>Аватар Марічки</span></span>
-      <form action="profile-social-loading.html" method="get"><fieldset><legend>Соцмережа</legend><div class="choice"><input type="radio" id="net-ig" name="net" checked><label for="net-ig">Instagram</label></div><div class="choice"><input type="radio" id="net-li" name="net"><label for="net-li">LinkedIn</label></div></fieldset>
-      <div class="field"><label for="link">Посилання на профіль</label><input id="link" placeholder="instagram.com/твоє_імʼя"></div>
-      <button class="btn cta" type="submit" disabled>Додати посилання на соцмережу</button><a class="btn" href="profile-edit.html">Повернутися до профілю</a><p class="hint">Інші побачать лише позначку «Instagram перевірено». Посилання не показуємо.</p></form>
-    </section></main>
-    <nav class="bottom-nav" aria-label="Глобальна навігація"><ul><li><a href="listings.html">Оголошення</a></li><li><a href="chats.html">Чати</a></li><li><a href="profile-edit.html" aria-current="page">Профіль</a></li></ul></nav>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <header class="kit-shell__appbar"><a class="kit-back" href="profile-edit.html" aria-label="Повернутися до профілю">Повернутися до профілю</a><h1 class="kit-shell__title">Посилання на соцмережу</h1></header>
+    <main class="kit-shell__body">
+      <section class="kit-section" aria-labelledby="social-heading">
+        <h2 id="social-heading" class="kit-meta">Додай посилання на соцмережу</h2>
+        <img class="kit-avatar" src="../../ui/assets/avatars/solomiia.png" alt="Аватар Марічки">
+        <form class="kit-form" action="profile-social-loading.html" method="get">
+          <fieldset class="kit-fieldset"><legend>Соцмережа</legend>
+            <label class="kit-choice"><input type="radio" id="net-ig" name="net" checked> Instagram</label>
+            <label class="kit-choice"><input type="radio" id="net-li" name="net"> LinkedIn</label>
+          </fieldset>
+          <div class="kit-field"><label for="link">Посилання на профіль</label><input id="link" placeholder="instagram.com/твоє_імʼя"></div>
+          <div class="kit-actions">
+            <button class="kit-button kit-button--block" type="submit" disabled>Додати посилання на соцмережу</button>
+            <a class="kit-button kit-button--secondary kit-button--block" href="profile-edit.html">Повернутися до профілю</a>
+            <p class="kit-hint">Інші побачать лише позначку «Instagram перевірено». Посилання не показуємо.</p>
+          </div>
+        </form>
+      </section>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+    </main>
+    <nav class="kit-tabbar" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html" aria-current="page">Профіль</a>
+      <a class="kit-tab kit-tab--create" href="listing-new.html" aria-label="Додати оголошення">Додати</a>
+    </nav>
   </div>
 </div>
 </div>

@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Оголошення</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -229,86 +233,44 @@
        <code>flows.md</code> прямо розрізняє її з «Заявку відхилено».</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-
-    <header class="app-bar">
-      <h2>Оголошення</h2>
-      <a class="back-btn" href="listings.html" aria-label="Повернутися до стрічки оголошень"><span aria-hidden="true" style="display:inline-block;width:20px;height:20px;border:1px solid #777;margin-right:8px"></span>Повернутися до стрічки</a>
-    </header>
-
-    <main>
-      <article>
-        <div class="detail-photos">
-          <span class="photo main"><span>Фото 1 з 3 · кімната</span></span>
-          <span class="photo"><span>Фото 2 · кухня</span></span>
-          <span class="photo"><span>Фото 3 · санвузол</span></span>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <header class="kit-shell__appbar"><a class="kit-back" href="listings.html" aria-label="Повернутися до стрічки оголошень">Повернутися до стрічки</a><h1 class="kit-shell__title">Оголошення</h1></header>
+    <main class="kit-shell__body">
+      <ul class="kit-gallery" aria-label="Фото кімнати"><li><img src="../../ui/assets/listings/room-01.jpg" alt="Фото 1 з 3 · кімната"></li><li><img src="../../ui/assets/listings/room-02.jpg" alt="Фото 2 · кухня"></li><li><img src="../../ui/assets/listings/room-03.jpg" alt="Фото 3 · санвузол"></li></ul>
+      <div class="kit-page-head"><h2 class="kit-headline">Кімната в Солом'янському районі</h2><p class="kit-meta kit-meta--place">Солом'янський · метро Шулявська</p><p class="kit-price">7 200 грн/міс</p></div>
+      <section class="kit-section" aria-labelledby="about-room">
+        <h2 id="about-room" class="kit-section__title">Про кімнату</h2>
+        <dl class="kit-facts kit-facts--grid"><div><dt>Заїзд</dt><dd>з 15 серпня</dd></div><div><dt>Співмешканці</dt><dd>Живуть двоє, шукають третього</dd></div><div><dt>Меблювання</dt><dd>Повне: ліжко, шафа, стіл</dd></div><div><dt>Тварини</dt><dd>Можна, у квартирі вже є кіт</dd></div><div><dt>Статус</dt><dd>Активне · власниця оновила сьогодні</dd></div></dl>
+      </section>
+      <section class="kit-section" aria-labelledby="wishes">
+        <h2 id="wishes" class="kit-section__title">Побажання до співмешканця</h2>
+        <ul class="kit-tags"><li class="kit-tag">Охайність важлива</li><li class="kit-tag">Гості рідко</li><li class="kit-tag">Без куріння</li><li class="kit-tag">Сова</li></ul>
+      </section>
+      <section class="kit-section" aria-labelledby="author">
+        <h2 id="author" class="kit-section__title">Господар</h2>
+        <div class="kit-person"><img class="kit-avatar" src="../../ui/assets/avatars/mariia.png" alt=""><p class="kit-person__name">Оксана <span class="kit-chip">перевірено</span></p><p class="kit-person__bio">Працюю з дому, люблю тишу ввечері. Шукаю спокійну сусідку, з якою можна ділити кухню без графіка.</p></div>
+        <ul class="kit-trust-list"><li>Телефон перевірено</li><li>Instagram перевірено</li><li>2 відгуки після заселення</li><li>Оголошення від господаря</li></ul>
+        <a class="kit-button kit-button--secondary kit-button--block" href="person.html">Переглянути профіль Оксани</a>
+      </section>
+      <section class="kit-section" aria-labelledby="apply">
+        <h2 id="apply" class="kit-section__title">Заявка</h2>
+        <div class="kit-state kit-state--error" role="alert">
+          <span class="kit-state__icon"></span>
+          <h3>Заявку не надіслано</h3>
+          <p>Не вдалося надіслати заявку. Текст заявки зберігся — перевір з’єднання і спробуй ще раз.</p>
+          <a class="kit-button kit-button--block" href="listing-loading.html">Надіслати заявку</a>
+          <p class="kit-state-context">Оксана поки нічого не отримала.</p>
         </div>
-
-        <h3>Кімната в Солом'янському районі</h3>
-        <p class="sub">Солом'янський · метро Шулявська</p>
-        <p class="price">7 200 грн/міс</p>
-
-        <section class="block" aria-labelledby="about-room">
-          <h4 id="about-room">Про кімнату</h4>
-          <dl class="facts">
-            <dt>Заїзд</dt><dd>з 15 серпня</dd>
-            <dt>Співмешканці</dt><dd>Живуть двоє, шукають третього</dd>
-            <dt>Меблювання</dt><dd>Повне: ліжко, шафа, стіл</dd>
-            <dt>Тварини</dt><dd>Можна, у квартирі вже є кіт</dd>
-            <dt>Статус</dt><dd>Активне · власниця оновила сьогодні</dd>
-          </dl>
-        </section>
-
-        <section class="block" aria-labelledby="wishes">
-          <h4 id="wishes">Побажання до співмешканця</h4>
-          <ul class="tags">
-            <li>Охайність важлива</li>
-            <li>Гості рідко</li>
-            <li>Без куріння</li>
-            <li>Сова</li>
-          </ul>
-        </section>
-
-        <section class="block" aria-labelledby="author">
-          <h4 id="author">Господар</h4>
-          <p class="author-name">Оксана <span class="badge">перевірено</span></p>
-          <p class="sub">Працюю з дому, люблю тишу ввечері. Шукаю спокійну
-             сусідку, з якою можна ділити кухню без графіка.</p>
-          <ul class="trust">
-            <li>Телефон перевірено</li>
-            <li>Instagram перевірено</li>
-            <li>2 відгуки після заселення</li>
-            <li>Оголошення від господаря</li>
-          </ul>
-          <a class="btn cta" href="person.html">Переглянути профіль Оксани</a>
-        </section>
-
-        <section class="block" aria-labelledby="apply">
-          <h4 id="apply">Заявка</h4>
-          <div class="state-block" role="alert">
-            <h4>Заявку не надіслано</h4>
-            <p>Не вдалося надіслати заявку. Текст заявки зберігся — перевір
-               з’єднання і спробуй ще раз.</p>
-            <a class="btn" href="listing-loading.html">Надіслати заявку</a>
-            <p class="hint">Оксана поки нічого не отримала.</p>
-          </div>
-        </section>
-      </article>
-
-      <footer>
-        <p>Куток · пошук співмешканців і кімнат у Києві</p>
-      </footer>
+      </section>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
-
-    <nav class="bottom-nav" aria-label="Глобальна навігація">
-      <ul>
-        <li><a href="listings.html" aria-current="page">Оголошення</a></li>
-        <li><a href="chats.html">Чати</a></li>
-        <li><a href="profile-edit.html">Профіль</a></li>
-      </ul>
+    <nav class="kit-tabbar" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html" aria-current="page">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
+      <a class="kit-tab kit-tab--create" href="listing-new.html" aria-label="Додати оголошення">Додати</a>
     </nav>
-
   </div>
 </div>
 </div>

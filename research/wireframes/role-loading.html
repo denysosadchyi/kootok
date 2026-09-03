@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Вибір ролі</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -217,12 +221,16 @@
 
   <!-- Підпис до макета: не частина інтерфейсу -->
   <div class="annotation"><h1>Вибір ролі — збереження</h1><p>Короткий стан переходу до персоналізованої стрічки.</p></div>
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-    <header class="app-bar"><h2>Вибір ролі</h2></header>
-    <main><section aria-labelledby="role-heading" aria-busy="true"><h3 id="role-heading" class="results-count">Зберігаємо роль…</h3>
-      <div class="state-block"><h4>Шукаю кімнату</h4><p>Після збереження відкриється стрічка оголошень.</p><button class="btn cta" type="button" disabled>Зберігаємо роль…</button><a href="role.html">Повернутися до вибору ролі</a></div>
-    </section></main>
+  <div class="kit-shell kit-shell--bare">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <h1 class="kit-headline">Вибір ролі</h1>
+      <section class="kit-section" aria-labelledby="role-heading" aria-busy="true">
+        <h2 id="role-heading" class="kit-meta">Зберігаємо роль…</h2>
+        <div class="kit-state"><span class="kit-state__icon kit-state__icon--profile"></span><h3>Шукаю кімнату</h3><p>Після збереження відкриється стрічка оголошень.</p><button class="kit-button kit-button--block" type="button" disabled>Зберігаємо роль…</button><a class="kit-button kit-button--quiet kit-button--block" href="role.html">Повернутися до вибору ролі</a></div>
+      </section>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+    </main>
   </div>
 </div>
 </div>

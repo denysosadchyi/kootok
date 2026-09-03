@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Мій профіль</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -217,19 +221,31 @@
 
   <!-- Підпис до макета: не частина інтерфейсу -->
   <div class="annotation"><h1>Створити профіль — початковий стан</h1><p>Перший вхід у профіль після онбордингу: даних ще немає, форма дає мінімальний зрозумілий старт.</p></div>
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-    <header class="app-bar"><h2>Мій профіль</h2></header>
-    <main><section aria-labelledby="profile-heading"><h3 id="profile-heading" class="results-count">Заповни профіль</h3>
-      <form action="profile-edit-loading.html" method="get">
-        <span class="photo"><span>Фото профілю не додано</span></span><button class="btn" type="button">Додати фото</button>
-        <div class="field"><label for="name">Імʼя</label><input id="name" name="name" placeholder="Як до тебе звертатися"></div>
-        <div class="field"><label for="about">Про себе</label><textarea id="about" name="about" placeholder="Навчання або робота, ритм життя, що важливо вдома"></textarea></div>
-        <fieldset><legend>Бюджет, грн/міс</legend><div class="grid2"><div class="field"><label for="bmin">Від</label><input type="number" id="bmin" placeholder="5000"></div><div class="field"><label for="bmax">До</label><input type="number" id="bmax" placeholder="11000"></div></div></fieldset>
-        <button class="btn cta" type="submit">Зберегти профіль</button><p class="hint">Імʼя, короткий опис і бюджет допомагають іншим зрозуміти, чи підходить тобі спільне житло.</p>
-      </form>
-    </section></main>
-    <nav class="bottom-nav" aria-label="Глобальна навігація"><ul><li><a href="listings.html">Оголошення</a></li><li><a href="chats.html">Чати</a></li><li><a href="profile-edit.html" aria-current="page">Профіль</a></li></ul></nav>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <section class="kit-profile-hero"><span class="kit-profile-avatar" role="img" aria-label="Фото профілю не додано"></span><div><p class="kit-profile-status">Мій профіль</p><h1 id="profile-heading" class="kit-headline">Заповни профіль</h1><button class="kit-button kit-button--secondary kit-button--compact" type="button">Додати фото</button></div></section>
+      <section class="kit-section" aria-labelledby="profile-heading">
+        <form class="kit-form" action="profile-edit-loading.html" method="get">
+          <div class="kit-field"><label for="name">Імʼя</label><input id="name" name="name" placeholder="Як до тебе звертатися"></div>
+          <div class="kit-field"><label for="about">Про себе</label><textarea id="about" name="about" placeholder="Навчання або робота, ритм життя, що важливо вдома"></textarea></div>
+          <fieldset class="kit-fieldset"><legend>Бюджет, грн/міс</legend>
+            <div class="kit-field-row"><div class="kit-field"><label for="bmin">Від</label><input type="number" id="bmin" placeholder="5000"></div><div class="kit-field"><label for="bmax">До</label><input type="number" id="bmax" placeholder="11000"></div></div>
+          </fieldset>
+          <div class="kit-actions">
+            <button class="kit-button kit-button--block" type="submit">Зберегти профіль</button>
+            <p class="kit-hint">Імʼя, короткий опис і бюджет допомагають іншим зрозуміти, чи підходить тобі спільне житло.</p>
+          </div>
+        </form>
+      </section>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+    </main>
+    <nav class="kit-tabbar" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html" aria-current="page">Профіль</a>
+      <a class="kit-tab kit-tab--create" href="listing-new.html" aria-label="Додати оголошення">Додати</a>
+    </nav>
   </div>
 </div>
 </div>

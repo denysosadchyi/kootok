@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Відгук</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -221,19 +225,26 @@
     <p>Відгук публікується. Текст видно, але редагування і повторний submit тимчасово вимкнені.</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-    <header class="app-bar"><h2>Відгук</h2><a class="back-btn" href="chat.html">Повернутися до чату</a></header>
-    <main><section aria-labelledby="review-heading" aria-busy="true">
-      <div class="detail-photos" aria-label="Фото авторки оголошення"><span class="photo main"><span>Фото Оксани</span></span></div>
-      <h3 id="review-heading" class="results-count">Оксана · кімната в Солом'янському районі</h3>
-      <div class="state-block"><h4>Публікуємо відгук…</h4><p>Після публікації відгук зʼявиться у профілі Оксани.</p></div>
-      <form action="person.html" method="get">
-        <div class="field"><label for="review-text">Текст відгуку</label><textarea id="review-text" name="review-text" disabled>Оксана показала кімнату особисто ще до будь-яких переказів. Усе збіглося з оголошенням, домовленості тримає.</textarea></div>
-        <button class="btn cta" type="submit" disabled>Публікуємо відгук…</button>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <header class="kit-shell__appbar"><a class="kit-back" href="chat.html" aria-label="Повернутися до чату">Назад</a><h1 class="kit-shell__title">Відгук</h1><img class="kit-appbar-avatar" src="../../ui/assets/avatars/mariia.png" alt="Оксана"></header>
+    <main class="kit-shell__body">
+      <section class="kit-section" aria-labelledby="review-heading" aria-busy="true">
+        <h2 id="review-heading" class="kit-meta">Оксана · кімната в Солом'янському районі</h2>
+      </section>
+      <div class="kit-banner kit-banner--info" role="status"><strong>Публікуємо відгук…</strong><p>Після публікації відгук зʼявиться у профілі Оксани.</p></div>
+      <form class="kit-form" action="person.html" method="get">
+        <div class="kit-field"><label for="review-text">Текст відгуку</label><textarea id="review-text" name="review-text" disabled>Оксана показала кімнату особисто ще до будь-яких переказів. Усе збіглося з оголошенням, домовленості тримає.</textarea></div>
+        <div class="kit-actions"><button class="kit-button kit-button--block" type="submit" disabled>Публікуємо відгук…</button></div>
       </form>
-    </section><footer><p>Куток · пошук співмешканців і кімнат у Києві</p></footer></main>
-    <nav class="bottom-nav" aria-label="Глобальна навігація"><ul><li><a href="listings.html">Оголошення</a></li><li><a href="chats.html" aria-current="page">Чати</a></li><li><a href="profile-edit.html">Профіль</a></li></ul></nav>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+    </main>
+    <nav class="kit-tabbar" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html" aria-current="page">Чати</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
+      <a class="kit-tab kit-tab--create" href="listing-new.html" aria-label="Додати оголошення">Додати</a>
+    </nav>
   </div>
 </div>
 </div>

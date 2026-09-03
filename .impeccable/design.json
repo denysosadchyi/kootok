@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-27T00:00:00Z",
+  "title": "Design System: Куток",
+  "extensions": {
+    "colorMeta": {
+      "forest": { "role": "primary", "displayName": "Темний ліс", "canonical": "#245744", "tonalRamp": ["#0b2119", "#123327", "#1a4535", "#245744", "#3f705d", "#78a08f", "#b7cec3", "#edf4ef"] },
+      "lime": { "role": "secondary", "displayName": "Молодий лайм", "canonical": "#d8e99a", "tonalRamp": ["#222b0d", "#3d4b19", "#5e7028", "#82943e", "#a8ba61", "#c6d77e", "#e4efb8", "#f7fae8"] },
+      "canvas": { "role": "neutral", "displayName": "Денне полотно", "canonical": "#f7f8f4", "tonalRamp": ["#242521", "#41423e", "#60615c", "#81827d", "#a4a5a0", "#c8c9c4", "#e7e8e3", "#f7f8f4"] },
+      "error-ink": { "role": "tertiary", "displayName": "Стримана помилка", "canonical": "#7d2d36", "tonalRamp": ["#2b0d11", "#48151b", "#641f27", "#7d2d36", "#a04c56", "#c1767e", "#dfaeb3", "#f7e0e2"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Кульмінаційні success-повідомлення." },
+      "headline": { "displayName": "Headline", "purpose": "Назви секцій, sheet і профільних блоків." },
+      "title": { "displayName": "Title", "purpose": "Картки й локальні стани." },
+      "body": { "displayName": "Body", "purpose": "Основний текст, чат і введення." },
+      "label": { "displayName": "Label", "purpose": "Метадані, факти й підписи полів." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "sheet-reveal", "value": "220ms cubic-bezier(.2,.8,.2,1)", "purpose": "Відкриття та закриття modal filter sheet; вимикається при reduced motion." },
+      { "name": "backdrop-fade", "value": "180ms ease", "purpose": "Поява modal backdrop; вимикається при reduced motion." }
+    ],
+    "breakpoints": [
+      { "name": "minimum", "value": "320px" },
+      { "name": "mobile-canvas", "value": "390px" },
+      { "name": "framed", "value": "431px" },
+      { "name": "workspace", "value": "900px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button", "kind": "button", "refersTo": "button-primary", "description": "Повноширинна головна дія локального кроку.",
+      "html": "<button class=\"ds-btn-primary\">Подати заявку</button>",
+      "css": ".ds-btn-primary{width:100%;min-height:48px;padding:10px 18px;border:0;border-radius:20px;background:#245744;color:#fff;font:600 16px/1.5 'Golos Text',sans-serif}.ds-btn-primary:focus-visible{outline:3px solid #315a7c;outline-offset:3px}.ds-btn-primary:active{background:#19362c}"
+    },
+    {
+      "name": "Secondary Button", "kind": "button", "refersTo": "button-secondary", "description": "Спокійна альтернативна дія без рамки.",
+      "html": "<button class=\"ds-btn-secondary\">Змінити фільтри</button>",
+      "css": ".ds-btn-secondary{width:100%;min-height:48px;padding:10px 18px;border:0;border-radius:20px;background:#d9e9e0;color:#245744;font:600 16px/1.5 'Golos Text',sans-serif}.ds-btn-secondary:focus-visible{outline:3px solid #315a7c;outline-offset:3px}.ds-btn-secondary:active{background:#c3cec7}"
+    },
+    {
+      "name": "Text Field", "kind": "input", "refersTo": "field", "description": "Borderless поле для форм сумісності та заявки.",
+      "html": "<label class=\"ds-field\"><span>Коротко про себе</span><input value=\"Шукаю спокійне спільне житло\"></label>",
+      "css": ".ds-field{display:flex;gap:5px;flex-direction:column;color:#586b63;font:600 13px/1.3 'Golos Text',sans-serif}.ds-field input{min-height:48px;padding:10px 16px;border:0;border-radius:20px;background:rgba(0,0,0,.05);color:#19362c;font:400 16px/1.5 'Golos Text',sans-serif}.ds-field input:focus-visible{outline:3px solid #315a7c;outline-offset:3px}.ds-field input:hover{background:rgba(0,0,0,.07)}"
+    },
+    {
+      "name": "Trust Chip", "kind": "chip", "refersTo": "chip-trust", "description": "Компактний підпис конкретного доказу довіри.",
+      "html": "<span class=\"ds-trust-chip\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m5 12 4 4L19 6\"/></svg>Телефон перевірено</span>",
+      "css": ".ds-trust-chip{display:inline-flex;min-height:24px;align-items:center;gap:4px;padding:3px 8px;border:0;border-radius:999px;background:#dcefe7;color:#174c38;font:600 10px/1.3 'Golos Text',sans-serif}.ds-trust-chip svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}.ds-trust-chip:focus-visible{outline:3px solid #315a7c;outline-offset:3px}"
+    },
+    {
+      "name": "Listing Card", "kind": "card", "refersTo": "card-listing", "description": "Фото 3:2, ключові факти й trust proof в одній сканованій поверхні.",
+      "html": "<article class=\"ds-listing\"><div class=\"ds-photo\"></div><div class=\"ds-card-body\"><span class=\"ds-tag\">Підселення</span><h3>Кімната біля Голосіївської</h3><b>7 500 грн/міс</b><small>Актуально · телефон перевірено</small></div></article>",
+      "css": ".ds-listing{overflow:hidden;border:0;border-radius:16px;background:#fff;color:#19362c;font-family:'Golos Text',sans-serif}.ds-photo{aspect-ratio:3/2;background:linear-gradient(135deg,#d9e9e0,#f1f5d8)}.ds-card-body{display:flex;padding:16px;gap:8px;flex-direction:column}.ds-card-body h3{margin:0;font:700 18px/1.25 Onest,sans-serif}.ds-card-body b{color:#245744;font:700 20px/1.2 Onest,sans-serif}.ds-card-body small{color:#174c38}.ds-tag{width:fit-content;padding:4px 10px;border-radius:999px;background:#d9e9e0;color:#245744;font-size:12px;font-weight:700}.ds-listing:focus-within{outline:3px solid #315a7c;outline-offset:3px}"
+    },
+    {
+      "name": "Product Navigation", "kind": "nav", "description": "Плаваюча thumb-zone навігація з окремою Add action.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Головна\"><a aria-current=\"page\">Пошук</a><a>Чати</a><a>Профіль</a><button aria-label=\"Додати\">+</button></nav>",
+      "css": ".ds-nav{display:grid;height:72px;padding:6px;gap:5px;grid-template-columns:repeat(3,minmax(0,1fr)) 60px;border-radius:28px;background:rgba(255,255,255,.94);font:600 11px/1 'Golos Text',sans-serif}.ds-nav a,.ds-nav button{display:grid;min-height:60px;place-items:center;border:0;border-radius:999px;background:transparent;color:#245744;text-decoration:none}.ds-nav a[aria-current=page]{background:#d8e99a;color:#19362c;font-weight:700}.ds-nav button{width:60px;background:#245744;color:#fff;font-size:24px}.ds-nav a:focus-visible,.ds-nav button:focus-visible{outline:3px solid #315a7c;outline-offset:3px}.ds-nav button:active{background:#19362c}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Зелений двір",
+    "overview": "«Куток» — світлий мобільний продукт, у якому темний лісовий зелений дає спокій і довіру, а живі фото кімнат та людей несуть основний емоційний зміст. Інтерфейс операційний і компактний: факти, сумісність і статус перевірки видно до контакту.\n\nСистема уникає декоративної нерухомості: ієрархію створюють фон, відступи, типографіка й тонкі розділювачі, а не тіні. Лаймовий акцент позначає вибір та активну навігацію; червоний і зелений стани завжди мають текст або іконку.",
+    "keyCharacteristics": ["390px mobile-first полотно з одним стовпчиком.", "Лісова зелена палітра, нейтральне світле полотно та рідкісні лаймові акценти.", "Реальні фото й круглі аватари замість декоративних ілюстрацій.", "Borderless-картки та нуль тіней; глибина виникає через тональні поверхні.", "Solar Bold Duotone для головних орієнтирів, Solar Linear для малих фактів і стрілок."],
+    "rules": [
+      { "name": "The Evidence Has Words Rule", "body": "Успіх, помилка й довіра ніколи не передаються лише кольором: поруч є Solar-іконка та короткий текст.", "section": "colors" },
+      { "name": "The Lime Is Current Rule", "body": "Лайм позначає поточний вибір або один особливий момент, а не фарбує кожну картку.", "section": "colors" },
+      { "name": "The Two-Voice Rule", "body": "Onest відповідає за рішення й структуру; Golos Text — за читання, введення та розмову.", "section": "typography" },
+      { "name": "The Thumb-Zone Rule", "body": "Глобальна навігація, фільтри й головна дія залишаються в нижній зоні досяжності; кожна інтерактивна ціль має щонайменше 44px.", "section": "layout" },
+      { "name": "The Zero-Shadow Rule", "body": "Якщо блок потребує видимості, спочатку змінюються фон, відступ або 1px структурна межа; тінь не додається.", "section": "elevation" },
+      { "name": "The Pills Have A Job Rule", "body": "Pill або коло означає компактний стан, навігацію, особу чи icon-only дію; довгі контентні поверхні не стають капсулами.", "section": "shapes" }
+    ],
+    "dos": ["Do починайте новий продуктовий екран із 390px одного стовпчика та 16px gutter.", "Do показуйте реальні фото, імена, райони, ціни й конкретні trust proofs.", "Do повторюйте геометрію успішного екрана у loading, а empty/error забезпечуйте явним виходом.", "Do використовуйте Duotone для головної навігації/станів і Linear 16px для метаданих та стрілок."],
+    "donts": ["Don't додавати тіні, glassmorphism або темну імітацію корпуса телефона.", "Don't кодувати довіру, помилку чи поточний стан лише кольором.", "Don't перетворювати картки, форми чи message bubbles на pills.", "Don't повертати фіолетовий, amber або декоративний бежевий як продуктовий акцент.", "Don't переносити стиль research-сторінок або DESIGN-artifacts.md у продукт."]
+  }
+}

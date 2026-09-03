@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Вибір ролі</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -229,47 +233,26 @@
        як завжди-успішна дія, пряма стрілка B → C.</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-
-    <header class="app-bar">
-      <h2>Вибір ролі</h2>
-    </header>
-
-    <main>
-      <section aria-labelledby="role-heading">
-        <h3 id="role-heading" class="results-count">Крок 2 з 2 — твоя роль</h3>
-
-        <form action="role-loading.html" method="get">
-          <fieldset>
-            <legend>Що привело тебе у Куток?</legend>
-            <div class="choice">
-              <input type="radio" id="r-seek" name="role" value="seek" checked>
-              <label for="r-seek">Шукаю кімнату<span>Переглядатиму оголошення
-                 й писатиму господарям</span></label>
-            </div>
-            <div class="choice">
-              <input type="radio" id="r-have" name="role" value="have">
-              <label for="r-have">Маю кімнату<span>Опублікую оголошення й шукатиму
-                 співмешканця</span></label>
-            </div>
-            <div class="choice">
-              <input type="radio" id="r-both" name="role" value="both">
-              <label for="r-both">І те, й інше<span>Переглядатиму й публікуватиму
-                 оголошення</span></label>
-            </div>
+  <div class="kit-shell kit-shell--bare">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <h1 class="kit-headline">Вибір ролі</h1>
+      <section class="kit-section" aria-labelledby="role-heading">
+        <h2 id="role-heading" class="kit-meta">Крок 2 з 2 — твоя роль</h2>
+        <form class="kit-form" action="role-loading.html" method="get">
+          <fieldset class="kit-fieldset"><legend>Що привело тебе у Куток?</legend>
+            <label class="kit-choice kit-choice--stacked"><input type="radio" id="r-seek" name="role" value="seek" checked><span class="kit-choice__text"><strong>Шукаю кімнату</strong><span class="kit-choice__hint">Переглядатиму оголошення й писатиму господарям</span></span></label>
+<label class="kit-choice kit-choice--stacked"><input type="radio" id="r-have" name="role" value="have"><span class="kit-choice__text"><strong>Маю кімнату</strong><span class="kit-choice__hint">Опублікую оголошення й шукатиму співмешканця</span></span></label>
+<label class="kit-choice kit-choice--stacked"><input type="radio" id="r-both" name="role" value="both"><span class="kit-choice__text"><strong>І те, й інше</strong><span class="kit-choice__hint">Переглядатиму й публікуватиму оголошення</span></span></label>
           </fieldset>
-
-          <button class="btn cta" type="submit">Зберегти роль</button>
-          <p class="hint">Роль можна змінити пізніше в профілі.</p>
+          <div class="kit-actions">
+            <button class="kit-button kit-button--block" type="submit">Зберегти роль</button>
+            <p class="kit-hint">Роль можна змінити пізніше в профілі.</p>
+          </div>
         </form>
       </section>
-
-      <footer>
-        <p>Куток · пошук співмешканців і кімнат у Києві</p>
-      </footer>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
-
   </div>
 </div>
 </div>

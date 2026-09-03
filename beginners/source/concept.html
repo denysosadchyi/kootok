@@ -148,7 +148,7 @@
     }
     @media (prefers-reduced-motion: no-preference) {
       .button, .save-button, .tab { transition: transform 160ms cubic-bezier(.2,.8,.2,1), background-color 160ms cubic-bezier(.2,.8,.2,1); }
-      .button:hover, .save-button:hover { transform: translateY(-2px); }
+      .button:where(.__hover-disabled), .save-button:where(.__hover-disabled) { transform: translateY(-2px); }
     }
   </style>
   <link rel="stylesheet" href="/kootok/course-nav.css">

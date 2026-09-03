@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Мій профіль</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -256,132 +260,59 @@
        студентка КНУ, бюджет ~5–11 тис. грн [S13], кіт.</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-
-    <header class="app-bar">
-      <h2>Мій профіль</h2>
-    </header>
-
-    <main>
-      <section aria-labelledby="profile-heading">
-        <h3 id="profile-heading" class="results-count">Так тебе бачать інші в Кутку</h3>
-
-        <form action="profile-edit.html" method="get">
-          <p class="form-intro">Інші бачать у профілі твій побут, бюджет і
-             райони. Це допомагає зрозуміти, чи зручно тобі буде жити разом.</p>
-
-          <span class="photo"><span>Аватар Марічки</span></span>
-          <button class="btn" type="button">Змінити фото</button>
-
-          <div class="field">
-            <label for="name">Імʼя</label>
-            <input type="text" id="name" name="name" value="Марічка">
-          </div>
-
-          <div class="field">
-            <label for="about">Про себе</label>
-            <textarea id="about" name="about">Другий курс КНУ, переїхала в Київ на навчання. Пари вдень, ввечері вчусь удома — тому шукаю спокійну квартиру. Готую сама, посуд не лишаю. Зі мною кіт Мурчик, привчений і домашній.</textarea>
-          </div>
-
-          <fieldset>
-            <legend>Бюджет, грн/міс</legend>
-            <div class="grid2">
-              <div class="field">
-                <label for="bmin">Від</label>
-                <input type="number" id="bmin" name="bmin" value="5000" step="500">
-              </div>
-              <div class="field">
-                <label for="bmax">До</label>
-                <input type="number" id="bmax" name="bmax" value="11000" step="500">
-              </div>
-            </div>
-            <p class="hint">Бюджет бачать інші. Це допомагає відразу звірити
-               очікування щодо ціни.</p>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <section class="kit-profile-hero"><img class="kit-profile-avatar" src="../../ui/assets/avatars/solomiia.png" alt="Аватар Марічки"><div><p class="kit-profile-status">Мій профіль</p><h1 class="kit-headline">Марічка</h1><p id="profile-heading" class="kit-meta">Так тебе бачать інші в Кутку</p><button class="kit-button kit-button--secondary kit-button--compact" type="button">Змінити фото</button></div></section>
+      <section class="kit-section" aria-labelledby="profile-heading">
+        <form class="kit-form" action="profile-edit.html" method="get">
+          <p class="kit-description">Інші бачать у профілі твій побут, бюджет і райони. Це допомагає зрозуміти, чи зручно тобі буде жити разом.</p>
+          <div class="kit-field"><label for="name">Імʼя</label><input type="text" id="name" name="name" value="Марічка"></div>
+          <div class="kit-field"><label for="about">Про себе</label><textarea id="about" name="about">Другий курс КНУ, переїхала в Київ на навчання. Пари вдень, ввечері вчусь удома — тому шукаю спокійну квартиру. Готую сама, посуд не лишаю. Зі мною кіт Мурчик, привчений і домашній.</textarea></div>
+          <fieldset class="kit-fieldset"><legend>Бюджет, грн/міс</legend>
+            <div class="kit-field-row"><div class="kit-field"><label for="bmin">Від</label><input type="number" id="bmin" name="bmin" value="5000" step="500"></div><div class="kit-field"><label for="bmax">До</label><input type="number" id="bmax" name="bmax" value="11000" step="500"></div></div>
+            <p class="kit-hint">Бюджет бачать інші. Це допомагає відразу звірити очікування щодо ціни.</p>
           </fieldset>
-
-          <fieldset>
-            <legend>Райони інтересу</legend>
-            <div class="choice"><input type="checkbox" id="d-solom" name="d" checked>
-              <label for="d-solom">Солом'янський<span>метро Шулявська — 15 хвилин
-                 до корпусу</span></label></div>
-            <div class="choice"><input type="checkbox" id="d-golos" name="d" checked>
-              <label for="d-golos">Голосіївський<span>метро Васильківська</span></label></div>
-            <div class="choice"><input type="checkbox" id="d-shev" name="d">
-              <label for="d-shev">Шевченківський</label></div>
-            <div class="choice"><input type="checkbox" id="d-obol" name="d">
-              <label for="d-obol">Оболонський</label></div>
-            <div class="choice"><input type="checkbox" id="d-dnipr" name="d">
-              <label for="d-dnipr">Дніпровський</label></div>
-            <div class="choice"><input type="checkbox" id="d-pech" name="d">
-              <label for="d-pech">Печерський</label></div>
+          <fieldset class="kit-fieldset"><legend>Райони інтересу</legend>
+            <label class="kit-choice kit-choice--stacked"><input type="checkbox" id="d-solom" name="d" checked><span class="kit-choice__text"><strong>Солом'янський</strong><span class="kit-choice__hint">метро Шулявська — 15 хвилин до корпусу</span></span></label>
+            <label class="kit-choice kit-choice--stacked"><input type="checkbox" id="d-golos" name="d" checked><span class="kit-choice__text"><strong>Голосіївський</strong><span class="kit-choice__hint">метро Васильківська</span></span></label>
+            <label class="kit-choice"><input type="checkbox" id="d-shev" name="d"> Шевченківський</label>
+            <label class="kit-choice"><input type="checkbox" id="d-obol" name="d"> Оболонський</label>
+            <label class="kit-choice"><input type="checkbox" id="d-dnipr" name="d"> Дніпровський</label>
+            <label class="kit-choice"><input type="checkbox" id="d-pech" name="d"> Печерський</label>
           </fieldset>
-
-          <fieldset>
-            <legend>Побутові звички</legend>
-            <div class="field">
-              <label for="clean">Чистота</label>
-              <select id="clean" name="clean">
-                <option>Прибираю щодня</option>
-                <option selected>Прибираю кілька разів на тиждень</option>
-                <option>Прибираю раз на тиждень</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="guests">Гості</label>
-              <select id="guests" name="guests">
-                <option selected>Буває рідко</option>
-                <option>Іноді, з попередженням</option>
-                <option>Часто, у нас завжди хтось є</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="day">Режим дня</label>
-              <select id="day" name="day">
-                <option>Жайворонок</option>
-                <option selected>Сова</option>
-              </select>
-            </div>
-            <div class="choice"><input type="checkbox" id="pets" name="pets" checked>
-              <label for="pets">Живу з твариною<span>Кіт, привчений</span></label></div>
-            <div class="choice"><input type="checkbox" id="smoke" name="smoke" checked>
-              <label for="smoke">Не курю<span>І в квартирі теж</span></label></div>
+          <fieldset class="kit-fieldset"><legend>Побутові звички</legend>
+            <div class="kit-field kit-field--select"><label for="clean">Чистота</label><select id="clean" name="clean"><option>Прибираю щодня</option><option selected>Прибираю кілька разів на тиждень</option><option>Прибираю раз на тиждень</option></select></div>
+            <div class="kit-field kit-field--select"><label for="guests">Гості</label><select id="guests" name="guests"><option selected>Буває рідко</option><option>Іноді, з попередженням</option><option>Часто, у нас завжди хтось є</option></select></div>
+            <div class="kit-field kit-field--select"><label for="day">Режим дня</label><select id="day" name="day"><option>Жайворонок</option><option selected>Сова</option></select></div>
+            <label class="kit-choice kit-choice--stacked"><input type="checkbox" id="pets" name="pets" checked><span class="kit-choice__text"><strong>Живу з твариною</strong><span class="kit-choice__hint">Кіт, привчений</span></span></label>
+            <label class="kit-choice kit-choice--stacked"><input type="checkbox" id="smoke" name="smoke" checked><span class="kit-choice__text"><strong>Не курю</strong><span class="kit-choice__hint">І в квартирі теж</span></span></label>
           </fieldset>
-
-          <section class="block" aria-labelledby="trust-heading">
-            <h4 id="trust-heading">Перевірка профілю</h4>
-            <p class="author-name">Марічка <span class="badge">позначки поки немає</span></p>
-            <ul class="trust">
+          <section class="kit-section" aria-labelledby="trust-heading">
+            <h2 id="trust-heading" class="kit-section__title">Перевірка профілю</h2>
+            <p class="kit-title">Марічка <span class="kit-chip kit-chip--muted">позначки поки немає</span></p>
+            <ul class="kit-trust-list">
               <li>Номер телефону +380 67 214 88 03 — перевірено</li>
               <li>Посилання на соцмережу — не додано</li>
               <li>Відгуків після заселення ще немає</li>
             </ul>
-            <p class="hint">Позначку «перевірено» не можна додати вручну. Тут
-               видно, які дані вже перевірено.</p>
+            <p class="kit-note kit-note--warning">Позначку «перевірено» не можна додати вручну. Тут видно, які дані вже перевірено.</p>
           </section>
-
-          <div class="toolbar profile-actions" aria-label="Дії з профілем">
-            <a class="btn" href="profile-social.html">Додати посилання на соцмережу</a>
-            <button class="btn cta" type="submit" formaction="profile-edit-loading.html">Зберегти профіль</button>
+          <div class="kit-actions" aria-label="Дії з профілем">
+            <a class="kit-button kit-button--secondary kit-button--block" href="profile-social.html">Додати посилання на соцмережу</a>
+            <button class="kit-button kit-button--block" type="submit" formaction="profile-edit-loading.html">Зберегти профіль</button>
+            <p class="kit-hint">Інші не бачать твій номер телефону — лише позначку «номер телефону перевірено».</p>
           </div>
-          <p class="hint">Інші не бачать твій номер телефону — лише позначку
-             «номер телефону перевірено».</p>
         </form>
       </section>
-
-      <footer>
-        <p>Куток · пошук співмешканців і кімнат у Києві</p>
-      </footer>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
-
-    <nav class="bottom-nav" aria-label="Глобальна навігація">
-      <ul>
-        <li><a href="listings.html">Оголошення</a></li>
-        <li><a href="chats.html">Чати</a></li>
-        <li><a href="profile-edit.html" aria-current="page">Профіль</a></li>
-      </ul>
+    <nav class="kit-tabbar" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html" aria-current="page">Профіль</a>
+      <a class="kit-tab kit-tab--create" href="listing-new.html" aria-label="Додати оголошення">Додати</a>
     </nav>
-
   </div>
 </div>
 </div>

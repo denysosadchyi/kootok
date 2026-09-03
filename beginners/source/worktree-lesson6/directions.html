@@ -386,7 +386,7 @@
       font-weight: 800;
     }
 
-    .route-cta:hover { background: #143cd6; }
+    .route-cta:where(.__hover-disabled) { background: #143cd6; }
 
     .route-credit {
       margin: .9rem 0 0;
@@ -578,7 +578,7 @@
 
     /* білий на #5b2eff = 6.40 (AA); на помаранчевому було б 3.28, тому
        акцентна дія — синя, а помаранчевий лишається для штампа. */
-    .riso-cta:hover { background: #4a20e6; }
+    .riso-cta:where(.__hover-disabled) { background: #4a20e6; }
 
     .riso-credit {
       margin: .75rem 0 0;
@@ -782,7 +782,7 @@
       font-weight: 800;
     }
 
-    .label-cta:hover { background: #8f2110; }
+    .label-cta:where(.__hover-disabled) { background: #8f2110; }
 
     .label-arrow {
       font-family: "Fira Sans Condensed", sans-serif;
@@ -931,7 +931,7 @@
       cursor: pointer;
     }
 
-    .night-cta:hover { background: #ffc24d; }
+    .night-cta:where(.__hover-disabled) { background: #ffc24d; }
     .direction--night .action-note { background: #221e1a; border-color: #3a332c; color: var(--night-text); }
     .direction--night .photo-credit { color: var(--night-muted); }
 
@@ -1035,7 +1035,7 @@
       cursor: pointer;
     }
 
-    .sheet-cta:hover { background: #0c4f4c; }
+    .sheet-cta:where(.__hover-disabled) { background: #0c4f4c; }
     .direction--sheet .action-note { background: transparent; border-color: var(--sheet-rule); color: var(--sheet-ink); }
     .direction--sheet .photo-credit { color: var(--sheet-muted); }
 
@@ -1154,7 +1154,7 @@
       box-shadow: 5px 5px 0 0 var(--st-ink);
     }
 
-    .sticker-cta:hover { box-shadow: 2px 2px 0 0 var(--st-ink); }
+    .sticker-cta:where(.__hover-disabled) { box-shadow: 2px 2px 0 0 var(--st-ink); }
     .direction--sticker .action-note { background: var(--st-mint); border-color: var(--st-ink); color: var(--st-ink); }
     .direction--sticker .photo-credit { color: var(--st-muted); }
 
@@ -1339,7 +1339,7 @@
       cursor: pointer;
     }
 
-    .day-cta:hover { background: #e69a00; }
+    .day-cta:where(.__hover-disabled) { background: #e69a00; }
     .direction--day .action-note { background: var(--day-facts); border-color: var(--day-line-soft); color: var(--day-ink); }
     .direction--day .photo-credit { color: var(--day-muted); }
 
@@ -1384,7 +1384,7 @@
       .route-cta,
       .riso-cta,
       .label-cta { transition: transform 180ms cubic-bezier(.22, 1, .36, 1), background-color 180ms ease-out; }
-      .favorite:hover iconify-icon { transform: scale(1.1) rotate(-7deg); }
+      .favorite:where(.__hover-disabled) iconify-icon { transform: scale(1.1) rotate(-7deg); }
       .route-cta:active,
       .riso-cta:active,
       .label-cta:active { transform: translateY(1px); }

@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Фільтри оголошень</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -221,33 +225,32 @@
     <p>Фільтри застосовуються без втрати контексту; поля тимчасово недоступні.</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-    <header class="app-bar"><h2>Фільтри оголошень</h2><a class="back-btn" href="listings.html">Закрити</a></header>
-    <main>
-      <dialog class="sheet-dialog" style="border-radius:20px 20px 0 0;overflow:hidden" open aria-labelledby="filters-loading-heading" aria-busy="true">
-        <div class="sheet-head"><span aria-hidden="true" style="display:block;width:40px;height:4px;border:1px solid #999;margin:0 auto 8px"></span><h3 id="filters-loading-heading">Застосовуємо фільтри…</h3></div>
-        <div class="sheet-body">
-          <form>
-            <fieldset disabled>
-              <legend>Вибрані фільтри</legend>
-              <div class="segmented" role="radiogroup" aria-label="Тип стрічки">
-              <input type="radio" id="loading-rooms" name="feed" checked><label for="loading-rooms">Оголошення</label>
-                <input type="radio" id="loading-people" name="feed"><label for="loading-people">Співмешканці</label>
-              </div>
-              <div class="field"><label for="loading-district">Район</label><select id="loading-district"><option selected>Солом'янський</option></select></div>
-              <div class="grid2">
-                <div class="field"><label for="loading-min">Ціна від, грн/міс</label><input type="number" id="loading-min" value="5000"></div>
-                <div class="field"><label for="loading-max">Ціна до, грн/міс</label><input type="number" id="loading-max" value="11000"></div>
-              </div>
-            </fieldset>
-            <div class="state-block"><h4>Шукаємо оголошення</h4><p>Збережемо фільтри й відкриємо стрічку оголошень.</p></div>
-            <button class="btn cta" type="button" disabled>Застосовуємо фільтри…</button>
-          </form>
-        </div>
-      </dialog>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <header class="kit-shell__appbar"><a class="kit-back" href="listings.html">Закрити</a><h1 class="kit-shell__title">Фільтри оголошень</h1></header>
+    <main class="kit-shell__body">
+      <div class="kit-sheet" aria-labelledby="filters-loading-heading" aria-busy="true">
+        <div class="kit-sheet__head"><div><h2 id="filters-loading-heading" class="kit-headline">Застосовуємо фільтри…</h2></div></div>
+        <form class="kit-sheet__body">
+          <fieldset class="kit-fieldset" disabled><legend>Вибрані фільтри</legend>
+            <div class="kit-segmented" role="radiogroup" aria-label="Тип стрічки"><input type="radio" id="loading-rooms" name="feed" checked><label for="loading-rooms">Оголошення</label><input type="radio" id="loading-people" name="feed"><label for="loading-people">Співмешканці</label></div>
+            <div class="kit-field kit-field--select"><label for="loading-district">Район</label><select id="loading-district"><option selected>Солом'янський</option></select></div>
+            <div class="kit-field-row">
+              <div class="kit-field"><label for="loading-min">Ціна від, грн/міс</label><input type="number" id="loading-min" value="5000"></div>
+              <div class="kit-field"><label for="loading-max">Ціна до, грн/міс</label><input type="number" id="loading-max" value="11000"></div>
+            </div>
+          </fieldset>
+          <div class="kit-state kit-state--compact"><span class="kit-state__icon"></span><h3>Шукаємо оголошення</h3><p>Збережемо фільтри й відкриємо стрічку оголошень.</p></div>
+          <div class="kit-actions"><button class="kit-button" type="button" disabled>Застосовуємо фільтри…</button></div>
+        </form>
+      </div>
     </main>
-    <nav class="bottom-nav" aria-label="Глобальна навігація"><ul><li><a href="listings.html" aria-current="page">Оголошення</a></li><li><a href="chats.html">Чати</a></li><li><a href="profile-edit.html">Профіль</a></li></ul></nav>
+    <nav class="kit-tabbar" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html" aria-current="page">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
+      <a class="kit-tab kit-tab--create" href="listing-new.html" aria-label="Додати оголошення">Додати</a>
+    </nav>
   </div>
 </div>
 </div>

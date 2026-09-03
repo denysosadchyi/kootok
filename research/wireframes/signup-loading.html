@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Реєстрація і підтвердження номера · код надіслано</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -217,19 +221,24 @@
 
   <!-- Підпис до макета: не частина інтерфейсу -->
   <div class="annotation"><h1>Реєстрація — очікування та введення OTP</h1><p>Код надіслано; користувач може підтвердити його або запросити повторно.</p></div>
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-    <header class="app-bar"><a class="back-btn" href="signup.html">Змінити номер</a><h2>Підтвердження номера</h2></header>
-    <main><section aria-labelledby="otp-heading">
-      <h3 id="otp-heading" class="results-count">Введи код із SMS</h3>
-      <p class="sys">Код надіслано на +380 67 ••• •• 03</p>
-      <form action="role.html" method="get">
-        <div class="field"><label for="otp">Код підтвердження</label><input id="otp" name="otp" inputmode="numeric" autocomplete="one-time-code" placeholder="000000"></div>
-        <button class="btn cta" type="submit">Підтвердити номер</button>
-        <a class="btn" href="signup-loading.html">Надіслати код ще раз</a>
-        <p class="hint">Якщо коду немає, перевір номер або вибери Telegram.</p>
-      </form>
-    </section></main>
+  <div class="kit-shell kit-shell--bare">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <header class="kit-shell__appbar"><a class="kit-back" href="signup.html" aria-label="Змінити номер">Змінити номер</a><h1 class="kit-shell__title">Підтвердження номера</h1></header>
+    <main class="kit-shell__body">
+      <section class="kit-section" aria-labelledby="otp-heading">
+        <h2 id="otp-heading" class="kit-meta">Введи код із SMS</h2>
+        <p class="kit-note kit-note--success" role="status">Код надіслано на +380 67 ••• •• 03</p>
+        <form class="kit-form" action="role.html" method="get">
+          <div class="kit-field"><span class="kit-label">Код підтвердження</span><div class="kit-code kit-code--six" aria-label="Код підтвердження"><input inputmode="numeric" name="otp" aria-label="Цифра 1" autocomplete="one-time-code"><input inputmode="numeric" name="otp" aria-label="Цифра 2"><input inputmode="numeric" name="otp" aria-label="Цифра 3"><input inputmode="numeric" name="otp" aria-label="Цифра 4"><input inputmode="numeric" name="otp" aria-label="Цифра 5"><input inputmode="numeric" name="otp" aria-label="Цифра 6"></div></div>
+          <div class="kit-actions">
+            <button class="kit-button kit-button--block" type="submit">Підтвердити номер</button>
+            <a class="kit-button kit-button--secondary kit-button--block" href="signup-loading.html">Надіслати код ще раз</a>
+            <p class="kit-hint">Якщо коду немає, перевір номер або вибери Telegram.</p>
+          </div>
+        </form>
+      </section>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+    </main>
   </div>
 </div>
 </div>

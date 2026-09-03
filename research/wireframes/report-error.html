@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Скарга</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -221,21 +225,32 @@
     <p>Скаргу не вдалося надіслати. Причина, пояснення та вибір блокування збережені для повторної спроби.</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-    <header class="app-bar"><h2>Скарга</h2><a class="back-btn" href="chat.html">Повернутися до чату</a></header>
-    <main><section aria-labelledby="report-heading">
-      <div class="detail-photos" aria-label="Фото профілю, на який подається скарга"><span class="photo main"><span>Фото Дмитра</span></span></div>
-      <h3 id="report-heading" class="results-count">Чат з Дмитром · Оболонський район</h3>
-      <div class="state-block" role="alert"><h4>Скаргу не надіслано</h4><p>Дмитра ще не заблоковано, а твої дані лишилися у формі. Перевір зʼєднання з інтернетом.</p></div>
-      <form action="report-loading.html" method="get">
-        <fieldset><legend>Що сталося</legend><div class="choice"><input type="radio" id="r-prepay" name="reason" value="prepay" checked><label for="r-prepay">Вимагає передоплату до перегляду</label></div></fieldset>
-        <div class="field"><label for="details">Опиши детальніше</label><textarea id="details" name="details">Дмитро попросив 200 грн на картку до перегляду кімнати й відмовився показати її без оплати.</textarea></div>
-        <div class="choice"><input type="checkbox" id="block" name="block" value="yes" checked><label for="block">Заблокувати Дмитра — він не зможе тобі писати, а чат зникне зі списку</label></div>
-        <button class="btn cta" type="submit">Надіслати скаргу й заблокувати Дмитра</button>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <header class="kit-shell__appbar"><a class="kit-back" href="chat.html" aria-label="Повернутися до чату">Назад</a><h1 class="kit-shell__title">Скарга</h1><img class="kit-appbar-avatar" src="../../ui/assets/avatars/oleh.png" alt="Дмитро"></header>
+    <main class="kit-shell__body">
+      <section class="kit-section" aria-labelledby="report-heading">
+        <h2 id="report-heading" class="kit-meta">Чат з Дмитром · Оболонський район</h2>
+      </section>
+      <div class="kit-banner kit-banner--error" role="alert"><strong>Скаргу не надіслано</strong><p>Дмитра ще не заблоковано, а твої дані лишилися у формі. Перевір зʼєднання з інтернетом.</p></div>
+      <form class="kit-form" action="report-loading.html" method="get">
+        <fieldset class="kit-fieldset"><legend>Що сталося</legend>
+          <label class="kit-choice"><input type="radio" id="r-prepay" name="reason" value="prepay" checked> Вимагає передоплату до перегляду</label>
+        </fieldset>
+        <div class="kit-field"><label for="details">Опиши детальніше</label><textarea id="details" name="details">Дмитро попросив 200 грн на картку до перегляду кімнати й відмовився показати її без оплати.</textarea></div>
+        <fieldset class="kit-fieldset">
+          <label class="kit-choice"><input type="checkbox" id="block" name="block" value="yes" checked> Заблокувати Дмитра — він не зможе тобі писати, а чат зникне зі списку</label>
+        </fieldset>
+        <div class="kit-actions"><button class="kit-button kit-button--block" type="submit">Надіслати скаргу й заблокувати Дмитра</button></div>
       </form>
-    </section><footer><p>Куток · пошук співмешканців і кімнат у Києві</p></footer></main>
-    <nav class="bottom-nav" aria-label="Глобальна навігація"><ul><li><a href="listings.html">Оголошення</a></li><li><a href="chats.html" aria-current="page">Чати</a></li><li><a href="profile-edit.html">Профіль</a></li></ul></nav>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+    </main>
+    <nav class="kit-tabbar" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html" aria-current="page">Чати</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
+      <a class="kit-tab kit-tab--create" href="listing-new.html" aria-label="Додати оголошення">Додати</a>
+    </nav>
   </div>
 </div>
 </div>

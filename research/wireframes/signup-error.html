@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Реєстрація і підтвердження номера · помилка коду</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -217,18 +221,23 @@
 
   <!-- Підпис до макета: не частина інтерфейсу -->
   <div class="annotation"><h1>Реєстрація — помилка OTP</h1><p>Код не підійшов або втратив чинність; номер збережений, є короткий шлях повторити дію.</p></div>
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-    <header class="app-bar"><a class="back-btn" href="signup.html">Змінити номер</a><h2>Підтвердження номера</h2></header>
-    <main><section aria-labelledby="otp-heading">
-      <h3 id="otp-heading" class="results-count">Код не підійшов</h3>
-      <p class="sys">Код для +380 67 ••• •• 03 не підійшов. Перевір код або надішли його ще раз.</p>
-      <form action="role.html" method="get">
-        <div class="field"><label for="otp">Код підтвердження</label><input id="otp" name="otp" inputmode="numeric" value="14820" aria-invalid="true" aria-describedby="otp-error"><p class="hint" id="otp-error">Введи 6 цифр.</p></div>
-        <button class="btn cta" type="submit">Підтвердити номер</button>
-        <a class="btn" href="signup-loading.html">Надіслати код ще раз</a>
-      </form>
-    </section></main>
+  <div class="kit-shell kit-shell--bare">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <header class="kit-shell__appbar"><a class="kit-back" href="signup.html" aria-label="Змінити номер">Змінити номер</a><h1 class="kit-shell__title">Підтвердження номера</h1></header>
+    <main class="kit-shell__body">
+      <section class="kit-section" aria-labelledby="otp-heading">
+        <h2 id="otp-heading" class="kit-meta">Код не підійшов</h2>
+        <p class="kit-note kit-note--error" role="alert">Код для +380 67 ••• •• 03 не підійшов. Перевір код або надішли його ще раз.</p>
+        <form class="kit-form" action="role.html" method="get">
+          <div class="kit-field kit-field--error"><span class="kit-label" id="otp-label">Код підтвердження</span><div class="kit-code kit-code--six kit-code--error" aria-label="Код підтвердження"><input inputmode="numeric" name="otp" value="1" aria-label="Цифра 1" aria-invalid="true" aria-describedby="otp-error"><input inputmode="numeric" name="otp" value="4" aria-label="Цифра 2" aria-invalid="true"><input inputmode="numeric" name="otp" value="8" aria-label="Цифра 3" aria-invalid="true"><input inputmode="numeric" name="otp" value="2" aria-label="Цифра 4" aria-invalid="true"><input inputmode="numeric" value="0" aria-label="Цифра 5"><input inputmode="numeric" aria-label="Цифра 6"></div><span class="kit-field__message" id="otp-error">Введи 6 цифр.</span></div>
+          <div class="kit-actions">
+            <button class="kit-button kit-button--block" type="submit">Підтвердити номер</button>
+            <a class="kit-button kit-button--secondary kit-button--block" href="signup-loading.html">Надіслати код ще раз</a>
+          </div>
+        </form>
+      </section>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+    </main>
   </div>
 </div>
 </div>

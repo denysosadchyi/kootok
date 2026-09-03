@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Нове оголошення</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -248,167 +252,67 @@
        <code>_conventions.md</code> §1 показана як порожній підписаний блок.</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <header class="kit-shell__appbar"><a class="kit-back" href="my-listings.html">Скасувати</a><h1 class="kit-shell__title">Нове оголошення</h1></header>
+    <main class="kit-shell__body">
+      <section class="kit-section" aria-labelledby="new-listing-heading">
+        <h2 id="new-listing-heading" class="kit-meta">Кімната в Оболонському районі</h2>
+        <form class="kit-form" action="listing-new-loading.html" method="get">
+          <p class="kit-description">Заповни обовʼязкові поля, щоб оголошення зʼявилося у стрічці. За районом, ціною й датою заїзду співмешканці знаходять оголошення.</p>
 
-    <header class="app-bar">
-      <h2>Нове оголошення</h2>
-      <a class="back-btn" href="my-listings.html">Скасувати</a>
-    </header>
-
-    <main>
-      <section aria-labelledby="new-listing-heading">
-        <h3 id="new-listing-heading" class="results-count">Кімната в Оболонському районі</h3>
-
-        <form action="listing-new-loading.html" method="get">
-          <p class="form-intro">Заповни обовʼязкові поля, щоб оголошення
-             зʼявилося у стрічці. За районом, ціною й датою заїзду
-             співмешканці знаходять оголошення.</p>
-
-          <fieldset>
+          <fieldset class="kit-fieldset">
             <legend>Розташування й ціна</legend>
-
-            <div class="grid2">
-              <div class="field">
-                <label for="district">Район (обовʼязково)</label>
-                <select id="district" name="district">
-                  <option selected>Оболонський</option>
-                  <option>Солом'янський</option>
-                  <option>Голосіївський</option>
-                  <option>Дніпровський</option>
-                  <option>Печерський</option>
-                  <option>Шевченківський</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="metro">Метро</label>
-                <select id="metro" name="metro">
-                  <option selected>Мінська</option>
-                  <option>Оболонь</option>
-                  <option>Героїв Дніпра</option>
-                  <option>Почайна</option>
-                </select>
-              </div>
+            <div class="kit-field-row">
+              <div class="kit-field kit-field--select"><label for="district">Район (обовʼязково)</label><select id="district" name="district"><option selected>Оболонський</option><option>Солом'янський</option><option>Голосіївський</option><option>Дніпровський</option><option>Печерський</option><option>Шевченківський</option></select></div>
+              <div class="kit-field kit-field--select"><label for="metro">Метро</label><select id="metro" name="metro"><option selected>Мінська</option><option>Оболонь</option><option>Героїв Дніпра</option><option>Почайна</option></select></div>
             </div>
-
-            <div class="grid2">
-              <div class="field">
-                <label for="price">Ціна, грн/міс (обовʼязково)</label>
-                <input type="number" id="price" name="price" value="8400">
-              </div>
-              <div class="field">
-                <label for="movein">Дата заїзду (обовʼязково)</label>
-                <input type="date" id="movein" name="movein" value="2026-09-01">
-              </div>
+            <div class="kit-field-row">
+              <div class="kit-field"><label for="price">Ціна, грн/міс (обовʼязково)</label><input type="number" id="price" name="price" value="8400"></div>
+              <div class="kit-field kit-field--date"><label for="movein">Дата заїзду (обовʼязково)</label><input type="date" id="movein" name="movein" value="2026-09-01"></div>
             </div>
           </fieldset>
 
-          <fieldset>
+          <fieldset class="kit-fieldset">
             <legend>Фото кімнати</legend>
-            <div class="detail-photos">
-              <span class="photo main"><span>Фото</span></span>
-              <span class="photo"><span>Фото</span></span>
-              <span class="photo"><span>Фото</span></span>
-            </div>
-            <button class="btn cta" type="button">Додати фото</button>
-            <p class="hint">Додано 3 знімки: кімната, кухня, санвузол.</p>
+            <ul class="kit-gallery" aria-label="Фото кімнати"><li><img src="../../ui/assets/listings/room-03.jpg" alt="Фото 1 з 3 · кімната"></li><li><img src="../../ui/assets/listings/room-04.jpg" alt="Фото 2 з 3 · кухня"></li><li><img src="../../ui/assets/listings/room-05.jpg" alt="Фото 3 з 3 · санвузол"></li></ul>
+            <button class="kit-button kit-button--secondary kit-button--block" type="button">Додати фото</button>
+            <p class="kit-hint">Додано 3 знімки: кімната, кухня, санвузол.</p>
           </fieldset>
 
-          <fieldset>
+          <fieldset class="kit-fieldset">
             <legend>Умови</legend>
-
-            <div class="field">
-              <label for="furniture">Меблювання</label>
-              <select id="furniture" name="furniture">
-                <option selected>Повне: ліжко, шафа, стіл</option>
-                <option>Часткове</option>
-                <option>Без меблів</option>
-              </select>
-            </div>
-
-            <div class="choice">
-              <input type="radio" id="pets-yes" name="pets" value="yes" checked>
-              <label for="pets-yes">Тварини можна<span>У квартирі вже живе кіт</span></label>
-            </div>
-            <div class="choice">
-              <input type="radio" id="pets-no" name="pets" value="no">
-              <label for="pets-no">Тварин не можна</label>
-            </div>
+            <div class="kit-field kit-field--select"><label for="furniture">Меблювання</label><select id="furniture" name="furniture"><option selected>Повне: ліжко, шафа, стіл</option><option>Часткове</option><option>Без меблів</option></select></div>
+            <label class="kit-choice kit-choice--stacked"><input type="radio" id="pets-yes" name="pets" value="yes" checked><span class="kit-choice__text"><strong>Тварини можна</strong><span class="kit-choice__hint">У квартирі вже живе кіт</span></span></label>
+            <label class="kit-choice"><input type="radio" id="pets-no" name="pets" value="no"> Тварин не можна</label>
           </fieldset>
 
-          <fieldset>
+          <fieldset class="kit-fieldset">
             <legend>Побажання до співмешканця</legend>
-
-            <div class="field">
-              <label for="tidy">Охайність</label>
-              <select id="tidy" name="tidy">
-                <option>Не критична</option>
-                <option selected>Важлива</option>
-                <option>Дуже важлива</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="guests">Гості</label>
-              <select id="guests" name="guests">
-                <option selected>Рідко</option>
-                <option>Можна</option>
-                <option>Часто</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="smoking">Куріння</label>
-              <select id="smoking" name="smoking">
-                <option selected>Без куріння</option>
-                <option>Куріння на балконі</option>
-                <option>Не має значення</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="daytime">Режим дня</label>
-              <select id="daytime" name="daytime">
-                <option selected>Жайворонок</option>
-                <option>Сова</option>
-                <option>Будь-який</option>
-              </select>
-            </div>
+            <div class="kit-field kit-field--select"><label for="tidy">Охайність</label><select id="tidy" name="tidy"><option>Не критична</option><option selected>Важлива</option><option>Дуже важлива</option></select></div>
+            <div class="kit-field kit-field--select"><label for="guests">Гості</label><select id="guests" name="guests"><option selected>Рідко</option><option>Можна</option><option>Часто</option></select></div>
+            <div class="kit-field kit-field--select"><label for="smoking">Куріння</label><select id="smoking" name="smoking"><option selected>Без куріння</option><option>Куріння на балконі</option><option>Не має значення</option></select></div>
+            <div class="kit-field kit-field--select"><label for="daytime">Режим дня</label><select id="daytime" name="daytime"><option selected>Жайворонок</option><option>Сова</option><option>Будь-який</option></select></div>
           </fieldset>
 
-          <fieldset>
+          <fieldset class="kit-fieldset">
             <legend>Статус</legend>
-            <div class="choice">
-              <input type="radio" id="status-active" name="status" value="active" checked>
-              <label for="status-active">Активне<span>Показувати у стрічці оголошень</span></label>
-            </div>
-            <div class="choice">
-              <input type="radio" id="status-archived" name="status" value="archived">
-              <label for="status-archived">Архівне<span>Не показувати у стрічці оголошень</span></label>
-            </div>
+            <label class="kit-choice kit-choice--stacked"><input type="radio" id="status-active" name="status" value="active" checked><span class="kit-choice__text"><strong>Активне</strong><span class="kit-choice__hint">Показувати у стрічці оголошень</span></span></label>
+            <label class="kit-choice kit-choice--stacked"><input type="radio" id="status-archived" name="status" value="archived"><span class="kit-choice__text"><strong>Архівне</strong><span class="kit-choice__hint">Не показувати у стрічці оголошень</span></span></label>
           </fieldset>
 
-          <button class="btn cta" type="submit">Опублікувати оголошення</button>
-          <p class="hint">Після публікації оголошення зʼявиться в «Моїх
-             оголошеннях» зі статусом «Активне». Ти зможеш переглядати
-             профілі співмешканців.</p>
+          <div class="kit-actions"><button class="kit-button kit-button--block" type="submit">Опублікувати оголошення</button></div>
+          <p class="kit-hint">Після публікації оголошення зʼявиться в «Моїх оголошеннях» зі статусом «Активне». Ти зможеш переглядати профілі співмешканців.</p>
         </form>
       </section>
-
-      <footer>
-        <p>Куток · пошук співмешканців і кімнат у Києві</p>
-      </footer>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
-
-    <nav class="bottom-nav" aria-label="Глобальна навігація">
-      <ul>
-        <li><a href="listings.html">Оголошення</a></li>
-        <li><a href="chats.html">Чати</a></li>
-        <li><a href="my-listings.html" aria-current="page">Мої оголошення</a></li>
-        <li><a href="profile-edit.html">Профіль</a></li>
-      </ul>
+    <nav class="kit-tabbar kit-tabbar--host" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--listings" href="my-listings.html" aria-current="page">Мої оголошення</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
     </nav>
-
   </div>
 </div>
 </div>

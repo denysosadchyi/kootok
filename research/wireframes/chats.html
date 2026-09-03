@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Заявки і чати</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -247,113 +251,28 @@
        немає свідомо (<code>_conventions.md</code> §1).</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-
-    <header class="app-bar">
-      <h2>Заявки і чати</h2>
-      <a class="btn" href="listings.html">Переглянути оголошення</a>
-    </header>
-
-    <main>
-      <section aria-labelledby="threads-heading">
-        <h3 id="threads-heading" class="results-count">4 заявки й чати</h3>
-
-        <ul class="listing-list">
-
-          <li>
-            <article>
-              <span class="photo"><span>Фото Оксани</span></span>
-              <div class="card-body">
-                <h3><a href="chat.html">Оксана</a></h3>
-                <p class="sub"><span class="badge">Активний чат</span></p>
-                <dl class="facts">
-                  <dt>Оголошення</dt><dd>Кімната в Солом'янському районі · 7 200 грн/міс</dd>
-                  <dt>Статус</dt><dd>Заявку прийнято 6 серпня, чат відкрито</dd>
-                </dl>
-                <h4>Останнє повідомлення</h4>
-                <p class="sub">Оксана: «Кіт не проблема, у нас теж є. Можеш
-                   прийти подивитись у суботу після обіду?»</p>
-                <p class="updated">Сьогодні, 11:20 · відповідь за 20 хвилин</p>
-                <a class="btn cta" href="chat.html">Відкрити чат</a>
-              </div>
-            </article>
-          </li>
-
-          <li>
-            <article>
-              <span class="photo"><span>Фото Дмитра</span></span>
-              <div class="card-body">
-                <h3><a href="chat-empty.html">Дмитро</a></h3>
-                <p class="sub"><span class="badge">Заявку прийнято</span></p>
-                <dl class="facts">
-                  <dt>Оголошення</dt><dd>Кімната в Оболонському районі · 9 800 грн/міс</dd>
-                  <dt>Статус</dt><dd>Дмитро прийняв заявку, листування ще не почалось</dd>
-                </dl>
-                <h4>Останнє повідомлення</h4>
-                <p class="sub">Повідомлень ще немає. Напиши першою.</p>
-                <p class="updated">Прийнято вчора, 19:40</p>
-                <a class="btn cta" href="chat-empty.html">Написати перше повідомлення</a>
-              </div>
-            </article>
-          </li>
-
-          <li>
-            <article>
-              <span class="photo"><span>Фото Ірини</span></span>
-              <div class="card-body">
-                <h3><a href="chats-loading.html">Ірина</a></h3>
-                <p class="sub"><span class="badge">Заявку надіслано</span></p>
-                <dl class="facts">
-                  <dt>Оголошення</dt><dd>Кімната в Дніпровському районі · 5 800 грн/міс</dd>
-                  <dt>Статус</dt><dd>Чекаємо на відповідь — номер приховано до прийняття заявки</dd>
-                </dl>
-                <h4>Твоя заявка</h4>
-                <p class="sub">Ти: «Привіт! Кімната ще вільна? Мене звати
-                   Марічка, навчаюсь у КНУ. Можна дізнатись більше про сусідів?»</p>
-                <p class="updated">Надіслано вчора, 21:05 · відповіді ще немає</p>
-                <a class="btn cta" href="chats-loading.html">Переглянути заявку</a>
-              </div>
-            </article>
-          </li>
-
-          <li>
-            <article>
-              <span class="photo"><span>Фото Мар'яни</span></span>
-              <div class="card-body">
-                <h3><a href="chats-loading.html">Мар'яна</a></h3>
-                <p class="sub"><span class="badge">Заявку надіслано</span></p>
-                <dl class="facts">
-                  <dt>Оголошення</dt><dd>Кімната в Голосіївському районі · 6 500 грн/міс</dd>
-                  <dt>Статус</dt><dd>Без відповіді 4 дні — оголошення могли вже зняти</dd>
-                </dl>
-                <h4>Твоя заявка</h4>
-                <p class="sub">Ти: «Доброго дня! Чи вільна ще кімната з 1 вересня?
-                   Я некурна, гостей майже не воджу.»</p>
-                <p class="updated">Надіслано 2 серпня, 14:12 · відповіді ще немає</p>
-                <a class="btn cta" href="listings.html">Переглянути оголошення</a>
-              </div>
-            </article>
-          </li>
-
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <div class="kit-section-heading"><h1 class="kit-headline">Заявки і чати</h1><a class="kit-button kit-button--secondary kit-button--compact" href="listings.html">Переглянути оголошення</a></div>
+      <section class="kit-section" aria-labelledby="threads-heading">
+        <h2 id="threads-heading" class="kit-meta">4 заявки й чати</h2>
+        <ul class="kit-chat-list">
+          <li><a class="kit-chat-row kit-chat-row--active kit-chat-row--unread" href="chat.html"><img class="kit-avatar" src="../../ui/assets/avatars/mariia.png" alt="Оксана"><span class="kit-chat-copy"><strong>Оксана</strong><span>Кіт не проблема, у нас теж є. Можеш прийти подивитись у суботу після обіду?</span><small><em>Активний чат</em><span>Кімната в Солом'янському районі · 7 200 грн/міс</span></small></span><span class="kit-chat-side"><time datetime="2026-08-07T11:20">11:20</time><span class="kit-unread" aria-label="1 непрочитане">1</span></span></a></li>
+          <li><a class="kit-chat-row" href="chat-empty.html"><img class="kit-avatar" src="../../ui/assets/avatars/oleh.png" alt="Дмитро"><span class="kit-chat-copy"><strong>Дмитро</strong><span>Повідомлень ще немає. Напиши першою.</span><small><em>Заявку прийнято</em><span>Кімната в Оболонському районі · 9 800 грн/міс</span></small></span><span class="kit-chat-side"><time datetime="2026-08-06T19:40">вчора</time></span></a></li>
+          <li><a class="kit-chat-row kit-chat-row--waiting" href="chats-loading.html"><img class="kit-avatar" src="../../ui/assets/avatars/nastia.png" alt="Ірина"><span class="kit-chat-copy"><strong>Ірина</strong><span>Ти: «Привіт! Кімната ще вільна? Мене звати Марічка, навчаюсь у КНУ. Можна дізнатись більше про сусідів?»</span><small><em>Заявку надіслано</em><span>Кімната в Дніпровському районі · 5 800 грн/міс</span></small></span><span class="kit-chat-side"><time datetime="2026-08-06T21:05">вчора</time></span></a></li>
+          <li><a class="kit-chat-row kit-chat-row--waiting" href="chats-loading.html"><img class="kit-avatar" src="../../ui/assets/avatars/solomiia.png" alt="Мар'яна"><span class="kit-chat-copy"><strong>Мар'яна</strong><span>Ти: «Доброго дня! Чи вільна ще кімната з 1 вересня? Я некурна, гостей майже не воджу.»</span><small><em>Без відповіді 4 дні</em><span>Кімната в Голосіївському районі · 6 500 грн/міс</span></small></span><span class="kit-chat-side"><time datetime="2026-08-02T14:12">2 серпня</time></span></a></li>
         </ul>
-
-        <p class="hint">Можеш надсилати заявки на кілька оголошень одночасно.</p>
+        <p class="kit-hint">Можеш надсилати заявки на кілька оголошень одночасно.</p>
       </section>
-
-      <footer>
-        <p>Куток · пошук співмешканців і кімнат у Києві</p>
-      </footer>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
-
-    <nav class="bottom-nav" aria-label="Глобальна навігація">
-      <ul>
-        <li><a href="listings.html">Оголошення</a></li>
-        <li><a href="chats.html" aria-current="page">Чати</a></li>
-        <li><a href="profile-edit.html">Профіль</a></li>
-      </ul>
+    <nav class="kit-tabbar" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html" aria-current="page">Чати</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
+      <a class="kit-tab kit-tab--create" href="listing-new.html" aria-label="Додати оголошення">Додати</a>
     </nav>
-
   </div>
 </div>
 </div>

@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Нове оголошення</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -222,37 +226,34 @@
        чернетки до введення даних і головну дію в зоні великого пальця.</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-    <header class="app-bar">
-      <a class="back-btn" href="my-listings-empty.html" aria-label="Повернутися до моїх оголошень">Повернутися до моїх оголошень</a>
-      <h2>Нове оголошення</h2>
-    </header>
-    <main>
-      <form action="listing-new-error.html" method="get">
-        <p class="form-intro">Заповни основні поля. Чернетка збережеться, і ти зможеш продовжити пізніше.<br><span class="hint">Статус: чернетка</span></p>
-        <fieldset>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <header class="kit-shell__appbar"><a class="kit-back" href="my-listings-empty.html" aria-label="Повернутися до моїх оголошень">Повернутися до моїх оголошень</a><h1 class="kit-shell__title">Нове оголошення</h1></header>
+    <main class="kit-shell__body">
+      <form class="kit-form" action="listing-new-error.html" method="get">
+        <p class="kit-description">Заповни основні поля. Чернетка збережеться, і ти зможеш продовжити пізніше.</p>
+        <p class="kit-hint">Статус: чернетка</p>
+        <fieldset class="kit-fieldset">
           <legend>Фото кімнати</legend>
-          <div class="upload-grid">
-            <button class="media-placeholder" type="button">Додати<br>фото</button>
-            <span class="media-placeholder">Фото</span>
-            <span class="media-placeholder">Фото</span>
-          </div>
+          <ul class="kit-gallery" aria-label="Фото кімнати"><li><span class="kit-skeleton kit-skeleton--gallery" aria-label="Порожнє місце для фото 1"></span></li><li><span class="kit-skeleton kit-skeleton--gallery" aria-label="Порожнє місце для фото 2"></span></li><li><span class="kit-skeleton kit-skeleton--gallery" aria-label="Порожнє місце для фото 3"></span></li></ul>
+          <button class="kit-button kit-button--secondary kit-button--block" type="button">Додати фото</button>
         </fieldset>
-        <div class="field"><label for="empty-district">Район</label><select id="empty-district" name="district"><option selected disabled>Вибери район</option><option>Оболонський</option></select></div>
-        <div class="field"><label for="empty-price">Ціна, грн/міс</label><input id="empty-price" name="price" type="number" placeholder="Наприклад, 8400"></div>
-        <div class="field"><label for="empty-date">Дата заїзду</label><input id="empty-date" name="date" type="date"></div>
-        <fieldset><legend>Коротко про умови</legend>
-          <div class="choice"><input id="empty-furnished" type="checkbox"><label for="empty-furnished">Кімната мебльована</label></div>
-          <div class="choice"><input id="empty-pets" type="checkbox"><label for="empty-pets">Можна з тваринами</label></div>
+        <div class="kit-field kit-field--select"><label for="empty-district">Район</label><select id="empty-district" name="district"><option selected disabled>Вибери район</option><option>Оболонський</option></select></div>
+        <div class="kit-field"><label for="empty-price">Ціна, грн/міс</label><input id="empty-price" name="price" type="number" placeholder="Наприклад, 8400"></div>
+        <div class="kit-field kit-field--date"><label for="empty-date">Дата заїзду</label><input id="empty-date" name="date" type="date"></div>
+        <fieldset class="kit-fieldset"><legend>Коротко про умови</legend>
+          <label class="kit-choice"><input id="empty-furnished" type="checkbox"> Кімната мебльована</label>
+          <label class="kit-choice"><input id="empty-pets" type="checkbox"> Можна з тваринами</label>
         </fieldset>
-        <div class="sticky-action"><button class="btn primary cta" type="submit">Перевірити оголошення</button></div>
+        <div class="kit-actions"><button class="kit-button kit-button--block" type="submit">Перевірити оголошення</button></div>
       </form>
     </main>
-    <nav class="bottom-nav" aria-label="Глобальна навігація"><ul>
-      <li><a href="listings.html">Оголошення</a></li><li><a href="chats.html">Чати</a></li>
-      <li><a href="my-listings.html" aria-current="page">Мої оголошення</a></li><li><a href="profile-edit.html">Профіль</a></li>
-    </ul></nav>
+    <nav class="kit-tabbar kit-tabbar--host" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--listings" href="my-listings.html" aria-current="page">Мої оголошення</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
+    </nav>
   </div>
 </div>
 </div>

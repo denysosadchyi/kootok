@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Скарга</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -260,79 +264,39 @@
        на кшталт «розглянемо за 24 години» на екрані немає.</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-
-    <header class="app-bar">
-      <h2>Скарга</h2>
-      <a class="back-btn" href="chat.html">Повернутися до чату</a>
-    </header>
-
-    <main>
-      <section aria-labelledby="report-heading">
-        <div class="detail-photos" aria-label="Фото профілю, на який подається скарга"><span class="photo main"><span>Фото Дмитра</span></span></div>
-        <h3 id="report-heading" class="results-count">Чат з Дмитром · кімната в
-           Оболонському районі, 9 800 грн/міс</h3>
-
-        <p class="sys">Дмитро просить переказати 200 грн «за бронювання» до
-           перегляду кімнати. Куток не приймає завдатки й не проводить платежі.</p>
-
-        <form action="report-loading.html" method="get">
-          <p class="form-intro">Скаргу отримає команда Кутка. Дмитро не побачить
-             автора й текст скарги.</p>
-
-          <fieldset>
-            <legend>Що сталося</legend>
-            <div class="choice">
-              <input type="radio" id="r-prepay" name="reason" value="prepay" checked>
-              <label for="r-prepay">Вимагає передоплату до перегляду<span>Просить завдаток на картку, перш ніж показати кімнату</span></label>
-            </div>
-            <div class="choice">
-              <input type="radio" id="r-fake" name="reason" value="fake">
-              <label for="r-fake">Несправжнє або неактуальне оголошення<span>Кімнати не існує, вона вже здана або фото не її</span></label>
-            </div>
-            <div class="choice">
-              <input type="radio" id="r-agent" name="reason" value="agent">
-              <label for="r-agent">Рієлтор під виглядом господаря<span>Просить комісію, хоча оголошення подане як приватне</span></label>
-            </div>
-            <div class="choice">
-              <input type="radio" id="r-abuse" name="reason" value="abuse">
-              <label for="r-abuse">Образлива поведінка<span>Грубощі, тиск, недоречні повідомлення в чаті</span></label>
-            </div>
-          </fieldset>
-
-          <div class="field">
-            <label for="details">Опиши детальніше</label>
-            <textarea id="details" name="details">Дмитро попросив 200 грн на картку, щоб «забронювати» кімнату, і відмовився показати її до оплати. Ті самі фото я бачила в іншому оголошенні на OLX за іншою ціною.</textarea>
-          </div>
-
-          <fieldset>
-            <legend>Заблокувати</legend>
-            <div class="choice">
-              <input type="checkbox" id="block" name="block" value="yes" checked>
-              <label for="block">Заблокувати Дмитра<span>Він більше не зможе тобі писати, а чат зникне зі списку</span></label>
-            </div>
-          </fieldset>
-
-          <button class="btn cta" type="submit">Надіслати скаргу й заблокувати Дмитра</button>
-          <p class="hint">Куток збереже переписку для перевірки скарги навіть
-             після блокування Дмитра.</p>
-        </form>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <header class="kit-shell__appbar"><a class="kit-back" href="chat.html" aria-label="Повернутися до чату">Назад</a><h1 class="kit-shell__title">Скарга</h1><img class="kit-appbar-avatar" src="../../ui/assets/avatars/oleh.png" alt="Дмитро"></header>
+    <main class="kit-shell__body">
+      <section class="kit-section" aria-labelledby="report-heading">
+        <h2 id="report-heading" class="kit-meta">Чат з Дмитром · кімната в Оболонському районі, 9 800 грн/міс</h2>
       </section>
-
-      <footer>
-        <p>Куток · пошук співмешканців і кімнат у Києві</p>
-      </footer>
+      <p class="kit-note kit-note--warning">Дмитро просить переказати 200 грн «за бронювання» до перегляду кімнати. Куток не приймає завдатки й не проводить платежі.</p>
+      <form class="kit-form" action="report-loading.html" method="get">
+        <p class="kit-description">Скаргу отримає команда Кутка. Дмитро не побачить автора й текст скарги.</p>
+        <fieldset class="kit-fieldset"><legend>Що сталося</legend>
+          <label class="kit-choice kit-choice--stacked"><input type="radio" id="r-prepay" name="reason" value="prepay" checked><span class="kit-choice__text"><strong>Вимагає передоплату до перегляду</strong><span class="kit-choice__hint">Просить завдаток на картку, перш ніж показати кімнату</span></span></label>
+          <label class="kit-choice kit-choice--stacked"><input type="radio" id="r-fake" name="reason" value="fake"><span class="kit-choice__text"><strong>Несправжнє або неактуальне оголошення</strong><span class="kit-choice__hint">Кімнати не існує, вона вже здана або фото не її</span></span></label>
+          <label class="kit-choice kit-choice--stacked"><input type="radio" id="r-agent" name="reason" value="agent"><span class="kit-choice__text"><strong>Рієлтор під виглядом господаря</strong><span class="kit-choice__hint">Просить комісію, хоча оголошення подане як приватне</span></span></label>
+          <label class="kit-choice kit-choice--stacked"><input type="radio" id="r-abuse" name="reason" value="abuse"><span class="kit-choice__text"><strong>Образлива поведінка</strong><span class="kit-choice__hint">Грубощі, тиск, недоречні повідомлення в чаті</span></span></label>
+        </fieldset>
+        <div class="kit-field"><label for="details">Опиши детальніше</label><textarea id="details" name="details">Дмитро попросив 200 грн на картку, щоб «забронювати» кімнату, і відмовився показати її до оплати. Ті самі фото я бачила в іншому оголошенні на OLX за іншою ціною.</textarea></div>
+        <fieldset class="kit-fieldset"><legend>Заблокувати</legend>
+          <label class="kit-choice kit-choice--stacked"><input type="checkbox" id="block" name="block" value="yes" checked><span class="kit-choice__text"><strong>Заблокувати Дмитра</strong><span class="kit-choice__hint">Він більше не зможе тобі писати, а чат зникне зі списку</span></span></label>
+        </fieldset>
+        <div class="kit-actions">
+          <button class="kit-button kit-button--block" type="submit">Надіслати скаргу й заблокувати Дмитра</button>
+          <p class="kit-hint">Куток збереже переписку для перевірки скарги навіть після блокування Дмитра.</p>
+        </div>
+      </form>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
-
-    <nav class="bottom-nav" aria-label="Глобальна навігація">
-      <ul>
-        <li><a href="listings.html">Оголошення</a></li>
-        <li><a href="chats.html" aria-current="page">Чати</a></li>
-        <li><a href="profile-edit.html">Профіль</a></li>
-      </ul>
+    <nav class="kit-tabbar" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html" aria-current="page">Чати</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
+      <a class="kit-tab kit-tab--create" href="listing-new.html" aria-label="Додати оголошення">Додати</a>
     </nav>
-
   </div>
 </div>
 </div>

@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Реєстрація і підтвердження номера</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -230,48 +234,27 @@
        одноразового коду, помилку коду й очікування між діями.</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-
-    <header class="app-bar">
-      <h2>Реєстрація</h2>
-    </header>
-
-    <main>
-      <section aria-labelledby="signup-heading">
-        <h3 id="signup-heading" class="results-count">Підтвердження номера</h3>
-
-        <form action="signup-loading.html" method="get">
-          <p class="form-intro">Куток надішле код підтвердження. Твій номер
-             бачиш тільки ти — в оголошеннях і профілі його не показуємо.</p>
-
-          <div class="field">
-            <label for="phone">Номер телефону</label>
-            <input type="tel" id="phone" name="phone" value="+380 67 214 88 03">
-          </div>
-
-          <fieldset>
-            <legend>Куди надіслати код</legend>
-            <div class="choice">
-              <input type="radio" id="ch-sms" name="channel" value="sms" checked>
-              <label for="ch-sms">SMS<span>Прийде за кілька секунд</span></label>
-            </div>
-            <div class="choice">
-              <input type="radio" id="ch-tg" name="channel" value="telegram">
-              <label for="ch-tg">Telegram<span>Якщо номер прив'язаний до акаунта</span></label>
-            </div>
+  <div class="kit-shell kit-shell--bare">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <h1 class="kit-headline">Реєстрація</h1>
+      <section class="kit-section" aria-labelledby="signup-heading">
+        <h2 id="signup-heading" class="kit-meta">Підтвердження номера</h2>
+        <form class="kit-form" action="signup-loading.html" method="get">
+          <p class="kit-description">Куток надішле код підтвердження. Твій номер бачиш тільки ти — в оголошеннях і профілі його не показуємо.</p>
+          <div class="kit-field"><label for="phone">Номер телефону</label><input type="tel" id="phone" name="phone" value="+380 67 214 88 03"></div>
+          <fieldset class="kit-fieldset"><legend>Куди надіслати код</legend>
+            <label class="kit-choice kit-choice--stacked"><input type="radio" id="ch-sms" name="channel" value="sms" checked><span class="kit-choice__text"><strong>SMS</strong><span class="kit-choice__hint">Прийде за кілька секунд</span></span></label>
+            <label class="kit-choice kit-choice--stacked"><input type="radio" id="ch-tg" name="channel" value="telegram"><span class="kit-choice__text"><strong>Telegram</strong><span class="kit-choice__hint">Якщо номер прив'язаний до акаунта</span></span></label>
           </fieldset>
-
-          <button class="btn cta" type="submit">Надіслати код</button>
-          <p class="hint">Спочатку введи код із повідомлення, потім вибери роль.</p>
+          <div class="kit-actions">
+            <button class="kit-button kit-button--block" type="submit">Надіслати код</button>
+            <p class="kit-hint">Спочатку введи код із повідомлення, потім вибери роль.</p>
+          </div>
         </form>
       </section>
-
-      <footer>
-        <p>Куток · пошук співмешканців і кімнат у Києві</p>
-      </footer>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
-
   </div>
 </div>
 </div>

@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Додати посилання на соцмережу</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -250,84 +254,47 @@
        підтвердити заселення документи не дають (Прогалина 2).</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-
-    <header class="app-bar">
-      <h2>Посилання на соцмережу</h2>
-      <a class="btn" href="profile-edit.html">Повернутися до профілю</a>
-    </header>
-
-    <main>
-      <section aria-labelledby="social-heading">
-        <h3 id="social-heading" class="results-count">Додай посилання на соцмережу</h3>
-
-        <form action="profile-edit.html" method="get">
-          <p class="form-intro">Додай посилання один раз — воно буде у твоєму
-             профілі, і його не доведеться надсилати в кожному чаті.</p>
-
-          <span class="photo"><span>Аватар Марічки</span></span>
-
-          <fieldset>
-            <legend>Соцмережа</legend>
-            <div class="choice">
-              <input type="radio" id="net-ig" name="net" value="instagram" checked>
-              <label for="net-ig">Instagram<span>Особистий профіль</span></label>
-            </div>
-            <div class="choice">
-              <input type="radio" id="net-li" name="net" value="linkedin">
-              <label for="net-li">LinkedIn<span>Професійний профіль</span></label>
-            </div>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <header class="kit-shell__appbar"><a class="kit-back" href="profile-edit.html" aria-label="Повернутися до профілю">Повернутися до профілю</a><h1 class="kit-shell__title">Посилання на соцмережу</h1></header>
+    <main class="kit-shell__body">
+      <section class="kit-section" aria-labelledby="social-heading">
+        <h2 id="social-heading" class="kit-meta">Додай посилання на соцмережу</h2>
+        <form class="kit-form" action="profile-edit.html" method="get">
+          <p class="kit-description">Додай посилання один раз — воно буде у твоєму профілі, і його не доведеться надсилати в кожному чаті.</p>
+          <img class="kit-avatar" src="../../ui/assets/avatars/solomiia.png" alt="Аватар Марічки">
+          <fieldset class="kit-fieldset"><legend>Соцмережа</legend>
+            <label class="kit-choice kit-choice--stacked"><input type="radio" id="net-ig" name="net" value="instagram" checked><span class="kit-choice__text"><strong>Instagram</strong><span class="kit-choice__hint">Особистий профіль</span></span></label>
+            <label class="kit-choice kit-choice--stacked"><input type="radio" id="net-li" name="net" value="linkedin"><span class="kit-choice__text"><strong>LinkedIn</strong><span class="kit-choice__hint">Професійний профіль</span></span></label>
           </fieldset>
-
-          <div class="field">
-            <label for="link">Посилання на профіль</label>
-            <input type="text" id="link" name="link" value="instagram.com/marichka.knu">
-          </div>
-
-          <fieldset>
-            <legend>Що бачитимуть інші</legend>
-            <div class="choice">
-              <input type="radio" id="show-badge" name="show" value="badge" checked>
-              <label for="show-badge">Тільки позначку «Instagram перевірено»
-                 <span>Посилання не показуємо іншим</span></label>
-            </div>
-            <div class="choice">
-              <input type="radio" id="show-link" name="show" value="link">
-              <label for="show-link">Позначку й посилання
-                 <span>Посилання зможе відкрити будь-хто в Кутку</span></label>
-            </div>
+          <div class="kit-field"><label for="link">Посилання на профіль</label><input type="text" id="link" name="link" value="instagram.com/marichka.knu"></div>
+          <fieldset class="kit-fieldset"><legend>Що бачитимуть інші</legend>
+            <label class="kit-choice kit-choice--stacked"><input type="radio" id="show-badge" name="show" value="badge" checked><span class="kit-choice__text"><strong>Тільки позначку «Instagram перевірено»</strong><span class="kit-choice__hint">Посилання не показуємо іншим</span></span></label>
+            <label class="kit-choice kit-choice--stacked"><input type="radio" id="show-link" name="show" value="link"><span class="kit-choice__text"><strong>Позначку й посилання</strong><span class="kit-choice__hint">Посилання зможе відкрити будь-хто в Кутку</span></span></label>
           </fieldset>
-
-          <section class="block" aria-labelledby="trust-now">
-            <h4 id="trust-now">Що вже перевірено</h4>
-            <p class="author-name">Марічка <span class="badge">позначки поки немає</span></p>
-            <ul class="trust">
+          <section class="kit-section" aria-labelledby="trust-now">
+            <h2 id="trust-now" class="kit-section__title">Що вже перевірено</h2>
+            <p class="kit-title">Марічка <span class="kit-chip kit-chip--muted">позначки поки немає</span></p>
+            <ul class="kit-trust-list">
               <li>Телефон +380 67 214 88 03 — перевірено</li>
               <li>Посилання на соцмережу — додай на цьому кроці</li>
               <li>Відгуків після заселення — жодного</li>
             </ul>
           </section>
-
-          <button class="btn cta" type="submit" formaction="profile-social-loading.html">Додати посилання на соцмережу</button>
-          <p class="hint">Куток не публікує нічого від твого імені й не читає
-             повідомлення в соцмережі. Посилання потрібне для перевірки профілю.</p>
+          <div class="kit-actions">
+            <button class="kit-button kit-button--block" type="submit" formaction="profile-social-loading.html">Додати посилання на соцмережу</button>
+            <p class="kit-hint">Куток не публікує нічого від твого імені й не читає повідомлення в соцмережі. Посилання потрібне для перевірки профілю.</p>
+          </div>
         </form>
       </section>
-
-      <footer>
-        <p>Куток · пошук співмешканців і кімнат у Києві</p>
-      </footer>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
-
-    <nav class="bottom-nav" aria-label="Глобальна навігація">
-      <ul>
-        <li><a href="listings.html">Оголошення</a></li>
-        <li><a href="chats.html">Чати</a></li>
-        <li><a href="profile-edit.html" aria-current="page">Профіль</a></li>
-      </ul>
+    <nav class="kit-tabbar" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html" aria-current="page">Профіль</a>
+      <a class="kit-tab kit-tab--create" href="listing-new.html" aria-label="Додати оголошення">Додати</a>
     </nav>
-
   </div>
 </div>
 </div>

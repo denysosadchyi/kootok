@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Стрічка оголошень</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
-  <link rel="stylesheet" href="_concept.css">
-  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
 </head>
 <body data-page="listings">
@@ -228,164 +230,90 @@
        тимчасове житло, поки триває пошук».</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-
-    <header class="app-bar">
-      <h2>Стрічка оголошень</h2>
-    </header>
-
-    <main>
-      <nav aria-label="Тип стрічки">
-        <ul class="segmented"><li aria-current="page">Оголошення</li><li><a href="seekers.html">Співмешканці</a></li></ul>
-      </nav>
-      <section aria-labelledby="results-heading">
-        <h3 id="results-heading" class="results-count">5 оголошень у Києві</h3>
-
-        <ul class="listing-list">
-
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <h1 class="kit-headline">Стрічка оголошень</h1>
+      <ul class="kit-segmented" aria-label="Тип стрічки"><li aria-current="page"><a href="listings.html">Оголошення</a></li><li><a href="seekers.html">Співмешканці</a></li></ul>
+      <section class="kit-section" aria-labelledby="results-heading">
+        <h2 id="results-heading" class="kit-meta">5 оголошень у Києві</h2>
+        <ul class="kit-list">
           <li>
-            <article>
-              <a class="photo" data-photo-origin="unsplash:photo-1522708323590-d24dbb6b0267" style="border-radius:12px 12px 0 0;overflow:hidden" href="listing.html" aria-label="Фото кімнати в Солом'янському районі"><span>Фото кімнати</span></a>
-              <div class="card-body">
+            <article class="kit-listing kit-listing--feed">
+              <div class="kit-listing__media"><a href="listing.html" aria-label="Фото кімнати: Кімната в Солом'янському районі"><img class="kit-listing__photo" src="../../ui/assets/listings/room-01.jpg" alt=""></a><img class="kit-avatar" src="../../ui/assets/avatars/mariia.png" alt="Оксана"><p class="kit-price">7 200 грн/міс</p></div>
+              <div class="kit-listing__body">
                 <h3><a href="listing.html">Кімната в Солом'янському районі</a></h3>
-                <p class="sub">Солом'янський · метро Шулявська</p>
-                <p class="price">7 200 грн/міс</p>
-                <dl class="facts">
-                  <dt>Заїзд</dt><dd>з 15 серпня</dd>
-                  <dt>Співмешканці</dt><dd>Живуть двоє, шукають третього</dd>
-                  <dt>Умови</dt><dd>Меблювання повне · тварини можна</dd>
-                </dl>
-                <h4>Побажання до співмешканця</h4>
-                <ul class="tags">
-                  <li>Охайність важлива</li>
-                  <li>Гості рідко</li>
-                  <li>Без куріння</li>
-                  <li>Сова</li>
-                </ul>
-                <p class="updated">Оновлено 2 дні тому · Оксана</p>
-                <a class="btn cta" href="listing.html">Переглянути оголошення</a>
+                <p class="kit-meta kit-meta--place">Солом'янський · метро Шулявська</p>
+                <dl class="kit-facts kit-facts--inline"><div><dt>Заїзд</dt><dd>з 15 серпня</dd></div><div><dt>Співмешканці</dt><dd>Живуть двоє, шукають третього</dd></div><div><dt>Умови</dt><dd>Меблювання повне · тварини можна</dd></div></dl>
+                <h4 class="kit-label kit-sr-only">Побажання до співмешканця</h4>
+                <ul class="kit-tags"><li class="kit-tag">Охайність важлива</li><li class="kit-tag">Гості рідко</li><li class="kit-tag">Без куріння</li><li class="kit-tag">Сова</li></ul>
+                <div class="kit-listing__foot"><div class="kit-trust"><span class="kit-trust__status">Оновлено 2 дні тому · Оксана</span></div><a class="kit-button--link" href="listing.html">Переглянути оголошення</a></div>
               </div>
             </article>
           </li>
-
           <li>
-            <article>
-              <a class="photo" data-photo-origin="unsplash:photo-1493809842364-78817add7ffb" style="border-radius:12px 12px 0 0;overflow:hidden" href="listing.html" aria-label="Фото кімнати в Голосіївському районі"><span>Фото кімнати</span></a>
-              <div class="card-body">
+            <article class="kit-listing kit-listing--feed">
+              <div class="kit-listing__media"><a href="listing.html" aria-label="Фото кімнати: Кімната в Голосіївському районі"><img class="kit-listing__photo" src="../../ui/assets/listings/room-02.jpg" alt=""></a><img class="kit-avatar" src="../../ui/assets/avatars/solomiia.png" alt="Мар'яна"><p class="kit-price">6 500 грн/міс</p></div>
+              <div class="kit-listing__body">
                 <h3><a href="listing.html">Кімната в Голосіївському районі</a></h3>
-                <p class="sub">Голосіївський · метро Васильківська</p>
-                <p class="price">6 500 грн/міс</p>
-                <dl class="facts">
-                  <dt>Заїзд</dt><dd>з 1 вересня</dd>
-                  <dt>Співмешканці</dt><dd>Живе одна, шукає співмешканку</dd>
-                  <dt>Умови</dt><dd>Меблювання часткове · тварин не можна</dd>
-                </dl>
-                <h4>Побажання до співмешканця</h4>
-                <ul class="tags">
-                  <li>Охайність дуже важлива</li>
-                  <li>Гості можна</li>
-                  <li>Без куріння</li>
-                  <li>Жайворонок</li>
-                </ul>
-                <p class="updated">Оновлено вчора · Мар'яна</p>
-                <a class="btn cta" href="listing.html">Переглянути оголошення</a>
+                <p class="kit-meta kit-meta--place">Голосіївський · метро Васильківська</p>
+                <dl class="kit-facts kit-facts--inline"><div><dt>Заїзд</dt><dd>з 1 вересня</dd></div><div><dt>Співмешканці</dt><dd>Живе одна, шукає співмешканку</dd></div><div><dt>Умови</dt><dd>Меблювання часткове · тварин не можна</dd></div></dl>
+                <h4 class="kit-label kit-sr-only">Побажання до співмешканця</h4>
+                <ul class="kit-tags"><li class="kit-tag">Охайність дуже важлива</li><li class="kit-tag">Гості можна</li><li class="kit-tag">Без куріння</li><li class="kit-tag">Жайворонок</li></ul>
+                <div class="kit-listing__foot"><div class="kit-trust"><span class="kit-trust__status">Оновлено вчора · Мар'яна</span></div><a class="kit-button--link" href="listing.html">Переглянути оголошення</a></div>
               </div>
             </article>
           </li>
-
           <li>
-            <article>
-              <a class="photo" data-photo-origin="unsplash:photo-1505693416388-ac5ce068fe85" style="border-radius:12px 12px 0 0;overflow:hidden" href="listing.html" aria-label="Фото кімнати в Оболонському районі"><span>Фото кімнати</span></a>
-              <div class="card-body">
+            <article class="kit-listing kit-listing--feed">
+              <div class="kit-listing__media"><a href="listing.html" aria-label="Фото кімнати: Кімната в Оболонському районі"><img class="kit-listing__photo" src="../../ui/assets/listings/room-03.jpg" alt=""></a><img class="kit-avatar" src="../../ui/assets/avatars/oleh.png" alt="Дмитро"><p class="kit-price">9 800 грн/міс</p></div>
+              <div class="kit-listing__body">
                 <h3><a href="listing.html">Кімната в Оболонському районі</a></h3>
-                <p class="sub">Оболонський · метро Оболонь</p>
-                <p class="price">9 800 грн/міс</p>
-                <dl class="facts">
-                  <dt>Заїзд</dt><dd>негайно</dd>
-                  <dt>Співмешканці</dt><dd>Живуть троє, шукають четвертого</dd>
-                  <dt>Умови</dt><dd>Меблювання повне · тварини можна</dd>
-                </dl>
-                <h4>Побажання до співмешканця</h4>
-                <ul class="tags">
-                  <li>Охайність не критична</li>
-                  <li>Гості часто</li>
-                  <li>Куріння на балконі</li>
-                  <li>Режим дня будь-який</li>
-                </ul>
-                <p class="updated">Оновлено 5 днів тому · Дмитро</p>
-                <a class="btn cta" href="listing.html">Переглянути оголошення</a>
+                <p class="kit-meta kit-meta--place">Оболонський · метро Оболонь</p>
+                <dl class="kit-facts kit-facts--inline"><div><dt>Заїзд</dt><dd>негайно</dd></div><div><dt>Співмешканці</dt><dd>Живуть троє, шукають четвертого</dd></div><div><dt>Умови</dt><dd>Меблювання повне · тварини можна</dd></div></dl>
+                <h4 class="kit-label kit-sr-only">Побажання до співмешканця</h4>
+                <ul class="kit-tags"><li class="kit-tag">Охайність не критична</li><li class="kit-tag">Гості часто</li><li class="kit-tag">Куріння на балконі</li><li class="kit-tag">Режим дня будь-який</li></ul>
+                <div class="kit-listing__foot"><div class="kit-trust"><span class="kit-trust__status">Оновлено 5 днів тому · Дмитро</span></div><a class="kit-button--link" href="listing.html">Переглянути оголошення</a></div>
               </div>
             </article>
           </li>
-
           <li>
-            <article>
-              <a class="photo" data-photo-origin="unsplash:photo-1560448204-e02f11c3d0e2" style="border-radius:12px 12px 0 0;overflow:hidden" href="listing.html" aria-label="Фото кімнати в Дніпровському районі"><span>Фото кімнати</span></a>
-              <div class="card-body">
+            <article class="kit-listing kit-listing--feed">
+              <div class="kit-listing__media"><a href="listing.html" aria-label="Фото кімнати: Кімната в Дніпровському районі"><img class="kit-listing__photo" src="../../ui/assets/listings/room-04.jpg" alt=""></a><img class="kit-avatar" src="../../ui/assets/avatars/nastia.png" alt="Ірина"><p class="kit-price">5 800 грн/міс</p></div>
+              <div class="kit-listing__body">
                 <h3><a href="listing.html">Кімната в Дніпровському районі</a></h3>
-                <p class="sub">Дніпровський · метро Осокорки</p>
-                <p class="price">5 800 грн/міс</p>
-                <dl class="facts">
-                  <dt>Заїзд</dt><dd>з 20 серпня</dd>
-                  <dt>Співмешканці</dt><dd>Живе один, шукає співмешканця</dd>
-                  <dt>Умови</dt><dd>Меблювання повне · тварин не можна</dd>
-                </dl>
-                <h4>Побажання до співмешканця</h4>
-                <ul class="tags">
-                  <li>Охайність важлива</li>
-                  <li>Гості рідко</li>
-                  <li>Без куріння</li>
-                  <li>Сова</li>
-                </ul>
-                <p class="updated">Оновлено сьогодні · Ірина</p>
-                <a class="btn cta" href="listing.html">Переглянути оголошення</a>
+                <p class="kit-meta kit-meta--place">Дніпровський · метро Осокорки</p>
+                <dl class="kit-facts kit-facts--inline"><div><dt>Заїзд</dt><dd>з 20 серпня</dd></div><div><dt>Співмешканці</dt><dd>Живе один, шукає співмешканця</dd></div><div><dt>Умови</dt><dd>Меблювання повне · тварин не можна</dd></div></dl>
+                <h4 class="kit-label kit-sr-only">Побажання до співмешканця</h4>
+                <ul class="kit-tags"><li class="kit-tag">Охайність важлива</li><li class="kit-tag">Гості рідко</li><li class="kit-tag">Без куріння</li><li class="kit-tag">Сова</li></ul>
+                <div class="kit-listing__foot"><div class="kit-trust"><span class="kit-trust__status">Оновлено сьогодні · Ірина</span></div><a class="kit-button--link" href="listing.html">Переглянути оголошення</a></div>
               </div>
             </article>
           </li>
-
           <li>
-            <article>
-              <a class="photo" data-photo-origin="unsplash:photo-1560185007-c5ca9d2c014d" style="border-radius:12px 12px 0 0;overflow:hidden" href="listing.html" aria-label="Фото кімнати в Печерському районі"><span>Фото кімнати</span></a>
-              <div class="card-body">
+            <article class="kit-listing kit-listing--feed">
+              <div class="kit-listing__media"><a href="listing.html" aria-label="Фото кімнати: Кімната в Печерському районі"><img class="kit-listing__photo" src="../../ui/assets/listings/room-05.jpg" alt=""></a><img class="kit-avatar" src="../../ui/assets/avatars/oleh.png" alt="Артем"><p class="kit-price">11 500 грн/міс</p></div>
+              <div class="kit-listing__body">
                 <h3><a href="listing.html">Кімната в Печерському районі</a></h3>
-                <p class="sub">Печерський · метро Кловська</p>
-                <p class="price">11 500 грн/міс</p>
-                <dl class="facts">
-                  <dt>Заїзд</dt><dd>з 1 жовтня</dd>
-                  <dt>Співмешканці</dt><dd>Живуть двоє, шукають третього</dd>
-                  <dt>Умови</dt><dd>Меблювання повне · тварини можна</dd>
-                </dl>
-                <h4>Побажання до співмешканця</h4>
-                <ul class="tags">
-                  <li>Охайність важлива</li>
-                  <li>Гості можна</li>
-                  <li>Без куріння</li>
-                  <li>Режим дня будь-який</li>
-                </ul>
-                <p class="updated">Оновлено 3 дні тому · Артем</p>
-                <a class="btn cta" href="listing.html">Переглянути оголошення</a>
+                <p class="kit-meta kit-meta--place">Печерський · метро Кловська</p>
+                <dl class="kit-facts kit-facts--inline"><div><dt>Заїзд</dt><dd>з 1 жовтня</dd></div><div><dt>Співмешканці</dt><dd>Живуть двоє, шукають третього</dd></div><div><dt>Умови</dt><dd>Меблювання повне · тварини можна</dd></div></dl>
+                <h4 class="kit-label kit-sr-only">Побажання до співмешканця</h4>
+                <ul class="kit-tags"><li class="kit-tag">Охайність важлива</li><li class="kit-tag">Гості можна</li><li class="kit-tag">Без куріння</li><li class="kit-tag">Режим дня будь-який</li></ul>
+                <div class="kit-listing__foot"><div class="kit-trust"><span class="kit-trust__status">Оновлено 3 дні тому · Артем</span></div><a class="kit-button--link" href="listing.html">Переглянути оголошення</a></div>
               </div>
             </article>
           </li>
-
         </ul>
       </section>
-
-      <footer>
-        <p>Куток · пошук співмешканців і кімнат у Києві</p>
-      </footer>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
-
-    <a class="filter-fab" href="filters.html" aria-label="Відкрити фільтри"></a>
-    <nav class="bottom-nav" aria-label="Глобальна навігація">
-      <ul>
-        <li><a href="listings.html" aria-current="page">Оголошення</a></li>
-        <li><a href="chats.html">Чати</a></li>
-        <li><a href="profile-edit.html">Профіль</a></li>
-      </ul>
+    <a class="kit-fab" href="filters.html" aria-label="Відкрити фільтри">Фільтри</a>
+    <nav class="kit-tabbar" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html" aria-current="page">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
+      <a class="kit-tab kit-tab--create" href="listing-new.html" aria-label="Додати оголошення">Додати</a>
     </nav>
-
   </div>
 </div>
 </div>
@@ -403,7 +331,5 @@
   });
 })();
 </script>
-
-<script src="_concept.js"></script>
 </body>
 </html>

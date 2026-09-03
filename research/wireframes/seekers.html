@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Стрічка співмешканців</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -251,156 +255,77 @@
        §1: стан читається з тексту).</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-
-    <header class="app-bar">
-      <h2>Стрічка співмешканців</h2>
-    </header>
-
-    <main>
-      <nav aria-label="Тип стрічки">
-        <ul class="segmented">
-          <li><a href="listings.html">Оголошення</a></li>
-          <li aria-current="page">Співмешканці</li>
-        </ul>
-      </nav>
-
-      <section aria-labelledby="results-heading">
-        <h3 id="results-heading" class="results-count">4 співмешканці за твоїми фільтрами</h3>
-
-        <ul class="listing-list">
-
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <h1 class="kit-headline">Стрічка співмешканців</h1>
+      <ul class="kit-segmented" aria-label="Тип стрічки"><li><a href="listings.html">Оголошення</a></li><li aria-current="page"><a href="seekers.html">Співмешканці</a></li></ul>
+      <section class="kit-section" aria-labelledby="results-heading">
+        <h2 id="results-heading" class="kit-meta">4 співмешканці за твоїми фільтрами</h2>
+        <ul class="kit-list">
           <li>
-            <article>
-              <a class="photo avatar-placeholder" style="aspect-ratio:1/1;max-width:104px;margin:12px;border:1px solid #999;border-radius:50%;overflow:hidden" href="person.html" aria-label="Фото Марічки"><span>Фото профілю</span></a>
-              <div class="card-body">
-                <h3><a href="person.html">Марічка, 21</a> <span class="badge">перевірено</span></h3>
-                <p class="sub">Студентка КНУ, підробляю бариста на пів ставки.
-                   Шукаю кімнату ближче до метро.</p>
-                <p class="price">Бюджет до 7 000 грн/міс</p>
-                <dl class="facts">
-                  <dt>Райони</dt><dd>Солом'янський, Шевченківський, Оболонський</dd>
-                  <dt>Заїзд</dt><dd>з 15 серпня</dd>
-                  <dt>Термін</dt><dd>на навчальний рік</dd>
-                  <dt>Перевірка</dt><dd>Перевірено телефон і Instagram</dd>
-                </dl>
-                <h4>Звички</h4>
-                <ul class="tags">
-                  <li>Охайність важлива</li>
-                  <li>Гості рідко</li>
-                  <li>З котом</li>
-                  <li>Не палить</li>
-                  <li>Сова</li>
-                </ul>
-                <p class="updated">Профіль оновлено сьогодні</p>
-                <a class="btn cta" href="person.html">Переглянути профіль</a>
+            <article class="kit-listing kit-listing--feed">
+              <div class="kit-listing__media"><a href="person.html" aria-label="Фото Марічки"><img class="kit-listing__photo kit-listing__photo--portrait" src="../../ui/assets/avatars/solomiia.png" alt=""></a><p class="kit-price">Бюджет до 7 000 грн/міс</p></div>
+              <div class="kit-listing__body">
+                <h3><a href="person.html">Марічка, 21</a> <span class="kit-chip">перевірено</span></h3>
+                <p class="kit-meta">Студентка КНУ, підробляю бариста на пів ставки. Шукаю кімнату ближче до метро.</p>
+                <dl class="kit-facts kit-facts--inline"><div><dt>Райони</dt><dd>Солом'янський, Шевченківський, Оболонський</dd></div><div><dt>Заїзд</dt><dd>з 15 серпня</dd></div><div><dt>Термін</dt><dd>на навчальний рік</dd></div><div><dt>Перевірка</dt><dd>Перевірено телефон і Instagram</dd></div></dl>
+                <h4 class="kit-label kit-sr-only">Звички</h4>
+                <ul class="kit-tags"><li class="kit-tag">Охайність важлива</li><li class="kit-tag">Гості рідко</li><li class="kit-tag">З котом</li><li class="kit-tag">Не палить</li><li class="kit-tag">Сова</li></ul>
+                <div class="kit-listing__foot"><div class="kit-trust"><span class="kit-trust__status">Профіль оновлено сьогодні</span></div><a class="kit-button--link" href="person.html">Переглянути профіль</a></div>
               </div>
             </article>
           </li>
-
           <li>
-            <article>
-              <a class="photo avatar-placeholder" style="aspect-ratio:1/1;max-width:104px;margin:12px;border:1px solid #999;border-radius:50%;overflow:hidden" href="person.html" aria-label="Фото Тараса"><span>Фото профілю</span></a>
-              <div class="card-body">
-                <h3><a href="person.html">Тарас, 26</a> <span class="badge">перевірено</span></h3>
-                <p class="sub">Працюю в IT, здебільшого з офісу на Подолі.
-                   Шукаю кімнату надовго, не на місяць.</p>
-                <p class="price">Бюджет до 9 500 грн/міс</p>
-                <dl class="facts">
-                  <dt>Райони</dt><dd>Оболонський, Подільський</dd>
-                  <dt>Заїзд</dt><dd>з 1 вересня</dd>
-                  <dt>Термін</dt><dd>від року</dd>
-                  <dt>Перевірка</dt><dd>Перевірено телефон і LinkedIn · 2 відгуки після заселення</dd>
-                </dl>
-                <h4>Звички</h4>
-                <ul class="tags">
-                  <li>Охайність дуже важлива</li>
-                  <li>Гості рідко</li>
-                  <li>Без тварин</li>
-                  <li>Не палить</li>
-                  <li>Жайворонок</li>
-                </ul>
-                <p class="updated">Профіль оновлено 2 дні тому</p>
-                <a class="btn cta" href="person.html">Переглянути профіль</a>
+            <article class="kit-listing kit-listing--feed">
+              <div class="kit-listing__media"><a href="person.html" aria-label="Фото Тараса"><img class="kit-listing__photo kit-listing__photo--portrait" src="../../ui/assets/avatars/oleh.png" alt=""></a><p class="kit-price">Бюджет до 9 500 грн/міс</p></div>
+              <div class="kit-listing__body">
+                <h3><a href="person.html">Тарас, 26</a> <span class="kit-chip">перевірено</span></h3>
+                <p class="kit-meta">Працюю в IT, здебільшого з офісу на Подолі. Шукаю кімнату надовго, не на місяць.</p>
+                <dl class="kit-facts kit-facts--inline"><div><dt>Райони</dt><dd>Оболонський, Подільський</dd></div><div><dt>Заїзд</dt><dd>з 1 вересня</dd></div><div><dt>Термін</dt><dd>від року</dd></div><div><dt>Перевірка</dt><dd>Перевірено телефон і LinkedIn · 2 відгуки після заселення</dd></div></dl>
+                <h4 class="kit-label kit-sr-only">Звички</h4>
+                <ul class="kit-tags"><li class="kit-tag">Охайність дуже важлива</li><li class="kit-tag">Гості рідко</li><li class="kit-tag">Без тварин</li><li class="kit-tag">Не палить</li><li class="kit-tag">Жайворонок</li></ul>
+                <div class="kit-listing__foot"><div class="kit-trust"><span class="kit-trust__status">Профіль оновлено 2 дні тому</span></div><a class="kit-button--link" href="person.html">Переглянути профіль</a></div>
               </div>
             </article>
           </li>
-
           <li>
-            <article>
-              <a class="photo avatar-placeholder" style="aspect-ratio:1/1;max-width:104px;margin:12px;border:1px solid #999;border-radius:50%;overflow:hidden" href="person.html" aria-label="Фото Насті"><span>Фото профілю</span></a>
-              <div class="card-body">
+            <article class="kit-listing kit-listing--feed">
+              <div class="kit-listing__media"><a href="person.html" aria-label="Фото Насті"><img class="kit-listing__photo kit-listing__photo--portrait" src="../../ui/assets/avatars/nastia.png" alt=""></a><p class="kit-price">Бюджет до 8 000 грн/міс</p></div>
+              <div class="kit-listing__body">
                 <h3><a href="person.html">Настя, 29</a></h3>
-                <p class="sub">Другий місяць шукаю без рієлторів — набридло
-                   платити комісію за чужі оголошення.</p>
-                <p class="price">Бюджет до 8 000 грн/міс</p>
-                <dl class="facts">
-                  <dt>Райони</dt><dd>Оболонський, Дніпровський</dd>
-                  <dt>Заїзд</dt><dd>негайно</dd>
-                  <dt>Термін</dt><dd>від пів року</dd>
-                  <dt>Перевірка</dt><dd>Телефон перевірено · посилання на соцмережу немає</dd>
-                </dl>
-                <h4>Звички</h4>
-                <ul class="tags">
-                  <li>Охайність важлива</li>
-                  <li>Гості можна</li>
-                  <li>Без тварин</li>
-                  <li>Палить на балконі</li>
-                  <li>Режим дня будь-який</li>
-                </ul>
-                <p class="updated">Профіль оновлено 6 днів тому</p>
-                <a class="btn cta" href="person.html">Переглянути профіль</a>
+                <p class="kit-meta">Другий місяць шукаю без рієлторів — набридло платити комісію за чужі оголошення.</p>
+                <dl class="kit-facts kit-facts--inline"><div><dt>Райони</dt><dd>Оболонський, Дніпровський</dd></div><div><dt>Заїзд</dt><dd>негайно</dd></div><div><dt>Термін</dt><dd>від пів року</dd></div><div><dt>Перевірка</dt><dd>Телефон перевірено · посилання на соцмережу немає</dd></div></dl>
+                <h4 class="kit-label kit-sr-only">Звички</h4>
+                <ul class="kit-tags"><li class="kit-tag">Охайність важлива</li><li class="kit-tag">Гості можна</li><li class="kit-tag">Без тварин</li><li class="kit-tag">Палить на балконі</li><li class="kit-tag">Режим дня будь-який</li></ul>
+                <div class="kit-listing__foot"><div class="kit-trust"><span class="kit-trust__status">Профіль оновлено 6 днів тому</span></div><a class="kit-button--link" href="person.html">Переглянути профіль</a></div>
               </div>
             </article>
           </li>
-
           <li>
-            <article>
-              <a class="photo avatar-placeholder" style="aspect-ratio:1/1;max-width:104px;margin:12px;border:1px solid #999;border-radius:50%;overflow:hidden" href="person.html" aria-label="Фото Ірини"><span>Фото профілю</span></a>
-              <div class="card-body">
-                <h3><a href="person.html">Ірина, 24</a> <span class="badge">перевірено</span></h3>
-                <p class="sub">Медсестра, зміни через день. Тиха, вдома буваю
-                   переважно вдень.</p>
-                <p class="price">Бюджет до 6 000 грн/міс</p>
-                <dl class="facts">
-                  <dt>Райони</dt><dd>Оболонський, Подільський, Святошинський</dd>
-                  <dt>Заїзд</dt><dd>з 20 серпня</dd>
-                  <dt>Термін</dt><dd>від року</dd>
-                  <dt>Перевірка</dt><dd>Перевірено телефон і Instagram · 1 відгук після заселення</dd>
-                </dl>
-                <h4>Звички</h4>
-                <ul class="tags">
-                  <li>Охайність дуже важлива</li>
-                  <li>Гості рідко</li>
-                  <li>Без тварин</li>
-                  <li>Не палить</li>
-                  <li>Змінний графік</li>
-                </ul>
-                <p class="updated">Профіль оновлено вчора</p>
-                <a class="btn cta" href="person.html">Переглянути профіль</a>
+            <article class="kit-listing kit-listing--feed">
+              <div class="kit-listing__media"><a href="person.html" aria-label="Фото Ірини"><img class="kit-listing__photo kit-listing__photo--portrait" src="../../ui/assets/avatars/nastia.png" alt=""></a><p class="kit-price">Бюджет до 6 000 грн/міс</p></div>
+              <div class="kit-listing__body">
+                <h3><a href="person.html">Ірина, 24</a> <span class="kit-chip">перевірено</span></h3>
+                <p class="kit-meta">Медсестра, зміни через день. Тиха, вдома буваю переважно вдень.</p>
+                <dl class="kit-facts kit-facts--inline"><div><dt>Райони</dt><dd>Оболонський, Подільський, Святошинський</dd></div><div><dt>Заїзд</dt><dd>з 20 серпня</dd></div><div><dt>Термін</dt><dd>від року</dd></div><div><dt>Перевірка</dt><dd>Перевірено телефон і Instagram · 1 відгук після заселення</dd></div></dl>
+                <h4 class="kit-label kit-sr-only">Звички</h4>
+                <ul class="kit-tags"><li class="kit-tag">Охайність дуже важлива</li><li class="kit-tag">Гості рідко</li><li class="kit-tag">Без тварин</li><li class="kit-tag">Не палить</li><li class="kit-tag">Змінний графік</li></ul>
+                <div class="kit-listing__foot"><div class="kit-trust"><span class="kit-trust__status">Профіль оновлено вчора</span></div><a class="kit-button--link" href="person.html">Переглянути профіль</a></div>
               </div>
             </article>
           </li>
-
         </ul>
       </section>
-
-      <footer>
-        <p>Куток · пошук співмешканців і кімнат у Києві</p>
-      </footer>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
-
-    <a class="filter-fab" href="filters.html?feed=people" aria-label="Відкрити фільтри людей"></a>
-    <nav class="bottom-nav" aria-label="Глобальна навігація">
-      <ul>
-        <li><a href="listings.html" aria-current="page">Оголошення</a></li>
-        <li><a href="chats.html">Чати</a></li>
-        <li><a href="my-listings.html">Мої оголошення</a></li>
-        <li><a href="profile-edit.html">Профіль</a></li>
-      </ul>
+    <a class="kit-fab" href="filters.html?feed=people" aria-label="Відкрити фільтри людей">Фільтри</a>
+    <nav class="kit-tabbar kit-tabbar--host" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html" aria-current="page">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--listings" href="my-listings.html">Мої оголошення</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
     </nav>
-
   </div>
 </div>
 </div>

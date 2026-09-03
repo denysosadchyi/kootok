@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Стрічка співмешканців</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -221,23 +225,31 @@
     <p>Збій завантаження стрічки зберігає тип пошуку та застосовані критерії.</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-    <header class="app-bar"><h2>Стрічка співмешканців</h2></header>
-    <main>
-      <nav aria-label="Тип стрічки"><ul class="segmented"><li><a href="listings.html">Оголошення</a></li><li aria-current="page">Співмешканці</li></ul></nav>
-      <section aria-labelledby="seekers-error-heading">
-        <h3 id="seekers-error-heading" class="results-count">Не вдалося завантажити співмешканців</h3>
-        <div class="state-block" role="alert">
-          <h4>Спробуй ще раз</h4>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <h1 class="kit-headline">Стрічка співмешканців</h1>
+      <ul class="kit-segmented" aria-label="Тип стрічки"><li><a href="listings.html">Оголошення</a></li><li aria-current="page"><a href="seekers.html">Співмешканці</a></li></ul>
+      <section class="kit-section" aria-labelledby="seekers-error-heading">
+        <h2 id="seekers-error-heading" class="kit-meta">Не вдалося завантажити співмешканців</h2>
+        <div class="kit-state kit-state--error" role="alert">
+          <span class="kit-state__icon"></span>
+          <h3>Спробуй ще раз</h3>
           <p>Твої фільтри збереглися. Перевір з’єднання з інтернетом.</p>
-          <a class="btn" href="seekers-loading.html">Завантажити співмешканців</a>
-          <a class="btn" href="filters.html?feed=people">Змінити фільтри</a>
+          <div class="kit-actions">
+            <a class="kit-button kit-button--block" href="seekers-loading.html">Завантажити співмешканців</a>
+            <a class="kit-button kit-button--secondary kit-button--block" href="filters.html?feed=people">Змінити фільтри</a>
+          </div>
         </div>
       </section>
     </main>
-    <a class="filter-fab" href="filters.html?feed=people" aria-label="Відкрити фільтри людей"></a>
-    <nav class="bottom-nav" aria-label="Глобальна навігація"><ul><li><a href="listings.html" aria-current="page">Оголошення</a></li><li><a href="chats.html">Чати</a></li><li><a href="my-listings.html">Мої оголошення</a></li><li><a href="profile-edit.html">Профіль</a></li></ul></nav>
+    <a class="kit-fab" href="filters.html?feed=people" aria-label="Відкрити фільтри людей">Фільтри</a>
+    <nav class="kit-tabbar kit-tabbar--host" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html" aria-current="page">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--listings" href="my-listings.html">Мої оголошення</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
+    </nav>
   </div>
 </div>
 </div>

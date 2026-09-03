@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Мої оголошення</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -236,50 +240,31 @@
        секції (замість списку карток — блок стану).</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-
-    <header class="app-bar">
-      <h2>Мої оголошення</h2>
-      <a class="btn" href="listing-new.html">Створити оголошення</a>
-    </header>
-
-    <main>
-      <section aria-labelledby="my-listings-heading">
-        <h3 id="my-listings-heading" class="results-count">У тебе ще немає оголошень</h3>
-
-        <div class="state-block">
-          <h4>Створи оголошення</h4>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <div class="kit-section-heading"><h1 class="kit-headline">Мої оголошення</h1><a class="kit-button kit-button--secondary kit-button--compact" href="listing-new.html">Створити оголошення</a></div>
+      <section class="kit-section" aria-labelledby="my-listings-heading">
+        <h2 id="my-listings-heading" class="kit-meta">У тебе ще немає оголошень</h2>
+        <div class="kit-state">
+          <span class="kit-state__icon kit-state__icon--document"></span>
+          <h3>Створи оголошення</h3>
           <p>Опублікуй оголошення, щоб його побачили у стрічці.</p>
-
-          <p class="applied-label">Що потрібно вказати:</p>
-          <ul class="applied">
-            <li>Район і метро</li>
-            <li>Ціна за місяць</li>
-            <li>Дата заселення</li>
-            <li>Умови: меблювання, тварини</li>
-            <li>Побажання до співмешканця</li>
-          </ul>
-
-          <a class="btn" href="listing-new.html">Створити оголошення</a>
-          <p class="hint">Після публікації оголошення зʼявиться тут і у стрічці.</p>
+          <div class="kit-applied"><span>Що потрібно вказати:</span>
+            <ul class="kit-tags"><li class="kit-tag">Район і метро</li><li class="kit-tag">Ціна за місяць</li><li class="kit-tag">Дата заселення</li><li class="kit-tag">Умови: меблювання, тварини</li><li class="kit-tag">Побажання до співмешканця</li></ul>
+          </div>
+          <a class="kit-button kit-button--block" href="listing-new.html">Створити оголошення</a>
+          <p class="kit-hint">Після публікації оголошення зʼявиться тут і у стрічці.</p>
         </div>
       </section>
-
-      <footer>
-        <p>Куток · пошук співмешканців і кімнат у Києві</p>
-      </footer>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
-
-    <nav class="bottom-nav" aria-label="Глобальна навігація">
-      <ul>
-        <li><a href="listings.html">Оголошення</a></li>
-        <li><a href="chats.html">Чати</a></li>
-        <li><a href="my-listings.html" aria-current="page">Мої оголошення</a></li>
-        <li><a href="profile-edit.html">Профіль</a></li>
-      </ul>
+    <nav class="kit-tabbar kit-tabbar--host" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--listings" href="my-listings.html" aria-current="page">Мої оголошення</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
     </nav>
-
   </div>
 </div>
 </div>

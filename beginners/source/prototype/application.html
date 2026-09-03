@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#365c4f">
-<title>Куток: Заявку надіслано</title>
+<title>Куток: Подати заявку</title>
 <link rel="stylesheet" href="_base.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <link rel="stylesheet" href="/kootok/site-theme.css">
@@ -15,10 +15,9 @@
 <header class="product-header">
   <a class="product-header__brand" href="listings.html" aria-label="Куток: на головну">Куток</a>
   <nav class="product-nav" aria-label="Навігація продуктом">
-    <a class="product-nav__link" href="listings.html">Пошук</a>
-    <a class="product-nav__link" href="application.html" aria-current="page">Чати</a>
-    <a class="product-nav__link" href="listing.html">Оголошення</a>
-    <a class="product-nav__link" href="compatibility-form.html">Профіль</a>
+    <a class="product-nav__link" href="listings.html" aria-current="page">Пошук</a>
+    <a class="product-nav__link" href="chats.html">Чати</a>
+    <a class="product-nav__link" href="profile.html">Профіль</a>
     <a class="product-nav__link product-nav__link--create" href="/kootok/research/wireframes/listing-new.html" aria-label="Додати нове оголошення">Додати</a>
   </nav>
 </header>
@@ -31,47 +30,23 @@
 </p>
 
 <header>
-  <a class="back-link" href="compatibility-form.html">← Анкета сумісності</a>
+  <a class="back-link" href="compatibility-form.html" aria-label="Назад до анкети">Анкета сумісності</a>
   <p class="product">Куток: заявка на підселення</p>
-  <h1>Заявку надіслано</h1>
+  <h1>Заявка</h1>
 </header>
 
 <main>
-  <section aria-labelledby="recap-heading">
-    <h2 id="recap-heading">Куди подано заявку</h2>
-    <div class="recap">
-      <p class="recap-title">Кімната в 3-кімнатній, Голосіївський район</p>
-      <p class="meta">7 500 грн/міс · Марія (26), Олег (29) · заїзд з 1 вересня</p>
-    </div>
-  </section>
-
+  <a class="application-listing" href="listing.html"><img src="assets/listings/room-01.jpg" width="120" height="80" alt="Світла кімната у Голосіївському районі"><span><small>Заявка Марії та Олегу</small><strong>Кімната в Голосіївському</strong><b>8 500 ₴ · заїзд 1 вересня</b></span><span class="avatar-pair application-listing__avatars" aria-hidden="true"><img src="assets/avatars/mariia.png" width="1254" height="1254" alt=""><img src="assets/avatars/oleh.png" width="1254" height="1254" alt=""></span></a>
   <section aria-labelledby="message-heading">
-    <h2 id="message-heading">Ваше повідомлення</h2>
-    <p class="description">«Привіт! Мене звати Соломія, переїжджаю в Київ 1 вересня на нову роботу. Ваша кімната виглядає чудово: можемо познайомитись і домовитись про перегляд?»</p>
-    <p class="meta">Анкету сумісності додано автоматично: Марія та Олег бачать її разом із цим повідомленням.</p>
-  </section>
-
-  <section aria-labelledby="status-heading">
-    <h2 id="status-heading">Що далі</h2>
-    <div class="confirmation">
-      <p class="state-title">Ще немає відповіді</p>
-      <p class="meta">
-        Марія та Олег зазвичай відповідають протягом 1–2 днів. Номер
-        телефону нікому не показано: власники бачать лише повідомлення
-        всередині Кутка.
-      </p>
-      <p class="meta">
-        Якщо вони відмовлять, заявка просто зникне з очікування: це
-        нормально, шукайте інші варіанти, не чекаючи однієї відповіді.
-      </p>
-    </div>
+    <h2 id="message-heading">Представтесь мешканцям</h2>
+    <p class="meta">Коротке особисте повідомлення збільшує шанс отримати відповідь.</p>
+    <form class="application-form" action="application-sent.html" method="get">
+      <div class="field"><label for="application-message">Повідомлення Марії та Олегу</label><textarea id="application-message" name="message" required>Привіт! Мене звати Соломія. Переїжджаю до Києва на нову роботу 1 вересня. Ваша кімната мені підходить — буду рада познайомитися й домовитися про перегляд.</textarea><span class="field-hint">Без номера телефону — спочатку поспілкуйтесь у Кутку</span></div>
+      <label class="application-attachment"><input type="checkbox" checked><span><strong>Додати анкету сумісності</strong><small>92% збігу · сон, чистота, гості та графік</small></span></label>
+      <button class="primary" type="submit">Надіслати заявку</button>
+    </form>
   </section>
 </main>
-
-<footer class="cta-footer">
-  <a class="btn" href="listings.html">Повернутися до стрічки</a>
-  <a class="btn secondary" href="compatibility-form.html">Переглянути свою анкету</a>
-</footer>
 
 <!-- Службова панель прототипу: розділ → екран → стани.
      Структура з prototype/_screens.md, імена файлів з prototype/_rules.md.

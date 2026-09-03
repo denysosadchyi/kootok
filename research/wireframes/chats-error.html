@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Заявки і чати</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -241,50 +245,32 @@
        наявний <code>.badge</code>.</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-
-    <header class="app-bar">
-      <h2>Заявки і чати</h2>
-      <a class="btn" href="listings.html">Переглянути оголошення</a>
-    </header>
-
-    <main>
-      <section aria-labelledby="threads-heading">
-        <div class="detail-photos" aria-label="Фото авторки оголошення"><span class="photo main"><span>Фото Ірини</span></span></div>
-        <h3 id="threads-heading" class="results-count">3 заявки й чати · 1 заявку відхилено</h3>
-
-        <div class="state-block" role="alert">
-          <h4>Заявку відхилено</h4>
-          <p>Ірина відхилила заявку на кімнату в Дніпровському районі
-             (5 800 грн/міс). Чат не відкриється. Номер лишається прихованим.</p>
-
-          <p class="applied-label">Інші заявки й чати:</p>
-          <ul class="applied">
-            <li>Оксана · активний чат</li>
-            <li>Дмитро · заявку прийнято</li>
-            <li>Мар'яна · відповіді ще немає</li>
-          </ul>
-
-          <a class="btn" href="listings.html">Переглянути оголошення</a>
-          <p class="hint">Ірина не вказала причину відмови. Твій профіль не
-             змінився, інші заявки лишаються активними.</p>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <div class="kit-section-heading"><h1 class="kit-headline">Заявки і чати</h1><a class="kit-button kit-button--secondary kit-button--compact" href="listings.html">Переглянути оголошення</a></div>
+      <section class="kit-section" aria-labelledby="threads-heading">
+        <div class="kit-person"><img class="kit-avatar" src="../../ui/assets/avatars/nastia.png" alt="Ірина"><p class="kit-person__name">Ірина</p></div>
+        <h2 id="threads-heading" class="kit-meta">3 заявки й чати · 1 заявку відхилено</h2>
+        <div class="kit-state kit-state--error" role="alert">
+          <span class="kit-state__icon"></span>
+          <h3>Заявку відхилено</h3>
+          <p>Ірина відхилила заявку на кімнату в Дніпровському районі (5 800 грн/міс). Чат не відкриється. Номер лишається прихованим.</p>
+          <div class="kit-applied"><span>Інші заявки й чати:</span>
+            <ul class="kit-tags"><li class="kit-tag">Оксана · активний чат</li><li class="kit-tag">Дмитро · заявку прийнято</li><li class="kit-tag">Мар'яна · відповіді ще немає</li></ul>
+          </div>
+          <a class="kit-button kit-button--block" href="listings.html">Переглянути оголошення</a>
+          <p class="kit-state-context">Ірина не вказала причину відмови. Твій профіль не змінився, інші заявки лишаються активними.</p>
         </div>
       </section>
-
-      <footer>
-        <p>Куток · пошук співмешканців і кімнат у Києві</p>
-      </footer>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
-
-    <nav class="bottom-nav" aria-label="Глобальна навігація">
-      <ul>
-        <li><a href="listings.html">Оголошення</a></li>
-        <li><a href="chats.html" aria-current="page">Чати</a></li>
-        <li><a href="profile-edit.html">Профіль</a></li>
-      </ul>
+    <nav class="kit-tabbar" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html" aria-current="page">Чати</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
+      <a class="kit-tab kit-tab--create" href="listing-new.html" aria-label="Додати оголошення">Додати</a>
     </nav>
-
   </div>
 </div>
 </div>

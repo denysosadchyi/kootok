@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Мої оголошення</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -222,21 +226,28 @@
        вторинна дозволяє створити оголошення без очікування.</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-    <header class="app-bar"><h2>Мої оголошення</h2><a class="btn" href="listing-new-empty.html">Створити оголошення</a></header>
-    <main><section aria-labelledby="my-error-heading">
-      <div class="state-block"><div class="state-media">Оголошення</div>
-        <h4 id="my-error-heading">Не вдалося завантажити оголошення</h4>
-        <p>Твої опубліковані оголошення не видалено. Перевір зʼєднання з інтернетом.</p>
-        <a class="btn primary" href="my-listings.html">Спробувати ще раз</a>
-        <a class="btn ghost" href="listing-new-empty.html">Створити оголошення</a>
-      </div>
-    </section></main>
-    <nav class="bottom-nav" aria-label="Глобальна навігація"><ul>
-      <li><a href="listings.html">Оголошення</a></li><li><a href="chats.html">Чати</a></li>
-      <li><a href="my-listings.html" aria-current="page">Мої оголошення</a></li><li><a href="profile-edit.html">Профіль</a></li>
-    </ul></nav>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <div class="kit-section-heading"><h1 class="kit-headline">Мої оголошення</h1><a class="kit-button kit-button--secondary kit-button--compact" href="listing-new-empty.html">Створити оголошення</a></div>
+      <section class="kit-section" aria-labelledby="my-error-heading">
+        <div class="kit-state kit-state--error" role="alert">
+          <span class="kit-state__icon"></span>
+          <h3 id="my-error-heading">Не вдалося завантажити оголошення</h3>
+          <p>Твої опубліковані оголошення не видалено. Перевір зʼєднання з інтернетом.</p>
+          <div class="kit-actions">
+            <a class="kit-button kit-button--block" href="my-listings.html">Спробувати ще раз</a>
+            <a class="kit-button kit-button--secondary kit-button--block" href="listing-new-empty.html">Створити оголошення</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <nav class="kit-tabbar kit-tabbar--host" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--listings" href="my-listings.html" aria-current="page">Мої оголошення</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
+    </nav>
   </div>
 </div>
 </div>

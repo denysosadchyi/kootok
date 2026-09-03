@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Оголошення</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
@@ -221,28 +225,30 @@
     <p>Оголошення стало недоступним після переходу зі стрічки або збереженого посилання.</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-    <header class="app-bar">
-      <h2>Оголошення</h2>
-      <a class="back-btn" href="listings.html" aria-label="Повернутися до стрічки оголошень"><span aria-hidden="true" style="display:inline-block;width:20px;height:20px;border:1px solid #777;margin-right:8px"></span>Повернутися до стрічки</a>
-    </header>
-    <main>
-      <article aria-labelledby="listing-empty-heading">
-        <div class="photo" style="border-radius:12px;overflow:hidden" aria-hidden="true"><span>Фото недоступне</span></div>
-        <section class="block">
-          <h3 id="listing-empty-heading">Оголошення більше недоступне</h3>
-          <p>Господар міг закрити оголошення або прибрати його зі стрічки.</p>
-        </section>
-        <div class="state-block">
-          <h4>Знайди інше оголошення</h4>
-          <p>Твої район, бюджет і побутові фільтри збереглися.</p>
-          <a class="btn cta" href="listings.html">Повернутися до стрічки</a>
-          <a class="btn cta" href="filters.html">Змінити фільтри</a>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <header class="kit-shell__appbar"><a class="kit-back" href="listings.html" aria-label="Повернутися до стрічки оголошень">Повернутися до стрічки</a><h1 class="kit-shell__title">Оголошення</h1></header>
+    <main class="kit-shell__body">
+      <section class="kit-section" aria-labelledby="listing-empty-heading">
+        <h2 id="listing-empty-heading" class="kit-section__title">Оголошення більше недоступне</h2>
+        <p class="kit-meta">Господар міг закрити оголошення або прибрати його зі стрічки.</p>
+      </section>
+      <div class="kit-state">
+        <span class="kit-state__icon kit-state__icon--closed"></span>
+        <h3>Знайди інше оголошення</h3>
+        <p>Твої район, бюджет і побутові фільтри збереглися.</p>
+        <div class="kit-actions">
+          <a class="kit-button kit-button--block" href="listings.html">Повернутися до стрічки</a>
+          <a class="kit-button kit-button--secondary kit-button--block" href="filters.html">Змінити фільтри</a>
         </div>
-      </article>
+      </div>
     </main>
-    <nav class="bottom-nav" aria-label="Глобальна навігація"><ul><li><a href="listings.html" aria-current="page">Оголошення</a></li><li><a href="chats.html">Чати</a></li><li><a href="profile-edit.html">Профіль</a></li></ul></nav>
+    <nav class="kit-tabbar" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html" aria-current="page">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
+      <a class="kit-tab kit-tab--create" href="listing-new.html" aria-label="Додати оголошення">Додати</a>
+    </nav>
   </div>
 </div>
 </div>

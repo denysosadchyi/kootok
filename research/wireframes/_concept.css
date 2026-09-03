@@ -24,7 +24,7 @@
 
 /* Shared controls */
 .phone .btn,.phone button.btn{border:0;border-radius:12px;background:var(--kt-cobalt);color:var(--kt-ink);font-weight:800;min-height:46px;box-shadow:0 5px 14px rgba(122,75,0,.18)}
-.phone .btn:hover,.phone button.btn:hover{background:#f0a313;text-decoration:none}
+.phone .btn:where(.__hover-disabled),.phone button.btn:where(.__hover-disabled){background:#f0a313;text-decoration:none}
 .phone .btn:disabled,.phone button.btn:disabled{background:#b8beb9;color:#fff;box-shadow:none;cursor:not-allowed}
 .phone input,.phone select,.phone textarea{border:1px solid #aab2ad;border-radius:10px;background:var(--kt-white);color:var(--kt-ink);caret-color:var(--kt-cobalt)}
 .phone input:focus,.phone select:focus,.phone textarea:focus{border-color:var(--kt-focus);box-shadow:0 0 0 3px #dfe6ff;outline:0}
@@ -81,6 +81,6 @@ body[data-page$="-error"] .phone input[aria-invalid="true"]{border-color:var(--k
 
 @media (prefers-reduced-motion:no-preference){
   .phone .listing-list article{transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s}
-  .phone .listing-list article:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(23,33,29,.14)}
+  .phone .listing-list article:where(.__hover-disabled){transform:translateY(-2px);box-shadow:0 14px 34px rgba(23,33,29,.14)}
 }
 @media(max-width:420px){.phone{border-radius:0}.phone .card-body{padding:14px}.phone main{padding-inline:14px}}

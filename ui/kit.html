@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#245744">
+<title>Куток — UI kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit.css">
+<link rel="stylesheet" href="/kootok/course-nav.css">
+<link rel="stylesheet" href="/kootok/site-theme.css">
+<script src="/kootok/course-nav.js" defer></script>
+</head>
+<body>
+<main class="kit-doc">
+
+<header class="kit-doc__intro">
+  <h1>Продуктовий UI kit «Кутка»</h1>
+  <p>Кіт уроку 7, третій прохід: «Зелений двір» доведений до продуктового рівня. Два рівні токенів у <a href="kit.css">kit.css</a> — примітиви (зелень, льон, тіні, шкала) і семантика (полотно, поверхні, акцент); класи посилаються лише на семантику. Оболонка-розмітка — <a href="shell.html">shell.html</a>, причини рішень — <a href="../DESIGN.md">DESIGN.md</a>, склад — <a href="inventory.md">inventory.md</a>, тексти — <a href="../microcopy.md">microcopy.md</a>. Усі 60 екранів у <a href="../research/wireframes.html">wireframes/</a> збираються тільки з цих класів.</p>
+</header>
+
+<section class="kit-doc__section" id="tokens">
+  <h2>Токени</h2>
+  <p>Примітиви (<code>--kit-green-*</code>, <code>--kit-sand-*</code>, <code>--kit-shadow-*</code>) → семантика (<code>--kit-canvas</code>, <code>--kit-surface</code>, <code>--kit-forest</code>…). Правка значення тут розходиться на всі екрани сама. Поверхні розшаровані: лляне полотно → біла картка з тінню → підняте (таб-бар, composer, sheet) → заглиблене (поля, сегмент).</p>
+  <div class="kit-doc__grid">
+    <div class="kit-doc__sample"><h3>Колір</h3>
+      <div class="kit-doc__token"><i data-token="forest"></i>Ліс — первинна дія, ціна, вихідні повідомлення<code>--kit-forest</code></div>
+      <div class="kit-doc__token"><i data-token="forest-deep"></i>Глибокий ліс — текст на лаймі й склі<code>--kit-forest-deep</code></div>
+      <div class="kit-doc__token"><i data-token="leaf"></i>Листя — пін локації, підписи-акценти<code>--kit-leaf</code></div>
+      <div class="kit-doc__token"><i data-token="mint"></i>М'ята — м'які підкладки, аватар-плейсхолдер<code>--kit-mint</code></div>
+      <div class="kit-doc__token"><i data-token="lime"></i>Лайм — лише поточне: таб, сегмент, «мій профіль», бренд-марка<code>--kit-lime</code></div>
+      <div class="kit-doc__token"><i data-token="canvas"></i>Лляне полотно (тепле)<code>--kit-canvas</code></div>
+      <div class="kit-doc__token"><i data-token="surface"></i>Картка — біла, з тінню<code>--kit-surface</code></div>
+      <div class="kit-doc__token"><i data-token="sunken"></i>Заглиблене — поля, доріжка сегмента<code>--kit-surface-sunken</code></div>
+      <div class="kit-doc__token"><i data-token="ink"></i>Чорнило<code>--kit-ink</code></div>
+      <div class="kit-doc__token"><i data-token="muted"></i>Приглушений (AA на всіх поверхнях)<code>--kit-muted</code></div>
+      <div class="kit-doc__token"><i data-token="success-bg"></i>Доказ довіри — підкладка / текст #17503a<code>--kit-success-bg</code></div>
+      <div class="kit-doc__token"><i data-token="waiting-bg"></i>Очікування — бурштин #7a4b0b<code>--kit-waiting-bg</code></div>
+      <div class="kit-doc__token"><i data-token="error-bg"></i>Помилка — підкладка / текст #8e2731<code>--kit-error-bg</code></div>
+      <div class="kit-doc__token"><i data-token="notification"></i>Глина — лічильник непрочитаного<code>--kit-notification</code></div>
+      <div class="kit-doc__token"><i data-token="focus"></i>Фокус із клавіатури<code>--kit-focus</code></div>
+      <div class="kit-doc__token"><i data-token="shadow-sm"></i>Тінь sm — плитки, back, сегмент<code>--kit-shadow-sm</code></div>
+      <div class="kit-doc__token"><i data-token="shadow-md"></i>Тінь md — картки, fieldset, галерея<code>--kit-shadow-md</code></div>
+      <div class="kit-doc__token"><i data-token="shadow-lg"></i>Тінь lg — таб-бар, sheet, composer<code>--kit-shadow-lg</code></div>
+      <div class="kit-doc__token"><i data-token="shadow-primary"></i>Тінь первинної дії (лісова)<code>--kit-shadow-primary</code></div>
+    </div>
+    <div class="kit-doc__sample"><h3>Типографіка й форма</h3>
+      <div class="kit-doc__stack">
+        <p class="kit-doc__display">Display · Onest 800 · 30</p>
+        <p class="kit-headline">Headline · Onest 700 · 24</p>
+        <p class="kit-title">Title · Onest 700 · 19 — картки, стани</p>
+        <p class="kit-price">7 500 грн/міс · ціна 20 / 28</p>
+        <p>Body · Golos Text 400 · 16 — читання, поля, чат.</p>
+        <p class="kit-meta">Meta · 13 — факти й підписи полів.</p>
+        <p class="kit-hint">Hint · 13 — підказки під полем.</p>
+        <p class="kit-eyebrow">Eyebrow · 11 · uppercase</p>
+        <p class="kit-meta">Між display і body — 14px, а не 6: екран має вхідну точку. Радіуси: 14 поля · 16 кнопки й плитки · 22 картки · 26–28 таб-бар і sheet · 999 chips · 50% аватари.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kit-doc__section" id="shell">
+  <h2>Оболонка</h2>
+  <p>Один рівень шапки на екран: корінь — бренд-рядок (лаймова марка + «Куток», пігулка міста) і display-заголовок у тілі; вкладений — прозорий app bar із круглою «Назад» на білій тіні, бренд-рядок ховається сам (<code>:has</code>). Таб-бар — підняте скло з іконками Solar і лаймовим поточним пунктом.</p>
+  <div class="kit-doc__grid">
+    <div class="kit-doc__shell">
+      <div class="kit-shell">
+        <header class="kit-shell__brand"><a href="../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+        <header class="kit-shell__appbar"><a class="kit-back" href="#shell" aria-label="Повернутися до стрічки оголошень">Назад</a><h2 class="kit-shell__title">Оголошення</h2></header>
+        <div class="kit-shell__body">
+          <article class="kit-listing kit-listing--feed">
+            <div class="kit-listing__media"><img class="kit-listing__photo" src="assets/listings/room-01.jpg" alt=""><img class="kit-avatar" src="assets/avatars/mariia.png" alt="Оксана"><p class="kit-price">7 200 грн/міс</p></div>
+            <div class="kit-listing__body"><h3><a href="#shell">Кімната в Солом'янському районі</a></h3><p class="kit-meta kit-meta--place">Солом'янський · метро Шулявська</p></div>
+          </article>
+        </div>
+        <a class="kit-fab" href="#forms" aria-label="Відкрити фільтри">Фільтри</a>
+        <nav class="kit-tabbar" aria-label="Глобальна навігація">
+          <a class="kit-tab" href="#cards" aria-current="page">Оголошення</a>
+          <a class="kit-tab kit-tab--chats" href="#chat">Чати</a>
+          <a class="kit-tab kit-tab--profile" href="#profile">Профіль</a>
+          <a class="kit-tab kit-tab--create" href="#forms" aria-label="Додати оголошення">Додати</a>
+        </nav>
+      </div>
+    </div>
+    <div class="kit-doc__sample">
+      <h3>Варіанти навігації</h3>
+      <div class="kit-doc__stack">
+        <p class="kit-meta">Шукач (Марічка): три пункти + кругла дія «Додати».</p>
+        <div class="kit-shell kit-shell--bare kit-shell--auto">
+          <nav class="kit-tabbar kit-tabbar--static" aria-label="Навігація шукача">
+            <a class="kit-tab" href="#cards" aria-current="page">Оголошення</a>
+            <a class="kit-tab kit-tab--chats" href="#chat">Чати</a>
+            <a class="kit-tab kit-tab--profile" href="#profile">Профіль</a>
+            <a class="kit-tab kit-tab--create" href="#forms" aria-label="Додати оголошення">Додати</a>
+          </nav>
+        </div>
+        <p class="kit-meta">Господар (Олег) або «обидва»: чотири рівні пункти, «Мої оголошення» замість круглої дії.</p>
+        <div class="kit-shell kit-shell--bare kit-shell--auto">
+          <nav class="kit-tabbar kit-tabbar--host kit-tabbar--static" aria-label="Навігація господаря">
+            <a class="kit-tab" href="#cards">Оголошення</a>
+            <a class="kit-tab kit-tab--chats" href="#chat">Чати</a>
+            <a class="kit-tab kit-tab--listings" href="#cards" aria-current="page">Мої оголошення</a>
+            <a class="kit-tab kit-tab--profile" href="#profile">Профіль</a>
+          </nav>
+        </div>
+        <p class="kit-meta">Сегмент стрічки й локальні таби:</p>
+        <ul class="kit-segmented" aria-label="Тип стрічки"><li aria-current="page"><a href="#cards">Оголошення</a></li><li><a href="#cards">Співмешканці</a></li></ul>
+        <p class="kit-meta">Те саме як radiogroup у формі фільтрів:</p>
+        <div class="kit-segmented" role="radiogroup" aria-label="Що шукаєш"><input type="radio" id="seg-rooms" name="seg" checked><label for="seg-rooms">Оголошення</label><input type="radio" id="seg-people" name="seg"><label for="seg-people">Співмешканці</label></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kit-doc__section" id="actions">
+  <h2>Дії та компактні стани</h2>
+  <p>Три ваги дій: primary — лісовий градієнт із лісовою тінню; secondary — біла піднята з hairline; quiet — прозора. Чотири різні голоси пігулок: <strong>доказ довіри</strong> (заповнений, з галочкою), <strong>звичка/умова</strong> (контурний, тихий), <strong>статус</strong> (uppercase 10px, колір за станом) і <strong>застосований фільтр</strong> (лайм).</p>
+  <div class="kit-doc__grid">
+    <div class="kit-doc__sample"><h3>Кнопки</h3>
+      <div class="kit-doc__stack">
+        <button class="kit-button kit-button--block" type="button">Надіслати заявку</button>
+        <a class="kit-button kit-button--secondary kit-button--block" href="#cards">Переглянути оголошення</a>
+        <button class="kit-button kit-button--quiet kit-button--block" type="button">Скинути фільтри</button>
+        <button class="kit-button kit-button--block" type="button" disabled>Надсилаємо заявку…</button>
+        <div class="kit-doc__row"><button class="kit-button kit-button--compact" type="button">Змінити фото</button><button class="kit-button kit-button--secondary kit-button--compact" type="button">Поскаржитися</button><button class="kit-icon-button" type="button" aria-label="Надіслати повідомлення">Надіслати</button></div>
+        <p class="kit-meta">Рядок дій у картці: одна м'ятна, друга тиха. Текстова дія зі стрілкою — для підвалу картки, де тап по картці вже є дією.</p>
+        <div class="kit-actions kit-actions--row"><a class="kit-button kit-button--secondary kit-button--compact" href="#cards">Переглянути співмешканців</a><a class="kit-button kit-button--quiet kit-button--compact" href="#cards">Закрити оголошення</a></div>
+        <a class="kit-button--link" href="#cards">Переглянути оголошення</a>
+        <p class="kit-meta">Шапка кореневого екрана з компактною дією — заголовок не переноситься:</p>
+        <div class="kit-section-heading"><h2 class="kit-headline">Заявки і чати</h2><a class="kit-button kit-button--secondary kit-button--compact" href="#chat">Переглянути оголошення</a></div>
+      </div>
+    </div>
+    <div class="kit-doc__sample"><h3>Пігулки: доказ · умова · статус · фільтр</h3>
+      <div class="kit-doc__stack">
+        <div class="kit-doc__row"><span class="kit-chip">Телефон підтверджено</span><span class="kit-chip kit-chip--profile">Профіль заповнено</span><span class="kit-chip kit-chip--video">Відеодзвінок</span></div>
+        <div class="kit-doc__row"><span class="kit-chip kit-chip--error">Верифікацію не пройдено</span><span class="kit-chip kit-chip--muted">Позначки поки немає</span><span class="kit-chip kit-chip--current">Активний чат</span></div>
+        <ul class="kit-tags"><li class="kit-tag">Охайність важлива</li><li class="kit-tag">Гості рідко</li><li class="kit-tag">Без куріння</li><li class="kit-tag kit-tag--muted">Архів</li><li class="kit-tag kit-tag--lime">до 6 000 грн/міс</li></ul>
+        <div class="kit-doc__row"><span class="kit-chat-copy"><small><em>Заявку прийнято</em></small></span><span class="kit-chat-copy kit-chat-row--active"><small><em>Активний чат</em></small></span><span class="kit-chat-copy kit-chat-row--waiting"><small><em>Без відповіді 4 дні</em></small></span><span class="kit-chat-copy kit-chat-row--declined"><small><em>Заявку відхилено</em></small></span></div>
+        <div class="kit-trust"><span class="kit-trust__status">Оголошення актуальне · оновлено сьогодні</span><span class="kit-trust__chips"><span class="kit-chip">Телефон підтверджено</span><span class="kit-chip kit-chip--profile">Instagram перевірено</span></span></div>
+        <div class="kit-trust kit-trust--error"><span class="kit-trust__status">Актуальність не підтверджено</span><span class="kit-trust__chips"><span class="kit-chip kit-chip--error">Верифікацію не пройдено</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kit-doc__section" id="forms">
+  <h2>Форми</h2>
+  <p>Поле, select, дата, textarea, fieldset із legend, checkbox і radio з підказкою, код підтвердження, помилка й disabled.</p>
+  <div class="kit-doc__grid">
+    <form class="kit-doc__sample kit-form" action="#forms">
+      <h3>Поля</h3>
+      <div class="kit-field"><label for="doc-phone">Номер телефону</label><input id="doc-phone" type="tel" value="+380 67 214 88 03"><span class="kit-field__message">Твій номер бачиш тільки ти.</span></div>
+      <div class="kit-field kit-field--select"><label for="doc-district">Гілка метро</label><select id="doc-district"><option>Будь-яка</option><option>Червона</option><option>Синя</option><option>Зелена</option></select></div>
+      <div class="kit-field kit-field--date"><label for="doc-date">Заїзд не пізніше</label><input id="doc-date" type="date" value="2026-09-01"></div>
+      <div class="kit-field"><label for="doc-about">Про себе</label><textarea id="doc-about">Другий курс КНУ, переїхала в Київ на навчання. Готую сама, посуд не лишаю.</textarea></div>
+      <fieldset class="kit-fieldset"><legend>Побутові звички</legend>
+        <label class="kit-choice"><input type="checkbox" checked> Живу з твариною</label>
+        <label class="kit-choice"><input type="checkbox"> Тільки некурящі</label>
+      </fieldset>
+      <fieldset class="kit-fieldset"><legend>Що привело тебе у Куток?</legend>
+        <label class="kit-choice kit-choice--stacked"><input type="radio" name="doc-role" checked><span class="kit-choice__text"><strong>Шукаю кімнату</strong><span class="kit-choice__hint">Переглядатиму оголошення й писатиму господарям</span></span></label>
+        <label class="kit-choice kit-choice--stacked"><input type="radio" name="doc-role"><span class="kit-choice__text"><strong>Маю кімнату</strong><span class="kit-choice__hint">Опублікую оголошення й шукатиму співмешканця</span></span></label>
+      </fieldset>
+      <div class="kit-actions"><button class="kit-button" type="submit">Зберегти профіль</button></div>
+    </form>
+    <div class="kit-doc__sample kit-doc__stack">
+      <h3>Валідація, код, disabled</h3>
+      <div class="kit-field kit-field--error"><label for="doc-budget">Ціна до, грн/міс</label><input id="doc-budget" value="5000" aria-invalid="true" aria-describedby="doc-budget-error"><span class="kit-field__message" id="doc-budget-error">Верхня межа має бути не меншою за нижню.</span></div>
+      <div class="kit-field-row">
+        <div class="kit-field"><label for="doc-from">Від</label><input id="doc-from" inputmode="numeric" value="5000"></div>
+        <div class="kit-field"><label for="doc-to">До</label><input id="doc-to" inputmode="numeric" value="11000"></div>
+      </div>
+      <div class="kit-field"><span class="kit-label">Код із повідомлення</span><div class="kit-code" aria-label="Код підтвердження"><input inputmode="numeric" value="4" aria-label="Цифра 1"><input inputmode="numeric" value="8" aria-label="Цифра 2"><input inputmode="numeric" value="2" aria-label="Цифра 3"><input inputmode="numeric" value="6" aria-label="Цифра 4"></div><span class="kit-field__message">Код прийде за кілька секунд.</span></div>
+      <div class="kit-field kit-field--error"><span class="kit-label">Код неправильний</span><div class="kit-code kit-code--error" aria-label="Код підтвердження"><input inputmode="numeric" value="1" aria-label="Цифра 1"><input inputmode="numeric" value="2" aria-label="Цифра 2"><input inputmode="numeric" value="3" aria-label="Цифра 3"><input inputmode="numeric" value="4" aria-label="Цифра 4"></div><span class="kit-field__message">Перевір код у повідомленні або запроси новий.</span></div>
+      <div class="kit-field"><span class="kit-label">Код із 6 цифр</span><div class="kit-code kit-code--six" aria-label="Код підтвердження"><input inputmode="numeric" value="1" aria-label="Цифра 1"><input inputmode="numeric" value="4" aria-label="Цифра 2"><input inputmode="numeric" value="8" aria-label="Цифра 3"><input inputmode="numeric" value="2" aria-label="Цифра 4"><input inputmode="numeric" value="0" aria-label="Цифра 5"><input inputmode="numeric" aria-label="Цифра 6"></div></div>
+      <div class="kit-field"><label for="doc-disabled">Номер телефону</label><input id="doc-disabled" value="+380 67 214 88 03" disabled><span class="kit-field__message">Надсилаємо код…</span></div>
+      <label class="kit-attachment"><input type="checkbox" checked><span><strong>Додати мій профіль до заявки</strong><small>Побут, бюджет і райони — господар побачить їх одразу.</small></span></label>
+    </div>
+  </div>
+</section>
+
+<section class="kit-doc__section" id="cards">
+  <h2>Картки й списки</h2>
+  <p>Картка оголошення: фото 4:3 з теплим скримом, ціна — скляна пігулка на фото, аватар господаря перекриває край; далі назва, локація з піном, інлайн-факти, контурні теги й підвал із актуальністю (годинник) та текстовою дією зі стрілкою. Картка людини; skeleton-силует; галерея деталей; рядок людини; список доказів; шапка деталей і плитки фактів.</p>
+  <div class="kit-doc__grid">
+    <div class="kit-doc__sample kit-doc__sample--canvas">
+      <ul class="kit-list">
+        <li><article class="kit-listing kit-listing--feed">
+          <div class="kit-listing__media"><img class="kit-listing__photo" src="assets/listings/room-02.jpg" alt=""><img class="kit-avatar" src="assets/avatars/solomiia.png" alt="Мар'яна"><p class="kit-price">6 500 грн/міс</p></div>
+          <div class="kit-listing__body">
+            <h3><a href="#cards">Кімната в Голосіївському районі</a></h3>
+            <p class="kit-meta kit-meta--place">Голосіївський · метро Васильківська</p>
+            <dl class="kit-facts kit-facts--inline"><div><dt>Заїзд</dt><dd>з 1 вересня</dd></div><div><dt>Живе</dt><dd>Одна, шукає співмешканку</dd></div><div><dt>Умови</dt><dd>Меблювання часткове · тварин не можна</dd></div></dl>
+            <h4 class="kit-label kit-sr-only">Побажання до співмешканця</h4>
+            <ul class="kit-tags"><li class="kit-tag">Охайність дуже важлива</li><li class="kit-tag">Гості можна</li><li class="kit-tag">Без куріння</li></ul>
+            <div class="kit-listing__foot"><div class="kit-trust"><span class="kit-trust__status">Оновлено вчора · Мар'яна</span></div><a class="kit-button--link" href="#cards">Переглянути оголошення</a></div>
+          </div>
+        </article></li>
+        <li><article class="kit-listing kit-listing--feed">
+          <div class="kit-listing__media"><img class="kit-listing__photo kit-listing__photo--portrait" src="assets/avatars/oleh.png" alt=""><p class="kit-price">Бюджет до 9 500 грн/міс</p></div>
+          <div class="kit-listing__body">
+            <h3><a href="#cards">Тарас, 26</a> <span class="kit-chip">перевірено</span></h3>
+            <p class="kit-meta">Працюю в IT, здебільшого з офісу на Подолі. Шукаю кімнату надовго, не на місяць.</p>
+            <dl class="kit-facts kit-facts--inline"><div><dt>Райони</dt><dd>Оболонський, Подільський</dd></div><div><dt>Заїзд</dt><dd>з 1 вересня</dd></div></dl>
+            <div class="kit-listing__foot"><div class="kit-trust"><span class="kit-trust__status">Профіль оновлено 2 дні тому</span></div><a class="kit-button--link" href="#cards">Переглянути профіль</a></div>
+          </div>
+        </article></li>
+      </ul>
+    </div>
+    <div class="kit-doc__sample kit-doc__sample--canvas kit-doc__stack">
+      <article class="kit-listing kit-listing--loading" aria-label="Оголошення завантажується" aria-busy="true">
+        <div class="kit-listing__media"><span class="kit-skeleton kit-skeleton--media"></span><span class="kit-avatar kit-skeleton kit-skeleton--avatar"></span></div>
+        <div class="kit-listing__body"><span class="kit-skeleton kit-skeleton--price"></span><span class="kit-skeleton kit-skeleton--title"></span><span class="kit-skeleton kit-skeleton--short"></span><span class="kit-skeleton kit-skeleton--fact"></span><span class="kit-skeleton kit-skeleton--trust"></span></div>
+      </article>
+      <ul class="kit-gallery" aria-label="Фото кімнати"><li><img src="assets/listings/room-03.jpg" alt="Фото 1 з 3 · кімната"></li><li><img src="assets/listings/room-04.jpg" alt="Фото 2 · кухня"></li><li><span class="kit-skeleton kit-skeleton--gallery" aria-label="Фото 3 завантажується"></span></li></ul>
+      <div class="kit-doc__sample">
+        <div class="kit-person"><img class="kit-avatar" src="assets/avatars/mariia.png" alt=""><p class="kit-person__name">Оксана <span class="kit-chip">перевірено</span></p><p class="kit-person__bio">Працюю з дому, люблю тишу ввечері.</p></div>
+        <div class="kit-person"><img class="kit-avatar" src="assets/avatars/oleh.png" alt=""><p class="kit-person__name">Тарас, 29</p><p class="kit-person__bio">Розробник, часто працює з дому.</p></div>
+        <ul class="kit-trust-list"><li>Телефон перевірено</li><li>Instagram перевірено</li><li>2 відгуки після заселення</li></ul>
+      </div>
+      <div class="kit-page-head"><h3 class="kit-headline">Кімната в Солом'янському районі</h3><p class="kit-meta kit-meta--place">Солом'янський · метро Шулявська</p><p class="kit-price">7 200 грн/міс</p></div>
+      <dl class="kit-facts kit-facts--grid"><div><dt>Чистота</dt><dd>Прибираю кілька разів на тиждень</dd></div><div><dt>Гості</dt><dd>Буває рідко</dd></div><div><dt>Режим дня</dt><dd>Сова</dd></div></dl>
+      <p class="kit-meta">Таблиця «підпис → значення» лишилась тільки як <code>.kit-facts--table</code> для форм-підсумків; у картках — <code>--inline</code>, у деталях — плитки <code>--grid</code>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="kit-doc__section" id="feedback">
+  <h2>Зворотний зв'язок</h2>
+  <p>Порожній стан, помилка і завантаження — одна граматика: 76px іконка в градієнтному колодязі, заголовок 20, пояснення, повноширинна дія. Скелетони — з shimmer. Банери, системні нотатки й підсумок застосованих умов.</p>
+  <div class="kit-doc__grid">
+    <div class="kit-doc__sample kit-doc__sample--canvas">
+      <div class="kit-state"><span class="kit-state__icon"></span><h3>За цими фільтрами оголошень немає</h3><p>У Києві немає оголошень, що відповідають усім вибраним умовам.</p>
+        <div class="kit-applied"><span>Твої фільтри:</span><ul class="kit-tags"><li class="kit-tag">Солом'янський</li><li class="kit-tag">Голосіївський</li><li class="kit-tag">до 6 000 грн/міс</li><li class="kit-tag">Без тварин</li></ul></div>
+        <a class="kit-button kit-button--block" href="#forms">Змінити фільтри</a><p class="kit-hint">Підніми межу бюджету або додай сусідній район.</p></div>
+    </div>
+    <div class="kit-doc__sample kit-doc__sample--canvas">
+      <div class="kit-state kit-state--error" role="alert"><span class="kit-state__icon"></span><h3>Не вдалося завантажити оголошення</h3><p>Перевір зʼєднання з інтернетом.</p><a class="kit-button kit-button--block" href="#feedback">Спробувати ще раз</a><p class="kit-state-context">Твої фільтри збереглися.</p></div>
+    </div>
+    <div class="kit-doc__sample kit-doc__sample--canvas kit-doc__stack" aria-busy="true">
+      <p class="kit-meta">Завантажуємо оголошення…</p>
+      <span class="kit-skeleton kit-skeleton--title"></span><span class="kit-skeleton"></span><span class="kit-skeleton kit-skeleton--short"></span><span class="kit-skeleton kit-skeleton--field"></span><span class="kit-skeleton kit-skeleton--button"></span>
+      <div class="kit-state kit-state--compact"><span class="kit-state__icon kit-state__icon--chat"></span><h3>Заявок і чатів поки немає</h3><p>Після першої заявки побачиш її статус і відповідь.</p></div>
+    </div>
+    <div class="kit-doc__sample kit-doc__stack">
+      <div class="kit-banner" role="status"><strong>Профіль збережено</strong><p>Інші бачать твій побут, бюджет і райони.</p></div>
+      <div class="kit-banner kit-banner--error" role="alert"><strong>Повідомлення не надіслано</strong><p>Оксана ще не бачить повідомлення. Текст зберігся нижче — перевір зʼєднання і надішли ще раз.</p></div>
+      <div class="kit-banner kit-banner--info"><strong>Надішли першу заявку</strong><p>Тут з'являться твої заявки й чати.</p></div>
+      <p class="kit-note">Не переказуй гроші до того, як побачиш кімнату наживо. Куток ніколи не просить завдаток у чаті.</p>
+      <p class="kit-note kit-note--warning">Позначку «перевірено» не можна додати вручну. Тут видно, які дані вже перевірено.</p>
+      <p class="kit-note kit-note--success">Оксана прийняла твою заявку 6 серпня. Тепер можеш писати їй у чаті.</p>
+      <div class="kit-recap"><strong>Кімната в Солом'янському районі</strong><p>7 200 грн/міс · Оксана · заїзд з 15 серпня</p></div>
+      <ol class="kit-steps"><li>Надішли заявку з оголошення</li><li>До заявки додамо твій профіль і побутові звички</li><li>Після прийняття заявки відкриється чат</li></ol>
+    </div>
+  </div>
+</section>
+
+<section class="kit-doc__section" id="sheet">
+  <h2>Bottom sheet фільтрів</h2>
+  <p>Контекстний sheet поверх стрічки: піднята біла поверхня з великою тінню, ручка, display-заголовок, кнопка закриття на заглибленому колі, тіло з fieldset без підкладки, розділені hairline.</p>
+  <div class="kit-doc__grid">
+    <div class="kit-doc__shell">
+      <div class="kit-shell kit-shell--bare">
+        <div class="kit-sheet" aria-label="Фільтри">
+          <div class="kit-sheet__head"><div><h2 class="kit-headline">Фільтри</h2><span class="kit-sheet__state">2 райони · до 11 000 грн/міс</span></div><a class="kit-sheet__close" href="#cards" aria-label="Закрити фільтри">Закрити</a></div>
+          <form class="kit-sheet__body" action="#cards">
+            <fieldset class="kit-fieldset"><legend>Район</legend>
+              <label class="kit-choice"><input type="checkbox" checked> Солом'янський</label>
+              <label class="kit-choice"><input type="checkbox" checked> Голосіївський</label>
+              <label class="kit-choice"><input type="checkbox"> Оболонський</label>
+            </fieldset>
+            <div class="kit-field-row"><div class="kit-field"><label for="sheet-from">Ціна від, грн/міс</label><input id="sheet-from" inputmode="numeric" value="5000"></div><div class="kit-field"><label for="sheet-to">Ціна до, грн/міс</label><input id="sheet-to" inputmode="numeric" value="11000"></div></div>
+            <div class="kit-actions"><button class="kit-button" type="submit">Застосувати фільтри</button></div>
+            <p class="kit-hint">Фільтри збережуться для наступного перегляду оголошень.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kit-doc__section" id="chat">
+  <h2>Чат</h2>
+  <p>Щільний рядок розмови: аватар, ім'я, прев'ю останнього повідомлення (2 рядки), час, unread і статус-чип (<code>--active</code> лайм, прийнято — зелений, <code>--waiting</code> бурштин, <code>--declined</code> червоний). Тап по рядку — і є дія. Контекст розмови, бульбашки, невдале надсилання і composer.</p>
+  <div class="kit-doc__grid">
+    <div class="kit-doc__sample">
+      <label class="kit-chat-search"><span class="kit-sr-only">Знайти розмову</span><input placeholder="Знайти розмову"></label>
+      <ul class="kit-chat-list">
+        <li><a class="kit-chat-row kit-chat-row--active kit-chat-row--unread" href="#chat"><img class="kit-avatar" src="assets/avatars/mariia.png" alt=""><span class="kit-chat-copy"><strong>Оксана</strong><span>Кіт не проблема, у нас теж є. Можеш прийти подивитись у суботу?</span><small><em>Активний чат</em><span>Кімната в Солом'янському районі · 7 200 грн/міс</span></small></span><span class="kit-chat-side"><time>11:20</time><span class="kit-unread" aria-label="1 непрочитане">1</span></span></a></li>
+        <li><a class="kit-chat-row" href="#chat"><img class="kit-avatar" src="assets/avatars/oleh.png" alt=""><span class="kit-chat-copy"><strong>Дмитро</strong><span>Повідомлень ще немає. Напиши першою.</span><small><em>Заявку прийнято</em><span>Кімната в Оболонському районі · 9 800 грн/міс</span></small></span><span class="kit-chat-side"><time>вчора</time></span></a></li>
+        <li><a class="kit-chat-row kit-chat-row--waiting" href="#chat"><img class="kit-avatar" src="assets/avatars/solomiia.png" alt=""><span class="kit-chat-copy"><strong>Мар'яна</strong><span>Ти: «Доброго дня! Чи вільна ще кімната з 1 вересня?»</span><small><em>Без відповіді 4 дні</em><span>Кімната в Голосіївському районі · 6 500 грн/міс</span></small></span><span class="kit-chat-side"><time>2 серп.</time></span></a></li>
+        <li><a class="kit-chat-row kit-chat-row--declined" href="#chat"><img class="kit-avatar" src="assets/avatars/nastia.png" alt=""><span class="kit-chat-copy"><strong>Ірина</strong><span>Кімнату вже зайняли</span><small><em>Заявку відхилено</em><span>Кімната в Дніпровському районі · 5 800 грн/міс</span></small></span><span class="kit-chat-side"><time>30 лип.</time></span></a></li>
+      </ul>
+    </div>
+    <div class="kit-doc__sample kit-doc__sample--canvas kit-doc__stack">
+      <a class="kit-conversation-context" href="#cards"><img src="assets/listings/room-01.jpg" alt=""><span><small>Обговорюєте оголошення</small><strong>Кімната в Солом'янському районі</strong><b>7 200 грн/міс · заїзд з 15 серпня</b></span></a>
+      <ul class="kit-messages">
+        <li class="kit-message kit-message--system"><p>Оксана прийняла твою заявку 6 серпня. Тепер можеш писати їй у чаті.</p></li>
+        <li class="kit-message kit-message--outgoing"><p>Привіт! Кімната ще вільна? Мене звати Марічка, навчаюсь у КНУ.</p><time datetime="2026-08-06T11:12">11:12</time></li>
+        <li class="kit-message"><p>Привіт! Так, вільна з 15 серпня. Нас двоє: я і Тарас, обидва працюємо з дому.</p><time datetime="2026-08-06T11:18">11:18</time></li>
+        <li class="kit-message kit-message--outgoing kit-message--failed"><p>А з котом як? Він спокійний, живе зі мною три роки.</p><span class="kit-message__meta">Не надіслано · спробуй ще раз</span></li>
+      </ul>
+      <form class="kit-composer" action="#chat"><label class="kit-sr-only" for="doc-message">Повідомлення</label><input id="doc-message" placeholder="Написати повідомлення"><button class="kit-icon-button" type="submit" aria-label="Надіслати повідомлення">Надіслати</button></form>
+      <form class="kit-composer" aria-busy="true"><label class="kit-sr-only" for="doc-message-2">Повідомлення</label><input id="doc-message-2" value="Так, субота підходить. О котрій зручно?" disabled><button class="kit-icon-button" type="submit" disabled aria-label="Надсилаємо повідомлення">Надсилаємо</button></form>
+    </div>
+  </div>
+</section>
+
+<section class="kit-doc__section" id="profile">
+  <h2>Профіль</h2>
+  <p>Hero на лісовому градієнті з лаймовим відблиском, заокруглений знизу, аватар із кільцем і тінню, статус, доказ із галочкою; пара карток «бюджет / райони»; аватари й пара аватарів.</p>
+  <div class="kit-doc__grid">
+    <div class="kit-doc__shell">
+      <div class="kit-shell kit-shell--bare">
+        <div class="kit-shell__body">
+          <section class="kit-profile-hero"><img class="kit-profile-avatar" src="assets/avatars/solomiia.png" alt=""><div><p class="kit-profile-status">Активно шукаю</p><h2 class="kit-headline">Марічка, 21</h2><p class="kit-meta">Київ · переїзд у вересні</p><span class="kit-profile-proof">Телефон підтверджено</span></div></section>
+          <div class="kit-profile-search"><div><span>Бюджет</span><strong>до 7 000 ₴</strong></div><div><span>Райони</span><strong>Солом'янський · Голосіївський</strong></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kit-doc__sample kit-doc__stack">
+      <h3>Аватари</h3>
+      <div class="kit-doc__row"><img class="kit-avatar" src="assets/avatars/solomiia.png" alt="Марічка"><img class="kit-avatar" src="assets/avatars/oleh.png" alt="Тарас"><img class="kit-avatar" src="assets/avatars/nastia.png" alt="Настя"><img class="kit-avatar" src="assets/avatars/mariia.png" alt="Оксана"><span class="kit-avatar kit-skeleton kit-skeleton--avatar" aria-label="Аватар завантажується"></span></div>
+      <div class="kit-avatar-pair"><img class="kit-avatar" src="assets/avatars/solomiia.png" alt="Марічка"><img class="kit-avatar" src="assets/avatars/mariia.png" alt="Оксана"></div>
+      <p class="kit-meta">Фото — локальні з <code>ui/assets/</code> (симлінк на ассети уроку 6). Власний набір <code>visuals/</code> ще не згенеровано: ключа генератора немає.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

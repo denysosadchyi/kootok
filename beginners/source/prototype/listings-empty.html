@@ -16,9 +16,8 @@
   <a class="product-header__brand" href="listings.html" aria-label="Куток — на головну">Куток</a>
   <nav class="product-nav" aria-label="Навігація продуктом">
     <a class="product-nav__link" href="listings.html" aria-current="page">Пошук</a>
-    <a class="product-nav__link" href="application.html">Чати</a>
-    <a class="product-nav__link" href="listing.html">Оголошення</a>
-    <a class="product-nav__link" href="compatibility-form.html">Профіль</a>
+    <a class="product-nav__link" href="chats.html">Чати</a>
+    <a class="product-nav__link" href="profile.html">Профіль</a>
     <a class="product-nav__link product-nav__link--create" href="/kootok/research/wireframes/listing-new.html" aria-label="Додати нове оголошення">Додати</a>
   </nav>
 </header>
@@ -28,11 +27,6 @@
   (Соломія шукає підселення) · вихід — послабити фільтри на цьому ж
   екрані, а не глухий кут
 </p>
-
-<header>
-  <p class="product">Куток — кімнати та співмешканці в Києві</p>
-  <h1>Стрічка оголошень + фільтри</h1>
-</header>
 
 <!-- Та сама форма фільтрів, що й в успіху — тільки цього разу комбінація
      занадто вузька (дорогий район + низька верхня межа ціни) і дала 0. -->
@@ -94,12 +88,10 @@
   </div>
 </details>
 
-<main>
-  <section aria-labelledby="listings-heading">
-    <h2 id="listings-heading">0 оголошень у Печерському районі</h2>
-
+<main class="state-main">
+  <section class="state-section" aria-labelledby="empty-heading">
     <div class="state-block">
-      <p class="state-title">За цими фільтрами оголошень немає</p>
+      <p class="state-title" id="empty-heading">За цими фільтрами оголошень немає</p>
       <p class="meta">
         Підселення в Печерському районі до 6 000 грн/міс — надто вузька
         комбінація: у цьому районі кімнати на підселення зараз коштують

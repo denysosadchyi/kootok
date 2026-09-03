@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Профіль співмешканця</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
-  <link rel="stylesheet" href="_concept.css">
-  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
 </head>
 <body data-page="person-loading">
@@ -247,91 +249,45 @@
        секції «Заявка» — там, де була форма.</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-
-    <header class="app-bar">
-      <h2>Профіль співмешканця</h2>
-      <a class="back-btn" href="seekers.html" aria-label="Повернутися до співмешканців"><span aria-hidden="true" style="display:inline-block;width:20px;height:20px;border:1px solid #777;margin-right:8px"></span>Повернутися до співмешканців</a>
-    </header>
-
-    <main>
-      <article>
-        <div class="detail-photos">
-          <span class="photo main" data-photo-origin="unsplash:photo-1622967865065-1f51797b26d8"><span>Фото профілю</span></span>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <header class="kit-shell__appbar"><a class="kit-back" href="seekers.html" aria-label="Повернутися до співмешканців">Повернутися до співмешканців</a><h1 class="kit-shell__title">Профіль співмешканця</h1></header>
+    <main class="kit-shell__body">
+      <section class="kit-profile-hero"><img class="kit-profile-avatar" src="../../ui/assets/avatars/solomiia.png" alt="Фото профілю"><div><h1 class="kit-headline">Марічка, 21</h1><p class="kit-meta">Шукає кімнату · студентка КНУ, перший рік у Києві</p><span class="kit-profile-proof">перевірено</span></div></section>
+      <p class="kit-price">Бюджет до 7 000 грн/міс</p>
+      <section class="kit-section" aria-labelledby="about-person">
+        <h2 id="about-person" class="kit-section__title">Про себе</h2>
+        <p class="kit-meta">Переїхала з Полтави, вчуся на другому курсі КНУ, підробляю бариста на пів ставки. Вдома здебільшого ввечері, готую сама. Зі мною кіт Пиріг — спокійний, привчений.</p>
+      </section>
+      <section class="kit-section" aria-labelledby="where">
+        <h2 id="where" class="kit-section__title">Де і коли шукає</h2>
+        <dl class="kit-facts kit-facts--grid"><div><dt>Райони</dt><dd>Солом'янський, Шевченківський, Оболонський</dd></div><div><dt>Бюджет</dt><dd>5 000 – 7 000 грн/міс</dd></div><div><dt>Заїзд</dt><dd>з 15 серпня</dd></div><div><dt>Термін</dt><dd>на навчальний рік, далі за домовленістю</dd></div></dl>
+      </section>
+      <section class="kit-section" aria-labelledby="habits">
+        <h2 id="habits" class="kit-section__title">Звички</h2>
+        <dl class="kit-facts kit-facts--grid"><div><dt>Чистота</dt><dd>Прибираю раз на тиждень, посуд одразу</dd></div><div><dt>Гості</dt><dd>Рідко, у вихідні й попередивши</dd></div><div><dt>Тварини</dt><dd>Кіт, стерилізований, живе зі мною 3 роки</dd></div><div><dt>Куріння</dt><dd>Не палю, і вдома не хочу</dd></div><div><dt>Режим дня</dt><dd>Сова, лягаю близько першої</dd></div></dl>
+      </section>
+      <section class="kit-section" aria-labelledby="trust">
+        <h2 id="trust" class="kit-section__title">Перевірка</h2>
+        <div class="kit-person"><img class="kit-avatar" src="../../ui/assets/avatars/solomiia.png" alt=""><p class="kit-person__name">Марічка <span class="kit-chip">перевірено</span></p><p class="kit-person__bio">Профіль створено 12 серпня, оновлено сьогодні.</p></div>
+        <ul class="kit-trust-list"><li>Телефон перевірено</li><li>Instagram перевірено — акаунт із 2019 року</li><li>Відгуків після заселення ще немає — через Куток не селилась</li><li>Приватний профіль — не рієлтор</li><li>Активна: відповідала на заявки цього тижня</li></ul>
+      </section>
+      <section class="kit-section" aria-labelledby="apply">
+        <h2 id="apply" class="kit-section__title">Заявка</h2>
+        <div class="kit-state kit-state--compact" aria-busy="true">
+          <p><strong>Відповіді на заявку ще немає</strong></p>
+          <p>Заявку надіслано сьогодні о 14:20. Марічка побачить її в чаті. Відповісти може не одразу.</p>
+          <p class="kit-state-context">У тебе три активні заявки. Можеш переглянути інших співмешканців.</p>
         </div>
-
-        <h3>Марічка, 21 <span class="badge">перевірено</span></h3>
-        <p class="sub">Шукає кімнату · студентка КНУ, перший рік у Києві</p>
-        <p class="price">Бюджет до 7 000 грн/міс</p>
-
-        <section class="block" aria-labelledby="about-person">
-          <h4 id="about-person">Про себе</h4>
-          <p class="sub">Переїхала з Полтави, вчуся на другому курсі КНУ,
-             підробляю бариста на пів ставки. Вдома здебільшого ввечері, готую
-             сама. Зі мною кіт Пиріг — спокійний, привчений.</p>
-        </section>
-
-        <section class="block" aria-labelledby="where">
-          <h4 id="where">Де і коли шукає</h4>
-          <dl class="facts">
-            <dt>Райони</dt><dd>Солом'янський, Шевченківський, Оболонський</dd>
-            <dt>Бюджет</dt><dd>5 000 – 7 000 грн/міс</dd>
-            <dt>Заїзд</dt><dd>з 15 серпня</dd>
-            <dt>Термін</dt><dd>на навчальний рік, далі за домовленістю</dd>
-          </dl>
-        </section>
-
-        <section class="block" aria-labelledby="habits">
-          <h4 id="habits">Звички</h4>
-          <dl class="facts">
-            <dt>Чистота</dt><dd>Прибираю раз на тиждень, посуд одразу</dd>
-            <dt>Гості</dt><dd>Рідко, у вихідні й попередивши</dd>
-            <dt>Тварини</dt><dd>Кіт, стерилізований, живе зі мною 3 роки</dd>
-            <dt>Куріння</dt><dd>Не палю, і вдома не хочу</dd>
-            <dt>Режим дня</dt><dd>Сова, лягаю близько першої</dd>
-          </dl>
-        </section>
-
-        <section class="block" aria-labelledby="trust">
-          <h4 id="trust">Перевірка</h4>
-          <p class="author-name">Марічка <span class="badge">перевірено</span></p>
-          <p class="sub">Профіль створено 12 серпня, оновлено сьогодні.</p>
-          <ul class="trust">
-            <li>Телефон перевірено</li>
-            <li>Instagram перевірено — акаунт із 2019 року</li>
-            <li>Відгуків після заселення ще немає — через Куток не селилась</li>
-            <li>Приватний профіль — не рієлтор</li>
-            <li>Активна: відповідала на заявки цього тижня</li>
-          </ul>
-        </section>
-
-        <section class="block" aria-labelledby="apply">
-          <h4 id="apply">Заявка</h4>
-          <div class="state-block" aria-busy="true">
-            <p><strong>Відповіді на заявку ще немає</strong></p>
-            <p>Заявку надіслано сьогодні о 14:20. Марічка побачить її в
-               чаті. Відповісти може не одразу.</p>
-            <p class="hint">У тебе три активні заявки. Можеш переглянути
-               інших співмешканців.</p>
-          </div>
-        </section>
-      </article>
-
-      <footer>
-        <p>Куток · пошук співмешканців і кімнат у Києві</p>
-      </footer>
+      </section>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
-
-    <nav class="bottom-nav" aria-label="Глобальна навігація">
-      <ul>
-        <li><a href="listings.html" aria-current="page">Оголошення</a></li>
-        <li><a href="chats.html">Чати</a></li>
-        <li><a href="my-listings.html">Мої оголошення</a></li>
-        <li><a href="profile-edit.html">Профіль</a></li>
-      </ul>
+    <nav class="kit-tabbar kit-tabbar--host" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html" aria-current="page">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--listings" href="my-listings.html">Мої оголошення</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
     </nav>
-
   </div>
 </div>
 </div>
@@ -349,7 +305,5 @@
   });
 })();
 </script>
-
-<script src="_concept.js"></script>
 </body>
 </html>

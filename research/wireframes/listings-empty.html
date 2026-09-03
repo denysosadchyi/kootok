@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Куток — Стрічка оголошень · порожній</title>
 <link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../ui/kit.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
-  <link rel="stylesheet" href="_concept.css">
-  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 <script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
 </head>
 <body data-page="listings-empty">
@@ -234,54 +236,33 @@
        «Пошук і фільтри» (<code>sitemap.md</code>).</p>
   </div>
 
-  <div class="phone">
-    <div class="status-bar" aria-hidden="true"><span class="status-time">9:41</span><span class="status-system"><span class="status-signal"><i></i><i></i><i></i><i></i></span><span class="status-wifi"></span><span class="status-battery"></span></span></div>
-
-    <header class="app-bar">
-      <h2>Стрічка оголошень</h2>
-    </header>
-
-    <main>
-      <nav aria-label="Тип стрічки">
-        <ul class="segmented"><li aria-current="page">Оголошення</li><li><a href="seekers.html">Співмешканці</a></li></ul>
-      </nav>
-      <section aria-labelledby="results-heading">
-        <h3 id="results-heading" class="results-count">За цими фільтрами оголошень немає</h3>
-
-        <div class="state-block">
-          <h4>Зміни фільтри</h4>
-          <p>У Києві немає оголошень, що відповідають усім вибраним
-             умовам.</p>
-
-          <p class="applied-label">Твої фільтри:</p>
-          <ul class="applied">
-            <li>Солом'янський</li>
-            <li>Голосіївський</li>
-            <li>до 6 000 грн/міс</li>
-            <li>Заїзд до 15 серпня</li>
-            <li>Без тварин</li>
-            <li>Без куріння</li>
-          </ul>
-
-          <a class="btn" href="filters.html">Змінити фільтри</a>
-          <p class="hint">Підніми межу бюджету або додай сусідній район.</p>
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <main class="kit-shell__body">
+      <h1 class="kit-headline">Стрічка оголошень</h1>
+      <ul class="kit-segmented" aria-label="Тип стрічки"><li aria-current="page"><a href="listings.html">Оголошення</a></li><li><a href="seekers.html">Співмешканці</a></li></ul>
+      <section class="kit-section" aria-labelledby="results-heading">
+        <h2 id="results-heading" class="kit-meta">За цими фільтрами оголошень немає</h2>
+        <div class="kit-state">
+          <span class="kit-state__icon"></span>
+          <h3>Зміни фільтри</h3>
+          <p>У Києві немає оголошень, що відповідають усім вибраним умовам.</p>
+          <div class="kit-applied"><span>Твої фільтри:</span>
+            <ul class="kit-tags"><li class="kit-tag">Солом'янський</li><li class="kit-tag">Голосіївський</li><li class="kit-tag">до 6 000 грн/міс</li><li class="kit-tag">Заїзд до 15 серпня</li><li class="kit-tag">Без тварин</li><li class="kit-tag">Без куріння</li></ul>
+          </div>
+          <a class="kit-button kit-button--block" href="filters.html">Змінити фільтри</a>
+          <p class="kit-hint">Підніми межу бюджету або додай сусідній район.</p>
         </div>
       </section>
-
-      <footer>
-        <p>Куток · пошук співмешканців і кімнат у Києві</p>
-      </footer>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
-
-    <a class="filter-fab" href="filters.html" aria-label="Відкрити фільтри"></a>
-    <nav class="bottom-nav" aria-label="Глобальна навігація">
-      <ul>
-        <li><a href="listings.html" aria-current="page">Оголошення</a></li>
-        <li><a href="chats.html">Чати</a></li>
-        <li><a href="profile-edit.html">Профіль</a></li>
-      </ul>
+    <a class="kit-fab" href="filters.html" aria-label="Відкрити фільтри">Фільтри</a>
+    <nav class="kit-tabbar" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html" aria-current="page">Оголошення</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
+      <a class="kit-tab kit-tab--create" href="listing-new.html" aria-label="Додати оголошення">Додати</a>
     </nav>
-
   </div>
 </div>
 </div>
@@ -299,7 +280,5 @@
   });
 })();
 </script>
-
-<script src="_concept.js"></script>
 </body>
 </html>

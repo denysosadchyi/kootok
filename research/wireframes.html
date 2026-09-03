@@ -65,13 +65,11 @@ body{margin:0;background:var(--canvas);color:var(--charcoal);font-family:var(--f
 .pageswitch a svg{width:15px;height:15px;flex:none;opacity:.9}
 .pageswitch .ln{width:22px;flex:none;color:var(--stone);font-size:12px;font-variant-numeric:tabular-nums}
 .pageswitch a.cur .ln{color:var(--primary)}
-.pageswitch a:hover{background:var(--tint-gray);color:var(--ink)}
 .pageswitch a.cur{background:var(--lavender);color:var(--primary);font-weight:600}
 /* згортання головної навігації */
 .navtoggle,.navshow{flex:none;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;
   border:1px solid var(--hairline);background:var(--canvas);color:var(--steel);border-radius:6px;
   cursor:pointer;font-size:12px;line-height:1;padding:0;font-family:var(--font)}
-.navtoggle:hover,.navshow:hover{color:var(--ink);border-color:var(--hairline-strong);background:var(--tint-gray)}
 .navtoggle{margin-left:auto}
 .navshow{display:none}
 body.navhid .sidebar{display:none}
@@ -80,7 +78,6 @@ body.navhid .navshow{display:inline-flex}
 .side-links{margin-top:18px;padding:14px 10px 0;border-top:1px solid var(--hairline)}
 .side-links a{display:flex;align-items:center;gap:9px;color:var(--steel);font-size:14px;
   font-weight:500;text-decoration:none;padding:6px 0}
-.side-links a:hover{color:var(--ink)}
 .side-links a svg{width:16px;height:16px;flex:none}
 
 /* ── 2. Дерево вайрфреймів: роль → група sitemap → екран ── */
@@ -103,13 +100,11 @@ details.role > summary::before{content:"";width:0;height:0;flex:none;
   opacity:.5;transition:transform .15s}
 details[open] > summary::before{transform:rotate(90deg)}
 details.role > summary{padding:7px 10px;font-size:14px;font-weight:600;color:var(--ink)}
-details.role > summary:hover{background:var(--tint-gray)}
 details.role > summary .rcount{margin-left:auto;font-size:12px;font-weight:500;color:var(--steel);
   background:var(--tint-gray);border-radius:20px;padding:1px 7px;font-variant-numeric:tabular-nums}
 .rbody{padding:0 0 8px 10px;margin-left:9px;border-left:1px solid var(--hairline)}
 a.scr{display:block;padding:6px 10px;border-radius:6px;color:var(--slate);text-decoration:none;
   font-size:14px;font-weight:500;line-height:1.35;transition:background .12s,color .12s}
-a.scr:hover{background:var(--tint-gray);color:var(--ink)}
 a.scr[aria-current="page"]{background:var(--lavender);color:var(--primary);font-weight:600}
 
 /* ── 3. Макет: смужка з перемикачем станів + рамка + опис ── */
@@ -123,13 +118,11 @@ a.scr[aria-current="page"]{background:var(--lavender);color:var(--primary);font-
 .states a{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:7px;
   border:1px solid var(--hairline);background:var(--surface);color:var(--slate);text-decoration:none;
   font-size:12px;font-weight:500;white-space:nowrap;transition:background .12s,color .12s,border-color .12s}
-.states a:hover{background:var(--tint-gray);color:var(--ink)}
 .states a[aria-current="page"]{background:var(--lavender);border-color:transparent;color:var(--primary);font-weight:600}
 .states a .mk{font-size:12px;color:var(--stone)}
 .states a[aria-current="page"] .mk{color:var(--primary)}
 .wfbar .ext{margin-left:auto;flex:none;font-size:12px;font-weight:500;color:var(--link);
   text-decoration:none;white-space:nowrap}
-.wfbar .ext:hover{text-decoration:underline}
 
 .wfbody{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 352px}
 .wfcanvas{min-width:0;background:var(--tint-gray);border-right:1px solid var(--hairline)}
@@ -143,14 +136,12 @@ a.scr[aria-current="page"]{background:var(--lavender);color:var(--primary);font-
 .wfdoc code{font-family:var(--mono);font-size:12px;background:var(--tint-gray);
   padding:1px 5px;border-radius:4px;color:var(--charcoal)}
 .wfdoc a{color:var(--link);text-decoration:none}
-.wfdoc a:hover{text-decoration:underline}
 .wfdoc .src{margin:18px 0 0;padding-top:12px;border-top:1px solid var(--hairline);
   font-size:12px;color:var(--stone)}
 
 .themebtn{position:fixed;bottom:16px;right:16px;z-index:20;background:var(--canvas);
   border:1px solid var(--hairline-strong);color:var(--slate);border-radius:8px;padding:7px 10px;
   cursor:pointer;font-size:16px;box-shadow:var(--sh2)}
-.themebtn:hover{color:var(--ink)}
 .mobtop{display:none}
 
 @media (max-width:1340px){

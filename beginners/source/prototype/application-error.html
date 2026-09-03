@@ -15,10 +15,9 @@
 <header class="product-header">
   <a class="product-header__brand" href="listings.html" aria-label="Куток — на головну">Куток</a>
   <nav class="product-nav" aria-label="Навігація продуктом">
-    <a class="product-nav__link" href="listings.html">Пошук</a>
-    <a class="product-nav__link" href="application.html" aria-current="page">Чати</a>
-    <a class="product-nav__link" href="listing.html">Оголошення</a>
-    <a class="product-nav__link" href="compatibility-form.html">Профіль</a>
+    <a class="product-nav__link" href="listings.html" aria-current="page">Пошук</a>
+    <a class="product-nav__link" href="chats.html">Чати</a>
+    <a class="product-nav__link" href="profile.html">Профіль</a>
     <a class="product-nav__link product-nav__link--create" href="/kootok/research/wireframes/listing-new.html" aria-label="Додати нове оголошення">Додати</a>
   </nav>
 </header>
@@ -29,29 +28,21 @@
 </p>
 
 <header>
-  <a class="back-link" href="compatibility-form.html">← Анкета сумісності</a>
+  <a class="back-link" href="compatibility-form.html" aria-label="Назад до анкети">Анкета сумісності</a>
   <p class="product">Куток — заявка на підселення</p>
-  <h1>Заявку не надіслано</h1>
+  <h1>Заявка</h1>
 </header>
 
-<main>
-  <section aria-labelledby="recap-heading">
-    <h2 id="recap-heading">Куди подавали заявку</h2>
-    <div class="recap">
-      <p class="recap-title">Кімната в 3-кімнатній, Голосіївський район</p>
-      <p class="meta">7 500 грн/міс · Марія (26), Олег (29) · заїзд з 1 вересня</p>
-    </div>
-  </section>
-
-  <section aria-labelledby="error-heading">
-    <h2 id="error-heading">Що сталося</h2>
+<main class="state-main">
+  <section class="state-section" aria-labelledby="error-heading">
     <div class="state-block" role="alert">
-      <p class="state-title">Не вдалося надіслати заявку</p>
+      <p class="state-title" id="error-heading">Не вдалося надіслати заявку</p>
       <p class="meta">
         Перевірте інтернет-з'єднання. Ваше повідомлення й анкета
         сумісності збереглися — Марія та Олег ще нічого не отримали.
       </p>
-      <a class="btn" href="compatibility-form.html">Спробувати надіслати ще раз</a>
+      <p class="state-context">Кімната в Голосіївському · 7 500 грн/міс</p>
+      <a class="btn" href="application.html">Повернутися до заявки</a>
     </div>
   </section>
 </main>

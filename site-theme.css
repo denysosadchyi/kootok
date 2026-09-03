@@ -78,7 +78,6 @@ body { background: var(--app-canvas) !important; color: var(--app-text) !importa
 .links,.card,.panel,.summary-card,.wfdoc,.phone,.device,.compare,.matrix,.source-card,.persona-card,.jtbd-card {
   border-color: var(--app-border) !important;
 }
-.links a:hover,.pages a:hover,.nav a:hover { background: var(--app-primary-50) !important; }
 .pages a.cur,.pages a.active,.nav a.active,.states a.active,.chip.active,.tab.active { background: var(--app-primary-100) !important; color: var(--app-primary-700) !important; }
 .done,.badge.done,.status.done { background: var(--app-success-bg) !important; color: var(--app-success) !important; }
 
