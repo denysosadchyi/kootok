@@ -1,0 +1,26 @@
+/* ───────── Рядок лічильника з дією ───────── */
+/* Лічильник видачі — .kit-hint (не заголовок); на вузькому екрані або 200% zoom
+   кнопка переноситься під лічильник, а не виходить за край. */
+.kit-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-stack-sm) var(--primitive-length-12); }
+.kit-toolbar > .kit-hint { flex: 1 1 auto; margin: 0; font: var(--type-support); }
+.kit-toolbar > .kit-button { flex: none; }
+
+/* Page-level title and support copy form one entry point before sections. */
+.kit-page-intro { display: flex; min-width: 0; flex-direction: column; gap: var(--space-stack-sm); }
+.kit-page-intro > .kit-toolbar { margin-top: var(--space-stack-sm); }
+
+/* ───────── Розділ ───────── */
+section.kit-section { display: flex; flex-direction: column; gap: var(--space-stack-md); min-width: 0; }
+
+/* ───────── Кроки й розділені дії ───────── */
+/* Крок багатокрокової форми (анкета сумісності): видимий лише поточний,
+   інші мають [hidden] (глобальне правило base.css). */
+.kit-step { display: flex; min-width: 0; flex-direction: column; gap: var(--space-stack-lg); }
+.kit-step__intro { margin: 0; color: var(--color-text-secondary); font: var(--type-support); }
+
+/* Дві дії поруч: вужча «Назад» + ширша головна. На ≤340px — стовпчиком. */
+.kit-actions--split { display: grid; grid-template-columns: minmax(0, var(--primitive-width-fr-072)) minmax(0, var(--primitive-width-fr-128)); gap: var(--space-stack-md); }
+.kit-actions--split > .kit-button { width: var(--primitive-width-full); }
+@media (max-width: 340px) {
+  .kit-actions--split { grid-template-columns: minmax(0, 1fr); }
+}

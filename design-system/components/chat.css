@@ -1,0 +1,36 @@
+/* ───────── Чат ───────── */
+.kit-conversation-context { display: grid; grid-template-columns: var(--primitive-length-80) minmax(0, 1fr); overflow: hidden; margin: 0; border-radius: var(--radius-context); background: var(--color-card-subdued-background); color: var(--color-action); text-decoration: none; }
+.kit-conversation-context img { width: var(--primitive-length-80); height: var(--primitive-width-full); min-height: var(--primitive-length-84); object-fit: cover; }
+.kit-conversation-context > span { display: flex; min-width: 0; flex-direction: column; gap: var(--primitive-length-2); padding: var(--space-stack-md); }
+.kit-conversation-context small { color: var(--color-text-secondary); font: var(--type-overline); letter-spacing: var(--primitive-letter-spacing-07); text-transform: uppercase; }
+.kit-conversation-context strong { color: var(--color-text-primary); font: var(--type-card-title); }
+.kit-conversation-context b { margin-top: auto; color: var(--color-action); font: var(--type-control-compact); font-weight: var(--primitive-font-weight-800); }
+
+@media (max-width: 340px) {
+  .kit-conversation-context { grid-template-columns: var(--primitive-length-72) minmax(0, 1fr); }
+  .kit-conversation-context img { width: var(--primitive-length-72); }
+}
+
+/* Рядок чату — div (у прототипі екрана розмови немає, рядок статичний і виглядає
+   звичайно) або a[href]; hover/active/focus — лише для рядка-посилання. */
+ul.kit-chat-list { margin: 0; padding: 0; list-style: none; }
+.kit-chat-list > li + li { margin-top: var(--primitive-length-4); }
+.kit-chat-row { display: grid; grid-template-columns: var(--primitive-length-52) minmax(0, 1fr) auto; align-items: start; gap: var(--primitive-length-12); padding: var(--primitive-length-12) var(--primitive-length-16); color: inherit; text-decoration: none; }
+@media (hover: hover) { .kit-chat-row[href]:hover { background: var(--color-interactive-surface-hover); } }
+.kit-chat-row[data-demo-state="hover"] { background: var(--color-interactive-surface-hover); }
+.kit-chat-row[href]:active, .kit-chat-row[data-demo-state="active"] { background: var(--color-interactive-surface-active); }
+.kit-chat-row[data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
+.kit-chat-row .kit-avatar { width: var(--primitive-length-52); height: var(--primitive-length-52); }
+.kit-chat-row em { display: inline-flex; flex: none; padding: var(--primitive-length-2) var(--primitive-length-8); border-radius: var(--radius-pill); background: var(--color-surface-sunken); color: var(--color-text-secondary); font-size: var(--primitive-length-11); font-style: normal; font-weight: var(--primitive-font-weight-700); white-space: nowrap; }
+.kit-chat-copy { display: flex; min-width: 0; flex-direction: column; gap: var(--primitive-length-2); }
+.kit-chat-copy strong { color: var(--color-text-primary); font: var(--type-control-compact); }
+.kit-chat-copy > span { display: block; min-width: 0; color: var(--color-text-secondary); font: var(--type-meta); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kit-chat-copy small { display: flex; align-items: center; gap: var(--primitive-length-8); min-width: 0; margin-top: var(--primitive-length-4); font-size: var(--primitive-length-12); color: var(--color-text-secondary); }
+.kit-chat-copy small > span { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kit-chat-side { display: flex; flex: none; flex-direction: column; align-items: flex-end; gap: var(--primitive-length-4); }
+.kit-chat-side time { color: var(--color-text-secondary); font-size: var(--primitive-length-12); }
+.kit-unread { display: grid; min-width: var(--primitive-length-20); height: var(--primitive-length-20); padding-inline: var(--primitive-length-6); place-items: center; border-radius: var(--radius-pill); background: var(--color-notification); color: var(--color-on-action); font-size: var(--primitive-length-11); font-weight: var(--primitive-font-weight-700); }
+.kit-chat-row--active em { background: var(--color-current-background); color: var(--color-current-text); }
+.kit-chat-row--waiting em { background: var(--color-waiting-background); color: var(--color-waiting); }
+.kit-chat-row--unread strong { color: var(--color-current-text); }
+.kit-chat-row--unread .kit-chat-side time { color: var(--color-action); font-weight: var(--primitive-font-weight-700); }

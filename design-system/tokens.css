@@ -1,0 +1,398 @@
+@import url("/kootok/assets/fonts/fonts.css");
+
+/* Куток · двошаровий словник дизайн-токенів.
+   Джерела: DESIGN.md, design-system/docs/.
+   Підключений до активного раннього прототипу, docs і UI showcase.
+   Лише значення, які споживають 5 макетів (компоненти й екранний шар), —
+   без запасу під непоказані варіанти (2026-09-24). */
+
+:root {
+  /* ───────────────────────── PRIMITIVE ─────────────────────────
+     Сирі значення без продуктової ролі. Однакові values дедупліковані. */
+
+  /* Colors */
+  --primitive-color-white: #fff;
+  --primitive-color-cream-050: #fdfcf8;
+  --primitive-color-cream-100: #f6f3ea;
+  --primitive-color-cream-200: #f8ecd2;
+  --primitive-color-cream-300: #e9e5d8;
+  --primitive-color-cream-350: #ebe8de;
+  --primitive-color-cream-400: #eae5d7;
+  --primitive-color-cream-500: #dcd8ca;
+  --primitive-color-green-050: #e4f0e8;
+  --primitive-color-green-100: #dcefe4;
+  --primitive-color-green-200: #cfe5d8;
+  --primitive-color-green-300: #d8e99a;
+  --primitive-color-green-600: #2e6a53;
+  --primitive-color-green-700: #245744;
+  --primitive-color-green-800: #17503a;
+  --primitive-color-green-900: #16352a;
+  --primitive-color-ink-600: #5a6a62;
+  --primitive-color-ink-700: #33443c;
+  --primitive-color-ink-900: #172520;
+  --primitive-color-blue-700: #2f5b80;
+  --primitive-color-red-050: #f9e1e2;
+  --primitive-color-red-700: #8e2731;
+  --primitive-color-orange-700: #c2452d;
+  --primitive-color-amber-800: #7a4b0b;
+  --primitive-color-white-a20: rgba(255, 255, 255, .2);
+  --primitive-color-white-a86: rgba(255, 255, 255, .86);
+  --primitive-color-ink-a10: rgba(23, 37, 32, .10);
+  --primitive-color-ink-a45: rgba(23, 37, 32, .45);
+  --primitive-color-photo-a20: rgba(15, 33, 25, .2);
+  --primitive-color-photo-a65: rgba(15, 33, 25, .65);
+  --primitive-color-transparent: transparent;
+  --primitive-color-current: currentColor;
+
+  /* Gradient compositions use only color primitives already present above. */
+  --primitive-gradient-photo-top: linear-gradient(to top, var(--primitive-color-photo-a65) 0%, var(--primitive-color-photo-a20) 40%, transparent 70%);
+
+  /* Fonts */
+  --primitive-font-family-display: "Jost", "Golos Text", sans-serif;
+  --primitive-font-family-text: "Golos Text", "Jost", sans-serif;
+  --primitive-font-weight-400: 400;
+  --primitive-font-weight-500: 500;
+  --primitive-font-weight-600: 600;
+  --primitive-font-weight-700: 700;
+  --primitive-font-weight-800: 800;
+  --primitive-line-height-1: 1;
+  --primitive-line-height-0: 0;
+  --primitive-line-height-115: 1.15;
+  --primitive-line-height-120: 1.2;
+  --primitive-line-height-130: 1.3;
+  --primitive-line-height-135: 1.35;
+  --primitive-line-height-140: 1.4;
+  --primitive-line-height-145: 1.45;
+  --primitive-line-height-150: 1.5;
+  --primitive-letter-spacing-n02: -.02em;
+  --primitive-letter-spacing-n03: -.03em;
+  --primitive-letter-spacing-02: .2em;
+  --primitive-letter-spacing-07: .07em;
+
+  /* Lengths: one primitive per raw value, shared by type, spacing and geometry. */
+  --primitive-length-n2: -2px;
+  --primitive-length-n1: -1px;
+  --primitive-length-1: 1px;
+  --primitive-length-2: 2px;
+  --primitive-length-3: 3px;
+  --primitive-length-4: 4px;
+  --primitive-length-5: 5px;
+  --primitive-length-6: 6px;
+  --primitive-length-7: 7px;
+  --primitive-length-8: 8px;
+  --primitive-length-9: 9px;
+  --primitive-length-10: 10px;
+  --primitive-length-11: 11px;
+  --primitive-length-12: 12px;
+  --primitive-length-13: 13px;
+  --primitive-length-14: 14px;
+  --primitive-length-15: 15px;
+  --primitive-length-16: 16px;
+  --primitive-length-17: 17px;
+  --primitive-length-18: 18px;
+  --primitive-length-20: 20px;
+  --primitive-length-22: 22px;
+  --primitive-length-24: 24px;
+  --primitive-length-30: 30px;
+  --primitive-length-32: 32px;
+  --primitive-length-34: 34px;
+  --primitive-length-38: 38px;
+  --primitive-length-44: 44px;
+  --primitive-length-48: 48px;
+  --primitive-length-50: 50px;
+  --primitive-length-52: 52px;
+  --primitive-length-56: 56px;
+  --primitive-length-58: 58px;
+  --primitive-length-60: 60px;
+  --primitive-length-64: 64px;
+  --primitive-length-70: 70px;
+  --primitive-length-72: 72px;
+  --primitive-length-80: 80px;
+  --primitive-length-84: 84px;
+  --primitive-length-104: 104px;
+  --primitive-length-120: 120px;
+  --primitive-length-280: 280px;
+  --primitive-length-390: 390px;
+  --primitive-length-700: 700px;
+
+  /* Radii */
+  --primitive-radius-pill: 999px;
+  --primitive-radius-circle: 50%;
+
+  /* Relative component widths */
+  --primitive-width-32ch: 32ch;
+  --primitive-width-50pct: 50%;
+  --primitive-width-full: 100%;
+  --primitive-width-fr-072: .72fr;
+  --primitive-width-fr-128: 1.28fr;
+  --primitive-width-105pct: 105%;
+  --primitive-height-82dvh: 82dvh;
+  --primitive-height-60dvh: 60dvh;
+  --primitive-opacity-55: .55;
+
+  /* Solar assets live as local SVG files. Their SVG-internal coordinates and
+     stroke widths are asset data, not component geometry tokens.
+     brand.svg — власний знак «Куток» (visuals/logo/mark.svg), не Solar. */
+  --primitive-icon-brand: url("/kootok/tokens/icons/brand.svg");
+  --primitive-icon-home: url("/kootok/tokens/icons/home.svg");
+  --primitive-icon-chats: url("/kootok/tokens/icons/chats.svg");
+  --primitive-icon-profile: url("/kootok/tokens/icons/profile.svg");
+  --primitive-icon-back: url("/kootok/tokens/icons/back.svg");
+  --primitive-icon-down: url("/kootok/tokens/icons/down.svg");
+  --primitive-icon-calendar: url("/kootok/tokens/icons/calendar.svg");
+  --primitive-icon-check: url("/kootok/tokens/icons/check.svg");
+  --primitive-icon-warning: url("/kootok/tokens/icons/warning.svg");
+  --primitive-icon-tuning: url("/kootok/tokens/icons/tuning.svg");
+  --primitive-icon-shield: url("/kootok/tokens/icons/shield.svg");
+  --primitive-icon-shield-warning: url("/kootok/tokens/icons/shield-warning.svg");
+  --primitive-icon-chat-empty: url("/kootok/tokens/icons/chats.svg");
+  --primitive-icon-document: url("/kootok/tokens/icons/listings.svg");
+  --primitive-icon-pin: url("/kootok/tokens/icons/pin.svg");
+  --primitive-icon-close: url("/kootok/tokens/icons/close.svg");
+
+  /* ───────────────────────── SEMANTIC ─────────────────────────
+     Компоненти споживають ролі, а не сирі primitive values. */
+
+  /* Єдине полотно застосунку. Теплий cream-100 трохи світліший за попередній
+     canvas, але білі картки далі читаються окремо без рамок або тіней. */
+  --color-page-background: var(--primitive-color-cream-100);
+
+  /* З `html` (base.css) навколо 390px product canvas: зовнішня службова
+     підкладка вітрини, відмінна від фону самого застосунку. */
+  --color-page-outer-background: var(--primitive-color-cream-350);
+
+  /* З .kit-card і .kit-fieldset; subtype drift .kit-listing та
+     a.kit-conversation-context зведено до наявного білого surface,
+     бо DESIGN.md прямо визначає продуктову картку як білу поверхню. */
+  --color-card-background: var(--primitive-color-white);
+
+  /* З body, headings, .kit-kv dd, inputs, .kit-conversation-context strong
+     і .kit-chat-copy strong у всіх продуктових сімействах. */
+  --color-text-primary: var(--primitive-color-ink-900);
+
+  /* З `.kit-field > label`, inline facts, muted chip і tag text: DESIGN.md окремо
+     називає ink-2 для supporting text, сильнішого за muted metadata. */
+  --color-text-primary-support: var(--primitive-color-ink-700);
+
+  /* З .kit-meta, .kit-hint, state copy, placeholders, chat metadata/time
+     та inactive .kit-tab; проміжний ink tone лишається primitive. */
+  --color-text-secondary: var(--primitive-color-ink-600);
+
+  /* З .kit-button, secondary actions, .kit-back і .kit-sheet__close;
+     роль кольору дії бере спільний forest, а gradient compositions лишаються primitive. */
+  --color-action: var(--primitive-color-green-700);
+
+  /* З .kit-chip, .kit-trust-list і .kit-evidence-summary;
+     це foreground доказу, парний pale fill лишається primitive. */
+  --color-trust: var(--primitive-color-green-800);
+
+  /* З .kit-chip--error і стану помилки поля (.kit-field--error);
+     це foreground небезпеки, парний pale fill лишається primitive. */
+  --color-danger: var(--primitive-color-red-700);
+
+  /* З primary buttons і progress value:
+     підтверджена DESIGN.md дія на лісовій поверхні. */
+  --color-action-surface: var(--primitive-color-green-700);
+  --color-on-action: var(--primitive-color-white);
+
+  /* З `.kit-listing`, conversation context, tags, fields і segmented track:
+     DESIGN.md розрізняє card/subdued та sunken surface. */
+  --color-card-subdued-background: var(--primitive-color-white);
+  --color-claim-background: var(--primitive-color-cream-300);
+  --color-surface-sunken: var(--primitive-color-cream-400);
+  --color-divider: var(--primitive-color-cream-500);
+  --color-hairline: var(--primitive-color-ink-a10);
+
+  /* З active tab/segment, active chat status та location accents: DESIGN.md називає
+     ці вживання current (lime) і leaf accent. */
+  --color-current-background: var(--primitive-color-green-300);
+  --color-current-text: var(--primitive-color-green-900);
+  --color-accent: var(--primitive-color-green-600);
+
+  /* З avatar placeholder та фону фото оголошення. */
+  --color-avatar-background: var(--primitive-color-green-200);
+  --color-info-background: var(--primitive-color-green-050);
+
+  /* Парні surfaces доказу, небезпеки й очікування з chip/note/chat usages. */
+  --color-trust-background: var(--primitive-color-green-100);
+  --color-danger-background: var(--primitive-color-red-050);
+  --color-waiting: var(--primitive-color-amber-800);
+  --color-waiting-background: var(--primitive-color-cream-200);
+  --color-notification: var(--primitive-color-orange-700);
+
+  /* З global/component focus rings і caret/accent-control usages. */
+  --color-focus: var(--primitive-color-blue-700);
+  --color-action-surface-hover: var(--primitive-color-green-900);
+  --color-action-surface-active: var(--primitive-color-ink-900);
+  --color-interactive-surface-hover: var(--primitive-color-cream-300);
+  --color-interactive-surface-active: var(--primitive-color-green-200);
+  --color-interactive-text-hover: var(--primitive-color-green-900);
+  --color-interactive-text-active: var(--primitive-color-ink-900);
+  --color-field-hover: var(--primitive-color-cream-300);
+  --color-field-focus: var(--primitive-color-white);
+  --color-media-hover-overlay: var(--primitive-color-photo-a20);
+  --opacity-disabled: var(--primitive-opacity-55);
+
+  /* З listing photo scrim і glass-плашки ціни на фото. */
+  --color-photo-scrim: var(--primitive-gradient-photo-top);
+  --color-glass-background: var(--primitive-color-white-a86);
+
+  /* Технічні paint-значення для прозорих поверхонь та Solar mask fill;
+     component declarations усе одно читають їх лише через semantic color layer. */
+  --color-transparent: var(--primitive-color-transparent);
+  --color-icon-current: var(--primitive-color-current);
+
+  /* Верхня панель вкладеного екрана (.kit-shell__appbar): біла поверхня, як у
+     карток, а кругла кнопка «Назад» — кольору полотна. Розділення панелі й
+     полотна — лише різницею фону, без тіней. */
+  --color-appbar-surface: var(--primitive-color-white);
+  --color-appbar-control: var(--primitive-color-cream-100);
+
+  /* Бренд-марка «Кутка» — завжди ліс, ніколи лайм (The Lime Is Current Rule). */
+  --color-brand-mark: var(--primitive-color-green-700);
+
+  /* Затемнення під bottom sheet (kit-sheet-backdrop). */
+  --color-scrim: var(--primitive-color-ink-a45);
+
+  /* Typography roles. Composite font tokens keep family, weight, size and
+     line-height inseparable, so a system-wide type change cannot silently
+     desynchronise one component. */
+  --type-body: var(--primitive-font-weight-400) var(--primitive-length-15)/var(--primitive-line-height-150) var(--primitive-font-family-text);
+  --type-page-title: var(--primitive-font-weight-800) var(--primitive-length-24)/var(--primitive-line-height-115) var(--primitive-font-family-display);
+  --type-detail-title: var(--primitive-font-weight-800) var(--primitive-length-20)/var(--primitive-line-height-120) var(--primitive-font-family-display);
+  --type-section-title: var(--primitive-font-weight-700) var(--primitive-length-17)/var(--primitive-line-height-130) var(--primitive-font-family-display);
+  --type-card-title: var(--primitive-font-weight-700) var(--primitive-length-16)/var(--primitive-line-height-130) var(--primitive-font-family-display);
+  --type-control: var(--primitive-font-weight-700) var(--primitive-length-15)/var(--primitive-line-height-130) var(--primitive-font-family-display);
+  --type-control-compact: var(--primitive-font-weight-700) var(--primitive-length-14)/var(--primitive-line-height-130) var(--primitive-font-family-display);
+  --type-input: var(--primitive-font-weight-400) var(--primitive-length-16)/var(--primitive-line-height-150) var(--primitive-font-family-text);
+  --type-field-label: var(--primitive-font-weight-600) var(--primitive-length-14)/var(--primitive-line-height-135) var(--primitive-font-family-display);
+  --type-support: var(--primitive-font-weight-400) var(--primitive-length-14)/var(--primitive-line-height-145) var(--primitive-font-family-text);
+  --type-meta: var(--primitive-font-weight-400) var(--primitive-length-13)/var(--primitive-line-height-145) var(--primitive-font-family-text);
+  --type-nav: var(--primitive-font-weight-600) var(--primitive-length-12)/var(--primitive-line-height-120) var(--primitive-font-family-display);
+  --type-overline: var(--primitive-font-weight-700) var(--primitive-length-11)/var(--primitive-line-height-120) var(--primitive-font-family-display);
+  --type-price: var(--primitive-font-weight-800) var(--primitive-length-18)/var(--primitive-line-height-115) var(--primitive-font-family-display);
+  --type-price-hero: var(--primitive-font-weight-800) var(--primitive-length-22)/var(--primitive-line-height-115) var(--primitive-font-family-display);
+  --type-brand: var(--primitive-font-weight-800) var(--primitive-length-18)/var(--primitive-line-height-1) var(--primitive-font-family-display);
+  --type-appbar: var(--primitive-font-weight-700) var(--primitive-length-15)/var(--primitive-line-height-120) var(--primitive-font-family-display);
+  --type-chip: var(--primitive-font-weight-700) var(--primitive-length-12)/var(--primitive-line-height-120) var(--primitive-font-family-display);
+  --type-footer: var(--primitive-font-weight-400) var(--primitive-length-12)/var(--primitive-line-height-140) var(--primitive-font-family-text);
+
+  /* Layout roles. Fine-grained primitive lengths remain valid for icon
+     geometry; product spacing and shape decisions use these named roles. */
+  --space-screen-gutter: var(--primitive-length-16);
+  --space-section-gap: var(--primitive-length-16);
+  --space-card-block: var(--primitive-length-16);
+  --space-card-inline: var(--primitive-length-16);
+  --space-control-block: var(--primitive-length-12);
+  --space-control-inline: var(--primitive-length-16);
+  --space-stack-xs: var(--primitive-length-6);
+  --space-stack-sm: var(--primitive-length-8);
+  --space-stack-md: var(--primitive-length-12);
+  --space-stack-lg: var(--primitive-length-16);
+  --space-stack-xl: var(--primitive-length-24);
+  --space-stack-xxl: var(--primitive-length-32);
+  --size-tabbar: var(--primitive-length-70);
+  --space-tabbar-edge: var(--primitive-length-24);
+  --space-scroll-end: var(--primitive-length-24);
+  --space-tabbar-clearance: calc(var(--size-tabbar) + var(--space-tabbar-edge) + var(--space-scroll-end) + env(safe-area-inset-bottom, 0px));
+  --radius-field: var(--primitive-length-10);
+  --radius-control: var(--primitive-length-10);
+  --radius-card: var(--primitive-length-14);
+  --radius-hero: var(--primitive-length-18);
+  --radius-sheet: var(--primitive-length-18);
+  --radius-pill: var(--primitive-radius-pill);
+  --radius-circle: var(--primitive-radius-circle);
+  --radius-mark: var(--primitive-length-8);
+  --radius-track: var(--primitive-length-16);
+  --radius-context: var(--primitive-length-20);
+
+  /* Розміри контролів і медіа. Поле = контрол свідомо: одна висота 50;
+     мінімальна ціль дотику 44. Фото: 3:2 у стрічці, 4:3 у галереї деталі. */
+  --size-control: var(--primitive-length-50);
+  --size-tap: var(--primitive-length-44);
+  --ratio-listing-media: 3 / 2;
+  --ratio-gallery-media: 4 / 3;
+
+  /* Current direction is deliberately flat. Elevation stays semantic so a
+     future product decision changes tokens, never per-screen selectors. */
+  --elevation-card: none;
+  --elevation-lift: none;
+  --elevation-primary: none;
+}
+
+/* Proof-only stress test of the semantic layer. This is not an adopted product
+   theme; keeping it after review is a separate product decision.
+   This block intentionally overrides semantic color tokens only. */
+[data-theme="dark"] {
+  /* Core canvas/body text: cream-050 on ink-900 = 15.47:1; secondary
+     cream-300 on ink-900 = 12.61:1 (WCAG AA normal text requires 4.5:1). */
+  --color-page-background: var(--primitive-color-ink-900);
+  --color-page-outer-background: var(--primitive-color-green-900);
+  --color-card-background: var(--primitive-color-green-900);
+  --color-card-subdued-background: var(--primitive-color-ink-700);
+  --color-claim-background: var(--primitive-color-green-900);
+  --color-text-primary: var(--primitive-color-cream-050);
+  --color-text-primary-support: var(--primitive-color-cream-300);
+  --color-text-secondary: var(--primitive-color-cream-300);
+
+  /* Action surfaces: cream-050 on green-600 = 6.19:1; action text
+     green-200 on ink-900 ≈ 12:1 (AA text 4.5:1, UI/focus 3:1). */
+  --color-action: var(--primitive-color-green-200);
+  --color-action-surface: var(--primitive-color-green-600);
+  --color-on-action: var(--primitive-color-cream-050);
+
+  /* Borders and selected controls: green-100 against ink-900 ≈ 13:1;
+     cream-050 on green-600 = 6.19:1 (UI boundary 3:1, text 4.5:1).
+     Лайм у темній темі не використовується поза current-станом. */
+  --color-surface-sunken: var(--primitive-color-ink-700);
+  --color-divider: var(--primitive-color-green-100);
+  --color-hairline: var(--primitive-color-green-600);
+  --color-current-background: var(--primitive-color-green-600);
+  --color-current-text: var(--primitive-color-cream-050);
+  --color-accent: var(--primitive-color-green-200);
+
+  /* Trust/info states: green-100 on ink-900 ≈ 13:1 and green-100 on
+     green-700 ≈ 6.9:1. Danger: red-050 on red-700 = 6.80:1. */
+  --color-avatar-background: var(--primitive-color-green-700);
+  --color-info-background: var(--primitive-color-green-900);
+  --color-trust: var(--primitive-color-green-100);
+  --color-trust-background: var(--primitive-color-green-700);
+  --color-danger: var(--primitive-color-red-050);
+  --color-danger-background: var(--primitive-color-red-700);
+
+  /* Waiting cream-200 on amber-800 = 6.31:1; the non-text notification dot
+     orange-700 against ink-900 = 3.16:1 (AA text/UI thresholds respectively). */
+  --color-waiting: var(--primitive-color-cream-200);
+  --color-waiting-background: var(--primitive-color-amber-800);
+  --color-notification: var(--primitive-color-orange-700);
+
+  /* Focus green-200 against ink-900 ≈ 12:1, exceeding the 3:1
+     non-text focus-indicator requirement. */
+  --color-focus: var(--primitive-color-green-200);
+  --color-action-surface-hover: var(--primitive-color-green-700);
+  --color-action-surface-active: var(--primitive-color-green-900);
+  --color-interactive-surface-hover: var(--primitive-color-ink-700);
+  --color-interactive-surface-active: var(--primitive-color-green-900);
+  --color-interactive-text-hover: var(--primitive-color-green-100);
+  --color-interactive-text-active: var(--primitive-color-cream-050);
+  --color-field-hover: var(--primitive-color-green-900);
+  --color-field-focus: var(--primitive-color-ink-700);
+  --color-media-hover-overlay: var(--primitive-color-white-a20);
+  --opacity-disabled: var(--primitive-opacity-55);
+
+  /* Image/glass paints stay within the existing primitive palette. */
+  --color-photo-scrim: var(--primitive-gradient-photo-top);
+  --color-glass-background: var(--primitive-color-green-900);
+
+  /* Technical paints have no light/dark polarity, but remain explicitly routed
+     through the semantic layer so every rendered component token is covered. */
+  --color-transparent: var(--primitive-color-transparent);
+  --color-icon-current: var(--primitive-color-current);
+  --color-brand-mark: var(--primitive-color-green-700);
+  --color-scrim: var(--primitive-color-ink-a45);
+
+  /* Appbar: title cream-050 on green-900 ≈ 12.9:1; back icon green-200 on
+     ink-900 ≈ 12:1; панель green-900 відділена від полотна ink-900 фоном. */
+  --color-appbar-surface: var(--primitive-color-green-900);
+  --color-appbar-control: var(--primitive-color-ink-900);
+}

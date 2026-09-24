@@ -1,0 +1,18 @@
+/* ───────── Прогрес кроків ───────── */
+/* Розмітка:
+   <div class="kit-progress">
+     <p class="kit-progress__meta"><strong>Крок 1 з 3</strong><span>Режим дня</span></p>
+     <div class="kit-progress__track" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1" aria-label="Крок анкети">
+       <span class="kit-progress__value" style="width: 33.333%"></span>
+     </div>
+   </div>
+   Ширину __value задає сторінка/скрипт (inline width або --kit-progress). */
+.kit-progress { --kit-progress: 0%; display: flex; min-width: 0; flex-direction: column; gap: var(--space-stack-sm); }
+.kit-progress__meta { display: flex; margin: 0; align-items: baseline; justify-content: space-between; gap: var(--space-stack-md); color: var(--color-text-secondary); font: var(--type-meta); }
+.kit-progress__meta strong { color: var(--color-text-primary); font: var(--type-field-label); }
+.kit-progress__track { height: var(--primitive-length-4); overflow: hidden; border-radius: var(--radius-pill); background: var(--color-surface-sunken); }
+.kit-progress__value { display: block; width: var(--kit-progress); height: var(--primitive-width-full); border-radius: var(--radius-pill); background: var(--color-action-surface); }
+
+/* Статус чернетки під діями форми («Чернетку збережено на цьому пристрої»).
+   Це модифікатор підказки: використовуй разом із .kit-hint. */
+.kit-draft-status { min-height: var(--primitive-length-20); max-width: none; margin: 0; color: var(--color-text-secondary); font: var(--type-meta); text-align: center; }

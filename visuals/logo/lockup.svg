@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 32" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Куток</title>
+  <desc id="desc">Знак дому з відкритим спільним простором і словесний знак Куток</desc>
+  <g transform="translate(4 4)" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 6.25 8 0l8 6.25V16h-6v-5.25H6V16H0V6.25Z"/>
+    <path d="M4.25 6.5h7.5"/>
+  </g>
+  <g fill="currentColor">
+    <path d="M31 7h3.3v7.1L40.4 7h4.1l-7 7.8 7.4 9.2h-4.2l-6.4-8.3V24H31V7Z"/>
+    <path d="M45.6 11.1h3.5l3.2 8.2 3.1-8.2h3.5l-5.6 13.1c-.9 2.1-2.2 3.1-4.2 3.1-.8 0-1.6-.1-2.3-.4v-2.7c.6.2 1.1.3 1.6.3.8 0 1.4-.4 1.8-1.2l.3-.6-4.9-11.6Z"/>
+    <path d="M60.1 11.1h11.5v2.8h-4.2V24h-3.2V13.9h-4.1v-2.8Z"/>
+    <path d="M72.3 17.6c0-3.9 2.8-6.8 6.8-6.8s6.8 2.9 6.8 6.8c0 3.9-2.8 6.7-6.8 6.7s-6.8-2.8-6.8-6.7Zm3.3 0c0 2.3 1.4 3.9 3.5 3.9s3.5-1.6 3.5-3.9-1.4-4-3.5-4-3.5 1.7-3.5 4Z"/>
+    <path d="M88.4 11.1h3.2v5l4.7-5h4l-5.6 5.9 6.1 7h-4.2l-5-6.1V24h-3.2V11.1Z"/>
+  </g>
+</svg>

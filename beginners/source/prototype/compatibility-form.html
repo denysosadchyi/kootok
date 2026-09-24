@@ -3,169 +3,185 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#365c4f">
+<meta name="theme-color" content="#245744">
 <title>Куток — Анкета сумісності</title>
+<link rel="stylesheet" href="/kootok/design-system/index.css">
 <link rel="stylesheet" href="_base.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
-<link rel="stylesheet" href="/kootok/site-theme.css">
 <script src="/kootok/course-nav.js" defer></script>
 </head>
 <body>
+<div class="kit-shell">
+  <header class="kit-shell__brand"><a href="listings.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+  <header class="kit-shell__appbar"><a class="kit-back" href="listing.html" aria-label="Назад до оголошення">Кімната в Голосіївському районі</a><h1 class="kit-shell__title">Сумісність</h1></header>
+  <main class="kit-shell__body">
+    <header class="kit-page-intro">
+      <h2 class="kit-headline">Розкажи про свій побут</h2>
+      <p class="kit-meta">Марія та Олег побачать цю анкету разом із твоєю заявкою на кімнату в Голосіївському районі. Відповіді збережуться у звичках твого профілю.</p>
+    </header>
 
-<header class="product-header">
-  <a class="product-header__brand" href="listings.html" aria-label="Куток — на головну">Куток</a>
-  <nav class="product-nav" aria-label="Навігація продуктом">
-    <a class="product-nav__link" href="listings.html">Пошук</a>
-    <a class="product-nav__link" href="chats.html">Чати</a>
-    <a class="product-nav__link" href="profile.html" aria-current="page">Профіль</a>
-    <a class="product-nav__link product-nav__link--create" href="/kootok/research/wireframes/listing-new.html" aria-label="Додати нове оголошення">Додати</a>
-  </nav>
-</header>
+    <div class="kit-progress">
+      <p class="kit-progress__meta"><strong data-progress-title>Ритм дому</strong><span data-progress-label>Крок 1 із 3</span></p>
+      <div class="kit-progress__track" role="progressbar" aria-label="Крок анкети" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1" data-progress-track><span class="kit-progress__value" data-progress-value style="width: 33.333%"></span></div>
+    </div>
 
-<p class="proto-note">
-  Прототип 390&nbsp;px · екран «Анкета сумісності — заповнення власного
-  профілю» (_screens.md) · крок 3 з 4 головного сценарію · Задача 4
-  (відсіяти несумісних ще до зустрічі) · назад → оголошення · далі →
-  заявка
-</p>
+    <form class="kit-form" aria-label="Анкета сумісності" action="application.html" method="get" data-compatibility-form>
 
-<header>
-  <a class="back-link" href="listing.html" aria-label="Назад до оголошення">Кімната в Голосіївському районі</a>
-  <p class="product">Куток — профіль людини</p>
-  <h1>Сумісність</h1>
-</header>
+      <section class="kit-step" data-step data-step-title="Ритм дому">
+        <h3 class="kit-sr-only" tabindex="-1">Крок 1: ритм дому</h3>
+        <p class="kit-step__intro">Обери відповіді, які найточніше описують твій звичний день.</p>
 
-<main>
-  <section aria-labelledby="form-heading">
-    <h2 id="form-heading">Розкажіть про свій побут</h2>
-    <p class="meta">
-      Марія та Олег побачать цю анкету разом із вашою заявкою на кімнату
-      в Голосіївському районі.
-    </p>
+        <fieldset class="kit-fieldset">
+          <legend>Сон</legend>
+          <label class="kit-choice"><input type="radio" name="sleep" value="early" required> Рано лягаю, до 23:00</label>
+          <label class="kit-choice"><input type="radio" name="sleep" value="late"> Пізно лягаю, після півночі</label>
+          <label class="kit-choice"><input type="radio" name="sleep" value="varies"> По-різному, залежить від дня</label>
+        </fieldset>
 
-    <form aria-label="Анкета сумісності" action="application.html" method="get">
+        <fieldset class="kit-fieldset">
+          <legend>Чистота</legend>
+          <label class="kit-choice"><input type="radio" name="cleanliness" value="daily" required> Прибираю щодня</label>
+          <label class="kit-choice"><input type="radio" name="cleanliness" value="weekly"> Раз-два на тиждень</label>
+          <label class="kit-choice"><input type="radio" name="cleanliness" value="occasional"> Коли трапляється</label>
+        </fieldset>
 
-      <fieldset>
-        <legend>Сон</legend>
-        <label class="choice"><input type="radio" name="sleep" value="early" checked> Рано лягаю, до 23:00</label>
-        <label class="choice"><input type="radio" name="sleep" value="late"> Пізно лягаю, після півночі</label>
-        <label class="choice"><input type="radio" name="sleep" value="varies"> По-різному, залежить від дня</label>
-      </fieldset>
+        <div class="kit-actions"><button type="button" class="kit-button kit-button--block" data-next>Зберегти й далі</button></div>
+      </section>
 
-      <fieldset>
-        <legend>Чистота</legend>
-        <label class="choice"><input type="radio" name="cleanliness" value="daily" checked> Прибираю щодня</label>
-        <label class="choice"><input type="radio" name="cleanliness" value="weekly"> Раз-два на тиждень</label>
-        <label class="choice"><input type="radio" name="cleanliness" value="occasional"> Коли трапляється</label>
-      </fieldset>
+      <section class="kit-step" data-step data-step-title="Межі й звички" hidden>
+        <h3 class="kit-sr-only" tabindex="-1">Крок 2: межі й звички</h3>
+        <p class="kit-step__intro">Ці відповіді допоможуть обговорити важливі побутові межі до зустрічі.</p>
 
-      <fieldset>
-        <legend>Гості</legend>
-        <label class="choice"><input type="radio" name="guests" value="rarely" checked> Рідко, і завжди попереджаю</label>
-        <label class="choice"><input type="radio" name="guests" value="weekends"> Іноді на вихідних</label>
-        <label class="choice"><input type="radio" name="guests" value="often"> Часто</label>
-      </fieldset>
+        <fieldset class="kit-fieldset">
+          <legend>Гості</legend>
+          <label class="kit-choice"><input type="radio" name="guests" value="rarely" required> Рідко, і завжди попереджаю</label>
+          <label class="kit-choice"><input type="radio" name="guests" value="weekends"> Іноді на вихідних</label>
+          <label class="kit-choice"><input type="radio" name="guests" value="often"> Часто</label>
+        </fieldset>
 
-      <fieldset>
-        <legend>Тварини</legend>
-        <label class="choice"><input type="radio" name="pets" value="none" checked> Немає і не планую</label>
-        <label class="choice"><input type="radio" name="pets" value="allergy"> Немає, є алергія</label>
-        <label class="choice"><input type="radio" name="pets" value="have"> Тримаю тварину</label>
-      </fieldset>
+        <fieldset class="kit-fieldset">
+          <legend>Тварини</legend>
+          <label class="kit-choice"><input type="radio" name="pets" value="none" required> Немає і не планую</label>
+          <label class="kit-choice"><input type="radio" name="pets" value="allergy"> Немає, є алергія</label>
+          <label class="kit-choice"><input type="radio" name="pets" value="have"> Тримаю тварину</label>
+        </fieldset>
 
-      <fieldset>
-        <legend>Куріння</legend>
-        <label class="choice"><input type="radio" name="smoking" value="no" checked> Не курю</label>
-        <label class="choice"><input type="radio" name="smoking" value="outside"> Курю, але не вдома</label>
-        <label class="choice"><input type="radio" name="smoking" value="yes"> Курю</label>
-      </fieldset>
+        <fieldset class="kit-fieldset">
+          <legend>Куріння</legend>
+          <label class="kit-choice"><input type="radio" name="smoking" value="no" required> Не курю</label>
+          <label class="kit-choice"><input type="radio" name="smoking" value="outside"> Курю, але не вдома</label>
+          <label class="kit-choice"><input type="radio" name="smoking" value="yes"> Курю</label>
+        </fieldset>
 
-      <fieldset>
-        <legend>Графік</legend>
-        <label class="choice"><input type="radio" name="schedule" value="office" checked> Стандартний офісний</label>
-        <label class="choice"><input type="radio" name="schedule" value="remote"> Віддалено, гнучкий</label>
-        <label class="choice"><input type="radio" name="schedule" value="shift"> Змінний або нічний</label>
-      </fieldset>
+        <div class="kit-actions kit-actions--split"><button type="button" class="kit-button kit-button--secondary" data-back>Назад</button><button type="button" class="kit-button" data-next>Зберегти й далі</button></div>
+      </section>
 
-      <div class="field">
-        <label for="about">Коротко про себе</label>
-        <textarea id="about" name="about">Переїжджаю в Київ на нову роботу 1 вересня. Люблю готувати, спокійна, працюю в офісі з 9 до 18. Шукаю тиху квартиру без гучних вечірок.</textarea>
-      </div>
+      <section class="kit-step" data-step data-step-title="Графік і знайомство" hidden>
+        <h3 class="kit-sr-only" tabindex="-1">Крок 3: графік і знайомство</h3>
+        <p class="kit-step__intro">Заверши анкету коротким описом — без контактів і зайвих персональних даних.</p>
 
-      <div class="form-actions">
-        <button type="submit" class="primary">Зберегти й продовжити</button>
-      </div>
+        <fieldset class="kit-fieldset">
+          <legend>Графік</legend>
+          <label class="kit-choice"><input type="radio" name="schedule" value="office" required> Стандартний офісний</label>
+          <label class="kit-choice"><input type="radio" name="schedule" value="remote"> Віддалено, гнучкий</label>
+          <label class="kit-choice"><input type="radio" name="schedule" value="shift"> Змінний або нічний</label>
+        </fieldset>
+
+        <fieldset class="kit-fieldset">
+          <legend>Коротко про себе</legend>
+          <div class="kit-field">
+            <label class="kit-sr-only" for="about">Коротко про себе</label>
+            <textarea id="about" name="about" placeholder="Наприклад: коли переїжджаєш, який маєш графік і що для тебе важливо вдома"></textarea>
+            <p class="kit-field__message">Не додавай номер телефону або посилання на соцмережі.</p>
+          </div>
+        </fieldset>
+
+        <div class="kit-actions kit-actions--split"><button type="button" class="kit-button kit-button--secondary" data-back>Назад</button><button type="submit" class="kit-button">Зберегти й перейти до заявки</button></div>
+      </section>
+
+      <p class="kit-hint kit-draft-status" role="status" data-draft-status>Чернетка зберігається лише в цьому браузері.</p>
     </form>
-  </section>
-</main>
 
-<!-- Службова панель прототипу: розділ → екран → стани.
-     Структура з prototype/_screens.md, імена файлів з prototype/_rules.md.
-     Не елемент продукту — на полотні 390 px не показується. -->
-<aside class="proto-tree">
-  <h2>Прототип «Кутка»</h2>
-  <p class="hint">Головний сценарій Соломії</p>
+    <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+  </main>
+</div>
+<script>
+(function () {
+  var form = document.querySelector('[data-compatibility-form]');
+  if (!form) return;
+  var steps = Array.from(form.querySelectorAll('[data-step]'));
+  var title = document.querySelector('[data-progress-title]');
+  var label = document.querySelector('[data-progress-label]');
+  var value = document.querySelector('[data-progress-value]');
+  var track = document.querySelector('[data-progress-track]');
+  var status = form.querySelector('[data-draft-status]');
+  var storageKey = 'kutok-compatibility-draft-v1';
+  var current = 0;
 
-  <nav aria-label="Навігація прототипом">
-    <ul>
+  function saveDraft(message) {
+    var draft = { __step: current };
+    new FormData(form).forEach(function (fieldValue, key) { draft[key] = fieldValue; });
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(draft));
+      status.textContent = message || 'Чернетку збережено в цьому браузері.';
+    } catch (_) {
+      status.textContent = 'Чернетку не вдалося зберегти. Відповіді лишаються у формі.';
+    }
+  }
 
-      <li>
-        <span class="group">Оголошення (кімната / квартира)</span>
-        <ul class="level-screen">
+  function restoreDraft() {
+    var draft;
+    try { draft = JSON.parse(localStorage.getItem(storageKey) || 'null'); } catch (_) { draft = null; }
+    if (!draft) return 0;
+    Object.keys(draft).forEach(function (name) {
+      if (name === '__step') return;
+      var controls = Array.from(form.elements).filter(function (control) { return control.name === name; });
+      controls.forEach(function (control) {
+        if (control.type === 'radio' || control.type === 'checkbox') control.checked = control.value === draft[name];
+        else control.value = draft[name];
+      });
+    });
+    status.textContent = 'Чернетку відновлено з цього браузера.';
+    return Number.isInteger(draft.__step) ? draft.__step : 0;
+  }
 
-          <li class="screen">
-            <a href="listings.html">Стрічка оголошень + фільтри</a>
-            <ul class="level-state">
-              <li><a href="listings.html">успіх</a></li>
-              <li><a href="listings-empty.html">порожньо</a></li>
-              <li><a href="listings-error.html">помилка</a></li>
-              <li><a href="listings-loading.html">очікування</a></li>
-            </ul>
-          </li>
+  function showStep(index, moveFocus) {
+    current = Math.max(0, Math.min(index, steps.length - 1));
+    steps.forEach(function (step, stepIndex) { step.hidden = stepIndex !== current; });
+    title.textContent = steps[current].dataset.stepTitle;
+    label.textContent = 'Крок ' + (current + 1) + ' із ' + steps.length;
+    value.style.width = ((current + 1) / steps.length * 100) + '%';
+    track.setAttribute('aria-valuenow', String(current + 1));
+    track.setAttribute('aria-valuetext', 'Крок ' + (current + 1) + ' із ' + steps.length + ': ' + steps[current].dataset.stepTitle);
+    if (moveFocus) steps[current].querySelector('h3').focus();
+  }
 
-          <li class="screen">
-            <a href="listing.html">Сторінка оголошення</a>
-            <ul class="level-state">
-              <li><a href="listing.html">успіх</a></li>
-              <li><a href="listing-error.html">помилка</a></li>
-              <li><a href="listing-loading.html">очікування</a></li>
-            </ul>
-          </li>
+  function stepIsValid(step) {
+    var controls = Array.from(step.querySelectorAll('input, textarea, select'));
+    for (var index = 0; index < controls.length; index += 1) {
+      if (!controls[index].checkValidity()) {
+        controls[index].reportValidity();
+        return false;
+      }
+    }
+    return true;
+  }
 
-        </ul>
-      </li>
+  form.addEventListener('input', function () { saveDraft(); });
+  form.querySelectorAll('[data-next]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      if (!stepIsValid(steps[current])) return;
+      showStep(current + 1, true);
+      saveDraft();
+    });
+  });
+  form.querySelectorAll('[data-back]').forEach(function (button) {
+    button.addEventListener('click', function () { showStep(current - 1, true); saveDraft(); });
+  });
+  form.addEventListener('submit', function () { saveDraft('Анкету збережено. Відкриваємо заявку…'); });
 
-      <li>
-        <span class="group">Профіль людини</span>
-        <ul class="level-screen">
-          <li class="screen is-open">
-            <a href="compatibility-form.html">Анкета сумісності — заповнення власного профілю</a>
-            <ul class="level-state">
-              <li><a href="compatibility-form.html" aria-current="page">успіх</a></li>
-              <li><a href="compatibility-form-error.html">помилка</a></li>
-              <li><a href="compatibility-form-loading.html">очікування</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-
-      <li>
-        <span class="group">Заявка</span>
-        <ul class="level-screen">
-          <li class="screen">
-            <a href="application.html">Форма заявки</a>
-            <ul class="level-state">
-              <li><a href="application.html">успіх</a></li>
-              <li><a href="application-error.html">помилка</a></li>
-              <li><a href="application-loading.html">очікування</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-
-    </ul>
-  </nav>
-</aside>
-
+  showStep(restoreDraft(), false);
+}());
+</script>
 </body>
 </html>

@@ -1,0 +1,98 @@
+# UI inventory «Кутка»
+
+Короткий склад кіта уроку 8: `tokens.css` + `components/index.css`. Джерело правди — token/component graph і
+`ui/kit.html` (вітрина з прикладом кожного компонента). Повний словник класів
+і структура екранів — у специфікації четвертого проходу; цей файл — лише
+довідковий список.
+
+## 0. Правило контейнерів
+
+Полотно (`--kit-canvas`, тепле пісочне) тримає тільки: бренд-рядок/app bar,
+`h1.kit-headline` + `p.kit-meta`, сегментований перемикач, `h2.kit-section__title`,
+`p.kit-hint`, головну дію (`.kit-button` + `.kit-actions`), футер. Усе інше —
+текст, факти, списки довіри, теги, поля форми, стани, нотатки — живе всередині
+`.kit-card`. Винятки — лише `.kit-messages` (бульбашки чату самі собі контейнер)
+і `.kit-gallery` (медіа на всю ширину). Один розділ = `section.kit-section` =
+опційний заголовок + одна або кілька `.kit-card`.
+
+## 1. Типографічна шкала
+
+| Рівень | Клас |
+|---|---|
+| Заголовок сторінки | `.kit-headline` (26/800, лише на полотні) |
+| Заголовок картки-шапки деталі | `.kit-card--head h2` (22/800) |
+| Заголовок розділу | `.kit-section__title` (17/700) |
+| Заголовок картки / legend | `.kit-card__title`, `fieldset > legend`, `.kit-legend` (15/700) |
+| Тіло | body (16/400, Golos Text) |
+| Компактний текст | `.kit-compact` (14/400) |
+| Підпис поля | `label`, `.kit-label` (13/600) |
+| Мета / підказка | `.kit-meta`, `.kit-hint` (13/400, muted) |
+| Ціна | `.kit-price` (20/800; 24/800 у `.kit-card--head`) |
+| Заголовок appbar | `.kit-shell__title` (16/700) |
+
+## 2. Шкала (колір / радіус / тінь / відступ)
+
+Колір — палітра «Зелений двір»: `--kit-canvas`, `--kit-surface`, `--kit-sunken`,
+`--kit-forest`/`-deep`, `--kit-leaf`, `--kit-mint`/`-soft`, `--kit-lime`/`-soft`,
+`--kit-ink`/`-2`, `--kit-muted`, семантичні `--kit-success`/`-bg`, `--kit-error`/`-bg`,
+`--kit-waiting`/`-bg`, `--kit-notification`, `--kit-focus`. Радіуси: `sm` 10,
+`md` 14 (поля), `lg` 16 (кнопки), `xl` 20 (картки), `2xl` 24 (hero, таб-бар),
+`pill` 999, `circle` 50%. Тіні — рівно три: `--kit-shadow-card`, `--kit-shadow-lift`
+(таб-бар, composer), `--kit-shadow-primary` (первинна кнопка). Відступи 4/8/12/16/24/32.
+
+## 3. Компоненти
+
+### Оболонка
+`.kit-shell` (390px), `.kit-shell--bare` (без відступу під таб-бар) ·
+`.kit-shell__brand` (марка + пігулка міста) · `.kit-shell__appbar` +
+`.kit-shell__title`, `.kit-back`, `.kit-shell__action`, `.kit-appbar-avatar` ·
+`.kit-shell__body` · `.kit-tabbar` + `.kit-tab` (`--chats --profile --listings
+--create`), `.kit-tabbar--host` (4 рівні пункти) · `.kit-footer`.
+
+### Картки
+`.kit-card`, `.kit-card--head` (шапка деталі), `.kit-card--hero` (профіль,
+градієнт), `.kit-card--state` (порожньо/помилка/завантаження), `.kit-card--tint`
+(тонова), `.kit-card--list` (padding 0, для списку чатів), `.kit-card__title`,
+`.kit-card__row`.
+
+### Ключ–значення
+`dl.kit-kv` (рядки замість плиток), `.kit-nowrap` · `dl.kit-facts.kit-facts--inline`
+(короткі факти в картці стрічки, роздільник «·»).
+
+### Списки й картки стрічки
+`ul.kit-list > li > article.kit-listing` · `.kit-listing__media` +
+`img.kit-listing__photo` (`--portrait`) + `.kit-price` на фото · `.kit-listing__body` ·
+`.kit-listing__foot` (аватар xs + підпис, картка клікабельна цілком) ·
+`.kit-listing--closed`, `.kit-listing--loading`.
+
+### Довіра / людина
+`.kit-person` (`__name`, `__bio`) · `.kit-chip` (`--muted --error --current`) ·
+`ul.kit-trust-list` (`li.is-missing` — доказ відсутній).
+
+### Форми
+`form.kit-form` · `fieldset.kit-fieldset` (= картка) · `.kit-field` (`--select
+--date --error` + `.kit-field__message`) · `.kit-field-row` · `abbr.kit-req` ·
+`label.kit-choice` (`--stacked`, `__text`, `__hint`) · `.kit-code` (`--six
+--error`) · `.kit-actions` (`--row`) · `.kit-button` (`--secondary --quiet
+--compact --block`) · `.kit-icon-button` · `.kit-composer`.
+
+### Нотатки
+`p/div.kit-note` (`--info --warning --success --error`) — єдиний компонент
+для банерів і повідомлень.
+
+### Стани
+`.kit-card.kit-card--state > .kit-state` (`__icon` з `--chat --document
+--shield --profile --closed`, помилка через `.kit-state--error`), `.kit-applied`,
+`.kit-steps`, `p.kit-state-context`, `.kit-skeleton*`.
+
+### Чат
+`.kit-conversation-context` · `ul.kit-messages` > `.kit-message` (`--outgoing
+--system --failed`, `__meta`) · `.kit-card.kit-card--list > ul.kit-chat-list >
+li > a.kit-chat-row` (`.kit-chat-copy`, `.kit-chat-side`, `.kit-unread`).
+
+### Галерея деталі
+`ul.kit-gallery` (`--inset` коли живе всередині картки, не на полотні).
+
+### Сегмент і рядок лічильника
+`ul.kit-segmented` / `div[role=radiogroup]` · `div.kit-toolbar` (лічильник +
+кнопка «Фільтри» compact secondary; фільтри відкриваються окремою сторінкою).

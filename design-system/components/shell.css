@@ -1,0 +1,43 @@
+/* ───────── Оболонка ───────── */
+.kit-shell { position: relative; width: min(var(--primitive-width-full), var(--primitive-length-390)); min-height: var(--primitive-length-700); margin: auto; overflow: hidden; background: var(--color-page-background); color: var(--color-text-primary); font: var(--type-body); }
+
+/* Бренд: зелена плитка 30px + знак «Куток» (tokens/icons/brand.svg, 22px у плитці) + wordmark текстом у Jost. */
+.kit-shell__brand { display: flex; min-height: var(--primitive-length-56); align-items: center; justify-content: space-between; padding: var(--primitive-length-8) var(--space-screen-gutter) 0; color: var(--color-action); }
+.kit-shell:has(> .kit-shell__appbar) > .kit-shell__brand { display: none; }
+.kit-shell__brand a { position: relative; display: inline-flex; flex: none; min-height: var(--size-tap); align-items: center; padding-left: var(--primitive-length-38); font: var(--type-brand); letter-spacing: var(--primitive-letter-spacing-n02); white-space: nowrap; text-decoration: none; }
+.kit-shell__brand a::before { content: ""; position: absolute; left: 0; top: var(--primitive-width-50pct); width: var(--primitive-length-30); height: var(--primitive-length-30); border-radius: var(--radius-mark); background: var(--color-brand-mark); transform: translateY(calc(-1 * var(--primitive-width-50pct))); }
+.kit-shell__brand a::after { --kit-icon: var(--primitive-icon-brand); position: absolute; left: var(--primitive-length-4); top: var(--primitive-width-50pct); width: var(--primitive-length-22); height: var(--primitive-length-22); color: var(--color-on-action); transform: translateY(calc(-1 * var(--primitive-width-50pct))); }
+.kit-shell__brand span { display: inline-flex; align-items: center; gap: var(--primitive-length-5); min-height: var(--primitive-length-30); padding: 0; border-radius: 0; background: var(--color-transparent); color: var(--color-text-primary-support); font: var(--type-meta); font-weight: var(--primitive-font-weight-600); }
+.kit-shell__brand span::before { --kit-icon: var(--primitive-icon-pin); width: var(--primitive-length-14); height: var(--primitive-length-14); color: var(--color-accent); }
+
+/* Appbar — біла панель на всю ширину оболонки; кнопка «Назад» кольору полотна. */
+.kit-shell__appbar { position: relative; z-index: 2; display: grid; width: var(--primitive-width-full); min-height: var(--primitive-length-60); padding: var(--primitive-length-8) var(--primitive-length-12); align-items: center; grid-template-columns: var(--size-tap) 1fr var(--size-tap); background: var(--color-appbar-surface); }
+.kit-shell__title { grid-column: 2; margin: 0; overflow: hidden; text-align: center; text-overflow: ellipsis; white-space: nowrap; font: var(--type-appbar); }
+.kit-shell__appbar > .kit-back { grid-column: 1; justify-self: start; }
+.kit-back { --kit-icon: var(--primitive-icon-back); display: inline-flex; width: var(--size-tap); height: var(--size-tap); align-items: center; justify-content: center; overflow: hidden; border-radius: var(--radius-circle); background: var(--color-appbar-control); color: var(--color-action); font-size: 0; line-height: var(--primitive-line-height-0); text-decoration: none; }
+.kit-back::before { width: var(--primitive-length-22); height: var(--primitive-length-22); margin-left: var(--primitive-length-n2); }
+@media (hover: hover) { .kit-back[href]:hover { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); } }
+.kit-back[data-demo-state="hover"] { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); }
+.kit-back[href]:active, .kit-back[data-demo-state="active"] { background: var(--color-interactive-surface-active); color: var(--color-interactive-text-active); }
+.kit-back[data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
+.kit-back[aria-disabled="true"] { opacity: var(--opacity-disabled); cursor: default; }
+
+.kit-shell__body { display: flex; min-width: 0; flex-direction: column; gap: var(--space-section-gap); padding: var(--space-screen-gutter) var(--space-screen-gutter) var(--space-scroll-end); }
+.kit-shell--with-dock > .kit-shell__body { padding-bottom: var(--space-tabbar-clearance); }
+
+/* Dock шукачки в макетах — 3 пункти (Пошук · Чати · Профіль). Dock лістера
+   (4 пункти з «Оголошеннями») у макетах не показано, тож у кіті його немає. */
+.kit-tabbar { display: grid; min-width: 0; height: var(--size-tabbar); padding: var(--primitive-length-3); grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--primitive-length-1); border-radius: var(--radius-hero); background: var(--color-card-background); box-shadow: var(--elevation-lift); }
+.kit-tabbar--dock { position: fixed; z-index: 30; left: 50%; bottom: calc(var(--space-tabbar-edge) + env(safe-area-inset-bottom, 0px)); width: calc(min(var(--primitive-width-full), var(--primitive-length-390)) - (2 * var(--space-screen-gutter))); margin: 0; transform: translateX(-50%); }
+.kit-tab { --kit-icon: var(--primitive-icon-home); display: flex; min-width: 0; min-height: var(--primitive-length-58); align-items: center; justify-content: center; gap: var(--primitive-length-2); flex-direction: column; overflow: hidden; border-radius: var(--radius-control); color: var(--color-text-secondary); font: var(--type-nav); letter-spacing: var(--primitive-letter-spacing-n03); line-height: var(--primitive-line-height-115); text-align: center; white-space: normal; overflow-wrap: anywhere; text-decoration: none; padding-inline: var(--primitive-length-1); }
+.kit-tab::before { width: var(--primitive-length-24); height: var(--primitive-length-24); }
+.kit-tab--chats { --kit-icon: var(--primitive-icon-chats); }
+.kit-tab--profile { --kit-icon: var(--primitive-icon-profile); }
+.kit-tab[aria-current="page"] { background: var(--color-current-background); color: var(--color-current-text); font-weight: var(--primitive-font-weight-700); }
+@media (hover: hover) { .kit-tab[href]:hover { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); } }
+.kit-tab[data-demo-state="hover"] { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); }
+.kit-tab[href]:active, .kit-tab[data-demo-state="active"] { background: var(--color-interactive-surface-active); color: var(--color-interactive-text-active); }
+.kit-tab[data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
+.kit-tab[aria-disabled="true"] { opacity: var(--opacity-disabled); cursor: default; }
+
+.kit-footer { margin: 0; padding: 0; color: var(--color-text-secondary); font: var(--type-footer); text-align: center; }

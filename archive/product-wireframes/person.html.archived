@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Куток — Профіль співмешканця</title>
+<link rel="stylesheet" href="_wireframe.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/kootok/tokens.css">
+  <link rel="stylesheet" href="/kootok/components/index.css">
+<link rel="stylesheet" href="/kootok/course-nav.css">
+<script src="/kootok/course-nav.js" defer></script>
+<script>if(window.top!==window.self)document.documentElement.className+=" embedded";</script>
+</head>
+<body data-page="person">
+
+<div class="app">
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     СПІЛЬНА ЛІВА ПАНЕЛЬ ВАЙРФРЕЙМІВ — згенерована, редагувати в gen.py.
+     Поточний вузол підсвічує скрипт унизу за <body data-page="…">.
+     Структура: розділ (sitemap.md, I–VII) → екран (15) → стан (_screens.md).
+     ═══════════════════════════════════════════════════════════════════ -->
+<aside class="sidebar">
+<details open>
+<summary>Структура вайрфреймів ▾</summary>
+
+<div class="brand"><b>Куток</b><span>вайрфрейми · мобільний прототип</span></div>
+
+<ul class="tree">
+
+  <li>
+    <span class="group">I. Стати учасником Кутка</span>
+    <ul class="screens">
+      <li><a href="signup.html" data-page="signup">Реєстрація і верифікація телефону</a>
+        <ul class="states">
+          <li><a href="signup.html" data-page="signup">основний вигляд</a></li>
+          <li><a href="signup-empty.html" data-page="signup-empty">порожній</a></li>
+          <li><a href="signup-error.html" data-page="signup-error">помилка</a></li>
+          <li><a href="signup-loading.html" data-page="signup-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="role.html" data-page="role">Вибір ролі</a>
+        <ul class="states">
+          <li><a href="role.html" data-page="role">основний вигляд</a></li>
+          <li><a href="role-empty.html" data-page="role-empty">порожній</a></li>
+          <li><a href="role-error.html" data-page="role-error">помилка</a></li>
+          <li><a href="role-loading.html" data-page="role-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">II. Мій профіль</span>
+    <ul class="screens">
+      <li><a href="profile-edit.html" data-page="profile-edit">Створити / редагувати профіль</a>
+        <ul class="states">
+          <li><a href="profile-edit.html" data-page="profile-edit">основний вигляд</a></li>
+          <li><a href="profile-edit-empty.html" data-page="profile-edit-empty">порожній</a></li>
+          <li><a href="profile-edit-error.html" data-page="profile-edit-error">помилка</a></li>
+          <li><a href="profile-edit-loading.html" data-page="profile-edit-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="profile-social.html" data-page="profile-social">Додати соцлінк</a>
+        <ul class="states">
+          <li><a href="profile-social.html" data-page="profile-social">основний вигляд</a></li>
+          <li><a href="profile-social-empty.html" data-page="profile-social-empty">порожній</a></li>
+          <li><a href="profile-social-error.html" data-page="profile-social-error">помилка</a></li>
+          <li><a href="profile-social-loading.html" data-page="profile-social-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">III. Знайти кімнату або людину</span>
+    <ul class="screens">
+      <li><a href="listings.html" data-page="listings">Стрічка кімнат</a>
+        <ul class="states">
+          <li><a href="listings.html" data-page="listings">успіх</a></li>
+          <li><a href="listings-empty.html" data-page="listings-empty">порожній</a></li>
+          <li><a href="listings-error.html" data-page="listings-error">помилка *</a></li>
+          <li><a href="listings-loading.html" data-page="listings-loading">завантаження *</a></li>
+        </ul>
+      </li>
+      <li><a href="seekers.html" data-page="seekers">Стрічка людей-шукачів</a>
+        <ul class="states">
+          <li><a href="seekers.html" data-page="seekers">основний вигляд</a></li>
+          <li><a href="seekers-empty.html" data-page="seekers-empty">порожній</a></li>
+          <li><a href="seekers-error.html" data-page="seekers-error">помилка</a></li>
+          <li><a href="seekers-loading.html" data-page="seekers-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="filters.html" data-page="filters">Налаштувати фільтри</a>
+        <ul class="states">
+          <li><a href="filters.html" data-page="filters">основний вигляд</a></li>
+          <li><a href="filters-empty.html" data-page="filters-empty">порожній</a></li>
+          <li><a href="filters-error.html" data-page="filters-error">помилка</a></li>
+          <li><a href="filters-loading.html" data-page="filters-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">IV. Розглянути варіант</span>
+    <ul class="screens">
+      <li><a href="listing.html" data-page="listing">Картка оголошення кімнати</a>
+        <ul class="states">
+          <li><a href="listing.html" data-page="listing">основний вигляд</a></li>
+          <li><a href="listing-empty.html" data-page="listing-empty">порожній</a></li>
+          <li><a href="listing-error.html" data-page="listing-error">помилка</a></li>
+          <li><a href="listing-loading.html" data-page="listing-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="person.html" data-page="person">Картка профілю людини</a>
+        <ul class="states">
+          <li><a href="person.html" data-page="person">основний вигляд</a></li>
+          <li><a href="person-empty.html" data-page="person-empty">порожній</a></li>
+          <li><a href="person-error.html" data-page="person-error">помилка</a></li>
+          <li><a href="person-loading.html" data-page="person-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">V. Запропонувати кімнату</span>
+    <ul class="screens">
+      <li><a href="listing-new.html" data-page="listing-new">Опублікувати оголошення</a>
+        <ul class="states">
+          <li><a href="listing-new.html" data-page="listing-new">основний вигляд</a></li>
+          <li><a href="listing-new-empty.html" data-page="listing-new-empty">порожній</a></li>
+          <li><a href="listing-new-error.html" data-page="listing-new-error">помилка</a></li>
+          <li><a href="listing-new-loading.html" data-page="listing-new-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="my-listings.html" data-page="my-listings">Мої оголошення</a>
+        <ul class="states">
+          <li><a href="my-listings.html" data-page="my-listings">основний вигляд</a></li>
+          <li><a href="my-listings-empty.html" data-page="my-listings-empty">порожній</a></li>
+          <li><a href="my-listings-error.html" data-page="my-listings-error">помилка</a></li>
+          <li><a href="my-listings-loading.html" data-page="my-listings-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">VI. Домовитися</span>
+    <ul class="screens">
+      <li><a href="chats.html" data-page="chats">Заявки і чати (список)</a>
+        <ul class="states">
+          <li><a href="chats.html" data-page="chats">успіх</a></li>
+          <li><a href="chats-empty.html" data-page="chats-empty">порожній</a></li>
+          <li><a href="chats-error.html" data-page="chats-error">помилка</a></li>
+          <li><a href="chats-loading.html" data-page="chats-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="chat.html" data-page="chat">Чат — переписка</a>
+        <ul class="states">
+          <li><a href="chat.html" data-page="chat">успіх</a></li>
+          <li><a href="chat-empty.html" data-page="chat-empty">порожній</a></li>
+          <li><a href="chat-error.html" data-page="chat-error">помилка</a></li>
+          <li><a href="chat-loading.html" data-page="chat-loading">завантаження</a></li>
+        </ul>
+      </li>
+      <li><a href="report.html" data-page="report">Поскаржитись / заблокувати</a>
+        <ul class="states">
+          <li><a href="report.html" data-page="report">основний вигляд</a></li>
+          <li><a href="report-empty.html" data-page="report-empty">порожній</a></li>
+          <li><a href="report-error.html" data-page="report-error">помилка</a></li>
+          <li><a href="report-loading.html" data-page="report-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <span class="group">VII. Після заселення</span>
+    <ul class="screens">
+      <li><a href="review.html" data-page="review">Залишити відгук</a>
+        <ul class="states">
+          <li><a href="review.html" data-page="review">основний вигляд</a></li>
+          <li><a href="review-empty.html" data-page="review-empty">порожній</a></li>
+          <li><a href="review-error.html" data-page="review-error">помилка</a></li>
+          <li><a href="review-loading.html" data-page="review-loading">завантаження</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+</ul>
+
+<div class="legend">
+  <p>Розділи I–VII і 15 екранів — з <code>sitemap.md</code>.</p>
+  <p>Стан без позначки — підтверджений таблицею <code>_screens.md</code>.</p>
+  <p>* — стан намальовано на пряме замовлення, хоча в таблиці стоїть прочерк. Розбіжність не згладжена: див. примітку на сторінці.</p>
+  <p>Усі стани промальовано як мобільні web-прототипи.</p>
+  <p>Системні стани поза flow пояснені в анотації сторінки.</p>
+</div>
+
+<p class="backlink"><a href="../ia.html">← До документів Кутка</a></p>
+
+</details>
+</aside>
+<!-- ══ кінець спільної панелі ═══════════════════════════════════════ -->
+
+<div class="stage">
+<div class="sheet">
+
+  <nav class="state-switch" aria-label="Стани екрана «Картка профілю людини»">
+    <span>Стани цього екрана:</span>
+    <a href="person.html" data-page="person">основний вигляд</a>
+    <a href="person-empty.html" data-page="person-empty">порожній</a>
+    <a href="person-error.html" data-page="person-error">помилка</a>
+    <a href="person-loading.html" data-page="person-loading">завантаження</a>
+  </nav>
+
+  <!-- Підпис до макета: не частина інтерфейсу -->
+  <div class="annotation">
+    <h1>Картка профілю людини — основний вигляд</h1>
+    <p><code>sitemap.md</code> IV.2 · <code>flows.md</code>, Flow 3: вузол
+       <strong>M</strong>. Далі — рішення <strong>N</strong> «Профіль підходить
+       за побутом і викликає довіру?»: «ні» повертає у
+       <a href="seekers.html">стрічку</a> (<code>N --&gt;|ні| G</code>), «так»
+       веде в <strong>O</strong>
+       «<a href="person-loading.html">Очікуємо відповідь на заявку…</a>».</p>
+    <p>Вихід зі стану підтверджений цією ж розвилкою: на екрані рівно дві дії —
+       «До стрічки» в шапці (гілка «ні») і «Надіслати заявку» (гілка «так»).
+       Форма веде на <code>person-loading.html</code>, бо Flow 3 не має між
+       <strong>N</strong> і <strong>O</strong> окремого вузла «Надсилання
+       заявки…» (на відміну від Flow 1, де це вузол <code>K</code>).</p>
+    <p><code>jtbd.md</code>, Головний job: «Коли я шукаю, з ким і де жити в
+       Києві, я хочу знайти людину чи кімнату, якій можу довіряти, щоб оселитися
+       без стресу й ризику нарватися на шахрая чи несумісного співмешканця».
+       Блок «Чому їй можна довіряти» — не декоративний: за
+       <code>flows.md</code> рішення <strong>N</strong> це дзеркало до «профіль
+       вселяє довіру» з Flow 1, тобто предмет job, а не додаткова інформація.</p>
+    <p><code>jtbd.md</code>, Related 2: «Коли я розглядаю варіант, я хочу
+       зрозуміти, чи ми сумісні за побутом (охайність, гості, режим дня), перш
+       ніж написати чи погодитись, щоб не поселитися з незнайомцем навмання».
+       Тому звички показані повним набором сутності 2 (чистота, гості, тварини,
+       куріння, режим дня), поіменно, а не тегами навмання.</p>
+    <p><code>jtbd.md</code>, Emotional 1: «Коли я обираю майбутнього
+       співмешканця, я хочу почуватися в безпеці, а не ризикувати нарватися на
+       шахрая, фейкове оголошення чи брехню, щоб не витрачати гроші, час і нерви
+       на варіанти, яких не існує». Закривається рядком актуальності («профіль
+       оновлено сьогодні») і позначкою «приватний профіль — не рієлтор».</p>
+    <p><code>jtbd.md</code>, Social 1: «Коли я шукаю кімнату через канал свого
+       вишу, я хочу шукати серед людей мого контексту (той самий виш, схожі
+       бюджети, зрозумілі райони), щоб не продиратися крізь нерелевантний
+       загальний ринок». <strong>Розбіжність не згладжено:</strong> job
+       сформульований з боку шукачки, а цей екран дивиться лістер — тут S1
+       закривається тим, що контекст (виш, бюджет, райони) є видимими полями
+       профілю, а не окремою механікою спільнот.</p>
+    <p><strong>Відкрите питання, показане як є:</strong> бейдж «перевірено» за
+       <code>sitemap.md</code> (сутність 5) — похідне від відгуків, а
+       підтвердження факту заселення в продукті ще немає (<code>CLAUDE.md</code>,
+       відкриті питання). Тому на макеті бейдж спирається на верифікацію, а
+       рядок «відгуків після заселення ще немає» лишено в блоці довіри — розрив
+       видно, а не замазано.</p>
+    <p><strong>Чого забракло в CSS:</strong> <code>.detail-photos</code> — сітка
+       на дві колонки під кілька фото кімнати; для одного фото профілю взято
+       найближче наявне — <code>.photo.main</code>, що займає обидві колонки.
+       Окремого класу під одиночне фото профілю в
+       <code>_wireframe.css</code> немає. Поле «фото» позначене
+       <code>[?]</code> в <code>sitemap.md</code> — показане підписаним порожнім
+       блоком (<code>_conventions.md</code> §1).</p>
+  </div>
+
+  <div class="kit-shell">
+    <header class="kit-shell__brand"><a href="../../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+    <header class="kit-shell__appbar"><a class="kit-back" href="seekers.html" aria-label="Повернутися до співмешканців">Повернутися до співмешканців</a><h1 class="kit-shell__title">Профіль співмешканця</h1></header>
+    <main class="kit-shell__body">
+      <section class="kit-card kit-card--hero"><img class="kit-avatar kit-avatar--hero" src="../../ui/assets/avatars/solomiia.png" alt="Фото профілю"><div><h1 class="kit-headline">Марічка, 21</h1><p class="kit-meta">Шукає кімнату · студентка КНУ, перший рік у Києві</p><p class="kit-hero-fact">Бюджет до 7 000 грн/міс</p><span class="kit-profile-proof">перевірено</span></div></section>
+      <section class="kit-section" aria-labelledby="about-person">
+        <h2 id="about-person" class="kit-section__title">Про себе</h2>
+        <div class="kit-card">
+          <p>Переїхала з Полтави, вчуся на другому курсі КНУ, підробляю бариста на пів ставки. Вдома здебільшого ввечері, готую сама. Зі мною кіт Пиріг — спокійний, привчений.</p>
+        </div>
+      </section>
+      <section class="kit-section" aria-labelledby="where">
+        <h2 id="where" class="kit-section__title">Де і коли шукає</h2>
+        <div class="kit-card">
+          <dl class="kit-kv"><div><dt>Райони</dt><dd>Солом'янський, Шевченківський, Оболонський</dd></div><div><dt>Бюджет</dt><dd><span class="kit-nowrap">5 000 – 7 000 грн/міс</span></dd></div><div><dt>Заїзд</dt><dd>з 15 серпня</dd></div><div><dt>Термін</dt><dd>на навчальний рік, далі за домовленістю</dd></div></dl>
+        </div>
+      </section>
+      <section class="kit-section" aria-labelledby="habits">
+        <h2 id="habits" class="kit-section__title">Звички</h2>
+        <div class="kit-card">
+          <dl class="kit-kv"><div><dt>Чистота</dt><dd>Прибираю раз на тиждень, посуд одразу</dd></div><div><dt>Гості</dt><dd>Рідко, у вихідні й попередивши</dd></div><div><dt>Тварини</dt><dd>Кіт, стерилізований, живе зі мною 3 роки</dd></div><div><dt>Куріння</dt><dd>Не палю, і вдома не хочу</dd></div><div><dt>Режим дня</dt><dd>Сова, лягаю близько першої</dd></div></dl>
+        </div>
+      </section>
+      <section class="kit-section" aria-labelledby="trust">
+        <h2 id="trust" class="kit-section__title">Перевірка</h2>
+        <div class="kit-card">
+          <ul class="kit-trust-list"><li>Телефон перевірено</li><li>Instagram перевірено — акаунт із 2019 року</li><li class="is-missing">Відгуків після заселення ще немає — через Куток не селилась</li><li>Приватний профіль — не рієлтор</li><li>Активна: відповідала на заявки цього тижня</li></ul>
+        </div>
+        <p class="kit-meta">Профіль створено 12 серпня, оновлено сьогодні.</p>
+      </section>
+      <section class="kit-section" aria-labelledby="apply">
+        <h2 id="apply" class="kit-section__title">Заявка</h2>
+        <form class="kit-form" action="person-loading.html" method="get">
+          <div class="kit-card">
+            <div class="kit-field"><label for="msg">Повідомлення</label><textarea id="msg" name="msg">Привіт! Мене звати Олег, у мене звільняється кімната в Оболонському районі, 8 500 грн, метро Мінська. Бачу, ти шукаєш із котом — у нас можна. Можу показати в четвер увечері.</textarea></div>
+          </div>
+          <div class="kit-actions"><button class="kit-button kit-button--block" type="submit">Надіслати заявку</button></div>
+          <p class="kit-hint">Марічка побачить твій номер і контакти, тільки якщо прийме заявку.</p>
+        </form>
+      </section>
+      <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+    </main>
+    <nav class="kit-tabbar kit-tabbar--host" aria-label="Глобальна навігація">
+      <a class="kit-tab" href="listings.html" aria-current="page">Пошук</a>
+      <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+      <a class="kit-tab kit-tab--listings" href="my-listings.html">Оголошення</a>
+      <a class="kit-tab kit-tab--profile" href="profile-edit.html">Профіль</a>
+    </nav>
+  </div>
+</div>
+</div>
+
+</div>
+
+<!-- Позначає поточний вузол дерева й перемикача станів. Розмітка панелі
+     завдяки цьому лишається байт-у-байт однаковою на всіх сторінках. -->
+<script>
+(function(){
+  var page = document.body.dataset.page;
+  document.querySelectorAll('a[data-page="' + page + '"]').forEach(function(a){
+    a.setAttribute('aria-current', 'page');
+    a.classList.remove('pending');
+  });
+})();
+</script>
+</body>
+</html>

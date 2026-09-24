@@ -1,0 +1,117 @@
+/* Куток · урок 06 · «Денна зміна»
+   Підключається ТІЛЬКИ до listings* і person* (8 сторінок).
+   Структура та microcopy лишаються контрактом уроків 4–5. */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Onest:wght@400;500;600;700&display=swap');
+
+:root{
+  --kt-paper:#f7f8fa;--kt-white:#fff;--kt-ink:#16181c;--kt-muted:#555b65;
+  --kt-line:#d4d8de;--kt-cobalt:#ffb020;--kt-cobalt-soft:#fff0ce;
+  --kt-verified:#0e6b3d;--kt-verified-soft:#dff3e8;
+  --kt-signal:#c9352b;--kt-signal-soft:#fae5e2;--kt-focus:#2457ff;
+  --kt-shadow:0 9px 28px rgba(23,33,29,.10);
+}
+
+/* Product surface only; course navigation remains deliberately neutral. */
+.phone{font-family:Onest,system-ui,sans-serif;background:var(--kt-paper);color:var(--kt-ink);border-color:#aeb3bc;border-radius:20px;box-shadow:0 24px 60px rgba(22,24,28,.14);}
+.phone a{color:var(--kt-ink);text-underline-offset:3px}
+.phone ::selection{background:var(--kt-focus);color:var(--kt-ink)}
+.phone :focus-visible{outline:3px solid var(--kt-focus);outline-offset:3px}
+.phone .status-bar{background:var(--kt-paper);color:var(--kt-ink)}
+.phone .app-bar{background:rgba(236,238,241,.96);border-bottom:1px solid var(--kt-line);padding-inline:16px;backdrop-filter:blur(12px)}
+.phone .app-bar h2{font-family:Manrope,Onest,sans-serif;font-size:1.12rem;font-weight:800;letter-spacing:-.025em}
+.phone main{padding-inline:16px}
+.phone .results-count{color:var(--kt-muted);font-weight:600}
+
+/* Shared controls */
+.phone .btn,.phone button.btn{border:0;border-radius:12px;background:var(--kt-cobalt);color:var(--kt-ink);font-weight:800;min-height:46px;box-shadow:0 5px 14px rgba(122,75,0,.18)}
+.phone .btn:where(.__hover-disabled),.phone button.btn:where(.__hover-disabled){background:#f0a313;text-decoration:none}
+.phone .btn:disabled,.phone button.btn:disabled{background:#b8beb9;color:#fff;box-shadow:none;cursor:not-allowed}
+.phone input,.phone select,.phone textarea{border:1px solid #aab2ad;border-radius:10px;background:var(--kt-white);color:var(--kt-ink);caret-color:var(--kt-cobalt)}
+.phone input:focus,.phone select:focus,.phone textarea:focus{border-color:var(--kt-focus);box-shadow:0 0 0 3px #dfe6ff;outline:0}
+.phone fieldset{border:1px solid var(--kt-line);border-radius:14px;background:rgba(255,255,255,.52)}
+.phone legend,.phone .field>label{color:var(--kt-muted);font-weight:700}
+.phone .choice{border-bottom-color:var(--kt-line)}
+.phone .hint,.phone .form-intro{color:var(--kt-muted)}
+
+/* Listing: real evidence first. */
+.phone .segmented{background:#e2e2dc;border-radius:12px;padding:4px;gap:4px}
+.phone .segmented li{border:0;border-radius:9px;color:var(--kt-muted);font-weight:700}
+.phone .segmented li[aria-current="page"]{background:var(--kt-white);color:#7a4b00;box-shadow:0 2px 8px rgba(22,24,28,.08)}
+.phone .listing-list{gap:18px}
+.phone .listing-list article{border:0;border-radius:14px;background:var(--kt-white);box-shadow:var(--kt-shadow);overflow:hidden}
+.phone .listing-list .photo{border:0;border-radius:0!important;background-color:#cfd5d1;background-size:cover;background-position:center;background-image:none;color:transparent}
+.phone .listing-list .photo span{opacity:0}
+body[data-page="listings"] .listing-list>li:nth-child(1) .photo{background-image:url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=900&q=82')}
+body[data-page="listings"] .listing-list>li:nth-child(2) .photo{background-image:url('https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=900&q=82')}
+body[data-page="listings"] .listing-list>li:nth-child(3) .photo{background-image:url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=82')}
+body[data-page="listings"] .listing-list>li:nth-child(4) .photo{background-image:url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=900&q=82')}
+body[data-page="listings"] .listing-list>li:nth-child(5) .photo{background-image:url('https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&w=900&q=82')}
+.phone .card-body{padding:15px}.phone .card-body h3{font-size:1.05rem;letter-spacing:-.02em}.phone .price{font-weight:800;font-size:1.22rem}
+.phone .facts dt{color:var(--kt-muted)}.phone .tags{gap:7px}.phone .tags li{border:0;border-radius:999px;background:var(--kt-cobalt-soft);color:#684100;padding:5px 9px;font-weight:700}
+.phone .updated{color:var(--kt-muted);border-top-color:var(--kt-line)}
+
+/* Trust state is textual and icon-backed, never color alone. */
+.phone .trust li{border-bottom-color:var(--kt-line)}
+.phone .badge{border:0;border-radius:999px;background:var(--kt-verified-soft);color:var(--kt-verified);font-weight:800;padding:4px 8px}
+.phone .trust iconify-icon,.phone .concept-proof iconify-icon{color:var(--kt-verified);font-size:18px;vertical-align:-3px;margin-right:6px}
+
+/* Profile is deliberately denser: same language, different content pressure. */
+body[data-page^="person"] .phone .photo{background-image:url('https://images.unsplash.com/photo-1622967865065-1f51797b26d8?auto=format&fit=crop&w=700&q=82')!important;background-size:cover;background-position:center 30%;color:transparent;box-shadow:var(--kt-shadow)}
+body[data-page^="person"] .phone .photo span{opacity:0}
+body[data-page^="person"] .phone .block{border-top-color:var(--kt-line)}
+
+/* Empty, error, loading — one grammar, not four separate designs. */
+.phone .state-block{border:0;border-radius:14px;background:var(--kt-white);padding:20px 16px;box-shadow:var(--kt-shadow)}
+.phone .state-block h4{font-weight:800;letter-spacing:-.02em}.phone .state-block p{color:var(--kt-muted)}
+.phone .state-block .applied li{border:0;border-radius:999px;background:var(--kt-cobalt-soft);color:#684100}
+body[data-page$="-error"] .phone .state-block{background:var(--kt-signal-soft)}
+body[data-page$="-error"] .phone .state-block h4{color:#861f19}
+body[data-page$="-error"] .phone input[aria-invalid="true"]{border-color:var(--kt-signal);box-shadow:0 0 0 3px var(--kt-signal-soft)}
+.phone .skeleton article{border:0;border-radius:14px;overflow:hidden;box-shadow:var(--kt-shadow)}
+.phone .sk-photo,.phone .sk-line,.phone .sk-chip,.phone .sk-btn{background:#dfe2de;border:0}
+.phone .sk-line{border-radius:4px}.phone .sk-chip{border-radius:999px}
+
+/* Navigation uses Solar icons injected by _concept.js. */
+.phone .bottom-nav{background:rgba(255,255,255,.97);border-top-color:var(--kt-line);backdrop-filter:blur(12px)}
+.phone .bottom-nav a{color:var(--kt-muted);font-size:.76rem;font-weight:700;flex-direction:column;gap:2px}
+.phone .bottom-nav a[aria-current="page"]{background:transparent;color:#7a4b00;border-top-color:var(--kt-cobalt)}
+.phone .bottom-nav iconify-icon{font-size:21px}
+.phone .filter-fab{background:var(--kt-cobalt);border:0;box-shadow:0 7px 18px rgba(41,72,217,.25)}
+.phone footer{border-top-color:var(--kt-line);color:var(--kt-muted)}
+
+@media (prefers-reduced-motion:no-preference){
+  .phone .listing-list article{transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s}
+  .phone .listing-list article:where(.__hover-disabled){transform:translateY(-2px);box-shadow:0 14px 34px rgba(23,33,29,.14)}
+}
+@media(max-width:420px){.phone{border-radius:0}.phone .card-body{padding:14px}.phone main{padding-inline:14px}}
+
+/* The lesson-06 skin follows the same flat wireframe contract. */
+.phone .btn,.phone button.btn,
+.phone .segmented li[aria-current="page"],
+.phone .listing-list article,
+.phone .state-block,
+.phone .skeleton article,
+.phone .filter-fab,
+body[data-page^="person"] .phone .photo {
+  box-shadow:none;
+}
+.phone .app-bar,
+.phone fieldset,
+.phone .choice,
+.phone .updated,
+.phone .trust li,
+.phone .bottom-nav,
+.phone footer,
+.phone input,
+.phone select,
+.phone textarea {
+  border-color:transparent;
+}
+/* Preserve explicit validation and keyboard-focus affordances. */
+.phone input:focus,.phone select:focus,.phone textarea:focus {
+  box-shadow:0 0 0 3px #dfe6ff;
+}
+body[data-page$="-error"] .phone input[aria-invalid="true"] {
+  border-color:var(--kt-signal);
+  box-shadow:0 0 0 3px var(--kt-signal-soft);
+}

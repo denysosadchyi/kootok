@@ -5,33 +5,34 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#245744">
 <title>Куток — оболонка продукту</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Onest:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit.css">
+<link rel="stylesheet" href="../design-system/index.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
-<link rel="stylesheet" href="/kootok/site-theme.css">
 <script src="/kootok/course-nav.js" defer></script>
 </head>
 <body>
-<!-- Оболонка як розмітка. Екран у wireframes/ копіює цей скелет і підставляє свій вміст у .kit-shell__body.
-     Кореневі вкладки (Стрічка, Чати, Профіль, Мої оголошення): бренд-рядок + display-заголовок у тілі (.kit-headline), без app bar.
-     Вкладені екрани (Оголошення, Профіль людини, Чат, Фільтри, Скарга, Відгук): app bar з .kit-back; бренд-рядок тоді ховає сам кіт.
-     Роль шукача — .kit-tabbar (3 пункти + кругла «Додати»); господар або «обидва» — .kit-tabbar--host (4 пункти). -->
+<!-- Навчальна вітрина кореневого екрана: бренд-рядок, тіло й dock шукачки
+     (Пошук · Чати · Профіль — як у макетах);
+     production-root додає dock modifier і розрахований clearance. Вкладені екрани
+     замінюють .kit-shell__brand на .kit-shell__appbar із .kit-back і не
+     рендерять tabbar — один рівень шапки та одна головна дія на екран. -->
 <div class="kit-shell">
   <header class="kit-shell__brand"><a href="../index.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
-  <header class="kit-shell__appbar"><a class="kit-back" href="../wireframes/listings.html" aria-label="Повернутися до стрічки оголошень">Назад</a><h1 class="kit-shell__title">Оголошення</h1></header>
   <main class="kit-shell__body">
-    <h2 class="kit-headline">Вміст екрана</h2>
-    <p>Сірий екран підставляє свій основний вміст у цю область, зберігаючи обидва рівні шапки й навігацію. Усі блоки — з класів <code>kit.css</code>; нового стилю на екрані не з'являється.</p>
+    <header class="kit-page-intro">
+      <h1 class="kit-headline">Стрічка оголошень</h1>
+      <p class="kit-meta">128 оголошень у Києві</p>
+    </header>
+    <section class="kit-section">
+      <div class="kit-card">
+        <p>Вміст екрана живе в картках. Усі блоки — з класів <code>components/</code>, а значення — із семантичних токенів; нового локального стилю на екрані не з'являється.</p>
+      </div>
+    </section>
     <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
   </main>
-  <a class="kit-fab" href="../wireframes/filters.html" aria-label="Відкрити фільтри">Фільтри</a>
-  <nav class="kit-tabbar" aria-label="Глобальна навігація">
-    <a class="kit-tab" href="../wireframes/listings.html" aria-current="page">Оголошення</a>
-    <a class="kit-tab kit-tab--chats" href="../wireframes/chats.html">Чати</a>
-    <a class="kit-tab kit-tab--profile" href="../wireframes/profile-edit.html">Профіль</a>
-    <a class="kit-tab kit-tab--create" href="../wireframes/listing-new.html" aria-label="Додати оголошення">Додати</a>
+  <nav class="kit-tabbar" aria-label="Основна навігація, шукачка">
+    <a class="kit-tab" href="../lesson-6/listings.html" aria-current="page">Пошук</a>
+    <a class="kit-tab kit-tab--chats" href="../design-system/examples/chats.html">Чати</a>
+    <a class="kit-tab kit-tab--profile" aria-disabled="true">Профіль</a>
   </nav>
 </div>
 </body>

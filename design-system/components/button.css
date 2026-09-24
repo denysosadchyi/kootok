@@ -1,0 +1,14 @@
+.kit-actions { display: flex; flex-direction: column; gap: var(--space-stack-md); }
+.kit-button { position: relative; display: inline-flex; min-height: var(--size-control); align-items: center; justify-content: center; gap: var(--space-stack-sm); padding: var(--space-control-block) var(--primitive-length-20); border: 0; border-radius: var(--radius-control); background: var(--color-action-surface); color: var(--color-on-action); font: var(--type-control); text-align: center; text-decoration: none; cursor: pointer; box-shadow: var(--elevation-primary); }
+@media (hover: hover) { .kit-button:not(:disabled):hover { background: var(--color-action-surface-hover); } }
+.kit-button[data-demo-state="hover"] { background: var(--color-action-surface-hover); }
+.kit-button:not(:disabled):active, .kit-button[data-demo-state="active"] { background: var(--color-action-surface-active); }
+.kit-button[data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
+.kit-button--secondary { background: var(--color-card-background); color: var(--color-action); }
+@media (hover: hover) { .kit-button--secondary:not(:disabled):hover { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); } }
+.kit-button--secondary[data-demo-state="hover"] { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); }
+.kit-button--secondary[data-demo-state="active"], .kit-button--secondary:not(:disabled):active { background: var(--color-interactive-surface-active); color: var(--color-interactive-text-active); }
+.kit-button--block { width: var(--primitive-width-full); }
+.kit-button--compact { min-height: var(--size-tap); padding: var(--primitive-length-10) var(--space-control-inline); font: var(--type-control-compact); white-space: nowrap; }
+.kit-button--icon-filter::before { --kit-icon: var(--primitive-icon-tuning); width: var(--primitive-length-18); height: var(--primitive-length-18); }
+.kit-button:disabled, .kit-button[aria-disabled="true"] { opacity: var(--opacity-disabled); cursor: default; }

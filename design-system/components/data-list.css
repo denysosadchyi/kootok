@@ -1,0 +1,13 @@
+/* ───────── Ключ–значення ───────── */
+dl.kit-kv { margin: 0; }
+.kit-kv > div { display: grid; grid-template-columns: var(--primitive-length-104) minmax(0, 1fr); gap: var(--space-stack-md); padding: var(--space-stack-sm) 0; }
+.kit-kv > div + div { margin-top: 0; }
+.kit-kv dt { margin: 0; color: var(--color-text-secondary); font: var(--type-meta); }
+.kit-kv dd { margin: 0; color: var(--color-text-primary); font: var(--type-support); font-weight: var(--primitive-font-weight-500); }
+
+dl.kit-facts { margin: 0; }
+.kit-facts--inline { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 0; margin: 0; font: var(--type-meta); color: var(--color-text-primary-support); }
+.kit-facts--inline > div { display: inline-block; white-space: normal; max-width: var(--primitive-width-full); }
+.kit-facts--inline > div:not(:last-child)::after { content: "·"; margin: 0 var(--primitive-length-6); color: var(--color-text-secondary); }
+.kit-facts--inline dt { position: absolute; width: var(--primitive-length-1); height: var(--primitive-length-1); margin: var(--primitive-length-n1); overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+.kit-facts--inline dd { display: inline; margin: 0; color: inherit; }

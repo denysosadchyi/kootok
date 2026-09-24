@@ -8,7 +8,7 @@
 <script src="/kootok/course-nav.js" defer></script>
 <style>
 /* ===== Kootok research · Notion design tokens (VoltAgent/awesome-design-md · notion) ===== */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 
 :root{
   --canvas:#ffffff; --surface:#f6f5f4; --surface-soft:#fafaf9; --tint-gray:#f0eeec;
@@ -22,7 +22,7 @@
   --lavender:#e6e0f5; --purple-800:#391c57;
   --sky:#dcecfa; --sky-ink:#0a4a7a;
   --yellow:#fef7d6; --cream:#f8f5e8; --error:#e03131;
-  --font:'Inter',-apple-system,BlinkMacSystemFont,system-ui,'Segoe UI',Helvetica,Arial,sans-serif;
+  --font:'Golos Text',-apple-system,BlinkMacSystemFont,system-ui,'Segoe UI',Helvetica,Arial,sans-serif;
   --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
   --sh1:rgba(15,15,15,.04) 0 1px 2px 0;
   --sh2:rgba(15,15,15,.08) 0 4px 12px 0;
@@ -64,7 +64,6 @@
   --sh1:rgba(0,0,0,.3) 0 1px 2px 0; --sh2:rgba(0,0,0,.35) 0 4px 14px 0;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
 body{margin:0;background:var(--canvas);color:var(--charcoal);font-family:var(--font);
   font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
@@ -87,7 +86,7 @@ body{margin:0;background:var(--canvas);color:var(--charcoal);font-family:var(--f
   color:var(--stone);padding:12px 10px 6px}
 .nav a{display:flex;align-items:center;gap:9px;padding:6px 10px;border-radius:6px;
   color:var(--slate);text-decoration:none;font-size:14px;font-weight:500;line-height:1.3;
-  border:none;transition:background .12s,color .12s}
+  border:none}
 .nav a .n{font-size:12px;color:var(--stone);min-width:1.1em;font-variant-numeric:tabular-nums}
 .nav a:where(.__hover-disabled){background:var(--tint-gray);color:var(--ink)}
 .nav a.active{background:var(--lavender);color:var(--primary);font-weight:600}
@@ -98,8 +97,7 @@ body{margin:0;background:var(--canvas);color:var(--charcoal);font-family:var(--f
 .pageswitch{display:flex;flex-direction:column;gap:2px;padding-bottom:6px;
   border-bottom:1px solid var(--hairline)}
 .pageswitch a{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:6px;
-  color:var(--slate);text-decoration:none;font-size:14px;font-weight:500;line-height:1.3;
-  transition:background .12s,color .12s}
+  color:var(--slate);text-decoration:none;font-size:14px;font-weight:500;line-height:1.3}
 .pageswitch a svg{width:15px;height:15px;flex:none;opacity:.9}
 .pageswitch .ln{width:22px;flex:none;color:var(--stone);font-size:12px;font-variant-numeric:tabular-nums}
 .pageswitch a.cur .ln{color:var(--primary)}
@@ -260,12 +258,20 @@ figcaption b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
   blockquote{padding:14px 14px;font-size:15px}
 }
 
+
+/* Вирівнювання рівнів заголовків (a11y, 2026-09-24): семантичний рівень змінено, вигляд лишився попереднім. */
+h2.as-h3{font-weight:600;font-size:20px;line-height:1.3;margin:32px 0 10px;padding-top:0;border-top:0;color:var(--ink);letter-spacing:-.2px}
+h3.as-h4{font-weight:600;font-size:16px;line-height:inherit;margin:0 0 6px;color:var(--ink);letter-spacing:0}
+.card h3.as-h4{margin:0 0 8px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.card.win h3.as-h4::before{content:"✓";color:var(--green-deep);font-weight:700}
+.card.no h3.as-h4::before{content:"✕";color:var(--pink-deep);font-weight:700}
+.qitem h3.as-h4{font-size:15px;margin:0 0 4px}
 </style>
 <link rel="stylesheet" href="/kootok/site-theme.css">
 </head>
 <body>
 <div class="mobtop"><details><summary><svg viewBox="0 0 34 34"><path d="M6 28 L6 6 L28 6"/></svg><span>Куток · дослідження</span><span class="mn">зміст ▾</span></summary><nav>
-<span class="mswitch"><a href="/kootok/">01 · Продукт</a><a class="cur" href="/kootok/research.html">02 · Дослідження</a><a href="/kootok/personas.html">02 · Персони</a><a href="/kootok/ia.html">03 · IA</a><a href="/kootok/research/wireframes.html">04 · Вайрфрейми</a><a href="/kootok/voice.md">05 · Голос</a><a href="/kootok/lesson-6-concept.html">06 · Дизайн</a></span>
+<span class="mswitch"><a href="/kootok/">01 · Продукт</a><a class="cur" href="/kootok/research.html">02 · Дослідження</a><a href="/kootok/personas.html">02 · Персони</a><a href="/kootok/ia.html">03 · IA</a><a href="/kootok/lesson-6/listings.html">06 · Прототип</a><a href="/kootok/voice.md">05 · Голос</a><a href="/kootok/lesson-6-concept.html">06 · Дизайн</a></span>
 <a href="#overview">01 · Огляд</a>
 <a href="#competitors">02 · Конкуренти</a>
 <a href="#market">03 · Патерни ринку</a>
@@ -286,7 +292,7 @@ figcaption b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
 <a class="cur" href="research.html"><span class="ln">02</span>Дослідження ринку</a>
 <a href="personas.html"><span class="ln">02</span>Персони і JTBD</a>
 <a href="ia.html"><span class="ln">03</span>Інформаційна архітектура</a>
-<a href="wireframes.html"><span class="ln">04</span>Вайрфрейми</a>
+<a href="/kootok/lesson-6/listings.html"><span class="ln">06</span>Прототип</a>
 <a href="/kootok/voice.md"><span class="ln">05</span>Голос і текст</a>
 <a href="/kootok/lesson-6-concept.html"><span class="ln">06</span>Дизайн із коду</a>
 </div>
@@ -502,11 +508,11 @@ figcaption b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
 <section id="uxpatterns" class="spy"><h2><span class="h2n">05</span>Патерни взаємодії</h2>
 <p>Пʼять принципово різних UX-патернів підбору співмешканця (крок 05–06, артефакт «Пʼять патернів підбору сусіда» <a class="cite" href="#s56">S56</a>), звірених із живими прикладами з ринку.</p>
 <div class="cards">
-<div class="card"><h4>Свайп-колода</h4><p><b>Як працює:</b> Картки одна за одною; свайп вправо — цікаво, вліво — ні; взаємний лайк відкриває чат.</p><p><b>Де застосовується:</b> Дейтинг, а з roommate-продуктів — Roomi (механіка «swipe &amp; match»).</p><p><b>Коли підходить:</b> Швидко й звично, добре працює на великому потоці кандидатів.</p><p><b>Коли ламається:</b> Ламається на малому пулі (десяток кімнат вичерпується за хвилину) і знецінює рішення, яке ухвалюють на місяці спільного життя — воно не про свайп.</p></div>
-<div class="card pattern"><h4>Пошук і фільтри (маркетплейс) <span class="gtag hard">обраний</span></h4><p><b>Як працює:</b> Стрічка карток + набір фільтрів (район, бюджет, звички); користувач сам звужує й читає профілі.</p><p><b>Де застосовується:</b> OLX, SpareRoom, Roomster, DIM.RIA — фактичний стандарт ринку.</p><p><b>Коли підходить:</b> Дає контроль і прозорість, плавно деградує навіть при малому обсязі, нативно лягає на двосторонню модель.</p><p><b>Коли ламається:</b> Порожня видача при надто вузьких фільтрах; потребує нейтрального сортування, щоб не стати нескінченним скролом.</p></div>
-<div class="card"><h4>Алгоритмічний скор сумісності</h4><p><b>Як працює:</b> Система рахує «сумісність» за звичками/бюджетом/датою і ранжує людей одне для одного.</p><p><b>Де застосовується:</b> Єдиний на ринку — Diggz (США).</p><p><b>Коли підходить:</b> Знімає з користувача роботу з відбору, коли даних і кандидатів багато.</p><p><b>Коли ламається:</b> «Чорна скринька» без прозорості, потребує обсягу даних і тюнінгу, яких у молодого продукту немає; забирає контроль — а бриф свідомо обрав фільтри.</p></div>
-<div class="card"><h4>Довірена мережа спільноти</h4><p><b>Як працює:</b> Пошук усередині замкненої спільноти (виш, роботодавець, ЖК), де вже є базова довіра й спільні знайомі.</p><p><b>Де застосовується:</b> КНУсусіди (студентська приналежність), Facebook-групи (спільні друзі/профіль).</p><p><b>Коли підходить:</b> Довіра «безкоштовна» — вона вже вбудована в приналежність; сильний старт для cold-start.</p><p><b>Коли ламається:</b> Не масштабується за межі спільноти; поза нею довіра зникає, а сегментація дробить і без того малий ринок.</p></div>
-<div class="card"><h4>Реверсивний пост (шукач публічно)</h4><p><b>Як працює:</b> Не кімнати шукають людину, а людина публікує «шукаю куток», і пропозиції приходять до неї.</p><p><b>Де застосовується:</b> Профілі шукачів у SpareRoom, оголошення «шукаю сусіда» в HomeMate/КНУсусідах.</p><p><b>Коли підходить:</b> Балансує двосторонній ринок, коли кімнат мало, а шукачів багато; дає контент з боку попиту.</p><p><b>Коли ламається:</b> Працює лише як доповнення — сам по собі не закриває задачу підбору й потребує зустрічного боку пропозиції.</p></div>
+<div class="card"><h3 class="as-h4">Свайп-колода</h3></h4><p><b>Як працює:</b> Картки одна за одною; свайп вправо — цікаво, вліво — ні; взаємний лайк відкриває чат.</p><p><b>Де застосовується:</b> Дейтинг, а з roommate-продуктів — Roomi (механіка «swipe &amp; match»).</p><p><b>Коли підходить:</b> Швидко й звично, добре працює на великому потоці кандидатів.</p><p><b>Коли ламається:</b> Ламається на малому пулі (десяток кімнат вичерпується за хвилину) і знецінює рішення, яке ухвалюють на місяці спільного життя — воно не про свайп.</p></div>
+<div class="card pattern"><h3 class="as-h4">Пошук і фільтри (маркетплейс) <span class="gtag hard">обраний</span></h3></h4><p><b>Як працює:</b> Стрічка карток + набір фільтрів (район, бюджет, звички); користувач сам звужує й читає профілі.</p><p><b>Де застосовується:</b> OLX, SpareRoom, Roomster, DIM.RIA — фактичний стандарт ринку.</p><p><b>Коли підходить:</b> Дає контроль і прозорість, плавно деградує навіть при малому обсязі, нативно лягає на двосторонню модель.</p><p><b>Коли ламається:</b> Порожня видача при надто вузьких фільтрах; потребує нейтрального сортування, щоб не стати нескінченним скролом.</p></div>
+<div class="card"><h3 class="as-h4">Алгоритмічний скор сумісності</h3></h4><p><b>Як працює:</b> Система рахує «сумісність» за звичками/бюджетом/датою і ранжує людей одне для одного.</p><p><b>Де застосовується:</b> Єдиний на ринку — Diggz (США).</p><p><b>Коли підходить:</b> Знімає з користувача роботу з відбору, коли даних і кандидатів багато.</p><p><b>Коли ламається:</b> «Чорна скринька» без прозорості, потребує обсягу даних і тюнінгу, яких у молодого продукту немає; забирає контроль — а бриф свідомо обрав фільтри.</p></div>
+<div class="card"><h3 class="as-h4">Довірена мережа спільноти</h3></h4><p><b>Як працює:</b> Пошук усередині замкненої спільноти (виш, роботодавець, ЖК), де вже є базова довіра й спільні знайомі.</p><p><b>Де застосовується:</b> КНУсусіди (студентська приналежність), Facebook-групи (спільні друзі/профіль).</p><p><b>Коли підходить:</b> Довіра «безкоштовна» — вона вже вбудована в приналежність; сильний старт для cold-start.</p><p><b>Коли ламається:</b> Не масштабується за межі спільноти; поза нею довіра зникає, а сегментація дробить і без того малий ринок.</p></div>
+<div class="card"><h3 class="as-h4">Реверсивний пост (шукач публічно)</h3></h4><p><b>Як працює:</b> Не кімнати шукають людину, а людина публікує «шукаю куток», і пропозиції приходять до неї.</p><p><b>Де застосовується:</b> Профілі шукачів у SpareRoom, оголошення «шукаю сусіда» в HomeMate/КНУсусідах.</p><p><b>Коли підходить:</b> Балансує двосторонній ринок, коли кімнат мало, а шукачів багато; дає контент з боку попиту.</p><p><b>Коли ламається:</b> Працює лише як доповнення — сам по собі не закриває задачу підбору й потребує зустрічного боку пропозиції.</p></div>
 </div>
 <div class="callout accent"><span class="ico">✓</span><div><b>Вердикт.</b> Обраний — <b>пошук і фільтри</b>: (1) двостороння модель Кутка <a class="cite" href="#s55">S55</a> нативно лягає на маркетплейс (як SpareRoom); (2) бриф ухвалив «тільки фільтри, без алгоскору» <a class="cite" href="#s55">S55</a> — і ринок це підтверджує: алгоскор має лише Diggz; (3) список деградує плавно навіть при десятку кімнат. <b>Другий за умови cold-start</b> — довірена мережа спільноти (посів через виші/ЖК). <b>Не підходять</b> — свайп-колода (знецінює рішення на місяці) та алгоскор (непрозорість, якої бриф уникнув).</div></div>
 </section>
@@ -685,19 +691,10 @@ figcaption b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
 <div class="foot">Джерело-верифіковане дослідження · 12 конкурентів · 49/60 осей підтверджено · 70 джерел · вихідний <a href="https://github.com/denysosadchyi/kootok/blob/main/research/research.md">research.md</a> · репозиторій <a href="https://github.com/denysosadchyi/kootok">denysosadchyi/kootok</a></div>
 </section>
 </div></main></div>
-<button class="themebtn" id="tt" title="Тема">◐</button>
 
 <script>
 (function(){
- var root=document.documentElement, btn=document.getElementById('tt');
- try{var s=localStorage.getItem('kt');if(s)root.setAttribute('data-theme',s);}catch(e){}
- btn.addEventListener('click',function(){
-   var cur=root.getAttribute('data-theme');
-   if(!cur){cur=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
-   var next=cur==='dark'?'light':'dark';
-   root.setAttribute('data-theme',next);
-   try{localStorage.setItem('kt',next);}catch(e){}
- });
+ /* Тему перемикає курсова панель (course-nav.js, ключ kootok-color-theme). */
  var links=[].slice.call(document.querySelectorAll('.sidebar .nav > a'));
  var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
  var secs=[].slice.call(document.querySelectorAll('section.spy'));

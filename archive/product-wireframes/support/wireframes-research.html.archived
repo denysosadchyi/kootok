@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Куток — вайрфрейми</title>
+<link rel="stylesheet" href="/kootok/course-nav.css">
+<script src="/kootok/course-nav.js" defer></script>
+<style>
+/* ===== Kootok · вайрфрейми: ті самі Notion design tokens, що й ia.html.
+   У дизайні сайту — вся обгортка: навігація, перемикач станів, опис екрана.
+   Сірою схемою лишається тільки сам макет усередині рамки. ===== */
+
+:root{
+  --canvas:#f8f8f9; --surface:#eeeeF1; --surface-soft:#f3f3f5; --tint-gray:#e2e2e6;
+  --hairline:#d4d4d8; --hairline-soft:#e1e1e4; --hairline-strong:#a5a5ac;
+  --ink:#1c1c20; --charcoal:#343439; --slate:#57575e; --steel:#6e6e76; --stone:#76767e; --muted:#a0a0a7;
+  --primary:#303036; --primary-deep:#1c1c20; --link:#44444b;
+  --lavender:#dcdce1; --mint:#e4e4e7; --green-deep:#343439; --sky:#e7e7ea; --sky-ink:#3c3c42;
+  --yellow:#e1e1e4; --yellow-ink:#343439; --yellow-line:#a5a5ac;
+  --font:'Inter',-apple-system,BlinkMacSystemFont,system-ui,'Segoe UI',Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --sh2:rgba(15,15,15,.08) 0 4px 12px 0;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --canvas:#1b1b1e; --surface:#252529; --surface-soft:#202024; --tint-gray:#303035;
+    --hairline:#37373c; --hairline-soft:#2c2c31; --hairline-strong:#56565e;
+    --ink:#f2f2f3; --charcoal:#d5d5d8; --slate:#b8b8be; --steel:#9898a0; --stone:#85858d; --muted:#626269;
+    --primary:#f0f0f2; --primary-deep:#ffffff; --link:#d0d0d5;
+    --lavender:#3a3a40; --mint:#333338; --green-deep:#d0d0d5; --sky:#303036; --sky-ink:#d0d0d5;
+    --yellow:#36363b; --yellow-ink:#e2e2e5; --yellow-line:#66666e;
+    --sh2:rgba(0,0,0,.35) 0 4px 14px 0;
+  }
+}
+:root[data-theme="dark"]{
+  --canvas:#1b1b1e; --surface:#252529; --surface-soft:#202024; --tint-gray:#303035;
+  --hairline:#37373c; --hairline-soft:#2c2c31; --hairline-strong:#56565e;
+  --ink:#f2f2f3; --charcoal:#d5d5d8; --slate:#b8b8be; --steel:#9898a0; --stone:#85858d; --muted:#626269;
+  --primary:#f0f0f2; --primary-deep:#ffffff; --link:#d0d0d5;
+  --lavender:#3a3a40; --mint:#333338; --green-deep:#d0d0d5; --sky:#303036; --sky-ink:#d0d0d5;
+  --yellow:#36363b; --yellow-ink:#e2e2e5; --yellow-line:#66666e;
+  --sh2:rgba(0,0,0,.35) 0 4px 14px 0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--charcoal);font-family:var(--font);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+.app{display:grid;grid-template-columns:252px 276px minmax(0,1fr);height:100vh}
+
+/* ── 1. Навігація проєкту ── */
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--surface-soft);
+  border-right:1px solid var(--hairline);padding:22px 14px 40px}
+.brand{display:flex;align-items:center;gap:10px;padding:2px 8px 20px}
+.brand svg{width:24px;height:24px;flex:none}
+.brand svg path{stroke:var(--primary);stroke-width:5;fill:none;stroke-linecap:square}
+.brand-txt b{font-weight:600;font-size:16px;display:block;line-height:1.1;color:var(--ink);letter-spacing:-.01em}
+.brand-txt span{font-size:12px;color:var(--stone)}
+.nav-label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;
+  color:var(--stone);padding:12px 10px 6px}
+.pageswitch{display:flex;flex-direction:column;gap:2px;padding-bottom:6px;border-bottom:1px solid var(--hairline)}
+.pageswitch a{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:6px;
+  color:var(--slate);text-decoration:none;font-size:14px;font-weight:500;line-height:1.3;
+  transition:background .12s,color .12s}
+.pageswitch a svg{width:15px;height:15px;flex:none;opacity:.9}
+.pageswitch .ln{width:22px;flex:none;color:var(--stone);font-size:12px;font-variant-numeric:tabular-nums}
+.pageswitch a.cur .ln{color:var(--primary)}
+.pageswitch a.cur{background:var(--lavender);color:var(--primary);font-weight:600}
+/* згортання головної навігації */
+.navtoggle,.navshow{flex:none;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid var(--hairline);background:var(--canvas);color:var(--steel);border-radius:6px;
+  cursor:pointer;font-size:12px;line-height:1;padding:0;font-family:var(--font)}
+.navtoggle{margin-left:auto}
+.navshow{display:none}
+body.navhid .sidebar{display:none}
+body.navhid .app{grid-template-columns:276px minmax(0,1fr)}
+body.navhid .navshow{display:inline-flex}
+.side-links{margin-top:18px;padding:14px 10px 0;border-top:1px solid var(--hairline)}
+.side-links a{display:flex;align-items:center;gap:9px;color:var(--steel);font-size:14px;
+  font-weight:500;text-decoration:none;padding:6px 0}
+.side-links a svg{width:16px;height:16px;flex:none}
+
+/* ── 2. Дерево вайрфреймів: роль → група sitemap → екран ── */
+.wfnav{position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--surface);
+  border-right:1px solid var(--hairline);padding:0 12px 40px;min-width:0}
+.wfnav > details > summary{display:none}
+/* шапка колонки липка: кнопка «розгорнути» лишається доступною при прокрутці */
+.wfhead{display:flex;align-items:flex-start;gap:8px;padding:22px 10px 12px;position:sticky;top:0;z-index:2;
+  background:var(--surface);border-bottom:1px solid var(--hairline);margin-bottom:10px}
+.wfhead > div{min-width:0}
+.wfhead b{display:block;font-size:14px;font-weight:600;color:var(--ink);line-height:1.2}
+.wfhead span{font-size:12px;color:var(--stone)}
+
+details.role{margin-bottom:4px}
+details.role > summary{display:flex;align-items:center;gap:7px;cursor:pointer;
+  list-style:none;border-radius:6px;transition:background .12s,color .12s}
+details.role > summary::-webkit-details-marker{display:none}
+details.role > summary::before{content:"";width:0;height:0;flex:none;
+  border-left:5px solid currentColor;border-top:4px solid transparent;border-bottom:4px solid transparent;
+  opacity:.5;transition:transform .15s}
+details[open] > summary::before{transform:rotate(90deg)}
+details.role > summary{padding:7px 10px;font-size:14px;font-weight:600;color:var(--ink)}
+details.role > summary .rcount{margin-left:auto;font-size:12px;font-weight:500;color:var(--steel);
+  background:var(--tint-gray);border-radius:20px;padding:1px 7px;font-variant-numeric:tabular-nums}
+.rbody{padding:0 0 8px 10px;margin-left:9px;border-left:1px solid var(--hairline)}
+a.scr{display:block;padding:6px 10px;border-radius:6px;color:var(--slate);text-decoration:none;
+  font-size:14px;font-weight:500;line-height:1.35;transition:background .12s,color .12s}
+a.scr[aria-current="page"]{background:var(--lavender);color:var(--primary);font-weight:600}
+
+/* ── 3. Макет: смужка з перемикачем станів + рамка + опис ── */
+.stage{min-width:0;display:flex;flex-direction:column;height:100vh;background:var(--canvas)}
+.wfbar{display:flex;align-items:center;gap:14px;padding:12px 18px;background:var(--canvas);
+  border-bottom:1px solid var(--hairline);flex:none;min-width:0;flex-wrap:wrap;row-gap:8px}
+.wftitle{min-width:0}
+.wftitle b{display:block;font-size:16px;font-weight:600;color:var(--ink);line-height:1.25}
+.wftitle span{display:block;font-size:12px;color:var(--stone)}
+.states{display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-width:0}
+.states a{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:7px;
+  border:1px solid var(--hairline);background:var(--surface);color:var(--slate);text-decoration:none;
+  font-size:12px;font-weight:500;white-space:nowrap;transition:background .12s,color .12s,border-color .12s}
+.states a[aria-current="page"]{background:var(--lavender);border-color:transparent;color:var(--primary);font-weight:600}
+.states a .mk{font-size:12px;color:var(--stone)}
+.states a[aria-current="page"] .mk{color:var(--primary)}
+.wfbar .ext{margin-left:auto;flex:none;font-size:12px;font-weight:500;color:var(--link);
+  text-decoration:none;white-space:nowrap}
+
+.wfbody{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 352px}
+.wfcanvas{min-width:0;background:var(--tint-gray);border-right:1px solid var(--hairline)}
+.wfframe{width:100%;height:100%;border:0;display:block;background:#d0d0d0}
+.wfdoc{overflow-y:auto;padding:20px 20px 44px;background:var(--canvas);font-size:14px;line-height:1.65;color:var(--slate)}
+.wfdoc h3{margin:0 0 4px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--stone)}
+.wfdoc .dsub{margin:0 0 14px;font-size:12px;color:var(--stone)}
+.wfdoc p{margin:0 0 11px}
+.wfdoc strong{color:var(--ink);font-weight:600}
+.wfdoc em{color:var(--charcoal)}
+.wfdoc code{font-family:var(--mono);font-size:12px;background:var(--tint-gray);
+  padding:1px 5px;border-radius:4px;color:var(--charcoal)}
+.wfdoc a{color:var(--link);text-decoration:none}
+.wfdoc .src{margin:18px 0 0;padding-top:12px;border-top:1px solid var(--hairline);
+  font-size:12px;color:var(--stone)}
+
+.themebtn{position:fixed;bottom:16px;right:16px;z-index:20;background:var(--canvas);
+  border:1px solid var(--hairline-strong);color:var(--slate);border-radius:8px;padding:7px 10px;
+  cursor:pointer;font-size:16px;box-shadow:var(--sh2)}
+.mobtop{display:none}
+
+@media (max-width:1340px){
+  .wfbody{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto}
+  .wfcanvas{border-right:0;border-bottom:1px solid var(--hairline)}
+  .wfdoc{max-height:34vh}
+}
+@media (max-width:1120px){
+  .app{grid-template-columns:276px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}
+  .sidebar{display:none}
+  .mobtop{display:block;position:sticky;top:0;z-index:15;background:var(--surface-soft);
+    border-bottom:1px solid var(--hairline);padding:10px 16px;grid-column:1/-1}
+  .wfnav,.stage{height:auto;min-height:0}
+  .wfnav{position:static;overflow-y:auto}
+  .mobtop summary{display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;
+    font-weight:600;color:var(--ink)}
+  .mobtop summary svg{width:20px;height:20px;flex:none}
+  .mobtop summary svg path{stroke:var(--primary);stroke-width:5;fill:none}
+  .mobtop summary::-webkit-details-marker{display:none}
+  .mobtop .mn{margin-left:auto;font-size:14px;color:var(--stone);flex:none}
+  .mobtop nav{padding:8px 0 2px}
+  .mobtop nav a{display:block;padding:7px 4px;color:var(--slate);text-decoration:none;font-size:14px}
+  .mobtop .mswitch{display:flex;flex-wrap:wrap;gap:8px;padding:2px 0 8px;margin-bottom:4px;
+    border-bottom:1px solid var(--hairline)}
+  .mobtop .mswitch a{flex:1 1 auto;min-width:0;text-align:center;padding:8px 10px;border-radius:8px;
+    background:var(--surface);border:1px solid var(--hairline);font-size:12px;font-weight:500;
+    color:var(--slate);white-space:normal;overflow-wrap:anywhere}
+  .mobtop .mswitch a.cur{background:var(--lavender);border-color:transparent;color:var(--primary);font-weight:600}
+  .navtoggle,body.navhid .navshow{display:none}
+}
+@media (max-width:900px){
+  .app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);height:auto}
+  .wfnav{border-right:0;border-bottom:1px solid var(--hairline);padding:12px}
+  .wfhead{position:static;padding-top:0}
+  .wfnav > details > summary{display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;
+    padding:6px 8px;font-size:14px;font-weight:600;color:var(--ink)}
+  .wfnav > details > summary::-webkit-details-marker{display:none}
+  .wfnav > details > summary .mn{margin-left:auto;font-size:14px;font-weight:400;color:var(--stone)}
+  .stage{height:auto}
+  .wfbody{grid-template-rows:auto auto}
+  /* у колонковому flex `flex:1` перебиває height через flex-basis:0 — тому фіксуємо */
+  .wfcanvas{height:74vh}
+  .wfdoc{max-height:none;padding:18px 16px 32px}
+  .wfbar{padding:10px 14px}
+  body.navhid .app{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+<link rel="stylesheet" href="/kootok/site-theme.css">
+</head>
+<body>
+
+<div class="app">
+
+<div class="mobtop"><details><summary><svg viewBox="0 0 34 34"><path d="M6 28 L6 6 L28 6"/></svg><span>Куток · вайрфрейми</span><span class="mn">сторінки ▾</span></summary><nav>
+<span class="mswitch"><a href="/kootok/">01 · Продукт</a><a href="/kootok/research.html">02 · Дослідження</a><a href="/kootok/personas.html">02 · Персони</a><a href="/kootok/ia.html">03 · IA</a><a class="cur" href="/kootok/research/wireframes.html">04 · Вайрфрейми</a><a href="/kootok/voice.md">05 · Голос</a><a href="/kootok/lesson-6-concept.html">06 · Дизайн</a></span>
+<a href="https://github.com/denysosadchyi/kootok" target="_blank" rel="noopener">↗ GitHub-репозиторій</a>
+</nav></details></div>
+
+<!-- ═══ 1. Навігація проєкту ═══ -->
+<aside class="sidebar">
+<div class="brand"><svg viewBox="0 0 34 34"><path d="M6 28 L6 6 L28 6"/></svg><span class="brand-txt"><b>Куток</b><span>вайрфрейми</span></span><button class="navtoggle" id="navHide" title="Згорнути навігацію" aria-label="Згорнути навігацію">◀</button></div>
+<div class="nav-label">Сторінки</div>
+<div class="pageswitch">
+<a href="/kootok/"><span class="ln">01</span>Продукт</a>
+<a href="research.html"><span class="ln">02</span>Дослідження ринку</a>
+<a href="personas.html"><span class="ln">02</span>Персони і JTBD</a>
+<a href="ia.html"><span class="ln">03</span>Інформаційна архітектура</a>
+<a class="cur" href="wireframes.html"><span class="ln">04</span>Вайрфрейми</a>
+<a href="/kootok/voice.md"><span class="ln">05</span>Голос і текст</a>
+<a href="/kootok/lesson-6-concept.html"><span class="ln">06</span>Дизайн із коду</a>
+</div>
+<div class="side-links">
+<a href="https://github.com/denysosadchyi/kootok" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub-репозиторій</a>
+</div>
+</aside>
+
+<!-- ═══ 2. Дерево вайрфреймів за ролями ═══ -->
+<aside class="wfnav">
+<details open>
+<summary><span>Екрани за ролями</span><span class="mn">15 ▾</span></summary>
+<div class="wfhead"><div><b>Екрани за ролями</b></div><button class="navshow" id="navShow" title="Розгорнути навігацію" aria-label="Розгорнути навігацію">▶</button></div>
+<details class="role" open>
+<summary><span class="rname">Спільні екрани</span><span class="rcount">10</span></summary>
+<div class="rbody">
+<a class="scr" href="#signup" data-screen="signup">Реєстрація і підтвердження номера</a>
+<a class="scr" href="#role" data-screen="role">Вибір ролі</a>
+<a class="scr" href="#profile-edit" data-screen="profile-edit">Мій профіль</a>
+<a class="scr" href="#profile-social" data-screen="profile-social">Додати посилання на соцмережу</a>
+<a class="scr" href="#filters" data-screen="filters">Фільтри оголошень</a>
+<a class="scr" href="#person" data-screen="person">Профіль співмешканця</a>
+<a class="scr" href="#chats" data-screen="chats">Заявки і чати</a>
+<a class="scr" href="#chat" data-screen="chat">Чат</a>
+<a class="scr" href="#report" data-screen="report">Скарга</a>
+<a class="scr" href="#review" data-screen="review">Відгук</a>
+</div></details>
+<details class="role" open>
+<summary><span class="rname">Шукає кімнату</span><span class="rcount">2</span></summary>
+<div class="rbody">
+<a class="scr" href="#listings" data-screen="listings">Стрічка оголошень</a>
+<a class="scr" href="#listing" data-screen="listing">Оголошення</a>
+</div></details>
+<details class="role" open>
+<summary><span class="rname">Має кімнату</span><span class="rcount">3</span></summary>
+<div class="rbody">
+<a class="scr" href="#seekers" data-screen="seekers">Стрічка співмешканців</a>
+<a class="scr" href="#listing-new" data-screen="listing-new">Нове оголошення</a>
+<a class="scr" href="#my-listings" data-screen="my-listings">Мої оголошення</a>
+</div></details>
+</details>
+</aside>
+
+<!-- ═══ 3. Макет ═══ -->
+<main class="stage">
+<div class="wfbar">
+  <div class="wftitle"><b id="wfTitle">Реєстрація і підтвердження номера</b><span id="wfGroup">I. Стати учасником Кутка</span></div>
+  <nav class="states" id="wfStates" aria-label="Стани екрана"></nav>
+  <a class="ext" id="wfExt" href="wireframes/signup.html" target="_blank" rel="noopener">Відкрити окремо ↗</a>
+</div>
+<div class="wfbody">
+  <div class="wfcanvas"><iframe class="wfframe" id="wfFrame" src="wireframes/signup.html" title="Вайрфрейм"></iframe></div>
+  <aside class="wfdoc">
+    <h3>Опис екрана</h3>
+    <p class="dsub" id="wfDocSub">основний вигляд</p>
+    <div id="wfDocBody"></div>
+    <p class="src">Текст — з анотації самої сторінки вайрфрейму; джерела в ній: <code>sitemap.md</code>, <code>flows.md</code>, <code>jtbd.md</code>, <code>_screens.md</code>.</p>
+  </aside>
+</div>
+</main>
+
+</div>
+
+<button class="themebtn" id="tt" title="Тема">◐</button>
+
+<script src="wireframes/_wfdoc.js"></script>
+<script>
+var WF_SCREENS = [{"page":"signup","title":"Реєстрація і підтвердження номера","group":"I. Стати учасником Кутка","role":"common","states":[{"page":"signup","cls":"","label":"основний вигляд"},{"page":"signup-empty","cls":"stub","label":"порожній"},{"page":"signup-error","cls":"stub","label":"помилка"},{"page":"signup-loading","cls":"stub","label":"завантаження"}]},{"page":"role","title":"Вибір ролі","group":"I. Стати учасником Кутка","role":"common","states":[{"page":"role","cls":"","label":"основний вигляд"},{"page":"role-empty","cls":"stub","label":"порожній"},{"page":"role-error","cls":"stub","label":"помилка"},{"page":"role-loading","cls":"stub","label":"завантаження"}]},{"page":"profile-edit","title":"Мій профіль","group":"II. Мій профіль","role":"common","states":[{"page":"profile-edit","cls":"","label":"основний вигляд"},{"page":"profile-edit-empty","cls":"stub","label":"порожній"},{"page":"profile-edit-error","cls":"stub","label":"помилка"},{"page":"profile-edit-loading","cls":"stub","label":"завантаження"}]},{"page":"profile-social","title":"Додати посилання на соцмережу","group":"II. Мій профіль","role":"common","states":[{"page":"profile-social","cls":"","label":"основний вигляд"},{"page":"profile-social-empty","cls":"stub","label":"порожній"},{"page":"profile-social-error","cls":"stub","label":"помилка"},{"page":"profile-social-loading","cls":"stub","label":"завантаження"}]},{"page":"listings","title":"Стрічка оголошень","group":"III. Знайти кімнату або людину","role":"seeker","states":[{"page":"listings","cls":"","label":"успіх"},{"page":"listings-empty","cls":"","label":"порожній"},{"page":"listings-error","cls":"","label":"помилка *"},{"page":"listings-loading","cls":"","label":"завантаження *"}]},{"page":"seekers","title":"Стрічка співмешканців","group":"III. Знайти кімнату або людину","role":"lister","states":[{"page":"seekers","cls":"","label":"основний вигляд"},{"page":"seekers-empty","cls":"","label":"порожній"},{"page":"seekers-error","cls":"stub","label":"помилка"},{"page":"seekers-loading","cls":"stub","label":"завантаження"}]},{"page":"filters","title":"Фільтри оголошень","group":"III. Знайти кімнату або людину","role":"common","states":[{"page":"filters","cls":"","label":"основний вигляд"},{"page":"filters-empty","cls":"stub","label":"порожній"},{"page":"filters-error","cls":"stub","label":"помилка"},{"page":"filters-loading","cls":"stub","label":"завантаження"}]},{"page":"listing","title":"Оголошення","group":"IV. Розглянути варіант","role":"seeker","states":[{"page":"listing","cls":"","label":"основний вигляд"},{"page":"listing-empty","cls":"stub","label":"порожній"},{"page":"listing-error","cls":"","label":"помилка"},{"page":"listing-loading","cls":"","label":"завантаження"}]},{"page":"person","title":"Профіль співмешканця","group":"IV. Розглянути варіант","role":"common","states":[{"page":"person","cls":"","label":"основний вигляд"},{"page":"person-empty","cls":"stub","label":"порожній"},{"page":"person-error","cls":"","label":"помилка"},{"page":"person-loading","cls":"","label":"завантаження"}]},{"page":"listing-new","title":"Нове оголошення","group":"V. Запропонувати кімнату","role":"lister","states":[{"page":"listing-new","cls":"","label":"основний вигляд"},{"page":"listing-new-empty","cls":"stub","label":"порожній"},{"page":"listing-new-error","cls":"","label":"помилка"},{"page":"listing-new-loading","cls":"","label":"завантаження"}]},{"page":"my-listings","title":"Мої оголошення","group":"V. Запропонувати кімнату","role":"lister","states":[{"page":"my-listings","cls":"","label":"основний вигляд"},{"page":"my-listings-empty","cls":"","label":"порожній"},{"page":"my-listings-error","cls":"stub","label":"помилка"},{"page":"my-listings-loading","cls":"stub","label":"завантаження"}]},{"page":"chats","title":"Заявки і чати","group":"VI. Домовитися","role":"common","states":[{"page":"chats","cls":"","label":"успіх"},{"page":"chats-empty","cls":"","label":"порожній"},{"page":"chats-error","cls":"","label":"помилка"},{"page":"chats-loading","cls":"","label":"завантаження"}]},{"page":"chat","title":"Чат","group":"VI. Домовитися","role":"common","states":[{"page":"chat","cls":"","label":"успіх"},{"page":"chat-empty","cls":"stub","label":"порожній"},{"page":"chat-error","cls":"stub","label":"помилка"},{"page":"chat-loading","cls":"stub","label":"завантаження"}]},{"page":"report","title":"Скарга","group":"VI. Домовитися","role":"common","states":[{"page":"report","cls":"","label":"основний вигляд"},{"page":"report-empty","cls":"stub","label":"порожній"},{"page":"report-error","cls":"stub","label":"помилка"},{"page":"report-loading","cls":"stub","label":"завантаження"}]},{"page":"review","title":"Відгук","group":"VII. Після заселення","role":"common","states":[{"page":"review","cls":"","label":"основний вигляд"},{"page":"review-empty","cls":"stub","label":"порожній"},{"page":"review-error","cls":"stub","label":"помилка"},{"page":"review-loading","cls":"stub","label":"завантаження"}]}];
+(function(){
+  var root = document.documentElement, btn = document.getElementById('tt');
+  try{ var s = localStorage.getItem('kt'); if(s) root.setAttribute('data-theme', s); }catch(e){}
+  btn.addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    if(!cur){ cur = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+    var next = cur === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try{ localStorage.setItem('kt', next); }catch(e){}
+  });
+
+  // згортання головної навігації (запам'ятовуємо вибір)
+  var hide = document.getElementById('navHide'), showBtn = document.getElementById('navShow');
+  function setNav(on){
+    document.body.classList.toggle('navhid', on);
+    try{ localStorage.setItem('kt-nav', on ? '1' : '0'); }catch(e){}
+  }
+  try{ if(localStorage.getItem('kt-nav') === '1') document.body.classList.add('navhid'); }catch(e){}
+  hide.addEventListener('click', function(){ setNav(true); });
+  showBtn.addEventListener('click', function(){ setNav(false); });
+
+  var frame = document.getElementById('wfFrame'), title = document.getElementById('wfTitle'),
+      group = document.getElementById('wfGroup'), bar = document.getElementById('wfStates'),
+      ext = document.getElementById('wfExt'), docSub = document.getElementById('wfDocSub'),
+      docBody = document.getElementById('wfDocBody'),
+      navLinks = [].slice.call(document.querySelectorAll('a.scr'));
+
+  var byPage = {};   // будь-який стан → його екран
+  WF_SCREENS.forEach(function(s){
+    byPage[s.page] = s;
+    s.states.forEach(function(st){ byPage[st.page] = s; });
+  });
+
+  var MARK = {
+    stub: {sign: '†', hint: 'Сторінка-заглушка: у _screens.md прочерк, вміст не вигадано'},
+    pending: {sign: '*', hint: 'Стан намальовано на пряме замовлення, хоча в _screens.md прочерк'}
+  };
+
+  function show(page, push){
+    var scr = byPage[page];
+    if(!scr){ page = 'signup'; scr = byPage[page]; }
+    var st = scr.states.filter(function(x){ return x.page === page; })[0] || scr.states[0];
+    var file = 'wireframes/' + st.page + '.html';
+
+    if(frame.getAttribute('src') !== file) frame.setAttribute('src', file);
+    ext.setAttribute('href', file);
+    title.textContent = scr.title;
+    group.textContent = scr.group;
+
+    bar.textContent = '';
+    scr.states.forEach(function(x){
+      var a = document.createElement('a');
+      a.href = '#' + x.page;
+      a.dataset.state = x.page;
+      a.appendChild(document.createTextNode(x.label));
+      if(MARK[x.cls]){
+        var m = document.createElement('span');
+        m.className = 'mk'; m.textContent = MARK[x.cls].sign;
+        a.appendChild(m);
+        a.title = MARK[x.cls].hint;
+      }
+      if(x.page === st.page) a.setAttribute('aria-current', 'page');
+      bar.appendChild(a);
+    });
+
+    docSub.textContent = st.label + (MARK[st.cls] ? ' ' + MARK[st.cls].sign + ' — ' + MARK[st.cls].hint.toLowerCase() : '');
+    docBody.innerHTML = (window.WF_DOC && WF_DOC[st.page]) || '<p>Опису для цього стану немає.</p>';
+
+    navLinks.forEach(function(a){
+      if(a.dataset.screen === scr.page){
+        a.setAttribute('aria-current', 'page');
+        var r = a.closest('details.role'); if(r) r.open = true;
+      } else a.removeAttribute('aria-current');
+    });
+
+    if(push && location.hash.slice(1) !== st.page) history.pushState(null, '', '#' + st.page);
+    if(!push){ // при відкритті за посиланням підводимо дерево до активного екрана;
+               // крутимо саме колонку, а не сторінку — інакше на мобільному з'їжджає вся сторінка
+      var cur = document.querySelector('a.scr[aria-current="page"]'),
+          nav = document.querySelector('.wfnav');
+      if(cur && nav && nav.scrollHeight > nav.clientHeight + 8){
+        var r = cur.getBoundingClientRect(), nr = nav.getBoundingClientRect();
+        nav.scrollTop += (r.top - nr.top) - nav.clientHeight / 2 + r.height / 2;
+      }
+    }
+    document.title = 'Куток — вайрфрейми · ' + scr.title;
+  }
+
+  // клік по дереву, по перемикачу станів і по хеш-лінках усередині опису
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if(!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    var page = a.getAttribute('href').slice(1);
+    if(!byPage[page]) return;
+    e.preventDefault();
+    show(page, true);
+    if(a.classList.contains('scr')){
+      var d = document.querySelector('.wfnav > details');
+      if(d && getComputedStyle(d.querySelector('summary')).display !== 'none') d.open = false;
+    }
+  });
+
+  addEventListener('hashchange', function(){ show(location.hash.slice(1), false); });
+  document.querySelectorAll('.mobtop a').forEach(function(a){
+    a.addEventListener('click', function(){
+      var d = document.querySelector('.mobtop details'); if(d) d.open = false;
+    });
+  });
+
+  // На вузькому екрані дерево згорнуте: спершу видно сам макет.
+  var wfDetails = document.querySelector('.wfnav > details');
+  function fitNav(){
+    if(!wfDetails) return;
+    var mobile = getComputedStyle(wfDetails.querySelector('summary')).display !== 'none';
+    if(mobile && wfDetails.open) wfDetails.open = false;
+    if(!mobile && !wfDetails.open) wfDetails.open = true;
+  }
+  addEventListener('resize', fitNav);
+
+  show(location.hash.slice(1) || 'signup', false);
+  fitNav();
+})();
+</script>
+
+</body>
+</html>

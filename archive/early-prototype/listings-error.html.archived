@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#245744">
+<title>Куток — Стрічка оголошень (помилка)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Onest:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/kootok/tokens.css">
+<link rel="stylesheet" href="/kootok/components/index.css">
+<link rel="stylesheet" href="_base.css">
+<link rel="stylesheet" href="/kootok/course-nav.css">
+<script src="/kootok/course-nav.js" defer></script>
+</head>
+<body>
+<div class="kit-shell">
+  <header class="kit-shell__brand"><a href="listings.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+  <main class="kit-shell__body">
+    <h1 class="kit-headline">Стрічка оголошень</h1>
+    <section class="kit-section" aria-labelledby="listings-heading">
+      <div class="kit-toolbar">
+        <h2 id="listings-heading" class="kit-meta">Оновлення не вдалося</h2>
+        <button type="button" class="kit-button kit-button--secondary kit-button--compact kit-button--icon-filter" aria-controls="listing-filters-sheet" aria-expanded="false">Фільтри</button>
+      </div>
+      <div class="kit-card kit-card--state">
+        <div class="kit-state kit-state--error" role="alert">
+          <span class="kit-state__icon"></span>
+          <h3>Не вдалося завантажити оголошення</h3>
+          <p>Перевірте інтернет-з'єднання і спробуйте ще раз. Вибрані фільтри збереглися.</p>
+          <div class="kit-actions"><a class="kit-button kit-button--block" href="listings.html">Спробувати ще раз</a></div>
+        </div>
+      </div>
+    </section>
+    <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+  </main>
+
+  <details class="filters">
+    <summary>
+      <span class="summary-text">
+        <span class="summary-label">Фільтри</span>
+        <span class="summary-state">Підселення · Голосіївський · до 10 000 грн</span>
+      </span>
+      <span class="summary-toggle">Змінити</span>
+    </summary>
+    <div class="filters-body">
+      <form class="kit-form" aria-label="Фільтри оголошень">
+        <fieldset class="kit-fieldset">
+          <legend>Тип оголошення</legend>
+          <label class="kit-choice"><input type="radio" name="type" value="all"> Усі оголошення</label>
+          <label class="kit-choice"><input type="radio" name="type" value="sublet" checked> Підселення до співмешканців</label>
+          <label class="kit-choice"><input type="radio" name="type" value="fresh"> Оренда з нуля</label>
+        </fieldset>
+
+        <fieldset class="kit-fieldset">
+          <legend>Район, ціна і заїзд</legend>
+          <div class="kit-field kit-field--select">
+            <label for="district">Район Києва</label>
+            <select id="district" name="district">
+              <option value="">Будь-який район</option>
+              <option selected>Голосіївський</option>
+              <option>Дарницький</option>
+              <option>Деснянський</option>
+              <option>Дніпровський</option>
+              <option>Оболонський</option>
+              <option>Печерський</option>
+              <option>Подільський</option>
+              <option>Святошинський</option>
+              <option>Солом'янський</option>
+              <option>Шевченківський</option>
+            </select>
+          </div>
+
+          <div class="kit-field-row">
+            <div class="kit-field">
+              <label for="price-min">Ціна від, грн/міс</label>
+              <input type="number" id="price-min" name="price-min" min="0" step="500" value="5000">
+            </div>
+            <div class="kit-field">
+              <label for="price-max">Ціна до, грн/міс</label>
+              <input type="number" id="price-max" name="price-max" min="0" step="500" value="10000">
+            </div>
+          </div>
+
+          <div class="kit-field kit-field--date">
+            <label for="move-in">Заїзд не пізніше</label>
+            <input type="date" id="move-in" name="move-in" value="2026-09-01">
+          </div>
+        </fieldset>
+
+        <div class="kit-actions">
+          <button type="submit" class="kit-button kit-button--block">Показати оголошення</button>
+          <button type="reset" class="kit-button kit-button--secondary kit-button--block">Скинути</button>
+        </div>
+      </form>
+    </div>
+  </details>
+
+  <nav class="kit-tabbar product-header" aria-label="Глобальна навігація">
+    <a class="kit-tab" href="listings.html" aria-current="page">Пошук</a>
+    <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+    <a class="kit-tab kit-tab--profile" href="profile.html">Профіль</a>
+    <a class="kit-tab kit-tab--create" href="/kootok/research/wireframes/listing-new.html" aria-label="Додати оголошення">Додати</a>
+  </nav>
+</div>
+<script>
+(function(){
+  var b=document.querySelector('.kit-toolbar button'), d=document.querySelector('details.filters');
+  if(!b||!d) return;
+  b.addEventListener('click',function(){
+    var fab=document.querySelector('.filters-fab');
+    if(fab){ fab.click(); } else { d.open=!d.open; }
+    b.setAttribute('aria-expanded', d.open?'true':'false');
+  });
+})();
+</script>
+</body>
+</html>

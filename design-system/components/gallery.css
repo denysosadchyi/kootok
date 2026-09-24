@@ -1,0 +1,5 @@
+/* ───────── Галерея деталі ───────── */
+ul.kit-gallery { display: flex; margin: 0; padding: var(--primitive-length-4) 0 var(--primitive-length-8); gap: var(--primitive-length-10); overflow-x: auto; list-style: none; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.kit-gallery::-webkit-scrollbar { display: none; }
+.kit-gallery li { flex: none; scroll-snap-align: start; }
+.kit-gallery img { display: block; width: var(--primitive-length-280); height: auto; aspect-ratio: var(--ratio-gallery-media); border-radius: var(--radius-card); object-fit: cover; }

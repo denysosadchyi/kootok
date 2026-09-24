@@ -3,118 +3,82 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#365c4f">
-<title>Куток: Подати заявку</title>
+<meta name="theme-color" content="#245744">
+<title>Куток — Заявка</title>
+<link rel="stylesheet" href="/kootok/design-system/index.css">
 <link rel="stylesheet" href="_base.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
-<link rel="stylesheet" href="/kootok/site-theme.css">
 <script src="/kootok/course-nav.js" defer></script>
 </head>
 <body>
+<div class="kit-shell">
+  <header class="kit-shell__brand"><a href="listings.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+  <header class="kit-shell__appbar"><a class="kit-back" href="compatibility-form.html" aria-label="Назад до анкети">Анкета сумісності</a><h1 class="kit-shell__title">Заявка</h1></header>
+  <main class="kit-shell__body">
+    <a class="kit-conversation-context" href="listing.html"><img src="assets/rooms/room-holosiivska-mariia-oleh-web.jpg" width="1200" height="800" alt="Світла кухня-вітальня з обіднім столом і зеленим диваном у Голосіївському районі"><span><small>Заявка Марії та Олегу</small><strong>Кімната в Голосіївському</strong><b>7 500 грн/міс · заїзд 1 вересня</b></span></a>
 
-<header class="product-header">
-  <a class="product-header__brand" href="listings.html" aria-label="Куток: на головну">Куток</a>
-  <nav class="product-nav" aria-label="Навігація продуктом">
-    <a class="product-nav__link" href="listings.html" aria-current="page">Пошук</a>
-    <a class="product-nav__link" href="chats.html">Чати</a>
-    <a class="product-nav__link" href="profile.html">Профіль</a>
-    <a class="product-nav__link product-nav__link--create" href="/kootok/research/wireframes/listing-new.html" aria-label="Додати нове оголошення">Додати</a>
-  </nav>
-</header>
+    <section class="kit-card kit-application-card" aria-labelledby="message-heading">
+      <h2 id="message-heading" class="kit-section__title" data-application-heading>Представся мешканцям</h2>
+      <p class="kit-hint" data-application-intro>Коротке особисте повідомлення збільшує шанс отримати відповідь.</p>
 
-<p class="proto-note">
-  Прототип 390&nbsp;px · екран «Форма заявки» (_screens.md) · крок 4 з
-  4, останній у головному сценарії · Задача 3 (написати без номера) і
-  Задача 4 (сумісність додається автоматично) · вихід: повернутися до
-  стрічки й шукати далі, поки немає відповіді
-</p>
+      <form class="kit-form" action="application.html#prototype-result" method="get" data-prototype-application>
+        <div class="kit-field">
+          <label for="application-message">Повідомлення Марії та Олегу</label>
+          <textarea id="application-message" name="message" required placeholder="Напиши, коли плануєш заїхати й чому тобі підходить цей дім"></textarea>
+          <p class="kit-field__message">Без номера телефону — спершу поспілкуйся в Кутку</p>
+        </div>
 
-<header>
-  <a class="back-link" href="compatibility-form.html" aria-label="Назад до анкети">Анкета сумісності</a>
-  <p class="product">Куток: заявка на підселення</p>
-  <h1>Заявка</h1>
-</header>
+        <div class="kit-application-choice">
+          <p class="kit-application-choice__title">Анкету сумісності додано</p>
+          <a class="kit-button kit-button--secondary kit-button--compact" href="compatibility-form.html" aria-label="Змінити анкету сумісності">Змінити</a>
+          <p class="kit-application-choice__meta">Марія та Олег побачать її разом із твоєю заявкою: сон, чистота, гості, тварини, куріння і графік.</p>
+        </div>
 
-<main>
-  <a class="application-listing" href="listing.html"><img src="assets/listings/room-01.jpg" width="120" height="80" alt="Світла кімната у Голосіївському районі"><span><small>Заявка Марії та Олегу</small><strong>Кімната в Голосіївському</strong><b>8 500 ₴ · заїзд 1 вересня</b></span><span class="avatar-pair application-listing__avatars" aria-hidden="true"><img src="assets/avatars/mariia.png" width="1254" height="1254" alt=""><img src="assets/avatars/oleh.png" width="1254" height="1254" alt=""></span></a>
-  <section aria-labelledby="message-heading">
-    <h2 id="message-heading">Представтесь мешканцям</h2>
-    <p class="meta">Коротке особисте повідомлення збільшує шанс отримати відповідь.</p>
-    <form class="application-form" action="application-sent.html" method="get">
-      <div class="field"><label for="application-message">Повідомлення Марії та Олегу</label><textarea id="application-message" name="message" required>Привіт! Мене звати Соломія. Переїжджаю до Києва на нову роботу 1 вересня. Ваша кімната мені підходить — буду рада познайомитися й домовитися про перегляд.</textarea><span class="field-hint">Без номера телефону — спочатку поспілкуйтесь у Кутку</span></div>
-      <label class="application-attachment"><input type="checkbox" checked><span><strong>Додати анкету сумісності</strong><small>92% збігу · сон, чистота, гості та графік</small></span></label>
-      <button class="primary" type="submit">Надіслати заявку</button>
-    </form>
-  </section>
-</main>
+        <p class="kit-note kit-note--info"><strong>Це інтерактивний прототип</strong>Дія нижче покаже фінальний стан, але не надсилатиме дані.</p>
+        <div class="kit-actions">
+          <button class="kit-button kit-button--block" type="submit">Переглянути результат заявки</button>
+        </div>
+      </form>
 
-<!-- Службова панель прототипу: розділ → екран → стани.
-     Структура з prototype/_screens.md, імена файлів з prototype/_rules.md.
-     Не елемент продукту: на полотні 390 px не показується. -->
-<aside class="proto-tree">
-  <h2>Прототип «Кутка»</h2>
-  <p class="hint">Головний сценарій Соломії</p>
+      <div id="prototype-result" class="kit-card kit-card--state kit-card--prototype kit-application-result" role="status" tabindex="-1" hidden>
+        <div class="kit-state">
+          <span class="kit-state__icon kit-state__icon--document" aria-hidden="true"></span>
+          <h3>Сценарій заявки завершено</h3>
+          <p>Це ранній прототип: заявку не надіслано, а введені дані нікуди не передано.</p>
+          <div class="kit-actions">
+            <a class="kit-button kit-button--block" href="listing.html">Повернутися до оголошення</a>
+            <a class="kit-button kit-button--secondary kit-button--block" href="compatibility-form.html">Змінити анкету</a>
+          </div>
+        </div>
+      </div>
 
-  <nav aria-label="Навігація прототипом">
-    <ul>
+      <div class="kit-card kit-card--state" aria-labelledby="sent-heading" data-application-sent hidden>
+        <div class="kit-state">
+          <span class="kit-state__icon kit-state__icon--chat" aria-hidden="true"></span>
+          <p class="kit-meta">Так це виглядатиме в Кутку</p>
+          <h3 id="sent-heading">Заявку надіслано</h3>
+          <p>Марія та Олег отримають твоє повідомлення й анкету з профілю. Зазвичай відповідають протягом 1–2 днів.</p>
+          <p class="kit-meta">Чат відкриється, коли вони приймуть заявку.</p>
+        </div>
+      </div>
+    </section>
 
-      <li>
-        <span class="group">Оголошення (кімната / квартира)</span>
-        <ul class="level-screen">
-
-          <li class="screen">
-            <a href="listings.html">Стрічка оголошень + фільтри</a>
-            <ul class="level-state">
-              <li><a href="listings.html">успіх</a></li>
-              <li><a href="listings-empty.html">порожньо</a></li>
-              <li><a href="listings-error.html">помилка</a></li>
-              <li><a href="listings-loading.html">очікування</a></li>
-            </ul>
-          </li>
-
-          <li class="screen">
-            <a href="listing.html">Сторінка оголошення</a>
-            <ul class="level-state">
-              <li><a href="listing.html">успіх</a></li>
-              <li><a href="listing-error.html">помилка</a></li>
-              <li><a href="listing-loading.html">очікування</a></li>
-            </ul>
-          </li>
-
-        </ul>
-      </li>
-
-      <li>
-        <span class="group">Профіль людини</span>
-        <ul class="level-screen">
-          <li class="screen">
-            <a href="compatibility-form.html">Анкета сумісності: заповнення власного профілю</a>
-            <ul class="level-state">
-              <li><a href="compatibility-form.html">успіх</a></li>
-              <li><a href="compatibility-form-error.html">помилка</a></li>
-              <li><a href="compatibility-form-loading.html">очікування</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-
-      <li>
-        <span class="group">Заявка</span>
-        <ul class="level-screen">
-          <li class="screen is-open">
-            <a href="application.html">Форма заявки</a>
-            <ul class="level-state">
-              <li><a href="application.html" aria-current="page">успіх</a></li>
-              <li><a href="application-error.html">помилка</a></li>
-              <li><a href="application-loading.html">очікування</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-
-    </ul>
-  </nav>
-</aside>
-
+    <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+  </main>
+</div>
+<script>
+document.querySelector('[data-prototype-application]').addEventListener('submit', function (event) {
+  event.preventDefault();
+  var form = event.currentTarget;
+  var result = document.getElementById('prototype-result');
+  if (!form.reportValidity()) return;
+  document.querySelector('[data-application-heading]').textContent = 'Результат прототипу';
+  document.querySelector('[data-application-intro]').hidden = true;
+  form.hidden = true;
+  result.hidden = false;
+  document.querySelector('[data-application-sent]').hidden = false;
+  result.focus();
+});
+</script>
 </body>
 </html>

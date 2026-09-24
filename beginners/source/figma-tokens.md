@@ -1,5 +1,7 @@
 # Steep → Figma: список токенів і стилів
 
+> **Історичний документ (Beginners / урок 6 до перебудови 2026-09-17).** Не є чинним: канон — `/CLAUDE.md`, `/DESIGN.md`, `/design-system/`, `/concept.md`. Збережено як історію.
+
 **Залито у Figma — робочий файл `kootok`:**
 https://www.figma.com/design/WlotY7SHAGBPsQdOnkQBjb/kootok (через figmosha-бридж).
 Дубль у чернетці: https://www.figma.com/design/mY2eKpqlPW6SvXt1dqOStg

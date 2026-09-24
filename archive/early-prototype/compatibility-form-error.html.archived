@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#245744">
+<title>Куток — Анкета сумісності (помилка)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Onest:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/kootok/tokens.css">
+<link rel="stylesheet" href="/kootok/components/index.css">
+<link rel="stylesheet" href="_base.css">
+<link rel="stylesheet" href="/kootok/course-nav.css">
+<script src="/kootok/course-nav.js" defer></script>
+</head>
+<body>
+<div class="kit-shell">
+  <header class="kit-shell__brand"><a href="listings.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+  <header class="kit-shell__appbar"><a class="kit-back" href="listing.html" aria-label="Назад до оголошення">Кімната в Голосіївському районі</a><h1 class="kit-shell__title">Сумісність</h1></header>
+  <main class="kit-shell__body">
+    <div class="kit-card kit-card--state">
+      <div class="kit-state kit-state--error" role="alert">
+        <span class="kit-state__icon"></span>
+        <h3>Не вдалося зберегти анкету</h3>
+        <p>Перевірте інтернет-з'єднання. Ваші відповіді на цьому пристрої нікуди не зникли — просто повторіть збереження.</p>
+        <div class="kit-actions">
+          <a class="kit-button kit-button--block" href="compatibility-form.html">Спробувати зберегти ще раз</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+  </main>
+  <nav class="kit-tabbar product-header" aria-label="Глобальна навігація">
+    <a class="kit-tab" href="listings.html" aria-current="page">Пошук</a>
+    <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+    <a class="kit-tab kit-tab--profile" href="profile.html">Профіль</a>
+    <a class="kit-tab kit-tab--create" href="/kootok/research/wireframes/listing-new.html" aria-label="Додати оголошення">Додати</a>
+  </nav>
+</div>
+</body>
+</html>

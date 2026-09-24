@@ -3,254 +3,216 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#365c4f">
+<meta name="theme-color" content="#245744">
 <title>Куток — Стрічка оголошень + фільтри</title>
-<link rel="stylesheet" href="/kootok/ui/kit.css">
+<link rel="stylesheet" href="/kootok/design-system/index.css">
 <link rel="stylesheet" href="_base.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
-<link rel="stylesheet" href="/kootok/site-theme.css">
 <script src="/kootok/course-nav.js" defer></script>
 </head>
 <body>
-
-<header class="product-header">
-  <a class="product-header__brand" href="listings.html" aria-label="Куток — на головну">Куток</a>
-  <nav class="product-nav kit-product-nav" aria-label="Навігація продуктом">
-    <a class="kit-product-tab" href="listings.html" aria-current="page">Пошук</a>
-    <a class="kit-product-tab kit-product-tab--chats" href="chats.html">Чати</a>
-    <a class="kit-product-tab kit-product-tab--profile" href="profile.html">Профіль</a>
-    <a class="kit-product-tab kit-product-tab--create" href="/kootok/research/wireframes/listing-new.html" aria-label="Додати нове оголошення">Додати</a>
-  </nav>
-</header>
-
-<p class="proto-note">
-  Прототип 390&nbsp;px · крок 1 з 4 головного сценарію (Соломія шукає
-  підселення) · Задача 1: зрозуміти тип оголошення, не читаючи текст ·
-  далі → сторінка оголошення
-</p>
-
-<!-- Фільтри згорнуті: на телефоні розгорнута форма з'їдала б перший екран
-     і відсувала оголошення. Стан фільтрів читається без розгортання. -->
-<details class="filters">
-  <summary>
-    <span class="summary-text">
-      <span class="summary-label">Фільтри</span>
-      <span class="summary-state">Підселення · Голосіївський · до 10 000 грн</span>
-    </span>
-    <span class="summary-toggle">Змінити</span>
-  </summary>
-  <div class="filters-body">
-    <form aria-label="Фільтри оголошень">
-      <fieldset>
-        <legend>Тип оголошення</legend>
-        <label class="kit-choice"><input type="radio" name="type" value="all"> Усі оголошення</label>
-        <label class="kit-choice"><input type="radio" name="type" value="sublet" checked> Підселення до співмешканців</label>
-        <label class="kit-choice"><input type="radio" name="type" value="fresh"> Оренда з нуля</label>
-      </fieldset>
-
-      <div class="kit-field kit-field--prototype">
-        <label for="district">Район Києва</label>
-        <select id="district" name="district">
-          <option value="">Будь-який район</option>
-          <option selected>Голосіївський</option>
-          <option>Дарницький</option>
-          <option>Деснянський</option>
-          <option>Дніпровський</option>
-          <option>Оболонський</option>
-          <option>Печерський</option>
-          <option>Подільський</option>
-          <option>Святошинський</option>
-          <option>Солом'янський</option>
-          <option>Шевченківський</option>
-        </select>
+<div class="kit-shell kit-shell--with-dock">
+  <header class="kit-shell__brand"><a href="listings.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+  <main class="kit-shell__body">
+    <header class="kit-page-intro">
+      <h1 class="kit-headline">Стрічка оголошень</h1>
+      <ul class="kit-segmented" aria-label="Що показувати">
+        <li><a href="listings.html" aria-current="page">Кімнати</a></li>
+        <li><span aria-disabled="true" aria-describedby="people-feed-hint">Люди</span></li>
+      </ul>
+      <p id="people-feed-hint" class="kit-hint">Стрічку людей бачить лише той, хто має кімнату.</p>
+      <div class="kit-toolbar">
+        <p id="listings-count" class="kit-hint">128 оголошень у Києві</p>
+        <button type="button" class="kit-button kit-button--secondary kit-button--compact kit-button--icon-filter" aria-controls="listing-filters-sheet" aria-expanded="false">Фільтри</button>
       </div>
+    </header>
+    <section class="kit-section" aria-labelledby="listings-heading">
+      <h2 id="listings-heading" class="kit-sr-only">Оголошення кімнат</h2>
+      <ul class="kit-list">
 
-      <div class="field-row">
-        <div class="kit-field kit-field--prototype">
-          <label for="price-min">Ціна від, грн/міс</label>
-          <input type="number" id="price-min" name="price-min" min="0" step="500" value="5000">
+        <li>
+          <article class="kit-listing">
+            <div class="kit-listing__media"><a href="listing.html" aria-label="Фото кімнати: Кімната в 3-кімнатній, Голосіївський район"><img class="kit-listing__photo" src="assets/rooms/room-holosiivska-mariia-oleh-web.jpg" width="1200" height="800" alt="Спільна кухня-вітальня з дерев’яним столом, зеленим диваном і великим вікном у двір" fetchpriority="high"></a><p class="kit-price">7 500 грн/міс</p></div>
+            <div class="kit-listing__body">
+              <h3><a href="listing.html">Кімната в 3-кімнатній</a> <span class="kit-chip kit-chip--muted">Підселення</span></h3>
+              <p class="kit-meta kit-meta--place">Голосіївський район</p>
+              <dl class="kit-facts kit-facts--inline"><div><dt>Живуть</dt><dd>Марія (26), Олег</dd></div><div><dt>Заїзд</dt><dd>з 1 вересня</dd></div></dl>
+              <div class="kit-household"><span class="kit-household__avatars" aria-hidden="true"><img class="kit-avatar" src="assets/avatars/mariia-web.jpg" width="288" height="288" alt="Марія з каштановим волоссям у світло-зеленій лляній сорочці"><img class="kit-avatar" src="assets/avatars/oleh-web.jpg" width="288" height="288" alt="Олег із коротким русявим волоссям і легкою щетиною в темно-зеленій сорочці"></span><span class="kit-household__copy"><strong>Марія й Олег</strong><span>Двоє майбутніх співмешканців</span></span></div>
+              <ul class="kit-tags" aria-label="Докази й статус"><li class="kit-chip">Оновлено сьогодні</li><li class="kit-chip">Відеодзвінок 28 лип.</li><li class="kit-chip">Instagram привʼязано</li></ul>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="kit-listing">
+            <div class="kit-listing__media"><img class="kit-listing__photo" src="assets/rooms/room-solomianska-oksana-web.jpg" width="1200" height="800" alt="Окрема кімната з ліжком, письмовим столом, шафою і котячим лежаком біля вікна" loading="lazy" decoding="async"><p class="kit-price">7 200 грн/міс</p></div>
+            <div class="kit-listing__body">
+              <h3>Кімната в 2-кімнатній <span class="kit-chip kit-chip--muted">Підселення</span></h3>
+              <p class="kit-meta kit-meta--place">Солом'янський район</p>
+              <dl class="kit-facts kit-facts--inline"><div><dt>Живе</dt><dd>Оксана (24)</dd></div><div><dt>Заїзд</dt><dd>з 15 вересня</dd></div></dl>
+              <div class="kit-household"><span class="kit-household__avatars" aria-hidden="true"><img class="kit-avatar" src="assets/avatars/oksana-web.jpg" width="288" height="288" alt="Оксана з темним кучерявим волоссям у світлому светрі з котом на руках"></span><span class="kit-household__copy"><strong>Оксана</strong><span>Майбутня співмешканка</span></span></div>
+              <ul class="kit-tags" aria-label="Докази й статус"><li class="kit-chip">Оновлено сьогодні</li><li class="kit-chip">Телефон підтверджено</li></ul>
+              <p class="kit-hint">Деталь цього оголошення не входить у прототип.</p>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="kit-listing">
+            <div class="kit-listing__media"><img class="kit-listing__photo" src="assets/rooms/room-podilska-yulia-danylo-taras-web.jpg" width="1200" height="800" alt="Кімната з високою стелею, цегляною стіною, дерев’яними меблями й великим вікном у Подолі" loading="lazy" decoding="async"><p class="kit-price">6 800 грн/міс</p></div>
+            <div class="kit-listing__body">
+              <h3>Кімната в 4-кімнатній <span class="kit-chip kit-chip--muted">Підселення</span></h3>
+              <p class="kit-meta kit-meta--place">Подільський район</p>
+              <dl class="kit-facts kit-facts--inline"><div><dt>Живуть</dt><dd>Юля (23), Данило (25), Тарас (27)</dd></div><div><dt>Заїзд</dt><dd>з 20 вересня</dd></div></dl>
+              <div class="kit-household"><span class="kit-household__avatars" aria-hidden="true"><img class="kit-avatar" src="assets/avatars/yulia-web.jpg" width="288" height="288" alt="Юля з хвилястим мідно-каштановим волоссям у темно-зеленому кардигані"><img class="kit-avatar" src="assets/avatars/danylo-podil-web.jpg" width="288" height="288" alt="Данило з темним волоссям і тонкими вусами у бежевій сорочці"><img class="kit-avatar" src="assets/avatars/taras-web.jpg" width="288" height="288" alt="Тарас із русявим волоссям і короткою бородою в оливковому світшоті"></span><span class="kit-household__copy"><strong>Юля, Данило й Тарас</strong><span>Троє майбутніх співмешканців</span></span></div>
+              <ul class="kit-tags" aria-label="Докази й статус"><li class="kit-chip kit-chip--error">Актуальність не підтверджено</li><li class="kit-chip kit-chip--error">Телефон не підтверджено</li></ul>
+              <p class="kit-hint">Деталь цього оголошення не входить у прототип.</p>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="kit-listing">
+            <div class="kit-listing__media"><img class="kit-listing__photo" src="assets/rooms/room-obolonska-ihor-danylo-web.jpg" width="1200" height="800" alt="Світла спальня з двоспальним ліжком, робочим столом і видом на будинки Оболоні" loading="lazy" decoding="async"><p class="kit-price">8 000 грн/міс</p></div>
+            <div class="kit-listing__body">
+              <h3>Кімната в 3-кімнатній <span class="kit-chip kit-chip--muted">Підселення</span></h3>
+              <p class="kit-meta kit-meta--place">Оболонський район</p>
+              <dl class="kit-facts kit-facts--inline"><div><dt>Живуть</dt><dd>Ігор (26), Данило (28)</dd></div><div><dt>Заїзд</dt><dd>з 1 жовтня</dd></div></dl>
+              <div class="kit-household"><span class="kit-household__avatars" aria-hidden="true"><img class="kit-avatar" src="assets/avatars/ihor-web.jpg" width="288" height="288" alt="Ігор із темним кучерявим волоссям, в окулярах і світлій лляній сорочці"><img class="kit-avatar" src="assets/avatars/danylo-obolon-web.jpg" width="288" height="288" alt="Данило з поголеною головою і темною бородою у світлій футболці"></span><span class="kit-household__copy"><strong>Ігор і Данило</strong><span>Двоє майбутніх співмешканців</span></span></div>
+              <ul class="kit-tags" aria-label="Докази й статус"><li class="kit-chip">Оновлено сьогодні</li><li class="kit-chip">Відеодзвінок 3 серп.</li><li class="kit-chip">Телефон підтверджено</li></ul>
+              <p class="kit-hint">Деталь цього оголошення не входить у прототип.</p>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="kit-listing">
+            <div class="kit-listing__media"><img class="kit-listing__photo" src="assets/rooms/room-darnytska-andrii-web.jpg" width="1200" height="800" alt="Вільна спальня з двоспальним ліжком, шафою і вікном на дарницькі новобудови" loading="lazy" decoding="async"><p class="kit-price">6 300 грн/міс</p></div>
+            <div class="kit-listing__body">
+              <h3>Кімната в 2-кімнатній <span class="kit-chip kit-chip--muted">Оренда з нуля</span></h3>
+              <p class="kit-meta kit-meta--place">Дарницький район</p>
+              <dl class="kit-facts kit-facts--inline"><div><dt>Живуть</dt><dd>ніхто, квартира вільна</dd></div><div><dt>Власник</dt><dd>Андрій</dd></div><div><dt>Заїзд</dt><dd>за домовленістю</dd></div></dl>
+              <div class="kit-household"><span class="kit-household__avatars" aria-hidden="true"><img class="kit-avatar" src="assets/avatars/andrii-web.jpg" width="288" height="288" alt="Андрій із коротким темним волоссям і легкою щетиною в зеленій сорочці"></span><span class="kit-household__copy"><strong>Андрій</strong><span>Власник, живе окремо</span></span></div>
+              <ul class="kit-tags" aria-label="Докази й статус"><li class="kit-chip">Оновлено сьогодні</li><li class="kit-chip">Телефон підтверджено</li><li class="kit-tag">Власник напряму</li></ul>
+              <p class="kit-hint">Деталь цього оголошення не входить у прототип.</p>
+            </div>
+          </article>
+        </li>
+
+      </ul>
+      <p class="kit-hint">Показано 5 із 128 оголошень</p>
+      <div class="kit-actions"><button type="button" class="kit-button kit-button--secondary kit-button--block">Завантажити ще</button></div>
+    </section>
+    <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+  </main>
+
+  <details class="kit-sheet">
+    <summary class="kit-sheet__summary">
+      <span class="kit-sheet__title">Фільтри</span>
+      <span class="kit-sheet__state">Усі типи · Будь-який район · Будь-яка ціна</span>
+    </summary>
+    <div class="kit-sheet__body">
+      <form class="kit-form" aria-label="Фільтри оголошень">
+        <fieldset class="kit-fieldset">
+          <legend>Тип оголошення</legend>
+          <label class="kit-choice"><input type="radio" name="type" value="all" checked> Усі оголошення</label>
+          <label class="kit-choice"><input type="radio" name="type" value="sublet"> Підселення до співмешканців</label>
+          <label class="kit-choice"><input type="radio" name="type" value="fresh"> Оренда з нуля, власник напряму</label>
+        </fieldset>
+
+        <fieldset class="kit-fieldset">
+          <legend>Район, ціна і заїзд</legend>
+          <div class="kit-field kit-field--select">
+            <label for="district">Район Києва</label>
+            <select id="district" name="district">
+              <option value="" selected>Будь-який район</option>
+              <option>Голосіївський</option>
+              <option>Дарницький</option>
+              <option>Деснянський</option>
+              <option>Дніпровський</option>
+              <option>Оболонський</option>
+              <option>Печерський</option>
+              <option>Подільський</option>
+              <option>Святошинський</option>
+              <option>Солом'янський</option>
+              <option>Шевченківський</option>
+            </select>
+          </div>
+
+          <div class="kit-field-row">
+            <div class="kit-field">
+              <label for="price-min">Ціна від, грн/міс</label>
+              <input type="number" id="price-min" name="price-min" min="0" step="500" inputmode="numeric">
+            </div>
+            <div class="kit-field">
+              <label for="price-max">Ціна до, грн/міс</label>
+              <input type="number" id="price-max" name="price-max" min="0" step="500" inputmode="numeric">
+            </div>
+          </div>
+
+          <div class="kit-field kit-field--date">
+            <label for="move-in">Заїзд не пізніше</label>
+            <input type="date" id="move-in" name="move-in">
+          </div>
+        </fieldset>
+
+        <fieldset class="kit-fieldset">
+          <legend>Звички</legend>
+          <div class="kit-field kit-field--select">
+            <label for="habit-cleanliness">Чистота</label>
+            <select id="habit-cleanliness" name="cleanliness">
+              <option value="" selected>Не важливо</option>
+              <option value="daily">Прибирають щодня</option>
+              <option value="weekly">Раз-два на тиждень</option>
+            </select>
+          </div>
+          <div class="kit-field kit-field--select">
+            <label for="habit-guests">Гості</label>
+            <select id="habit-guests" name="guests">
+              <option value="" selected>Не важливо</option>
+              <option value="rarely">Рідко, з попередженням</option>
+              <option value="weekends">Іноді на вихідних</option>
+            </select>
+          </div>
+          <div class="kit-field kit-field--select">
+            <label for="habit-pets">Тварини</label>
+            <select id="habit-pets" name="pets">
+              <option value="" selected>Не важливо</option>
+              <option value="none">Без тварин</option>
+              <option value="allowed">Можна з твариною</option>
+            </select>
+          </div>
+          <div class="kit-field kit-field--select">
+            <label for="habit-smoking">Куріння</label>
+            <select id="habit-smoking" name="smoking">
+              <option value="" selected>Не важливо</option>
+              <option value="no">Ніхто не курить</option>
+              <option value="outside">Курять лише надворі</option>
+            </select>
+          </div>
+          <div class="kit-field kit-field--select">
+            <label for="habit-schedule">Режим дня</label>
+            <select id="habit-schedule" name="schedule">
+              <option value="" selected>Не важливо</option>
+              <option value="early">Рано лягають, до 23:00</option>
+              <option value="late">Пізно лягають, після півночі</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <div class="kit-actions">
+          <button type="submit" class="kit-button kit-button--block">Застосувати фільтри</button>
+          <button type="reset" class="kit-button kit-button--secondary kit-button--block">Скинути фільтри</button>
         </div>
-        <div class="kit-field kit-field--prototype">
-          <label for="price-max">Ціна до, грн/міс</label>
-          <input type="number" id="price-max" name="price-max" min="0" step="500" value="10000">
-        </div>
-      </div>
+      </form>
+    </div>
+  </details>
 
-      <div class="kit-field kit-field--prototype">
-        <label for="move-in">Заїзд не пізніше</label>
-        <input type="date" id="move-in" name="move-in" value="2026-09-01">
-      </div>
-
-      <div class="form-actions">
-        <button type="submit" class="kit-button kit-button--compact kit-button--bordered">Показати 128 оголошень</button>
-        <button type="reset" class="kit-button kit-button--secondary kit-button--compact kit-button--bordered">Скинути</button>
-      </div>
-    </form>
-  </div>
-</details>
-
-<main>
-  <section aria-labelledby="listings-heading">
-    <h2 id="listings-heading">128 оголошень у Києві</h2>
-
-    <ul class="listing-list">
-
-      <li>
-        <article class="kit-listing kit-listing--feed">
-          <div class="kit-listing__media"><img class="kit-listing__photo" src="assets/listings/room-01.jpg" alt="" width="900" height="600" fetchpriority="high"><img class="kit-avatar" src="assets/avatars/mariia.png" width="1254" height="1254" alt="Марія"></div>
-          <div class="kit-listing__body">
-            <span class="kit-tag">Підселення</span>
-            <h3><a href="listing.html">Кімната в 3-кімнатній, Голосіївський район</a></h3>
-            <p class="kit-price">7 500 грн/міс</p>
-            <dl class="kit-facts">
-              <div><dt>Живуть:</dt><dd>Марія (26), Олег (29)</dd></div>
-              <div><dt>Заїзд:</dt><dd>з 1 вересня</dd></div>
-            </dl>
-            <div class="kit-trust-proof"><span class="kit-trust-proof__status">Актуальність підтверджено</span><span class="kit-trust"><span class="kit-chip">Відеодзвінок</span><span class="kit-chip">Профіль заповнено</span></span></div>
-          </div>
-        </article>
-      </li>
-
-      <li>
-        <article class="kit-listing kit-listing--feed">
-          <div class="kit-listing__media"><img class="kit-listing__photo" src="assets/listings/room-02.jpg" alt="" width="900" height="600" loading="lazy" decoding="async"><img class="kit-avatar" src="assets/avatars/nastia.png" width="1254" height="1254" alt="Настя"></div>
-          <div class="kit-listing__body">
-            <span class="kit-tag">Підселення</span>
-            <h3><a href="listing.html">Кімната в 2-кімнатній, Печерський район</a></h3>
-            <p class="kit-price">9 200 грн/міс</p>
-            <dl class="kit-facts">
-              <div><dt>Живе:</dt><dd>Настя (24)</dd></div>
-              <div><dt>Заїзд:</dt><dd>з 15 серпня</dd></div>
-            </dl>
-            <div class="kit-trust-proof"><span class="kit-trust-proof__status">Оголошення актуальне</span><span class="kit-trust"><span class="kit-chip">Телефон підтверджено</span><span class="kit-chip">Профіль заповнено</span></span></div>
-          </div>
-        </article>
-      </li>
-
-      <li>
-        <article class="kit-listing kit-listing--feed">
-          <div class="kit-listing__media"><img class="kit-listing__photo" src="assets/listings/room-03.jpg" alt="" width="900" height="600" loading="lazy" decoding="async"><img class="kit-avatar" src="assets/avatars/oleh.png" width="1254" height="1254" alt="Ігор"></div>
-          <div class="kit-listing__body">
-            <span class="kit-tag">Підселення</span>
-            <h3><a href="listing.html">Кімната в 4-кімнатній, Подільський район</a></h3>
-            <p class="kit-price">6 800 грн/міс</p>
-            <dl class="kit-facts">
-              <div><dt>Живуть:</dt><dd>Юля (23), Ігор (27), Данило (25)</dd></div>
-              <div><dt>Заїзд:</dt><dd>з 20 серпня</dd></div>
-            </dl>
-            <div class="kit-trust-proof kit-trust-proof--error"><span class="kit-trust-proof__status">Актуальність не підтверджено</span><span class="kit-trust"><span class="kit-chip kit-chip--error">Верифікацію не пройдено</span></span></div>
-          </div>
-        </article>
-      </li>
-
-      <li>
-        <article class="kit-listing kit-listing--feed">
-          <div class="kit-listing__media"><img class="kit-listing__photo" src="assets/listings/room-04.jpg" alt="" width="900" height="601" loading="lazy" decoding="async"><img class="kit-avatar" src="assets/avatars/solomiia.png" width="1254" height="1254" alt="Настя"></div>
-          <div class="kit-listing__body">
-            <span class="kit-tag">Підселення</span>
-            <h3><a href="listing.html">Кімната в 3-кімнатній, Оболонський район</a></h3>
-            <p class="kit-price">8 000 грн/міс</p>
-            <dl class="kit-facts">
-              <div><dt>Живуть:</dt><dd>Настя (28), Ігор (26)</dd></div>
-              <div><dt>Заїзд:</dt><dd>з 1 жовтня</dd></div>
-            </dl>
-            <div class="kit-trust-proof"><span class="kit-trust-proof__status">Актуальність підтверджено</span><span class="kit-trust"><span class="kit-chip">Відеодзвінок</span><span class="kit-chip">Телефон підтверджено</span></span></div>
-          </div>
-        </article>
-      </li>
-
-      <li>
-        <article class="kit-listing kit-listing--feed">
-          <div class="kit-listing__media"><img class="kit-listing__photo" src="assets/listings/room-05.jpg" alt="" width="900" height="598" loading="lazy" decoding="async"><img class="kit-avatar" src="assets/avatars/oleh.png" width="1254" height="1254" alt="Власник оголошення"></div>
-          <div class="kit-listing__body">
-            <span class="kit-tag">Оренда з нуля</span>
-            <h3><a href="listing.html">Кімната в 2-кімнатній, Дарницький район</a></h3>
-            <p class="kit-price">6 300 грн/міс за кімнату</p>
-            <dl class="kit-facts">
-              <div><dt>Живуть:</dt><dd>ніхто, квартира вільна</dd></div>
-              <div><dt>Заїзд:</dt><dd>за домовленістю</dd></div>
-            </dl>
-            <div class="kit-trust-proof"><span class="kit-trust-proof__status">Оголошення актуальне</span><span class="kit-trust"><span class="kit-chip">Власник напряму</span><span class="kit-chip">Телефон підтверджено</span></span></div>
-          </div>
-        </article>
-      </li>
-
-    </ul>
-  </section>
-</main>
-
-<footer class="list-footer">
-  <p class="meta">Показано 5 із 128 оголошень</p>
-  <button type="button" class="kit-button kit-button--secondary kit-button--compact kit-button--block">Завантажити ще</button>
-</footer>
-
-<!-- Службова панель прототипу: розділ → екран → стани.
-     Структура з prototype/_screens.md, імена файлів з prototype/_rules.md.
-     Не елемент продукту — на полотні 390 px не показується. -->
-<aside class="proto-tree">
-  <h2>Прототип «Кутка»</h2>
-  <p class="hint">Головний сценарій Соломії</p>
-
-  <nav aria-label="Навігація прототипом">
-    <ul>
-
-      <li>
-        <span class="group">Оголошення (кімната / квартира)</span>
-        <ul class="level-screen">
-
-          <li class="screen is-open">
-            <a href="listings.html">Стрічка оголошень + фільтри</a>
-            <ul class="level-state">
-              <li><a href="listings.html" aria-current="page">успіх</a></li>
-              <li><a href="listings-empty.html">порожньо</a></li>
-              <li><a href="listings-error.html">помилка</a></li>
-              <li><a href="listings-loading.html">очікування</a></li>
-            </ul>
-          </li>
-
-          <li class="screen">
-            <a href="listing.html">Сторінка оголошення</a>
-            <ul class="level-state">
-              <li><a href="listing.html">успіх</a></li>
-              <li><a href="listing-error.html">помилка</a></li>
-              <li><a href="listing-loading.html">очікування</a></li>
-            </ul>
-          </li>
-
-        </ul>
-      </li>
-
-      <li>
-        <span class="group">Профіль людини</span>
-        <ul class="level-screen">
-          <li class="screen">
-            <a href="compatibility-form.html">Анкета сумісності — заповнення власного профілю</a>
-            <ul class="level-state">
-              <li><a href="compatibility-form.html">успіх</a></li>
-              <li><a href="compatibility-form-error.html">помилка</a></li>
-              <li><a href="compatibility-form-loading.html">очікування</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-
-      <li>
-        <span class="group">Заявка</span>
-        <ul class="level-screen">
-          <li class="screen">
-            <a href="application.html">Форма заявки</a>
-            <ul class="level-state">
-              <li><a href="application.html">успіх</a></li>
-              <li><a href="application-error.html">помилка</a></li>
-              <li><a href="application-loading.html">очікування</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-
-    </ul>
+  <nav class="kit-tabbar kit-tabbar--dock" aria-label="Основна навігація Кутка">
+    <a class="kit-tab" href="listings.html" aria-current="page">Пошук</a>
+    <a class="kit-tab kit-tab--chats" href="/kootok/design-system/examples/chats.html">Чати</a>
+    <a class="kit-tab kit-tab--profile" aria-disabled="true" title="Недоступно в прототипі">Профіль</a>
   </nav>
-</aside>
-
+</div>
 </body>
 </html>

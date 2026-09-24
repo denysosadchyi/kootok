@@ -1,12 +1,20 @@
 #!/usr/bin/env node
+// Як запускати: з батьківської теки `cd /home/hp/from-den && python3 -m http.server 8791`,
+// потім `node scripts/audit-local-links.mjs http://127.0.0.1:8791` (origin без /kootok; браузер/CDP не потрібен).
 
 import { readdir, readFile } from "node:fs/promises";
 import { extname, join, relative, resolve, sep } from "node:path";
 
 const root = resolve(new URL("..", import.meta.url).pathname);
-const origin = new URL(process.argv[2] || "http://127.0.0.1:8000");
+if (!process.argv[2]) {
+  console.error("Потрібен origin першим аргументом, напр. http://127.0.0.1:8791 (без /kootok).");
+  process.exit(2);
+}
+const origin = new URL(process.argv[2]);
 const prefix = "/kootok/";
-const excluded = new Set([".git", ".claude", ".impeccable", "figmosha2", "node_modules", "tmp"]);
+const excluded = new Set([".git", ".claude", ".impeccable", "figmosha2", "node_modules", "tmp", "worktree-lesson6"]);
+// Теки (відносно кореня), які не обходимо: архів і знімок оригінального сайту Beginners.
+const excludedPaths = ["archive/", "beginners/site/"];
 const reports = [];
 const fetchedCss = new Set();
 
@@ -15,6 +23,8 @@ async function walk(dir) {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
     if (excluded.has(entry.name)) continue;
     const full = join(dir, entry.name);
+    const relFull = relative(root, full).split(sep).join("/") + (entry.isDirectory() ? "/" : "");
+    if (excludedPaths.some((path) => relFull.startsWith(path))) continue;
     if (entry.isDirectory()) files.push(...await walk(full));
     else files.push(full);
   }
@@ -89,9 +99,7 @@ async function auditTarget(source, kind, url) {
   if (!result.ok || kind !== "href" || !url.hash || !/text\/html/i.test(result.response.headers.get("content-type") || "")) return;
   const text = await result.response.text();
   const id = decodeURIComponent(url.hash.slice(1));
-  const escaped = id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const hasFragment = new RegExp("\\b(?:id|name)\\s*=\\s*([\"'])" + escaped + "\\1", "i").test(text);
-  if (!hasFragment) {
+  if (!hasId(text, id)) {
     reports.push({ source, kind: "fragment", target: url.href, status: "missing-fragment", final: result.final, redirects: 0, ok: false });
   }
 }
@@ -111,15 +119,23 @@ async function auditCss(cssUrl, source) {
 }
 
 const all = await walk(root);
-const htmlFiles = all.filter((file) => {
-  const rel = relative(root, file).split(sep).join("/");
-  return extname(file) === ".html" && (rel === "index.html" || rel.startsWith("research/") || rel === "beginners/source/concept.html" || rel.startsWith("beginners/source/prototype/"));
-});
+const htmlFiles = all.filter((file) => extname(file) === ".html");
+
+function hasId(text, id) {
+  const escaped = id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp("\\b(?:id|name)\\s*=\\s*([\"'])" + escaped + "\\1", "i").test(text);
+}
 
 for (const file of htmlFiles) {
   const source = relative(root, file).split(sep).join("/");
   const text = await readFile(file, "utf8");
   const { refs, inlineCss } = htmlRefs(text);
+  for (const ref of refs) {
+    const value = ref.value.trim();
+    if (ref.kind !== "href" || !/^#./.test(value)) continue;
+    const id = decodeURIComponent(value.slice(1));
+    reports.push({ source, kind: "same-page-fragment", target: value, status: hasId(text, id) ? 200 : "missing-fragment", final: value, redirects: 0, ok: hasId(text, id) });
+  }
   for (const route of routeContexts(file)) {
     const pageUrl = new URL(route, origin);
     for (const ref of refs) {

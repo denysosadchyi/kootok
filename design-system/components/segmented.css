@@ -1,0 +1,12 @@
+/* ───────── Сегмент ───────── */
+/* У макетах — перемикач стрічок: поточний пункт a[aria-current="page"],
+   недоступний — span[aria-disabled="true"] з поясненням через aria-describedby. */
+.kit-segmented { display: flex; width: var(--primitive-width-full); margin: 0; padding: var(--primitive-length-4); gap: var(--primitive-length-4); border-radius: var(--radius-track); background: var(--color-surface-sunken); list-style: none; }
+.kit-segmented > * { min-width: 0; flex: 1 1 0; }
+.kit-segmented a, .kit-segmented span { display: inline-flex; width: var(--primitive-width-full); min-height: var(--primitive-length-38); align-items: center; justify-content: center; padding: var(--primitive-length-6) var(--primitive-length-14); border-radius: var(--radius-field); color: var(--color-text-secondary); font: var(--type-support); font-weight: var(--primitive-font-weight-600); text-decoration: none; white-space: nowrap; cursor: pointer; }
+.kit-segmented [aria-current="page"] { background: var(--color-card-background); color: var(--color-current-text); font-weight: var(--primitive-font-weight-700); }
+@media (hover: hover) { .kit-segmented a[href]:not([aria-current="page"]):hover { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); } }
+.kit-segmented [data-demo-state="hover"] { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); }
+.kit-segmented a[href]:not([aria-current="page"]):active, .kit-segmented [data-demo-state="active"] { background: var(--color-interactive-surface-active); color: var(--color-interactive-text-active); }
+.kit-segmented [data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
+.kit-segmented [aria-disabled="true"] { opacity: var(--opacity-disabled); cursor: default; }

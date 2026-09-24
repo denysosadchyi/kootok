@@ -1,24 +1,68 @@
+/* Курсова тема уроків 1–5. Перемикач — один, курсовий (course-nav.js,
+   ключ localStorage `kootok-color-theme`, атрибут `data-theme` на <html>).
+   Сирі значення — лише в блоках --app-*; аліаси нижче спільні для обох тем. */
 :root,
-:root[data-theme="light"],
-:root[data-theme="dark"] {
+:root[data-theme="light"] {
   --app-primary-700: #365c4f;
   --app-primary-600: #4f7969;
   --app-primary-100: #d7e8e0;
   --app-primary-50: #eff6f2;
   --app-accent-300: #eee3a9;
   --app-accent-100: #faf5d9;
+  --app-accent-ink: #665d2d;
+  --app-accent-line: #b5a34e;
   --app-canvas: #fbfcf9;
   --app-surface: #eaf2ed;
+  --app-field: #ffffff;
+  --app-hero: #263b33;
   --app-border: #c6d2cc;
+  --app-border-soft: #dfe9e3;
   --app-text: #263b33;
-  --app-muted: #5b6f67;
+  --app-muted: #4a5c55;
+  --app-stone: #55665e;
+  --app-primary-deep: #294b40;
   --app-success-bg: #dcefe7;
   --app-success: #225541;
   --app-error-bg: #f7e0e2;
   --app-error: #7d2d36;
   --app-info-bg: #e0ecf4;
   --app-info: #315a7c;
+  color-scheme: light;
+}
 
+/* Темна тема: ті самі ролі, кольори з палітри «Зеленого двору»
+   (design-system/tokens.css, dark). Текстові пари ≥ 4.5:1. */
+:root[data-theme="dark"] {
+  --app-primary-700: #d8e99a;
+  --app-primary-600: #9fc4b3;
+  --app-primary-100: #245744;
+  --app-primary-50: #1c2f28;
+  --app-accent-300: #7a4b0b;
+  --app-accent-100: #3a2c12;
+  --app-accent-ink: #f8ecd2;
+  --app-accent-line: #b08a3c;
+  --app-canvas: #172520;
+  --app-surface: #16352a;
+  --app-field: #1c2f28;
+  --app-hero: #245744;
+  --app-border: #3f5a4e;
+  --app-border-soft: #2b4238;
+  --app-text: #fdfcf8;
+  --app-muted: #c9d3cd;
+  --app-stone: #b3c0b9;
+  --app-primary-deep: #d8e99a;
+  --app-success-bg: #245744;
+  --app-success: #e3f0b8;
+  --app-error-bg: #8e2731;
+  --app-error: #f9e1e2;
+  --app-info-bg: #1f3a4f;
+  --app-info: #b9d6ee;
+  color-scheme: dark;
+}
+
+:root,
+:root[data-theme="light"],
+:root[data-theme="dark"] {
   --canvas: var(--app-canvas);
   --surface: var(--app-surface);
   --surface-soft: var(--app-primary-50);
@@ -26,7 +70,7 @@
   --tint: var(--app-primary-100);
   --tint-gray: var(--app-primary-100);
   --hairline: var(--app-border);
-  --hairline-soft: #dfe9e3;
+  --hairline-soft: var(--app-border-soft);
   --hairline-strong: var(--app-primary-600);
   --line: var(--app-border);
   --ink: var(--app-text);
@@ -34,10 +78,10 @@
   --text: var(--app-text);
   --slate: var(--app-muted);
   --steel: var(--app-muted);
-  --stone: #71837b;
-  --muted: #8b9b94;
+  --stone: var(--app-stone);
+  --muted: var(--app-muted);
   --primary: var(--app-primary-700);
-  --primary-deep: #294b40;
+  --primary-deep: var(--app-primary-deep);
   --link: var(--app-primary-700);
   --navy: var(--app-text);
   --navy-mid: var(--app-primary-700);
@@ -50,30 +94,29 @@
   --green-deep: var(--app-success);
   --yellow: var(--app-accent-100);
   --yellow-strong: var(--app-accent-300);
-  --yellow-ink: #665d2d;
-  --yellow-line: #b5a34e;
+  --yellow-ink: var(--app-accent-ink);
+  --yellow-line: var(--app-accent-line);
   --cream: var(--app-accent-100);
   --peach: var(--app-accent-100);
-  --orange-deep: #665d2d;
-  --orange: #756a30;
+  --orange-deep: var(--app-accent-ink);
+  --orange: var(--app-accent-ink);
   --rose: var(--app-error-bg);
   --pink-deep: var(--app-error);
   --sky: var(--app-info-bg);
   --sky-ink: var(--app-info);
   --error: var(--app-error);
-  color-scheme: light;
 }
 
 html { background: var(--app-surface); }
 body { background: var(--app-canvas) !important; color: var(--app-text) !important; }
 ::selection { background: var(--app-accent-300); color: var(--app-text); }
 
-.hero,.heroband { background: var(--app-text) !important; color: #fff !important; }
+.hero,.heroband { background: var(--app-hero) !important; color: #fff !important; }
 .hero::after,.heroband::after { background: radial-gradient(circle, rgba(79,121,105,.52), transparent 70%) !important; }
 .hero .eyebrow,.heroband .eyebrow { color: #bfe0d1 !important; }
 .hero p:last-child,.heroband .lede { color: #e3eee8 !important; }
 .callout { border-color: var(--app-border) !important; background: var(--app-primary-100) !important; color: var(--app-primary-700) !important; }
-.callout.warn,.callout.warning { background: var(--app-accent-100) !important; color: #665d2d !important; }
+.callout.warn,.callout.warning { background: var(--app-accent-100) !important; color: var(--app-accent-ink) !important; }
 
 .links,.card,.panel,.summary-card,.wfdoc,.phone,.device,.compare,.matrix,.source-card,.persona-card,.jtbd-card {
   border-color: var(--app-border) !important;
@@ -84,10 +127,16 @@ body { background: var(--app-canvas) !important; color: var(--app-text) !importa
 .content a:not(.btn):not(.button),.inner a:not(.btn):not(.button) { text-decoration-color: var(--app-primary-600); }
 button,.btn,.button,input,select,textarea { accent-color: var(--app-primary-700); }
 button:focus-visible,.btn:focus-visible,.button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible { outline-color: var(--app-info) !important; }
-input,select,textarea { border-color: var(--app-primary-600) !important; background: #fff !important; color: var(--app-text) !important; }
+input,select,textarea { border-color: var(--app-primary-600) !important; background: var(--app-field) !important; color: var(--app-text) !important; }
 
-.theme { border-color: var(--app-border) !important; background: #fff !important; color: var(--app-primary-700) !important; }
+.theme { border-color: var(--app-border) !important; background: var(--app-field) !important; color: var(--app-primary-700) !important; }
 
+/* Без JS атрибута data-theme немає — сторінка лишається світлою. */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { color-scheme: light; }
+  :root:not([data-theme]) { color-scheme: light; }
 }
+
+/* Глобальні правила сторінок уроків 1–5 для b/strong (color: var(--ink)) не мають
+   перефарбовувати курсову оболонку: вона тримає власні кольори course-nav.css. */
+.course-shell b, .course-shell strong,
+.course-mobilebar b, .course-mobilebar strong { color: inherit; }

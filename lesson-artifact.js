@@ -14,5 +14,5 @@
       if(!line.trim())flush();else paragraph.push(line.trim());i++;
     }flush();host.innerHTML=html.join("");document.title=host.querySelector("h1")?.textContent||document.title;
   }
-  fetch(host.dataset.source,{credentials:"same-origin"}).then(function(response){if(!response.ok)throw Error(response.status);return response.text();}).then(render).catch(function(){host.innerHTML="<h1>Матеріал тимчасово недоступний</h1><p>Спробуйте оновити сторінку.</p>";});
+  fetch(host.dataset.source,{credentials:"same-origin"}).then(function(response){if(!response.ok)throw Error(response.status);return response.text();}).then(render).catch(function(){host.innerHTML="<h1>Матеріал тимчасово недоступний</h1><p>Спробуй оновити сторінку.</p>";});
 })();

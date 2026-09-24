@@ -1,0 +1,37 @@
+/* ───────── Списки й картки стрічки ───────── */
+ul.kit-list { display: flex; margin: 0; padding: 0; flex-direction: column; gap: var(--space-section-gap); list-style: none; }
+.kit-listing { position: relative; display: flex; min-width: 0; flex-direction: column; overflow: hidden; border-radius: var(--radius-hero) var(--radius-hero) var(--radius-card) var(--radius-card); background: var(--color-card-subdued-background); box-shadow: var(--elevation-card); }
+.kit-listing__media { position: relative; width: var(--primitive-width-full); aspect-ratio: var(--ratio-listing-media); overflow: hidden; background: var(--color-info-background); }
+.kit-listing__media::after { content: ""; position: absolute; inset: 0; background: var(--color-photo-scrim); }
+@media (hover: hover) { .kit-listing:has(a[href]):hover .kit-listing__media::after { background: var(--color-media-hover-overlay); } }
+.kit-listing[data-demo-state="hover"] .kit-listing__media::after { background: var(--color-media-hover-overlay); }
+.kit-listing[data-demo-state="active"] { background: var(--color-interactive-surface-active); }
+.kit-listing[data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
+/* Картка без посилання (деталь не входить у прототип) — статична, не вимкнена:
+   виглядає як звичайна, лише без hover. */
+.kit-listing__photo { display: block; width: var(--primitive-width-full); height: var(--primitive-width-full); object-fit: cover; }
+.kit-listing__media > .kit-price { position: absolute; left: var(--space-screen-gutter); bottom: var(--primitive-length-12); z-index: 2; margin: 0; padding: var(--primitive-length-6) var(--primitive-length-12); border-radius: var(--radius-control); background: var(--color-glass-background); color: var(--color-current-text); font: var(--type-card-title); -webkit-backdrop-filter: blur(var(--primitive-length-10)); backdrop-filter: blur(var(--primitive-length-10)); }
+.kit-listing__body { display: flex; min-width: 0; flex-direction: column; gap: var(--space-stack-sm); padding: var(--space-stack-lg) var(--space-card-inline) var(--primitive-length-14); }
+.kit-listing__body h3 { position: relative; margin: 0; display: flex; align-items: center; gap: var(--space-stack-sm); flex-wrap: wrap; font: var(--type-card-title); }
+.kit-listing__body h3 a { color: inherit; text-decoration: none; }
+.kit-listing__body h3 a::after { content: ""; position: absolute; inset: 0; }
+
+.kit-avatar { display: block; width: var(--primitive-length-48); height: var(--primitive-length-48); border-radius: var(--radius-circle); background: var(--color-avatar-background); object-fit: cover; }
+
+ul.kit-tags { display: flex; margin: var(--primitive-length-4) 0 0; padding: var(--primitive-length-4) 0 0; gap: var(--space-stack-xs); flex-direction: column; list-style: none; border: 0; }
+.kit-tags > li + li { border-top: 0; }
+.kit-tag { display: inline-flex; width: fit-content; align-items: center; padding: var(--primitive-length-5) var(--primitive-length-12); border: 0; border-radius: var(--radius-pill); background: var(--color-claim-background); color: var(--color-text-primary-support); font: var(--type-meta); font-weight: var(--primitive-font-weight-500); }
+
+/* Household is a first-class listing signal, not an author footnote. */
+.kit-household { display: grid; min-width: 0; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: var(--space-stack-md); padding: var(--space-stack-md) 0; border: 0; border-radius: 0; background: var(--color-transparent); }
+.kit-household__avatars { display: flex; min-width: var(--primitive-length-34); align-items: center; }
+.kit-household__avatars .kit-avatar { width: var(--primitive-length-34); height: var(--primitive-length-34); border: var(--primitive-length-2) solid var(--color-card-background); }
+.kit-household__avatars .kit-avatar + .kit-avatar { margin-left: calc(-1 * var(--primitive-length-10)); }
+.kit-household__copy { display: flex; min-width: 0; flex-direction: column; gap: var(--primitive-length-1); }
+.kit-household__copy strong { overflow: hidden; font: var(--type-field-label); text-overflow: ellipsis; white-space: nowrap; }
+.kit-household__copy span { color: var(--color-text-secondary); font: var(--type-meta); }
+
+.kit-evidence-summary { display: flex; align-items: flex-start; gap: var(--primitive-length-10); margin: 0; padding: var(--space-stack-md) 0 0; border-top: var(--primitive-length-1) solid var(--color-divider); border-radius: 0; background: var(--color-transparent); color: var(--color-trust); }
+.kit-evidence-summary::before { content: ""; width: var(--primitive-length-20); height: var(--primitive-length-20); margin-top: var(--primitive-length-1); flex: none; background: currentColor; -webkit-mask: var(--primitive-icon-shield) center/contain no-repeat; mask: var(--primitive-icon-shield) center/contain no-repeat; }
+.kit-evidence-summary strong { display: block; font: var(--type-field-label); }
+.kit-evidence-summary span { display: block; margin-top: var(--primitive-length-2); font: var(--type-meta); }

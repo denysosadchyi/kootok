@@ -3,162 +3,90 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#365c4f">
+<meta name="theme-color" content="#245744">
 <title>Куток — Кімната в Голосіївському районі</title>
+<link rel="stylesheet" href="/kootok/design-system/index.css">
 <link rel="stylesheet" href="_base.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
-<link rel="stylesheet" href="/kootok/site-theme.css">
 <script src="/kootok/course-nav.js" defer></script>
 </head>
 <body>
+<div class="kit-shell">
+  <header class="kit-shell__brand"><a href="listings.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+  <header class="kit-shell__appbar"><a class="kit-back" href="listings.html" aria-label="Назад до пошуку">Стрічка</a><h1 class="kit-shell__title">Оголошення</h1></header>
+  <main class="kit-shell__body">
 
-<header class="product-header">
-  <a class="product-header__brand" href="listings.html" aria-label="Куток — на головну">Куток</a>
-  <nav class="product-nav" aria-label="Навігація продуктом">
-    <a class="product-nav__link" href="listings.html" aria-current="page">Пошук</a>
-    <a class="product-nav__link" href="chats.html">Чати</a>
-    <a class="product-nav__link" href="profile.html">Профіль</a>
-    <a class="product-nav__link product-nav__link--create" href="/kootok/research/wireframes/listing-new.html" aria-label="Додати нове оголошення">Додати</a>
-  </nav>
-</header>
-
-<p class="proto-note">
-  Прототип 390&nbsp;px · екран «Сторінка оголошення» (_screens.md) ·
-  крок 2 з 4 головного сценарію · Задача 2 (оцінити довіру) і Задача 3
-  (написати, не розкриваючи номер) · назад → стрічка · далі → анкета
-  сумісності
-</p>
-
-<header>
-  <a class="back-link" href="listings.html" aria-label="Назад до пошуку">Стрічка</a>
-  <p class="product">Куток — кімнати та співмешканці в Києві</p>
-  <h1>Оголошення</h1>
-</header>
-
-<main>
-
-  <section aria-label="Фото оголошення">
-    <ul class="gallery">
-      <li><div class="placeholder" aria-hidden="true">фото 1 з 3 — кімната</div></li>
-      <li><div class="placeholder" aria-hidden="true">фото 2 з 3 — кухня</div></li>
-      <li><div class="placeholder" aria-hidden="true">фото 3 з 3 — санвузол</div></li>
+    <ul class="kit-gallery" aria-label="Фото оголошення">
+      <li><img src="assets/rooms/room-holosiivska-mariia-oleh-web.jpg" width="1200" height="800" alt="Спільна кухня-вітальня з дерев’яним столом, зеленим диваном і великим вікном у двір"></li>
     </ul>
-  </section>
 
-  <section aria-labelledby="about-heading">
-    <h2 id="about-heading">Про кімнату</h2>
-    <span class="tag">Підселення</span>
-    <p class="price">7 500 грн/міс, комунальні окремо</p>
-    <dl class="facts">
-      <div><dt>Район:</dt><dd>Голосіївський, вул. Васильківська</dd></div>
-      <div><dt>Заїзд:</dt><dd>з 1 вересня</dd></div>
-      <div><dt>Кімната:</dt><dd>окрема, 12 м², своє вікно</dd></div>
-    </dl>
-  </section>
-
-  <section aria-labelledby="residents-heading">
-    <h2 id="residents-heading">Хто зараз живе</h2>
-    <div class="person">
-      <img class="person-avatar" src="assets/avatars/mariia.png" width="1254" height="1254" alt="Марія">
-      <p class="name">Марія, 26</p>
-      <p class="bio">Дизайнерка, не курить, тварин немає. Живе тут з січня 2025.</p>
+    <div class="kit-card kit-card--head">
+      <h2 class="kit-headline">Кімната в 3-кімнатній</h2>
+      <p class="kit-meta kit-meta--place">Голосіївський, вул. Васильківська</p>
+      <p><span class="kit-chip kit-chip--muted">Підселення</span></p>
+      <p class="kit-price">7 500 грн/міс, комунальні окремо</p>
+      <p class="kit-meta">Оновлено 2 дні тому · активне</p>
+      <p class="kit-evidence-summary"><span><strong>Оголошення перевірено</strong><span>Відеодзвінок 28 лип. · підтверджено особу, телефон і договір</span></span></p>
     </div>
-    <div class="person">
-      <img class="person-avatar" src="assets/avatars/oleh.png" width="1254" height="1254" alt="Олег">
-      <p class="name">Олег, 29</p>
-      <p class="bio">Розробник, часто працює з дому, любить тишу вранці.</p>
-    </div>
-  </section>
 
-  <section aria-labelledby="trust-heading">
-    <h2 id="trust-heading">Довіра</h2>
-    <p class="trust">Перевірено по відеодзвінку — звіт від 28 лип.</p>
-    <ul class="trust-list">
-      <li>Особу орендаря (Марії) підтверджено за документом</li>
-      <li>Номер телефону підтверджено</li>
-      <li>Договір оренди квартири перевірено</li>
-    </ul>
-  </section>
+    <section class="kit-card kit-card--section" aria-labelledby="trust-heading">
+      <h2 id="trust-heading" class="kit-section__title">Що саме перевірено</h2>
+      <ul class="kit-trust-list">
+        <li>Особу орендарки Марії підтверджено за документом</li>
+        <li>Номер телефону підтверджено</li>
+        <li>Instagram привʼязано</li>
+        <li>Договір оренди квартири перевірено</li>
+      </ul>
+    </section>
 
-  <section aria-labelledby="description-heading">
-    <h2 id="description-heading">Опис від мешканців</h2>
-    <p class="description">Шукаємо спокійну дівчину чи хлопця на третю кімнату. У нас затишно, є посудомийна машина і хороший інтернет. Гостей попереджаємо заздалегідь, тварин поки не тримаємо. Комунальні ділимо порівну, платимо через застосунок для сумісних витрат.</p>
-  </section>
+    <section class="kit-card kit-card--section" aria-labelledby="about-heading">
+      <h2 id="about-heading" class="kit-section__title">Про кімнату</h2>
+      <dl class="kit-kv">
+        <div><dt>Заїзд</dt><dd>з 1 вересня</dd></div>
+        <div><dt>Кімната</dt><dd>окрема, 12 м², своє вікно</dd></div>
+      </dl>
+    </section>
 
-</main>
+    <section class="kit-card kit-card--section" aria-labelledby="residents-heading">
+      <h2 id="residents-heading" class="kit-section__title">Хто зараз живе</h2>
+      <div class="kit-person">
+        <img class="kit-avatar" src="assets/avatars/mariia-web.jpg" width="288" height="288" alt="Марія з каштановим волоссям у світло-зеленій лляній сорочці">
+        <p class="kit-person__name">Марія, 26</p>
+        <p class="kit-person__bio">Дизайнерка, не курить, тварин немає. Живе тут з січня 2025.</p>
+      </div>
+      <div class="kit-person">
+        <img class="kit-avatar" src="assets/avatars/oleh-web.jpg" width="288" height="288" alt="Олег із коротким русявим волоссям і легкою щетиною в темно-зеленій сорочці">
+        <p class="kit-person__name">Олег</p>
+        <p class="kit-person__bio">Розробник, часто працює з дому, любить тишу вранці.</p>
+      </div>
+      <p><a aria-disabled="true" aria-describedby="profile-hint">Профіль Марії</a></p>
+      <p id="profile-hint" class="kit-hint">Профіль мешканки не входить у прототип.</p>
+    </section>
 
-<footer class="cta-footer">
-  <p class="meta">Щоб написати Марії та Олегу, спершу заповніть коротку анкету сумісності</p>
-  <a class="btn" href="compatibility-form.html">Подати заявку</a>
-</footer>
+    <section class="kit-card kit-card--section" aria-labelledby="wishes-heading">
+      <h2 id="wishes-heading" class="kit-section__title">Побажання до співмешканця</h2>
+      <ul class="kit-tags" aria-label="Побажання мешканців">
+        <li class="kit-tag">Охайність у спільних зонах</li>
+        <li class="kit-tag">Гості — з попередженням</li>
+        <li class="kit-tag">Без куріння вдома</li>
+        <li class="kit-tag">Тиша після 23:00</li>
+      </ul>
+    </section>
 
-<!-- Службова панель прототипу: розділ → екран → стани.
-     Структура з prototype/_screens.md, імена файлів з prototype/_rules.md.
-     Не елемент продукту — на полотні 390 px не показується. -->
-<aside class="proto-tree">
-  <h2>Прототип «Кутка»</h2>
-  <p class="hint">Головний сценарій Соломії</p>
+    <section class="kit-card kit-card--section" aria-labelledby="description-heading">
+      <h2 id="description-heading" class="kit-section__title">Опис від мешканців</h2>
+      <p>Шукаємо спокійну дівчину чи хлопця на третю кімнату. У нас затишно, є посудомийна машина і хороший інтернет. Гостей попереджаємо заздалегідь, тварин поки не тримаємо. Комунальні ділимо порівну, платимо через застосунок для сумісних витрат.</p>
+    </section>
 
-  <nav aria-label="Навігація прототипом">
-    <ul>
+    <section class="kit-section" aria-label="Заявка">
+      <p class="kit-note kit-note--warning">Не переказуй гроші, поки не побачиш кімнату наживо.</p>
+      <div class="kit-actions"><a class="kit-button kit-button--block" href="compatibility-form.html">Подати заявку</a></div>
+      <p class="kit-hint">Спершу — коротка анкета сумісності (3 кроки), вона збережеться у профілі.</p>
+      <p class="kit-note kit-note--info">У прототипі чернетка зберігається лише в цьому браузері.</p>
+    </section>
 
-      <li>
-        <span class="group">Оголошення (кімната / квартира)</span>
-        <ul class="level-screen">
-
-          <li class="screen">
-            <a href="listings.html">Стрічка оголошень + фільтри</a>
-            <ul class="level-state">
-              <li><a href="listings.html">успіх</a></li>
-              <li><a href="listings-empty.html">порожньо</a></li>
-              <li><a href="listings-error.html">помилка</a></li>
-              <li><a href="listings-loading.html">очікування</a></li>
-            </ul>
-          </li>
-
-          <li class="screen is-open">
-            <a href="listing.html">Сторінка оголошення</a>
-            <ul class="level-state">
-              <li><a href="listing.html" aria-current="page">успіх</a></li>
-              <li><a href="listing-error.html">помилка</a></li>
-              <li><a href="listing-loading.html">очікування</a></li>
-            </ul>
-          </li>
-
-        </ul>
-      </li>
-
-      <li>
-        <span class="group">Профіль людини</span>
-        <ul class="level-screen">
-          <li class="screen">
-            <a href="compatibility-form.html">Анкета сумісності — заповнення власного профілю</a>
-            <ul class="level-state">
-              <li><a href="compatibility-form.html">успіх</a></li>
-              <li><a href="compatibility-form-error.html">помилка</a></li>
-              <li><a href="compatibility-form-loading.html">очікування</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-
-      <li>
-        <span class="group">Заявка</span>
-        <ul class="level-screen">
-          <li class="screen">
-            <a href="application.html">Форма заявки</a>
-            <ul class="level-state">
-              <li><a href="application.html">успіх</a></li>
-              <li><a href="application-error.html">помилка</a></li>
-              <li><a href="application-loading.html">очікування</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-
-    </ul>
-  </nav>
-</aside>
-
+    <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+  </main>
+</div>
 </body>
 </html>

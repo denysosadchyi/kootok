@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#245744">
+<title>Куток — Сторінка оголошення (очікування)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Onest:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/kootok/tokens.css">
+<link rel="stylesheet" href="/kootok/components/index.css">
+<link rel="stylesheet" href="_base.css">
+<link rel="stylesheet" href="/kootok/course-nav.css">
+<script src="/kootok/course-nav.js" defer></script>
+</head>
+<body>
+<div class="kit-shell">
+  <header class="kit-shell__brand"><a href="listings.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
+  <header class="kit-shell__appbar"><a class="kit-back" href="listings.html" aria-label="Назад до пошуку">Стрічка</a><h1 class="kit-shell__title">Оголошення</h1></header>
+  <main class="kit-shell__body">
+
+    <ul class="kit-gallery" aria-label="Фото оголошення" aria-busy="true">
+      <li><span class="kit-skeleton kit-skeleton--gallery"></span></li>
+      <li><span class="kit-skeleton kit-skeleton--gallery"></span></li>
+      <li><span class="kit-skeleton kit-skeleton--gallery"></span></li>
+    </ul>
+
+    <div class="kit-card kit-card--head">
+      <span class="kit-skeleton kit-skeleton--title"></span>
+      <span class="kit-skeleton kit-skeleton--price"></span>
+    </div>
+
+    <section class="kit-section" aria-labelledby="about-heading" aria-busy="true">
+      <h2 id="about-heading" class="kit-section__title">Про кімнату</h2>
+      <div class="kit-card">
+        <span class="kit-skeleton kit-skeleton--fact"></span>
+        <span class="kit-skeleton kit-skeleton--fact kit-skeleton--short"></span>
+        <span class="kit-skeleton kit-skeleton--half"></span>
+      </div>
+    </section>
+
+    <section class="kit-section" aria-labelledby="residents-heading" aria-busy="true">
+      <h2 id="residents-heading" class="kit-section__title">Хто зараз живе</h2>
+      <div class="kit-card">
+        <span class="kit-skeleton kit-skeleton--avatar"></span>
+        <span class="kit-skeleton kit-skeleton--short"></span>
+      </div>
+    </section>
+
+    <div class="kit-actions"><button type="button" class="kit-button kit-button--block" disabled>Подати заявку</button></div>
+    <p class="kit-hint">Завантаження…</p>
+
+    <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
+  </main>
+  <nav class="kit-tabbar product-header" aria-label="Глобальна навігація">
+    <a class="kit-tab" href="listings.html" aria-current="page">Пошук</a>
+    <a class="kit-tab kit-tab--chats" href="chats.html">Чати</a>
+    <a class="kit-tab kit-tab--profile" href="profile.html">Профіль</a>
+    <a class="kit-tab kit-tab--create" href="/kootok/research/wireframes/listing-new.html" aria-label="Додати оголошення">Додати</a>
+  </nav>
+</div>
+</body>
+</html>

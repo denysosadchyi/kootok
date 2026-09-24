@@ -1,0 +1,81 @@
+/* ───────── Картки ───────── */
+.kit-card, .kit-fieldset {
+  display: block; min-width: 0; margin: 0; padding: var(--space-card-block) var(--space-card-inline);
+  border: 0; border-radius: var(--radius-card); background: var(--color-card-background); box-shadow: var(--elevation-card);
+}
+.kit-card > * + *, .kit-fieldset > * + * { margin-top: var(--primitive-length-12); }
+.kit-fieldset {
+  padding: var(--space-card-block) var(--space-card-inline);
+  border: 0;
+  border-radius: var(--radius-card);
+  background: var(--color-card-background);
+}
+.kit-fieldset > legend { float: left; width: var(--primitive-width-full); margin: 0 0 var(--primitive-length-12); padding: 0; }
+.kit-fieldset > legend + * { clear: both; margin-top: 0; }
+.kit-actions + .kit-hint { margin-top: var(--primitive-length-8); }
+.kit-card--section {
+  padding: var(--space-card-block) var(--space-card-inline);
+  border: 0;
+  border-radius: var(--radius-card);
+  background: var(--color-card-background);
+}
+.kit-card--section > .kit-section__title + * { margin-top: var(--space-stack-md); }
+.kit-card--head > * + * { margin-top: var(--space-stack-sm); }
+.kit-card--head > .kit-price { margin-top: var(--space-stack-lg); }
+.kit-card--head > .kit-evidence-summary { margin-top: var(--space-stack-md); }
+
+.kit-application-card {
+  padding: var(--space-card-block) var(--space-card-inline);
+  border: 0;
+  border-radius: var(--radius-card);
+  background: var(--color-card-background);
+}
+.kit-application-card > .kit-section__title + .kit-hint { margin-top: var(--space-stack-sm); }
+.kit-application-card > form { margin-top: var(--space-stack-lg); }
+/* Прикріплена анкета: один рядок «що додано» на заглибленій поверхні полотна
+   всередині білої картки заявки. Іконка check (доказ) · назва · дія «Змінити»
+   (kit-button--secondary kit-button--compact, 44px) праворуч; під назвою —
+   пояснення, що саме побачать мешканці (від колонки назви до правого краю).
+   Розмітка:
+   <div class="kit-application-choice">
+     <p class="kit-application-choice__title">Анкету сумісності додано</p>
+     <a class="kit-button kit-button--secondary kit-button--compact" href="…">Змінити</a>
+     <p class="kit-application-choice__meta">…</p>
+   </div> */
+.kit-application-choice {
+  --kit-icon: var(--primitive-icon-check);
+  display: grid; grid-template-columns: var(--primitive-length-24) minmax(0, 1fr) auto;
+  grid-template-areas: "icon title action" ". meta meta";
+  align-items: center; column-gap: var(--space-stack-sm); row-gap: var(--primitive-length-2);
+  padding: var(--space-stack-md);
+  border-radius: var(--radius-control); background: var(--color-page-background);
+}
+.kit-application-choice::before { grid-area: icon; width: var(--primitive-length-22); height: var(--primitive-length-22); color: var(--color-trust); }
+.kit-application-choice__title { grid-area: title; margin: 0; color: var(--color-text-primary); font: var(--type-field-label); }
+.kit-application-choice > .kit-button { grid-area: action; }
+.kit-application-choice__meta { grid-area: meta; margin: 0; color: var(--color-text-secondary); font: var(--type-meta); }
+/* ≤340px: назва на всю ширину, «Змінити» — під поясненням, з лівого краю тексту. */
+@media (max-width: 340px) {
+  .kit-application-choice { grid-template-columns: var(--primitive-length-24) minmax(0, 1fr); grid-template-areas: "icon title" ". meta" ". action"; }
+  .kit-application-choice > .kit-button { justify-self: start; margin-top: var(--space-stack-xs); }
+}
+.kit-application-result:focus-visible, .kit-application-result[data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
+
+.kit-card--state .kit-state { display: flex; min-height: 0; align-items: flex-start; justify-content: flex-start; flex-direction: column; gap: var(--space-stack-md); padding: var(--space-stack-lg) 0 0; text-align: left; }
+/* Іконку задає лише модифікатор (--document, --chat): базового значка немає. */
+.kit-state__icon { position: relative; display: grid; width: var(--primitive-length-30); height: var(--primitive-length-30); place-items: center; border-radius: 0; background: var(--color-transparent); color: var(--color-action); }
+.kit-state__icon::after { width: var(--primitive-length-24); height: var(--primitive-length-24); }
+.kit-state__icon--chat { --kit-icon: var(--primitive-icon-chat-empty); }
+.kit-state__icon--document { --kit-icon: var(--primitive-icon-document); }
+.kit-state h3 { margin: 0; font: var(--type-detail-title); color: var(--color-text-primary); }
+.kit-state p { max-width: var(--primitive-width-32ch); margin: 0; color: var(--color-text-secondary); font: var(--type-support); text-align: left; }
+.kit-state .kit-actions { width: var(--primitive-width-full); }
+.kit-state .kit-actions .kit-button { width: var(--primitive-width-full); }
+
+.kit-card--list { padding: 0; overflow: hidden; }
+.kit-card--list > ul > li + li { border-top: var(--primitive-length-1) solid var(--color-hairline); }
+
+/* Мета-стан прототипу: state block, який показує результат сценарію
+   (наприклад, «Сценарій заявки завершено») замість реального бекенду.
+   Розмітка: .kit-card.kit-card--state.kit-card--prototype [hidden] до сабміту. */
+.kit-card--prototype { scroll-margin-top: var(--space-section-gap); }

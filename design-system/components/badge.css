@@ -1,0 +1,32 @@
+/* ───────── Довіра / людина ───────── */
+.kit-person { display: grid; grid-template-columns: var(--primitive-length-48) minmax(0, 1fr); grid-template-rows: auto auto; column-gap: var(--primitive-length-12); row-gap: var(--primitive-length-2); align-items: center; }
+.kit-person .kit-avatar { grid-column: 1; grid-row: 1 / span 2; align-self: start; width: var(--primitive-length-48); height: var(--primitive-length-48); }
+.kit-person__name { grid-column: 2; grid-row: 1; display: flex; align-items: center; gap: var(--primitive-length-8); margin: 0; font: var(--type-control); flex-wrap: wrap; }
+.kit-person__bio { grid-column: 2; grid-row: 2; margin: 0; color: var(--color-text-secondary); font: var(--type-support); }
+
+.kit-chip { --kit-icon: var(--primitive-icon-check); display: inline-flex; align-items: center; gap: var(--primitive-length-4); padding: var(--primitive-length-3) var(--primitive-length-9) var(--primitive-length-3) var(--primitive-length-7); border-radius: var(--radius-pill); background: var(--color-trust-background); color: var(--color-trust); font: var(--type-chip); }
+.kit-chip::before { width: var(--primitive-length-11); height: var(--primitive-length-11); }
+.kit-chip--muted { padding-inline: 0; border-radius: 0; background: var(--color-transparent); color: var(--color-text-primary-support); }
+.kit-chip--muted::before { display: none; }
+.kit-chip--error { --kit-icon: var(--primitive-icon-warning); background: var(--color-danger-background); color: var(--color-danger); }
+
+.kit-listing .kit-chip,
+.kit-listing .kit-tag {
+  width: fit-content;
+  min-height: var(--primitive-length-30);
+  padding: var(--primitive-length-5) 0;
+  border-radius: 0;
+  background: var(--color-transparent);
+}
+.kit-listing h3 .kit-chip--muted { min-height: 0; padding: 0; color: var(--color-text-secondary); }
+.kit-listing .kit-chip:not(.kit-chip--error) { color: var(--color-trust); }
+
+ul.kit-trust-list { margin: 0; padding: 0; font-size: var(--primitive-length-14); list-style: none; }
+.kit-trust-list li { --kit-icon: var(--primitive-icon-check); position: relative; display: flex; align-items: flex-start; gap: var(--space-stack-md); padding: var(--space-stack-md) 0; }
+.kit-trust-list li + li { margin-top: 0; border-top: 0; }
+.kit-trust-list li::before { content: ""; flex: none; width: var(--primitive-length-22); height: var(--primitive-length-22); margin-top: var(--primitive-length-1); border-radius: var(--radius-circle); background: var(--color-transparent); }
+.kit-trust-list li::after {
+  content: ""; position: absolute; left: var(--primitive-length-4); top: calc(var(--space-stack-sm) + var(--primitive-length-1) + var(--primitive-length-4)); width: var(--primitive-length-14); height: var(--primitive-length-14);
+  background: var(--color-trust);
+  -webkit-mask: var(--kit-icon) center / contain no-repeat; mask: var(--kit-icon) center / contain no-repeat;
+}

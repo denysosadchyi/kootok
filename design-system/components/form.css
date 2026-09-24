@@ -1,0 +1,37 @@
+/* ───────── Форми ───────── */
+form.kit-form { display: flex; flex-direction: column; gap: var(--primitive-length-16); }
+.kit-field { position: relative; display: flex; min-width: 0; flex-direction: column; gap: var(--primitive-length-6); }
+.kit-field > label { display: block; margin: 0; color: var(--color-text-primary-support); font: var(--type-field-label); }
+.kit-field input, .kit-field select, .kit-field textarea { width: var(--primitive-width-full); min-height: var(--size-control); padding: var(--space-control-block) var(--space-control-inline); border: 0; border-radius: var(--radius-field); background: var(--color-surface-sunken); color: var(--color-text-primary); font: var(--type-input); }
+@media (hover: hover) { .kit-field input:not(:disabled):hover, .kit-field select:not(:disabled):hover, .kit-field textarea:not(:disabled):hover { background: var(--color-field-hover); } }
+.kit-field :is(input, select, textarea)[data-demo-state="hover"] { background: var(--color-field-hover); }
+.kit-field :is(input, select, textarea)[data-demo-state="active"] { background: var(--color-interactive-surface-active); }
+.kit-field :is(input, select, textarea)[data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-1); background: var(--color-field-focus); }
+.kit-field :is(input, select, textarea):disabled { opacity: var(--opacity-disabled); cursor: default; }
+.kit-field input:focus-visible, .kit-field select:focus-visible, .kit-field textarea:focus-visible { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-1); background: var(--color-field-focus); }
+.kit-field textarea { min-height: var(--primitive-length-120); padding: var(--primitive-length-14) var(--space-control-inline); font: var(--type-input); resize: vertical; }
+.kit-field input::placeholder, .kit-field textarea::placeholder { color: var(--color-text-secondary); }
+.kit-field--select select, .kit-field--date input { padding-right: var(--size-tap); appearance: none; -webkit-appearance: none; }
+.kit-field--date input::-webkit-calendar-picker-indicator { display: none; }
+/* Іконка select/date — Solar Linear mask у currentColor, як у kit-tab.
+   1lh = висота рядка label (той самий --type-field-label), 6px — gap поля. */
+.kit-field--select, .kit-field--date { --kit-icon: var(--primitive-icon-down); }
+.kit-field--date { --kit-icon: var(--primitive-icon-calendar); }
+.kit-field--select::after, .kit-field--date::after {
+  content: ""; position: absolute; right: var(--space-control-inline);
+  top: calc(1lh + var(--primitive-length-6) + (var(--size-control) - var(--primitive-length-16)) / 2);
+  width: var(--primitive-length-16); height: var(--primitive-length-16);
+  font: var(--type-field-label); color: var(--color-text-secondary); background: var(--color-icon-current); pointer-events: none;
+  -webkit-mask: var(--kit-icon) center / contain no-repeat; mask: var(--kit-icon) center / contain no-repeat;
+}
+.kit-field--error.kit-field--select::after, .kit-field--error.kit-field--date::after { color: var(--color-danger); }
+.kit-field:has(:disabled)::after { opacity: var(--opacity-disabled); }
+.kit-field__message { margin: 0; color: var(--color-text-secondary); font: var(--type-meta); }
+.kit-field--error input, .kit-field--error select, .kit-field--error textarea { background-color: var(--color-danger-background); }
+.kit-field--error .kit-field__message { color: var(--color-danger); font-weight: var(--primitive-font-weight-600); }
+.kit-field-row { display: flex; gap: var(--primitive-length-12); }
+.kit-field-row > .kit-field { min-width: 0; flex: 1; }
+
+label.kit-choice { display: flex; min-height: var(--size-control); align-items: center; gap: var(--primitive-length-12); font: var(--type-body); cursor: pointer; }
+.kit-choice input { width: var(--primitive-length-22); height: var(--primitive-length-22); margin: 0; flex: none; }
+.kit-fieldset > .kit-choice + .kit-choice { margin-top: 0; border-top: 0; }

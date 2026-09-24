@@ -1,0 +1,160 @@
+# Аудит токенів `ui/kit.css` і `wireframes/*.html`
+
+Дата зрізу: 2026-09-03. Це read-only інвентар: CSS та HTML не виправлялися і не перейменовувалися.
+
+## Межі й позначення
+
+Перевірено `ui/kit.css` повністю (448 рядків) і всі 62 пласкі HTML-файли в `wireframes/` (17 540 рядків): `_nav.html`, `_template.html` та 60 продуктових/state wireframes. У таблиці `kit.css` означає декларацію/селектор у цьому файлі; `WF:` — HTML-файли, де відповідний клас справді є в markup. Щоб не повторювати десятки назв, `WF: усі продуктові` означає 60 файлів без `_nav.html` і `_template.html`; `WF: <family>*` — усі HTML цієї сім’ї у верхньому рівні `wireframes/`.
+
+## Реєстр змінних
+
+| Змінна | Значення | Де вживається (файли і класи) | Роль у кожному місці |
+|---|---|---|---|
+| `--kit-canvas` | `#fdfcf8` | `kit.css`: `body`, `.kit-shell`; WF: усі продуктові (`.kit-shell`) | Фон документа і внутрішнього полотна застосунку. |
+| `--kit-surface` | `#fff` | `kit.css`: `.kit-card`, `.kit-fieldset`, `.kit-back`, `.kit-appbar-avatar`, `.kit-shell__brand span`, `.kit-button--secondary`, `.kit-composer`, `.kit-message`, active `.kit-segmented`, focus полів, hero secondary/proof; WF: усі продуктові через ці component classes | Біла поверхня картки/контрола; також білий активний segment, вхідна bubble та focus fill. |
+| `--kit-card` | `#f2efe4` | `kit.css`: `.kit-listing`, `a.kit-conversation-context`; також stop `--kit-gradient-skeleton`; WF: `listing*`, `listings*`, `my-listings*`, `seekers*`, `chat*` | Тепла контентна картка listing/context; середній stop skeleton. |
+| `--kit-card-2` | `#e9e5d8` | `kit.css`: `.kit-tag`; крайні stops `--kit-gradient-skeleton`; WF: `.kit-tag` у `chats-*`, `listing*`, `listings*`, `my-listings*`, `profile-edit-loading.html`, `seekers*` | Тихий tag і темніша фаза skeleton shimmer. |
+| `--kit-sunken` | `#eae5d7` | `kit.css`: inputs/selects/textarea, `.kit-code input`, `.kit-segmented`, disabled buttons, `.kit-tag--muted`, `.kit-chip--muted`, chat row pressed/status, missing trust icon; WF: форми й state/list/chat families | Заглиблена/неактивна поверхня; disabled/pressed/muted стани. |
+| `--kit-line` | `#dcd8ca` | `kit.css`: `.kit-facts--inline > div:not(:last-child)::after`; WF: listing facts | Розділювач inline-фактів. |
+| `--kit-hairline` | `rgba(23, 37, 32, .10)` | Лише декларація `:root`; `var()`-вживань немає | Зарезервований hairline, фактично не працює. |
+| `--kit-forest` | `#245744` | `kit.css`: form accent, `.kit-price`, brand/back, `.kit-state__icon`, secondary/quiet buttons, conversation context, unread chat time; stop button/hero gradients; WF: практично всі family через buttons/nav/cards | Primary action/brand; водночас price, icon, link/context та unread emphasis. |
+| `--kit-forest-deep` | `#16352a` | `kit.css`: active tab, tint/card text, profile status, photo price, lime tag/chip, notes/system message, active/unread chat status, selected segment; gradient stops; WF: nav, profile, listing, notes, chats, segments | Текст на light/current surfaces; також темний action/hero gradient stop. |
+| `--kit-leaf` | `#2e6a53` | `kit.css`: location pins; button/fab/hero gradient stops; WF: `.kit-meta--place`, brand city, actions | Location accent і світлий край action/hero gradients. |
+| `--kit-mint` | `#cfe5d8` | `kit.css`: `.kit-avatar`; stop `--kit-gradient-well`; WF: avatar placeholders та state icons | Placeholder avatar і початок м’якого state well. |
+| `--kit-mint-soft` | `#e4f0e8` | `kit.css`: `.kit-card--tint`, listing media fallback, info note, system message; WF: corresponding cards/listings/chat | М’яка інформаційна/neutral-positive підкладка та media fallback. |
+| `--kit-lime` | `#d8e99a` | `kit.css`: selection, brand mark, current tab/status/tag/chip/active chat status; WF: навігація, profile/my-listings/chat states | Поточний/обраний стан і brand mark; також browser text selection. |
+| `--kit-lime-soft` | `#eef4d2` | `kit.css`: warning note; stop `--kit-gradient-well`; WF: `.kit-note--warning`, state icons | М’яке попередження та світлий край neutral state well. |
+| `--kit-ink` | `#172520` | `kit.css`: `body`, selection, controls, titles, state heading, kv values, inputs, warning note, conversation/chat names; WF: усі продуктові | Основний текст; також control inherited color і warning foreground. |
+| `--kit-ink-2` | `#33443c` | `kit.css`: labels, city pill, inline facts, closed title, tags, field labels; WF: forms/listing/tag families | Другорядний, але змістовний текст/labels. |
+| `--kit-muted` | `#5a6a62` | `kit.css`: `.kit-meta`, `.kit-hint`, inactive tabs, footer/state copy, kv keys, placeholders, disabled controls, chat metadata/timestamps, segmented labels; WF: усі family | Другорядний/службовий текст і неактивна навігація. |
+| `--kit-success` | `#17503a` | `kit.css`: `.kit-profile-proof`, `.kit-chip`, trust check, `.kit-note--success`; WF: profile/person/listing/review/trust usages | Foreground доказу довіри/успіху. |
+| `--kit-success-bg` | `#dcefe4` | `kit.css`: `.kit-chip`, trust icon well, `.kit-note--success`; WF: trust/status usages | Підкладка доказу довіри/успіху. |
+| `--kit-error` | `#8e2731` | `kit.css`: error state icon/chip/field/code/note, failed message, declined chat status, `.kit-req`; WF: усі `*-error.html`, failed/declined states | Foreground небезпеки, помилки та відмови. |
+| `--kit-error-bg` | `#f9e1e2` | Ті самі error components у `kit.css`; WF: усі `*-error.html`, failed/declined states | Підкладка небезпеки/помилки. |
+| `--kit-waiting` | `#7a4b0b` | `kit.css`: `.kit-chat-row--waiting em`; WF: chat list зі waiting status | Foreground очікування. |
+| `--kit-waiting-bg` | `#f8ecd2` | `kit.css`: `.kit-chat-row--waiting em`; WF: chat list зі waiting status | Підкладка очікування. |
+| `--kit-notification` | `#c2452d` | `kit.css`: `.kit-unread`; WF: `chats.html` | Лічильник непрочитаного/увага. |
+| `--kit-focus` | `#2f5b80` | `kit.css`: global `:focus-visible`, focus полів/code/segment; WF: усі interactive families | Доступний focus indicator. |
+| `--kit-focus-ring` | `rgba(36, 87, 68, .2)` | Лише декларація `:root`; `var()`-вживань немає | Зарезервований м’який focus ring, фактично не працює. |
+| `--kit-on-forest` | `#fff` | `kit.css`: create tab, hero, primary/icon buttons, outgoing message, unread badge; WF: nav/profile/forms/chat/chats | Основний текст/іконка на темному action/hero/status fill. |
+| `--kit-on-forest-muted` | `rgba(255, 255, 255, .78)` | `kit.css`: hero meta, outgoing message meta/time; WF: profile hero, `chat.html` | Приглушений текст на темній поверхні. |
+| `--kit-gradient-hero` | `linear-gradient(160deg, #2e6a53 0%, #245744 45%, #16352a 100%)` | `kit.css`: `.kit-card--hero`; WF: profile/person hero cards | Брендова hero-поверхня. Hex stops записані всередині token value, а не через color tokens. |
+| `--kit-gradient-button` | `linear-gradient(180deg, var(--kit-leaf) 0%, var(--kit-forest) 100%)` | `kit.css`: `.kit-button`, `.kit-message--outgoing`; WF: primary actions і `chat.html` | Primary action fill; водночас outgoing-message identity. |
+| `--kit-gradient-fab` | `linear-gradient(160deg, var(--kit-leaf) 0%, var(--kit-forest-deep) 100%)` | `kit.css`: `.kit-tab--create`, `.kit-icon-button`; WF: bottom nav create, composer send | Floating primary/create/send action. |
+| `--kit-gradient-well` | `linear-gradient(160deg, var(--kit-mint) 0%, var(--kit-lime-soft) 100%)` | `kit.css`: `.kit-state__icon`; WF: empty/loading state cards | Neutral state icon well. |
+| `--kit-gradient-skeleton` | `linear-gradient(90deg, var(--kit-card-2) 0%, var(--kit-card) 50%, var(--kit-card-2) 100%)` | `kit.css`: `.kit-skeleton`; WF: `listings-loading.html`, `my-listings-loading.html`, `seekers-loading.html`, `listing-new-empty.html` | Shimmer skeleton. |
+| `--kit-radius-sm` | `10px` | `kit.css`: brand mark, profile status, photo price, title/fact skeleton; WF: brand/profile/listing/loading | Малий badge/overlay/skeleton radius. |
+| `--kit-radius-md` | `14px` | `kit.css`: fields/code, segmented item, field skeleton; WF: forms/segments/loading | Field та compact-control radius. |
+| `--kit-radius-lg` | `16px` | `kit.css`: tab, button, segmented track, button skeleton; WF: навігація/forms/segments/loading | Control/button radius. |
+| `--kit-radius-xl` | `20px` | `kit.css`: card/fieldset, listing, note, conversation context; WF: більшість content families | Основний card/container radius. |
+| `--kit-radius-2xl` | `24px` | `kit.css`: tabbar, hero card, composer; WF: навігація/profile/chat | Піднята/hero surface radius. |
+| `--kit-radius-pill` | `999px` | `kit.css`: city/proof/tag/chip/system message/chat status/unread/skeleton; WF: усі відповідні compact statuses | Пігулка для compact status/meta. |
+| `--kit-radius-circle` | `50%` | `kit.css`: back/avatar/create/state/trust/icon button/skeleton avatar; WF: nav/profile/chat/trust/loading | Круглі icon-only controls та avatars. |
+| `--kit-font-display` | `"Onest", "Golos Text", sans-serif` | `kit.css`: headlines, section/card titles, prices, brand/appbar, hero/state/listing headings, code, buttons, notes/context; WF: усі family | Структура, заголовки й рішення/дії. |
+| `--kit-font-text` | `"Golos Text", "Onest", sans-serif` | `kit.css`: body/shell, person/chat names; WF: усі продуктові | Основне читання і conversation identity. |
+| `--kit-space-1` | `4px` | Лише декларація `:root`; `var()`-вживань немає | Зарезервований крок spacing. |
+| `--kit-space-2` | `8px` | `kit.css`: brand/appbar/footer, state/listing body+foot, form/button/composer/messages/gallery, skeleton trust; WF: усі family | Малий внутрішній gap/padding і близькі вертикальні зв’язки. |
+| `--kit-space-3` | `12px` | `kit.css`: appbar/tabbar/card rows/kv/listing price/person/form choices/context/chat/toolbar; WF: усі family | Середній gap/padding між елементами. |
+| `--kit-space-4` | `16px` | `kit.css`: shell gutter/body, cards/fieldset/hero, lists/forms/composer/chat/gallery; WF: усі family | Основний gutter і component padding. |
+| `--kit-space-5` | `24px` | `kit.css`: bare shell/body section rhythm; WF: signup/role та всі body sections | Великий секційний відступ. |
+| `--kit-space-6` | `32px` | Лише декларація `:root`; `var()`-вживань немає | Зарезервований найбільший spacing step. |
+| `--kit-canvas-width` | `390px` | `kit.css`: `.kit-shell`; WF: усі продуктові | Максимальна ширина mobile-first полотна. |
+| `--kit-min-width` | `320px` | `kit.css`: `html`; усі HTML | Мінімальна підтримувана ширина документа. |
+| `--kit-shell-min` | `700px` | `kit.css`: `.kit-shell`; WF: усі продуктові | Мінімальна висота app shell. |
+| `--kit-tap` | `44px` | `kit.css`: appbar grid, `.kit-back`, compact button; WF: nested screens/nav actions | Мінімальна touch target/control slot. |
+| `--kit-control` | `50px` | `kit.css`: fields, choices, buttons, field skeleton; WF: forms і actions | Стандартна висота form/action control. |
+| `--kit-focus-width` | `3px` | `kit.css`: global і component focus rules; WF: усі interactive families | Товщина focus outline. |
+| `--kit-icon-home` | Solar home data URI | `kit.css`: brand pseudo-icon, base `.kit-tab`; WF: усі nav-bearing products | Іконка бренду/таба пошуку. |
+| `--kit-icon-chats` | Solar chats data URI | `kit.css`: `.kit-tab--chats`; WF: усі nav-bearing products | Іконка таба чатів. |
+| `--kit-icon-profile` | Solar profile data URI | `kit.css`: `.kit-tab--profile`, `.kit-state__icon--profile`; WF: nav, `person-empty.html`, `role-loading.html` | Іконка профілю і профільного state. |
+| `--kit-icon-listings` | Solar document/list data URI | `kit.css`: `.kit-tab--listings`; WF: host nav families | Іконка таба оголошень. |
+| `--kit-icon-add` | Solar add-circle data URI | Лише декларація `:root`; `var()`-вживань немає | Невикористаний варіант add icon. |
+| `--kit-icon-back` | Solar linear back data URI | `kit.css`: `.kit-back`; WF: nested screen families | Навігація назад. |
+| `--kit-icon-down` | Solar chevron-down data URI | Лише декларація; у component rule select використано literal `url(data:...)`, не цей token | Задумана іконка select; token обійдений. |
+| `--kit-icon-calendar` | Solar calendar data URI | Лише декларація; у date-field rule використано literal `url(data:...)`, не цей token | Задумана іконка дати; token обійдений. |
+| `--kit-icon-check` | Solar check data URI | `kit.css`: profile proof, chip, trust-list item; WF: proof/trust usages | Доказ/підтвердження. |
+| `--kit-icon-warning` | Solar warning data URI | `kit.css`: `.kit-chip--error`; WF: error chip usages | Попередження в компактному error chip. |
+| `--kit-icon-danger` | Solar danger data URI | `kit.css`: error state, missing trust, error note; WF: error/trust/note usages | Небезпека/помилка/відсутній доказ. |
+| `--kit-icon-filter` | Solar filter data URI | `kit.css`: base `.kit-state__icon`; WF: generic empty states | Generic/filter empty-state symbol. |
+| `--kit-icon-tuning` | Solar tuning data URI | `kit.css`: `.kit-button--icon-filter::before`; WF: listings/seekers filter actions | Дія відкриття фільтрів. |
+| `--kit-icon-send` | Solar send data URI | `kit.css`: `.kit-icon-button`; WF: `chat.html` composer | Надсилання повідомлення. |
+| `--kit-icon-shield` | Solar shield-check data URI | `kit.css`: shield state, base/info note; WF: trust/profile/note usages | Довіра/захист/інформація. |
+| `--kit-icon-shield-warning` | Solar shield-warning data URI | `kit.css`: `.kit-note--warning`; WF: warning notes | Попередження про довіру/безпеку. |
+| `--kit-icon-success` | Solar success data URI | `kit.css`: `.kit-note--success`; WF: success notes | Успішне завершення. |
+| `--kit-icon-chat-empty` | Solar chat data URI | `kit.css`: `.kit-state__icon--chat`; WF: `chat-empty.html`, `chats-empty.html`, `chats-loading.html` | Порожній/завантажуваний стан чатів. |
+| `--kit-icon-document` | Solar document data URI | `kit.css`: `.kit-state__icon--document`; WF: `my-listings-empty.html`, `review-empty.html` | Порожній стан документа/оголошення/відгуку. |
+| `--kit-icon-closed` | Solar close-circle data URI | `kit.css`: `.kit-state__icon--closed`; WF: `listing-empty.html` | Закрите/недоступне оголошення. |
+| `--kit-icon-pin` | Linear pin data URI | `kit.css`: location meta і city pill; WF: brand/location usages | Географічне місце. |
+| `--kit-icon-plus` | Linear plus data URI | `kit.css`: `.kit-tab--create`; WF: усі nav-bearing products | Створення нового оголошення. |
+
+Примітка щодо іконок: у колонці значень data URI скорочено до типу/образу, бо повний percent-encoded SVG уже є точним значенням у `:root` і робить таблицю непридатною для перегляду. Це не приховує жодного color/size token: колір цих іконок переважно `currentColor`.
+
+## Три типи знахідок
+
+### 1. Дрейф значень
+
+| Роль | Різні значення | Де видно | Висновок |
+|---|---|---|---|
+| Фон контентної картки | `--kit-surface: #fff` проти `--kit-card: #f2efe4` | `.kit-card`, `.kit-fieldset` проти `.kit-listing`, `a.kit-conversation-context`; відповідні listing/chat wireframes | Одна широка роль «контентний контейнер» має два fills. Це підтверджений role drift, навіть якщо різниця могла бути задумана як subtype. |
+| Фон сторінки/полотна | literal `#ebe8de` проти `--kit-canvas: #fdfcf8` | `html` проти `body`, `.kit-shell`; усі wireframes | Два рівні page background мають різні значення; назви/markup не пояснюють семантичну межу outer canvas ↔ app canvas. |
+| Білий overlay/surface | `--kit-surface/#fff`, `--kit-on-forest/#fff`, literal `rgba(255,255,255,.86)`, `.5`, `.2` | cards/buttons/text token; `.kit-tabbar`, listing price overlay, hero avatar border/fill | Білий розкладений між surface, on-color та literal translucent overlays. Alpha-різниця функціональна, але роль overlay не токенізована, тому значення дрейфують локально. |
+
+Точного near-duplicate на кшталт `#2E6E5C`/`#2F6F5D` у перевіреному наборі немає. Gradient hero повторює ті самі три green values literal-hex, а не вводить інші близькі відтінки.
+
+### 2. Одна змінна на кілька ролей
+
+| Змінна | Ролі, що змішані | Конкретні вживання |
+|---|---|---|
+| `--kit-forest` | дія, brand/navigation, ціна, state icon, link/context, unread emphasis | `.kit-button` gradient, `.kit-shell__brand`, `.kit-back`, `.kit-price`, `.kit-state__icon`, `a.kit-conversation-context`, `.kit-chat-row--unread ... time` |
+| `--kit-gradient-button` | дія і повідомлення користувача | `.kit-button`; `.kit-message--outgoing` |
+| `--kit-surface` | card, form focus, secondary control, active selection, incoming message, composer | `.kit-card`, `.kit-fieldset`, focus fields, `.kit-button--secondary`, selected `.kit-segmented`, `.kit-message`, `.kit-composer` |
+| `--kit-lime` | current state, brand mark, browser selection | active `.kit-tab`/`.kit-chip--current`/`.kit-tag--lime`, `.kit-shell__brand a::before`, `::selection` |
+| `--kit-sunken` | input surface, disabled, pressed, muted status | fields/code/segment; disabled buttons; `.kit-tab:active`, `.kit-chat-row:active`; muted tag/chip/status |
+| `--kit-muted` | secondary text, placeholder, disabled foreground, inactive navigation | `.kit-meta`/`.kit-hint`, placeholders, disabled buttons, `.kit-tab`, chat time/status copy |
+| `--kit-error` + `--kit-error-bg` | validation error, destructive danger, declined/failed communication | error fields/code/note/state; missing trust; `.kit-message--failed`; `.kit-chat-row--declined` |
+| `--kit-icon-profile` | navigation and state illustration | `.kit-tab--profile`; `.kit-state__icon--profile` |
+| `--kit-icon-danger` | error, missing proof and destructive danger | error state/note; `.kit-trust-list li.is-missing` |
+
+### 3. Значення повз змінні
+
+HTML: у 62 перевірених `wireframes/*.html` немає inline `style` із hex/rgb/hsl/px. Увесь підтверджений обхід — у component rules `ui/kit.css`.
+
+| Literal | Файли і класи/селектори | Роль |
+|---|---|---|
+| `#ebe8de` | `kit.css`: `html` | Outer page background, повз `--kit-canvas`. |
+| `rgba(255,255,255,.86)` | `.kit-tabbar`, `.kit-listing__media > .kit-price` | Два glass/overlay surfaces без overlay token. |
+| `rgba(255,255,255,.5)` / `.2` | `.kit-card--hero > img.kit-avatar` | Avatar ring і fill на hero. |
+| `rgba(15,33,25,.65)` / `.2` | `.kit-listing__media::after` | Photo scrim. |
+| `#2e6a53`, `#245744`, `#16352a` | значення `--kit-gradient-hero` | Gradient stops обходять уже наявні `--kit-leaf`, `--kit-forest`, `--kit-forest-deep` (literal усередині іншої змінної). |
+| Embedded `url(data:image/svg+xml,...)` | `.kit-field--select select`, `.kit-field--date input` | Chevron/calendar записані прямо у component rule попри наявні `--kit-icon-down` і `--kit-icon-calendar`. |
+| Типографічні px: `26`, `24`, `22`, `20`, `18`, `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10px` | `.kit-headline`, titles/prices, listing/chat copy, meta/labels/status та ін. | Вся type scale локальна; font-family токенізована, font-size/line-height/weight — ні. |
+| Spacing px поза шкалою або замість неї: `2`, `5`, `6`, `9`, `10`, `14`, `18`, `20px`, negative `-2/-14px` | brand/appbar/tab/card/hero/state/listing/form/chat/gallery/segment rules | Component gaps/paddings/offsets часто обходять `--kit-space-*`; особливо `18px` card/listing padding, `10px` gaps, `14px` paddings. |
+| Control/media sizes: `30`, `34`, `38`, `40`, `48`, `52`, `56`, `58`, `60`, `70`, `72`, `80`, `84`, `104`, `120`, `180`, `210`, `240`, `280px` | brand/appbar/tabbar/avatar/state/code/composer/context/gallery/skeleton selectors | Component geometry не має semantic size tokens; `44/50px` частково токенізовані, решта literal. |
+| `18px` radii | `.kit-message`, outgoing bubble, `.kit-gallery img`, bubble/gallery skeleton | Окрема bubble/media radius role поза radius tokens. |
+| `1px`, `2px`, `3px` | sr-only, borders, focus offsets, micro gaps | Hairline/outline/optical geometry literal; `--kit-hairline` при цьому невикористаний. |
+| `106px`, `700px`, `390px`, `320px` | shell/html | `106px` bottom clearance literal; інші три значення токенізовані (`--kit-shell-min`, `--kit-canvas-width`, `--kit-min-width`). |
+
+Data-URI internal coordinates/stroke widths та CSS zeroes/percentages не рахувалися як component literals: це геометрія asset або безрозмірний reset, не design-token usage. Так само не позначено кожний повтор literal окремим рядком: таблиця вище групує однакову проблему за роллю, а селектори перелічені достатньо, щоб знайти всі групи через source scan.
+
+## Невикористані або обійдені змінні
+
+- Без жодного `var()`-вживання: `--kit-hairline`, `--kit-focus-ring`, `--kit-space-1`, `--kit-space-6`, `--kit-icon-add`.
+- Оголошені, але component implementation обходить їх literal data URI: `--kit-icon-down`, `--kit-icon-calendar`.
+
+## Кандидати в семантичні ролі
+
+| Кандидат | З яких вживань роль видно |
+|---|---|
+| Фон сторінки | `--kit-canvas` на `body` і `.kit-shell` у всіх продуктових wireframes. Окремо потрібне рішення щодо outer background literal `html { background:#ebe8de }`. |
+| Фон картки | Базове свідчення — `--kit-surface` на `.kit-card`, `.kit-fieldset`; subtype/drift — `--kit-card` на `.kit-listing` та `a.kit-conversation-context`; muted subtype — `--kit-card-2` на `.kit-tag`. |
+| Текст основний | `--kit-ink` на `body`, headings, kv values, inputs, conversation/chat names у всіх family. |
+| Текст другорядний | `--kit-muted` на `.kit-meta`, `.kit-hint`, state copy, placeholders, chat metadata/time та inactive tab; `--kit-ink-2` показує проміжну роль label/supporting text. |
+| Дія | `--kit-gradient-button` + `--kit-on-forest` на `.kit-button`; `--kit-gradient-fab` на create/send; `--kit-forest` на secondary/quiet action foreground і `.kit-back`. |
+| Довіра | `--kit-success`/`--kit-success-bg` на `.kit-profile-proof`, `.kit-chip`, `.kit-trust-list`, `.kit-note--success`; `--kit-icon-check`/`--kit-icon-shield` роблять доказ явним не лише кольором. |
+| Небезпека | `--kit-error`/`--kit-error-bg` на error states, validation, `.kit-note--error`, `.kit-message--failed`, declined status; `--kit-icon-danger`/`--kit-icon-warning` додають форму/іконку. |
+
+Ці назви — кандидати, не пропозиція перейменування в цьому batch. Особливо потребують рішення межі `фон картки` (white vs warm card) і `дія` (button vs FAB vs navigation), бо поточні primitives вже демонструють різні підролі.
+
+## Покриття джерел
+
+Прочитані HTML: `_nav.html`, `_template.html`; `chat*` (4), `chats*` (4), `filters*` (4), `listing*` (4), `listing-new*` (4), `listings*` (4), `my-listings*` (4), `person*` (4), `profile-edit*` (4), `profile-social*` (4), `report*` (4), `review*` (4), `role*` (4), `seekers*` (4), `signup*` (4). Разом 62/62 за фільтром `^wireframes/[^/]+\.html$`.

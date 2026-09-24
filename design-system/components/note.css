@@ -1,0 +1,6 @@
+/* ───────── Нотатки ───────── */
+.kit-note { --kit-icon: var(--primitive-icon-shield); position: relative; display: block; margin: 0; padding: var(--space-stack-md) 0 var(--space-stack-md) var(--primitive-length-30); border: 0; border-radius: 0; background: var(--color-transparent); color: var(--color-text-primary-support); font: var(--type-support); }
+.kit-note::before { position: absolute; left: 0; top: var(--primitive-length-13); width: var(--primitive-length-20); height: var(--primitive-length-20); }
+.kit-note strong { display: block; margin: 0 0 var(--primitive-length-2); font: var(--type-card-title); }
+.kit-note--info { --kit-icon: var(--primitive-icon-shield); background: var(--color-transparent); color: var(--color-text-primary-support); }
+.kit-note--warning { --kit-icon: var(--primitive-icon-shield-warning); background: var(--color-waiting-background); color: var(--color-text-primary); }

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Patterns · Куток Design System</title>
+  <link rel="stylesheet" href="../index.css">
+  <link rel="stylesheet" href="/kootok/course-nav.css">
+  <link rel="stylesheet" href="./docs.css">
+  <script src="/kootok/course-nav.js" defer></script>
+</head>
+<body class="docs-page">
+  <a class="docs-skip" href="#main">До вмісту</a>
+  <div class="docs-layout">
+    <nav class="docs-component-nav" aria-labelledby="components-title"><p id="components-title" class="docs-nav__title">Компоненти</p><ul><li><a href="base.html">База</a></li><li><a href="typography.html">Типографіка</a></li><li><a href="shell.html">Оболонка</a></li><li><a href="card.html">Картка</a></li><li><a href="data-list.html">Списки даних</a></li><li><a href="listing.html">Оголошення</a></li><li><a href="badge.html">Статуси</a></li><li><a href="form.html">Форми</a></li><li><a href="button.html">Кнопки</a></li><li><a href="note.html">Нотатки</a></li><li><a href="chat.html">Чат</a></li><li><a href="gallery.html">Галерея</a></li><li><a href="segmented.html">Segmented</a></li><li><a href="layout.html">Layout</a></li><li><a href="progress.html">Прогрес</a></li><li><a href="sheet.html">Шторка</a></li></ul></nav>
+    <div class="docs-content">
+      <header class="docs-header">
+        <a class="docs-brand" href="index.html">Куток · Design System</a>
+        <p class="docs-label">Окремий розділ · не компонент</p>
+        <h1 class="kit-headline">Patterns</h1>
+        <p class="docs-lead">Правила для повторюваних композицій продукту. <a href="index.html">Повернутися до showcase компонентів</a>.</p>
+      </header>
+      <main id="main" class="docs-main">
+        <section class="docs-section">
+          <h2 class="kit-section__title">Компонент і патерн</h2>
+          <p><strong>Компонент</strong> — окремий повторно використовуваний UI-елемент із власними варіантами та станами. <strong>Патерн</strong> — стабільна композиція кількох компонентів, яка розв’язує ту саму продуктову задачу з тією самою семантикою щонайменше на трьох сторінках.</p>
+        </section>
+        <section class="docs-section">
+          <h2 class="kit-section__title">Готові сторінки для аудиту</h2>
+          <div class="docs-grid">
+            <div class="docs-specimen"><h3 class="docs-card-title"><a href="/kootok/lesson-6/listings.html">Стрічка оголошень</a></h3><p class="kit-meta">/kootok/lesson-6/listings.html</p></div>
+            <div class="docs-specimen"><h3 class="docs-card-title"><a href="/kootok/lesson-6/listing.html">Деталь оголошення</a></h3><p class="kit-meta">/kootok/lesson-6/listing.html</p></div>
+            <div class="docs-specimen"><h3 class="docs-card-title"><a href="/kootok/lesson-6/compatibility-form.html">Форма сумісності</a></h3><p class="kit-meta">/kootok/lesson-6/compatibility-form.html</p></div>
+            <div class="docs-specimen"><h3 class="docs-card-title"><a href="/kootok/lesson-6/application.html">Заявка</a></h3><p class="kit-meta">/kootok/lesson-6/application.html</p></div>
+            <div class="docs-specimen"><h3 class="docs-card-title"><a href="/kootok/design-system/examples/chats.html">Заявки і чати</a></h3><p class="kit-meta">/kootok/design-system/examples/chats.html</p></div>
+          </div>
+        </section>
+        <section class="docs-section">
+          <h2 class="kit-section__title">Прийняті патерни</h2>
+          <div class="kit-card"><h3 class="docs-card-title">Крок анкети · <code>apply-step</code></h3><p><code>kit-step</code> + <code>kit-progress</code> + <code>kit-actions--split</code>: крок багатокрокової форми з прогресом, поясненням, одним fieldset і парою дій «Назад / Зберегти й далі». Три кроки анкети сумісності повторюють цю композицію з однаковою семантикою. Опис — <a href="../patterns/apply-step.md">patterns/apply-step.md</a>.</p></div>
+        </section>
+        <section class="docs-section">
+          <h2 class="kit-section__title">Відхилені кандидати</h2>
+          <div class="docs-specimen"><table><thead><tr><th scope="col">Кандидат</th><th scope="col">Чому не патерн</th></tr></thead><tbody><tr><td>Shell / appbar</td><td>Це компонент і каркас сторінки.</td></tr><tr><td>Actions</td><td>Це наявний компонент, який працює в різних контекстах.</td></tr><tr><td>Форми</td><td>На готових сторінках вони розв’язують різні семантичні задачі.</td></tr><tr><td>Інші композиції</td><td>Кожна трапляється менш ніж на трьох готових сторінках.</td></tr></tbody></table></div>
+        </section>
+        <section class="docs-section">
+          <h2 class="kit-section__title">Коли брати патерн</h2>
+          <p>Бери готовий патерн, коли задача, порядок компонентів і семантика збігаються з каталогом. Якщо повторюється лише окремий контроль або поверхня, збирай екран із компонентів. Не підвищуй випадкову схожість до патерна.</p>
+        </section>
+        <section class="docs-section">
+          <h2 class="kit-section__title">Коли повторити аудит</h2>
+          <p>Повторно перевір каталог після появи нової готової сторінки або коли одна композиція з однаковим змістом і поведінкою з’явиться на третій сторінці.</p>
+        </section>
+      </main>
+      <footer class="docs-footer"><p>Джерело доказів: п’ять екранів сценарію (4 уроку 6 + «Чати»). Правила: <a href="../patterns/README.md">patterns/README.md</a>.</p></footer>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+/* ───────── База ───────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { min-width: 0; background: var(--color-page-outer-background); -webkit-text-size-adjust: var(--primitive-width-full); }
+body { margin: 0; background: var(--color-page-background); color: var(--color-text-primary); font: var(--type-body); text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+::selection { background: var(--color-current-background); color: var(--color-text-primary); }
+a { color: inherit; text-decoration-thickness: var(--primitive-length-1); text-underline-offset: var(--primitive-letter-spacing-02); }
+@media (hover: hover) { a[href]:hover { color: var(--color-interactive-text-hover); } }
+a[href][data-demo-state="hover"] { color: var(--color-interactive-text-hover); }
+a[href]:active, a[href][data-demo-state="active"] { color: var(--color-interactive-text-active); }
+a[href][data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
+a[aria-disabled="true"] { opacity: var(--opacity-disabled); cursor: default; }
+button, input, select, textarea { color: var(--color-text-primary); font: var(--type-input); accent-color: var(--color-action); caret-color: var(--color-action); }
+:focus-visible { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
+.kit-sr-only { position: absolute; width: var(--primitive-length-1); height: var(--primitive-length-1); margin: var(--primitive-length-n1); overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+
+/* Атрибут hidden завжди сильніший за display будь-якого компонента
+   (kit-step, kit-card--prototype, результати форм тощо). */
+[hidden] { display: none !important; }
+
+/* Анімацій у продукті немає: стани змінюються миттєво, скрол — без згладжування. */
+
+/* Спільна маска іконок Solar: кожен селектор нижче лише задає --kit-icon і розмір/колір */
+.kit-back::before, .kit-tab::before, .kit-note::before, .kit-chip::before,
+.kit-state__icon::after, .kit-meta--place::before, .kit-button--icon-filter::before,
+.kit-sheet__close::before, .kit-application-choice::before,
+.kit-shell__brand a::after, .kit-shell__brand span::before {
+  content: ""; display: inline-block; flex: none; background: var(--color-icon-current);
+  -webkit-mask: var(--kit-icon) center / contain no-repeat; mask: var(--kit-icon) center / contain no-repeat;
+}

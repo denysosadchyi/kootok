@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Куток — дизайн уроку 6</title>
+  <meta http-equiv="refresh" content="0;url=research/wireframes.html">
+  <link rel="canonical" href="research/wireframes.html">
+  <style>body{font:16px/1.5 system-ui,sans-serif;margin:32px;color:#19141c;background:#ece7ff}a{color:#5b2eff}</style>
+</head>
+<body>
+  <p>Відкриваємо готовий дизайн уроку 6…</p>
+  <p><a href="research/wireframes.html">Перейти до продуктового дизайну</a></p>
+  <script>location.replace('research/wireframes.html')</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+/* ───────── Bottom sheet (фільтри) ───────── */
+/* Розмітка (details — нативний fallback без JS):
+   <details class="kit-sheet" id="…" role="dialog" aria-modal="true" aria-labelledby="…-title">
+     <summary class="kit-sheet__summary">
+       <span class="kit-sheet__title" id="…-title">Фільтри</span>
+       <span class="kit-sheet__state">Підселення · Голосіївський · до 10 000 грн</span>
+     </summary>
+     <button class="kit-sheet__close" type="button" aria-label="Закрити фільтри">Закрити</button>
+     <div class="kit-sheet__body"><form class="kit-form">…</form></div>
+   </details>
+   <button class="kit-sheet-backdrop" type="button" tabindex="-1" aria-label="Закрити фільтри"></button>
+   Тригер — кнопка «Фільтри» в toolbar стрічки (kit-button--secondary kit-button--compact
+   kit-button--icon-filter) з aria-controls="…" і aria-expanded; окремого FAB немає.
+   Відкритий стан: details[open] + html.kit-sheet-open (backdrop видимий).
+   Шторка відкривається й закривається миттєво — анімацій у продукті немає.
+   Поведінка скрипта: focus trap, Escape і клік по backdrop закривають,
+   фокус повертається на тригер. Fixed-елементи прив'язуються до найближчого
+   предка з transform (рамка пристрою, docs-frame). */
+
+.kit-sheet {
+  position: fixed; z-index: 950; left: 0; right: 0; bottom: 0;
+  width: min(var(--primitive-width-full), var(--primitive-length-390)); max-height: min(var(--primitive-height-82dvh), var(--primitive-length-700));
+  margin: 0 auto; overflow: hidden;
+  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+  background: var(--color-page-background); color: var(--color-text-primary); box-shadow: var(--elevation-lift);
+  visibility: hidden; transform: translateY(var(--primitive-width-105pct));
+}
+.kit-sheet[open] { visibility: visible; transform: none; }
+
+.kit-sheet__summary {
+  position: relative; display: flex; min-width: 0; flex-direction: column; gap: var(--primitive-length-2);
+  padding: var(--space-stack-xl) calc(var(--size-tap) + var(--space-stack-lg)) var(--space-stack-md) var(--space-screen-gutter);
+  background: var(--color-card-background); list-style: none; cursor: pointer;
+}
+.kit-sheet__summary::-webkit-details-marker { display: none; }
+/* Ручка шторки */
+.kit-sheet__summary::before {
+  content: ""; position: absolute; top: var(--primitive-length-10); left: var(--primitive-width-50pct);
+  width: var(--primitive-length-44); height: var(--primitive-length-4);
+  border-radius: var(--radius-pill); background: var(--color-divider); transform: translateX(calc(-1 * var(--primitive-width-50pct)));
+}
+.kit-sheet__title { color: var(--color-text-primary); font: var(--type-section-title); }
+.kit-sheet__state { overflow: hidden; color: var(--color-text-secondary); font: var(--type-meta); text-overflow: ellipsis; white-space: nowrap; }
+
+.kit-sheet__close {
+  --kit-icon: var(--primitive-icon-close);
+  position: absolute; z-index: 1; top: var(--primitive-length-18); right: var(--primitive-length-12);
+  display: grid; width: var(--size-tap); height: var(--size-tap); padding: 0; place-items: center; overflow: hidden;
+  border: 0; border-radius: var(--radius-circle); background: var(--color-transparent); color: var(--color-action);
+  font-size: 0; line-height: var(--primitive-line-height-0); cursor: pointer;
+}
+.kit-sheet__close::before { width: var(--primitive-length-20); height: var(--primitive-length-20); }
+@media (hover: hover) { .kit-sheet__close:hover { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); } }
+.kit-sheet__close[data-demo-state="hover"] { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); }
+.kit-sheet__close:active, .kit-sheet__close[data-demo-state="active"] { background: var(--color-interactive-surface-active); color: var(--color-interactive-text-active); }
+.kit-sheet__close[data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
+.kit-sheet__close:disabled { opacity: var(--opacity-disabled); cursor: default; }
+
+.kit-sheet__body {
+  max-height: calc(var(--primitive-height-60dvh) - var(--primitive-length-20)); overflow-y: auto; overscroll-behavior: contain;
+  padding: var(--space-screen-gutter) var(--space-screen-gutter) calc(var(--space-stack-xxl) + env(safe-area-inset-bottom, 0px));
+  scrollbar-width: none;
+}
+.kit-sheet__body::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
+.kit-sheet-backdrop {
+  position: fixed; z-index: 940; inset: 0; padding: 0; border: 0;
+  background: var(--color-scrim); opacity: 0; pointer-events: none;
+}
+.kit-sheet-open .kit-sheet-backdrop { opacity: 1; pointer-events: auto; }

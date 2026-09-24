@@ -1,6 +1,30 @@
 (function () {
   "use strict";
 
+  var themeKey = "kootok-color-theme";
+  var themeQuery = matchMedia("(prefers-color-scheme: dark)");
+
+  function savedTheme() {
+    try {
+      var value = localStorage.getItem(themeKey);
+      return value === "dark" || value === "light" ? value : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function preferredTheme() {
+    return savedTheme() || (themeQuery.matches ? "dark" : "light");
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+  }
+
+  /* Runs before the navigation DOM is built. With the shared script loaded in
+     the head this is the earliest safe central hook; no page markup is cloned. */
+  applyTheme(preferredTheme());
+
   if (window.top !== window.self) return;
 
   var base = "/kootok/";
@@ -9,39 +33,52 @@
   var collapseKey = "kootok-course-sidebar-collapsed";
   var groupKey = "kootok-course-group-";
   var previousFocus = null;
-  var isPrototype = path.indexOf(base + "lesson-6/") === 0 || path.indexOf(base + "beginners/source/prototype/") === 0;
-  var isWireframeWorkspace = path === base + "research/wireframes.html";
+  var prototypeSource = base + "beginners/source/prototype/";
+  var chatsScreen = base + "design-system/examples/chats.html";
+  /* П'ятий екран сценарію — «Чати» (зібраний лише з кіта) — має ту саму курсову рамку. */
+  var isPrototype = path.indexOf(base + "lesson-6/") === 0 || path.indexOf(prototypeSource) === 0 || path === chatsScreen;
+  /* Один маршрут для family-панелі: джерельний шлях нормалізуємо до alias lesson-6/. */
+  var routePath = path.indexOf(prototypeSource) === 0 ? base + "lesson-6/" + path.slice(prototypeSource.length) : path;
+
+  function safeGet(key) {
+    try { return localStorage.getItem(key); } catch (_) { return null; }
+  }
+  function safeSet(key, value) {
+    try { localStorage.setItem(key, value); } catch (_) { /* Стан панелі живе лише до перезавантаження. */ }
+  }
 
   var tree = [
     {
-      id: "foundation", short: "01–03", label: "Основа продукту", open: true,
+      id: "research", short: "01–02", label: "Дослідження", open: true,
       items: [
-        { short: "01", label: "Продукт і бриф", href: "index.html#lesson-1", paths: ["/kootok/index.html"] },
+        { short: "01", label: "Бриф продукту", href: "index.html#lesson-1", paths: ["/kootok/index.html"] },
         { short: "02", label: "Дослідження ринку", href: "research.html", paths: ["/kootok/research.html", "/kootok/research/research.html"] },
-        { short: "02", label: "Персони та JTBD", href: "personas.html", paths: ["/kootok/personas.html", "/kootok/research/personas.html"] },
-        { short: "03", label: "Інформаційна архітектура", href: "ia.html", paths: ["/kootok/ia.html", "/kootok/research/ia.html"] }
+        { short: "02", label: "Персони і JTBD", href: "personas.html", paths: ["/kootok/personas.html", "/kootok/research/personas.html"] }
       ]
     },
     {
-      id: "structure", short: "04–05", label: "Структура і текст", open: true,
+      id: "structure", short: "03–04", label: "Структура", open: true,
       items: [
-        { short: "04", label: "Вайрфрейми", href: "research/wireframes.html", paths: ["/kootok/research/wireframes.html"] },
-        { short: "05", label: "Voice & tone", href: "voice.html", paths: ["/kootok/voice.html"] },
+        { short: "03", label: "Інформаційна архітектура", href: "ia.html", paths: ["/kootok/ia.html", "/kootok/research/ia.html"] },
+        { short: "04", label: "Вайрфрейми · архів", href: "archive/product-wireframes/README.md", paths: ["/kootok/archive/product-wireframes/README.md"] }
+      ]
+    },
+    {
+      id: "text", short: "05", label: "Текст", open: true,
+      items: [
+        { short: "05", label: "Голос продукту", href: "voice.html", paths: ["/kootok/voice.html"] },
         { short: "05", label: "Мікрокопі", href: "microcopy.html", paths: ["/kootok/microcopy.html"] }
       ]
     },
     {
-      id: "visual", short: "06", label: "Візуальна мова", open: true,
+      id: "look", short: "06–08", label: "Вигляд", open: true,
       items: [
-        { short: "06", label: "Концепт «Зелений двір»", href: "lesson-6-concept.html", paths: ["/kootok/lesson-6-concept.html", "/kootok/beginners/source/concept.html"] },
-        { short: "06", label: "Прототип уроку 6", href: "lesson-6/listings.html", paths: ["/kootok/lesson-6/listings.html"], prototypeWorkspace: true }
-      ]
-    },
-    {
-      id: "kit", short: "07", label: "UI-кіт", open: true,
-      items: [
-        { short: "07", label: "Вітрина кіта", href: "ui/kit.html", paths: ["/kootok/ui/kit.html"] },
-        { short: "07", label: "Оболонка продукту", href: "ui/shell.html", paths: ["/kootok/ui/shell.html"] }
+        { short: "06", label: "Концепт «Зелений двір»", href: "concept.md", paths: ["/kootok/concept.md"] },
+        { short: "06", label: "Ранній прототип · 5 екранів", href: "lesson-6/listings.html", paths: ["/kootok/lesson-6/listings.html"], prototypeWorkspace: true },
+        { short: "07", label: "Вітрина UI-кіта", href: "ui/kit.html", paths: ["/kootok/ui/kit.html"] },
+        { short: "07", label: "Оболонка продукту", href: "ui/shell.html", paths: ["/kootok/ui/shell.html"] },
+        { short: "08", label: "Дизайн-система", href: "design-system/docs/index.html", paths: ["/kootok/design-system/docs/index.html"] },
+        { short: "08", label: "Токени", href: "ui/tokens.html", paths: ["/kootok/ui/tokens.html"] }
       ]
     }
   ];
@@ -59,7 +96,7 @@
   }
 
   function group(node) {
-    var stored = localStorage.getItem(groupKey + node.id);
+    var stored = safeGet(groupKey + node.id);
     var hasCurrent = node.items.some(isCurrent);
     var open = stored === null ? (node.open || hasCurrent) : stored === "1" || hasCurrent;
     return "<details class=\"course-shell__group\" data-group=\"" + node.id + "\"" + (open ? " open" : "") + ">" +
@@ -68,84 +105,59 @@
   }
 
   document.documentElement.classList.add("has-course-nav");
-  if (localStorage.getItem(collapseKey) === "1") document.documentElement.classList.add("course-sidebar-collapsed");
+  if (safeGet(collapseKey) === "1") document.documentElement.classList.add("course-sidebar-collapsed");
   if (isPrototype) {
     document.body.classList.add("course-nav--prototype");
   }
-  if (isWireframeWorkspace) document.body.classList.add("course-nav--wireframes");
 
   var main = document.querySelector("main");
   if (main && !main.id) main.id = "course-main";
+  var skipTarget = main ? main.id : "course-main";
 
   if (isPrototype && !document.querySelector(".prototype-device")) {
     var device = document.createElement("div");
     var deviceScreen = document.createElement("div");
     var deviceContent = document.createElement("div");
-    var productHeader = document.querySelector(".product-header");
     device.className = "prototype-device";
     deviceScreen.className = "prototype-device__screen";
     deviceContent.className = "prototype-device__content";
     deviceScreen.setAttribute("data-device-screen", "390 × 844");
-    Array.from(document.body.childNodes).forEach(function (node) {
-      if (node !== productHeader) deviceContent.appendChild(node);
-    });
+    Array.from(document.body.childNodes).forEach(function (node) { deviceContent.appendChild(node); });
     deviceScreen.appendChild(deviceContent);
-    if (productHeader) deviceScreen.appendChild(productHeader);
+    var productDock = deviceContent.querySelector(".kit-tabbar--dock");
+    if (productDock) {
+      deviceScreen.classList.add("prototype-device__screen--with-dock");
+      deviceContent.classList.add("prototype-device__content--with-dock");
+      deviceScreen.appendChild(productDock);
+    }
+    deviceContent.scrollLeft = 0;
     device.appendChild(deviceScreen);
     document.body.appendChild(device);
   }
 
-  function setupStateSwitcher() {
-    var currentFile = path.split("/").pop();
-    var families = [
-      [["listings.html", "Успіх"], ["listings-empty.html", "Порожньо"], ["listings-error.html", "Помилка"], ["listings-loading.html", "Завантаження"]],
-      [["listing.html", "Успіх"], ["listing-error.html", "Помилка"], ["listing-loading.html", "Завантаження"]],
-      [["compatibility-form.html", "Успіх"], ["compatibility-form-error.html", "Помилка"], ["compatibility-form-loading.html", "Завантаження"]],
-      [["application.html", "Успіх"], ["application-error.html", "Помилка"], ["application-loading.html", "Завантаження"], ["application-sent.html", "Надіслано"]]
-    ];
-    var family = families.find(function (items) { return items.some(function (item) { return item[0] === currentFile; }); });
-    if (!family) return null;
-    var nav = document.createElement("nav");
-    nav.className = "state-switcher";
-    nav.setAttribute("aria-label", "Стани екрана");
-    nav.innerHTML = family.map(function (item) {
-      return "<a href=\"" + item[0] + "\"" + (item[0] === currentFile ? " aria-current=\"page\"" : "") + ">" + item[1] + "</a>";
-    }).join("");
-    return nav;
-  }
-
   function setupLessonWorkspace() {
     var device = document.querySelector(".prototype-device");
-    var currentFile = path.split("/").pop();
+    if (!isPrototype || !device) return;
     var families = [
-      ["Пошук", "listings.html", ["listings.html", "listings-empty.html", "listings-error.html", "listings-loading.html"]],
-      ["Оголошення", "listing.html", ["listing.html", "listing-error.html", "listing-loading.html"]],
-      ["Сумісність", "compatibility-form.html", ["compatibility-form.html", "compatibility-form-error.html", "compatibility-form-loading.html"]],
-      ["Заявка", "application.html", ["application.html", "application-error.html", "application-loading.html", "application-sent.html"]],
-      ["Чати", "chats.html", ["chats.html"]], ["Розмова", "chat.html", ["chat.html"]], ["Профіль", "profile.html", ["profile.html"]]
+      ["Пошук", base + "lesson-6/listings.html"],
+      ["Оголошення", base + "lesson-6/listing.html"],
+      ["Сумісність", base + "lesson-6/compatibility-form.html"],
+      ["Заявка", base + "lesson-6/application.html"],
+      ["Чати", chatsScreen]
     ];
     var panel = document.createElement("aside");
     panel.className = "lesson-family-panel";
-    panel.setAttribute("aria-label", "Екрани уроку 6");
-    panel.innerHTML = "<h2>Екрани уроку 6</h2><nav>" + families.map(function (family) {
-      var current = family[2].indexOf(currentFile) !== -1;
-      return "<a href=\"" + base + "lesson-6/" + family[1] + "\"" + (current ? " aria-current=\"page\"" : "") + ">" + family[0] + "</a>";
+    panel.setAttribute("aria-labelledby", "lesson-family-title");
+    panel.innerHTML = "<p class=\"course-family__title\" id=\"lesson-family-title\">Екрани уроку 6</p><nav aria-labelledby=\"lesson-family-title\">" + families.map(function (family) {
+      var current = family[1] === routePath;
+      return "<a href=\"" + family[1] + "\"" + (current ? " aria-current=\"page\"" : "") + ">" + family[0] + "</a>";
     }).join("") + "</nav>";
     if (device) {
       var workspace = document.createElement("div");
       workspace.className = "lesson-workspace";
       device.parentNode.insertBefore(workspace, device);
-      var switcher = setupStateSwitcher();
-      if (switcher) workspace.appendChild(switcher);
       workspace.appendChild(device);
       workspace.parentNode.insertBefore(panel, workspace);
-    } else if (isWireframeWorkspace) {
-      document.body.prepend(panel);
-      var app = document.querySelector(".app");
-      if (app) {
-        app.className = "wireframe-overview";
-        app.innerHTML = "<main><p class=\"wireframe-overview__eyebrow\">Урок 04 · інтерактивні вайрфрейми</p><h1>Сторінки продукту «Куток»</h1><p>Огляд сімейств екранів уроку 6. Відкрий потрібний маршрут і перемикай його стани над прототипом.</p><ul>" + families.map(function (family) { return "<li><a href=\"/kootok/lesson-6/" + family[1] + "\"><strong>" + family[0] + "</strong><span>Відкрити інтерактивний маршрут</span></a></li>"; }).join("") + "</ul></main>";
-      }
     }
   }
 
@@ -171,7 +183,8 @@
   });
 
   function setupFilterSheet() {
-    var sheet = document.querySelector("details.filters");
+    // Лише екрани прототипу: docs-зразки шторки статичні й не прив'язуються.
+    var sheet = isPrototype ? document.querySelector("details.kit-sheet") : null;
     if (!sheet) return;
 
     sheet.id = "listing-filters-sheet";
@@ -179,53 +192,59 @@
     sheet.setAttribute("aria-modal", "true");
     sheet.setAttribute("aria-labelledby", "listing-filters-title");
     sheet.removeAttribute("open");
-    var title = sheet.querySelector(".summary-label");
+    var title = sheet.querySelector(".kit-sheet__title");
     if (title) title.id = "listing-filters-title";
 
     var close = document.createElement("button");
-    close.className = "filters-close";
+    close.className = "kit-sheet__close";
     close.type = "button";
     close.setAttribute("aria-label", "Закрити фільтри");
     close.textContent = "Закрити";
-    sheet.insertBefore(close, sheet.querySelector(".filters-body"));
-
-    var fab = document.createElement("button");
-    fab.className = "filters-fab";
-    fab.type = "button";
-    fab.setAttribute("aria-label", "Відкрити фільтри");
-    fab.setAttribute("aria-controls", sheet.id);
-    fab.setAttribute("aria-expanded", "false");
-    fab.innerHTML = "<span aria-hidden=\"true\"></span>";
+    sheet.insertBefore(close, sheet.querySelector(".kit-sheet__body"));
 
     var backdrop = document.createElement("button");
-    backdrop.className = "filters-backdrop";
+    backdrop.className = "kit-sheet-backdrop";
     backdrop.type = "button";
     backdrop.tabIndex = -1;
     backdrop.setAttribute("aria-label", "Закрити фільтри");
 
     var host = document.querySelector(".prototype-device__screen") || document.body;
     host.appendChild(backdrop);
-    host.appendChild(fab);
+    var triggers = Array.from(document.querySelectorAll('[aria-controls="' + sheet.id + '"]'));
     var previous = null;
 
+    function resetHorizontalPosition() {
+      [document.scrollingElement, document.documentElement, document.body,
+        document.querySelector(".prototype-device__content"),
+        document.querySelector(".prototype-device__screen")].forEach(function (node) {
+        if (node) node.scrollLeft = 0;
+      });
+    }
+
     function focusable() {
-      return Array.from(sheet.querySelectorAll("button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),summary,[href]"));
+      return Array.from(sheet.querySelectorAll("button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[href]"));
+    }
+    function syncExpanded(open) {
+      triggers.forEach(function (trigger) { trigger.setAttribute("aria-expanded", String(open)); });
     }
     function openSheet() {
       previous = document.activeElement;
+      resetHorizontalPosition();
       sheet.open = true;
-      document.documentElement.classList.add("filters-sheet-open");
-      fab.setAttribute("aria-expanded", "true");
+      document.documentElement.classList.add("kit-sheet-open");
+      syncExpanded(true);
       close.focus();
     }
     function closeSheet() {
       sheet.open = false;
-      document.documentElement.classList.remove("filters-sheet-open");
-      fab.setAttribute("aria-expanded", "false");
-      if (previous && previous.focus) previous.focus(); else fab.focus();
+      document.documentElement.classList.remove("kit-sheet-open");
+      syncExpanded(false);
+      if (previous && previous.focus) previous.focus({ preventScroll: true }); else if (triggers[0]) triggers[0].focus({ preventScroll: true });
+      resetHorizontalPosition();
+      requestAnimationFrame(resetHorizontalPosition);
     }
 
-    fab.addEventListener("click", openSheet);
+    triggers.forEach(function (trigger) { trigger.addEventListener("click", openSheet); });
     close.addEventListener("click", closeSheet);
     backdrop.addEventListener("click", closeSheet);
     sheet.querySelector("summary").addEventListener("click", function (event) { event.preventDefault(); });
@@ -253,11 +272,13 @@
   sidebar.setAttribute("aria-label", "Матеріали курсу");
   sidebar.innerHTML =
     "<header class=\"course-shell__header\"><a class=\"course-shell__brand\" href=\"" + base + "\" aria-label=\"Куток — усі матеріали\">" +
-      "<span class=\"course-shell__mark\" aria-hidden=\"true\">К</span><span class=\"course-shell__brand-copy\"><strong>Куток</strong><small>курс 01–07</small></span></a>" +
+      "<span class=\"course-shell__mark\" aria-hidden=\"true\">К</span><span class=\"course-shell__brand-copy\"><strong>Куток</strong><small>курс 01–08</small></span></a>" +
       "<button class=\"course-shell__close\" type=\"button\" aria-label=\"Закрити навігацію\"><span aria-hidden=\"true\"></span></button></header>" +
     "<nav class=\"course-shell__tree\" aria-label=\"Навігація матеріалами курсу\">" +
       tree.map(group).join("") +
-    "</nav><button class=\"course-shell__collapse\" type=\"button\" aria-controls=\"course-shell\"><span>Згорнути панель</span></button>";
+    "</nav><div class=\"course-shell__actions\">" +
+      "<button class=\"course-shell__theme\" type=\"button\" aria-pressed=\"false\"><span aria-hidden=\"true\"></span><b>Темна тема</b></button>" +
+      "<button class=\"course-shell__collapse\" type=\"button\" aria-controls=\"course-shell\"><span>Згорнути панель</span></button></div>";
 
   var mobileBar = document.createElement("header");
   mobileBar.className = "course-mobilebar";
@@ -268,15 +289,43 @@
   backdrop.className = "course-shell__backdrop";
   backdrop.setAttribute("aria-hidden", "true");
 
+  var skip = document.createElement("a");
+  skip.className = "course-skip";
+  skip.href = "#" + skipTarget;
+  skip.textContent = "До вмісту";
+
   document.body.prepend(backdrop);
   document.body.prepend(sidebar);
   document.body.prepend(mobileBar);
+  if (!document.querySelector(".docs-skip, .course-skip")) document.body.prepend(skip);
 
-  document.querySelectorAll("body > .mobtop, body > .mobile, .app > .sidebar").forEach(function (node) { node.remove(); });
+  document.querySelectorAll(".mobtop, .mobile, .app > .sidebar").forEach(function (node) { node.remove(); });
+  // На сторінці галереї власна панель проєкту зникає — сітка переходить у режим «дерево екранів + сцена».
 
   var openButton = mobileBar.querySelector(".course-mobilebar__open");
   var closeButton = sidebar.querySelector(".course-shell__close");
+  var themeButton = sidebar.querySelector(".course-shell__theme");
   var collapseButton = sidebar.querySelector(".course-shell__collapse");
+
+  function syncThemeButton() {
+    var dark = document.documentElement.dataset.theme === "dark";
+    themeButton.setAttribute("aria-pressed", String(dark));
+    themeButton.setAttribute("aria-label", dark ? "Увімкнути світлу тему" : "Увімкнути темну тему");
+    themeButton.querySelector("b").textContent = dark ? "Світла тема" : "Темна тема";
+  }
+
+  themeButton.addEventListener("click", function () {
+    var next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    try { localStorage.setItem(themeKey, next); } catch (_) { /* Theme still works for this page. */ }
+    applyTheme(next);
+    syncThemeButton();
+  });
+
+  themeQuery.addEventListener("change", function (event) {
+    if (savedTheme()) return;
+    applyTheme(event.matches ? "dark" : "light");
+    syncThemeButton();
+  });
 
   function setDrawer(open, restoreFocus) {
     document.documentElement.classList.toggle("course-drawer-open", open);
@@ -315,13 +364,13 @@
   backdrop.addEventListener("click", function () { setDrawer(false, true); });
   collapseButton.addEventListener("click", function () {
     var collapsed = document.documentElement.classList.toggle("course-sidebar-collapsed");
-    localStorage.setItem(collapseKey, collapsed ? "1" : "0");
+    safeSet(collapseKey, collapsed ? "1" : "0");
     collapseButton.setAttribute("aria-expanded", String(!collapsed));
     collapseButton.querySelector("span").textContent = collapsed ? "Розгорнути панель" : "Згорнути панель";
   });
 
   sidebar.querySelectorAll(".course-shell__group").forEach(function (details) {
-    details.addEventListener("toggle", function () { localStorage.setItem(groupKey + details.dataset.group, details.open ? "1" : "0"); });
+    details.addEventListener("toggle", function () { safeSet(groupKey + details.dataset.group, details.open ? "1" : "0"); });
   });
 
   document.addEventListener("keydown", function (event) {
@@ -338,5 +387,6 @@
   mobileQuery.addEventListener("change", syncMode);
   collapseButton.setAttribute("aria-expanded", String(!document.documentElement.classList.contains("course-sidebar-collapsed")));
   collapseButton.querySelector("span").textContent = document.documentElement.classList.contains("course-sidebar-collapsed") ? "Розгорнути панель" : "Згорнути панель";
+  syncThemeButton();
   syncMode();
 })();

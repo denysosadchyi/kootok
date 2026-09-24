@@ -1,0 +1,136 @@
+schema_version: "1.0.0"
+
+identity:
+  id: "button-primary"
+  name_uk: "Основна кнопка"
+  status: "current"
+  selector: ".kit-button"
+  entrypoint: "design-system/index.css"
+  sources:
+    documentation: "design-system/docs/button.html"
+    component: "design-system/components/button.css"
+    base: "design-system/components/base.css"
+    tokens: "design-system/tokens.css"
+    design_direction: "DESIGN.md#buttons"
+
+purpose: "Запускає головну дію поточного кроку та чітко називає її результат."
+
+anatomy:
+  - part: "control"
+    required: true
+    description: "Нативний button."
+  - part: "label"
+    required: true
+    description: "Короткий дієслівний підпис."
+  - part: "focus_indicator"
+    required: true
+    description: "Системний outline для клавіатурного фокуса."
+
+supported_element:
+  element: "button"
+  requirements:
+    - "Явно вказувати type: button, submit або reset."
+    - "Для недоступного стану використовувати native disabled."
+
+geometry:
+  display: "inline-flex"
+  min_height: "var(--primitive-length-50) = 50px"
+  padding_block: "var(--space-control-block) = 12px"
+  padding_inline: "var(--primitive-length-20) = 20px"
+  gap: "var(--space-stack-sm) = 8px"
+  border: "0"
+  radius: "var(--radius-control) = 10px"
+  alignment: "center"
+  elevation: "var(--elevation-primary) = none"
+  typography: "var(--type-control) = 700 15px/1.3 Jost"
+
+token_dependencies:
+  default_surface: "--color-action-surface"
+  default_text: "--color-on-action"
+  hover_surface: "--color-action-surface-hover"
+  active_surface: "--color-action-surface-active"
+  focus_color: "--color-focus"
+  disabled_opacity: "--opacity-disabled"
+  min_height: "--primitive-length-50"
+  padding_block: "--space-control-block"
+  padding_inline: "--primitive-length-20"
+  gap: "--space-stack-sm"
+  radius: "--radius-control"
+  typography: "--type-control"
+  elevation: "--elevation-primary"
+
+theme_resolution:
+  light:
+    default_surface: "--primitive-color-green-700"
+    default_text: "--primitive-color-white"
+    hover_surface: "--primitive-color-green-900"
+    active_surface: "--primitive-color-ink-900"
+    focus_color: "--primitive-color-blue-700"
+    disabled_opacity: "--primitive-opacity-55"
+  dark:
+    default_surface: "--primitive-color-green-600"
+    default_text: "--primitive-color-cream-050"
+    hover_surface: "--primitive-color-green-700"
+    active_surface: "--primitive-color-green-900"
+    focus_color: "--primitive-color-green-300"
+    disabled_opacity: "--primitive-opacity-55"
+
+states:
+  cascade_order: ["default", "hover", "active", "focus-visible", "disabled"]
+  default:
+    selector: ".kit-button"
+    preview_selector: null
+    properties: ["background", "color", "geometry", "typography"]
+  hover:
+    selector: ".kit-button:not(:disabled):hover inside @media (hover: hover)"
+    preview_selector: ".kit-button[data-demo-state=\"hover\"]"
+    allowed_changes: ["background"]
+  active:
+    selector: ".kit-button:not(:disabled):active"
+    preview_selector: ".kit-button[data-demo-state=\"active\"]"
+    allowed_changes: ["background"]
+  focus_visible:
+    selector: ":focus-visible from design-system/components/base.css"
+    preview_selector: ".kit-button[data-demo-state=\"focus-visible\"]"
+    allowed_changes: ["outline", "outline-offset"]
+    outline: "3px solid var(--color-focus), offset 2px"
+  disabled:
+    selector: ".kit-button:disabled"
+    preview_selector: ".kit-button:disabled"
+    allowed_changes: ["opacity", "cursor"]
+    behavior: "Native disabled блокує активацію та клавіатурний фокус; CSS задає opacity .55 і cursor default без ручного перефарбування."
+
+accessibility:
+  touch_target: "Мінімальна висота 50px."
+  keyboard: "Нативна клавіатурна поведінка button; focus-visible не прибирати."
+  semantics: "Для команди використовувати button, не посилання."
+  disabled: "Використовувати native disabled."
+  focus_contrast:
+    light_blue_700_on_white: 7.02
+    dark_green_300_on_ink_900: 12.14
+
+content_rules:
+  language: "Українська, звертання на ти."
+  label: "Називає результат дієсловом, наприклад «Подати заявку» або «Спробувати ще раз»."
+  avoid:
+    - "Загальні підписи «ОК», «Так» або «Далі» без результату."
+    - "Дві основні кнопки однакової ваги в одному кроці."
+
+example: '<button class="kit-button" type="button">Подати заявку</button>'
+
+known_issues:
+  - id: "primary-preview-specificity"
+    severity: "low"
+    issue: "Preview-селектори призначені лише для документації та не є продуктовими станами."
+  - id: "primary-no-loading-state"
+    severity: "medium"
+    issue: "Поточний primary API не має loading-стану."
+
+verification_assertions:
+  - "YAML парситься без anchors або aliases."
+  - "Селектори primary default, hover, active, focus-visible, disabled і preview існують у button.css або base.css."
+  - "Усі token dependencies існують у tokens.css."
+  - "Мінімальна висота primary дорівнює 50px."
+  - "Hover selector обмежений @media (hover: hover)."
+  - "Active не змінює transform або layout."
+  - "Disabled змінює лише opacity і cursor."
