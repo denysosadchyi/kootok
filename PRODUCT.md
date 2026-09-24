@@ -52,7 +52,7 @@ Mobile-first веб для коротких сесій пошуку з теле�
 
 - 70 джерел і 12 конкурентів: `research/research.md`.
 - Три персони та JTBD-матриця: `research/personas.md`, `research/jtbd.md`.
-- IA на 15 екранів і чотири флоу: `sitemap.md`, `flows.md`; 60 вайрфреймів уроку 4 — в `archive/product-wireframes/`; жива статична поверхня — чотири екрани раннього сценарію в `beginners/source/prototype/` (`lesson-6/`).
+- IA на 15 екранів і чотири флоу: `sitemap.md`, `flows.md`; 60 вайрфреймів уроку 4 — в `archive/product-wireframes/`; жива статична поверхня — активний прототип, 5 екранів: 4 макети `beginners/source/prototype/` (`lesson-6/`) + «Чати» (`design-system/examples/chats.html`).
 - Вигадані відгуки, партнери, обсяги аудиторії чи гарантії відсутні й не мають додаватися.
 
 ## Product Principles

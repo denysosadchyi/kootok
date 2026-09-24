@@ -120,7 +120,9 @@
   --primitive-radius-circle: 50%;
 
   /* Relative component widths */
+  --primitive-width-22ch: 22ch;
   --primitive-width-32ch: 32ch;
+  --primitive-width-42ch: 42ch;
   --primitive-width-50pct: 50%;
   --primitive-width-full: 100%;
   --primitive-width-fr-072: .72fr;
@@ -129,6 +131,13 @@
   --primitive-height-82dvh: 82dvh;
   --primitive-height-60dvh: 60dvh;
   --primitive-opacity-55: .55;
+
+  /* Stacking order: raw z-index values; компоненти беруть лише --z-* ролі. */
+  --primitive-z-1: 1;
+  --primitive-z-2: 2;
+  --primitive-z-30: 30;
+  --primitive-z-940: 940;
+  --primitive-z-950: 950;
 
   /* Solar assets live as local SVG files. Their SVG-internal coordinates and
      stroke widths are asset data, not component geometry tokens.
@@ -276,6 +285,31 @@
   --type-appbar: var(--primitive-font-weight-700) var(--primitive-length-15)/var(--primitive-line-height-120) var(--primitive-font-family-display);
   --type-chip: var(--primitive-font-weight-700) var(--primitive-length-12)/var(--primitive-line-height-120) var(--primitive-font-family-display);
   --type-footer: var(--primitive-font-weight-400) var(--primitive-length-12)/var(--primitive-line-height-140) var(--primitive-font-family-text);
+
+  /* Модифікатори типографічних ролей: трекінг, інтерліньяж і розміри, які
+     компоненти накладають поверх composite-ролі. Компоненти не читають
+     letter-spacing/line-height primitive напряму. */
+  --type-tracking-display: var(--primitive-letter-spacing-n02);
+  --type-tracking-nav: var(--primitive-letter-spacing-n03);
+  --type-tracking-overline: var(--primitive-letter-spacing-07);
+  --type-underline-offset: var(--primitive-letter-spacing-02);
+  --type-leading-nav: var(--primitive-line-height-115);
+  --type-leading-icon-only: var(--primitive-line-height-0);
+  --type-size-badge: var(--primitive-length-11);
+  --type-size-caption: var(--primitive-length-12);
+  --type-size-support: var(--primitive-length-14);
+
+  /* Довжина рядка (measure) для текстових ролей. */
+  --measure-headline: var(--primitive-width-22ch);
+  --measure-state: var(--primitive-width-32ch);
+  --measure-hint: var(--primitive-width-42ch);
+
+  /* Порядок накладання: вміст < плашка на фото/appbar < dock < backdrop < шторка. */
+  --z-raised: var(--primitive-z-1);
+  --z-overlay: var(--primitive-z-2);
+  --z-dock: var(--primitive-z-30);
+  --z-sheet-backdrop: var(--primitive-z-940);
+  --z-sheet: var(--primitive-z-950);
 
   /* Layout roles. Fine-grained primitive lengths remain valid for icon
      geometry; product spacing and shape decisions use these named roles. */

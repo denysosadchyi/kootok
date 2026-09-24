@@ -5,10 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#245744">
 <title>Куток — Стрічка оголошень + фільтри</title>
+<link rel="canonical" href="/kootok/lesson-6/listings.html">
 <link rel="stylesheet" href="/kootok/design-system/index.css">
 <link rel="stylesheet" href="_base.css">
 <link rel="stylesheet" href="/kootok/course-nav.css">
 <script src="/kootok/course-nav.js" defer></script>
+<script src="/kootok/design-system/components/sheet.js" defer></script>
+<script src="/kootok/design-system/components/form.js" defer></script>
 </head>
 <body>
 <div class="kit-shell kit-shell--with-dock">
@@ -106,7 +109,7 @@
     <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
   </main>
 
-  <details class="kit-sheet">
+  <details class="kit-sheet" id="listing-filters-sheet" data-kit-sheet>
     <summary class="kit-sheet__summary">
       <span class="kit-sheet__title">Фільтри</span>
       <span class="kit-sheet__state">Усі типи · Будь-який район · Будь-яка ціна</span>

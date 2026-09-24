@@ -1,6 +1,6 @@
 {
   "listings.html": {
-    "elementCount": 239,
+    "elementCount": 240,
     "tagCounts": {
       "header": 2,
       "a": 4,
@@ -11,7 +11,7 @@
       "li": 20,
       "p": 18,
       "div": 40,
-      "button": 5,
+      "button": 6,
       "section": 1,
       "h2": 1,
       "article": 5,
@@ -31,10 +31,10 @@
       "select": 6,
       "option": 26
     },
-    "controlCount": 21,
+    "controlCount": 22,
     "controlTags": {
       "a": 4,
-      "button:button": 3,
+      "button:button": 4,
       "input:radio": 3,
       "select:select-one": 6,
       "input:number": 2,
@@ -66,7 +66,7 @@
     "profileCompletedCount": 0
   },
   "listing.html": {
-    "elementCount": 67,
+    "elementCount": 68,
     "tagCounts": {
       "header": 2,
       "a": 4,
@@ -78,7 +78,7 @@
       "img": 3,
       "div": 6,
       "h2": 6,
-      "p": 16,
+      "p": 17,
       "strong": 1,
       "section": 6,
       "dl": 1,
@@ -95,10 +95,10 @@
       "assets/avatars/mariia-web.jpg",
       "assets/avatars/oleh-web.jpg"
     ],
-    "textNodeCount": 40,
+    "textNodeCount": 41,
     "pseudoContentCount": 0,
-    "textHash": "d015cb4ed624d9eb6d9b08506f976e4e7da9965452daf6a68c2563d48d769984",
-    "textWithoutProfileCompletedHash": "d015cb4ed624d9eb6d9b08506f976e4e7da9965452daf6a68c2563d48d769984",
+    "textHash": "37c9afdd8fe537f3f24672ebb5b557657ee730686db3ea9f59b2830f6051101c",
+    "textWithoutProfileCompletedHash": "37c9afdd8fe537f3f24672ebb5b557657ee730686db3ea9f59b2830f6051101c",
     "profileCompletedCount": 0
   },
   "compatibility-form.html": {

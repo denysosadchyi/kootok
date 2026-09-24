@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// QA уроку 8: кіт design-system/, токени, 4 екрани lesson-6, docs і ui-вітрини.
+// QA уроку 8: кіт design-system/, токени, 4 макети lesson-6 (активний прототип — 5 екранів разом із «Чатами»), docs і ui-вітрини.
 // Запуск: сервер з БАТЬКІВСЬКОЇ теки (`cd /home/hp/from-den && python3 -m http.server <port>`),
 // headless Chrome з `--remote-debugging-port=<cdp>`, далі
 // `KOOTOOK_CDP_PORT=<cdp> node scripts/qa-lesson-8.mjs http://127.0.0.1:<port>` (origin без /kootok).
@@ -93,6 +93,23 @@ const screenKitRules = [...screenCss.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/
   .flatMap((x) => x[1].split(",").map((sel) => sel.trim()))
   .filter((sel) => /\.filters/.test(sel) || (/\.kit-/.test(sel) && !sel.startsWith(".prototype-device")));
 if (screenKitRules.length) fail("screen-layer-kit-rules", screenKitRules);
+
+// Primitive у components/ лише за винятком AGENTS.md («Внесок у систему»): геометрія
+// (length/width/height), іконки й font-weight. Типографічні властивості, z-index і measure
+// читають лише semantic-ролі (--type-*, --z-*, --measure-*); literal z-index і ch заборонені.
+const allowedPrimitive = /^--primitive-(?:length|width|height|icon|font-weight)-/;
+const primitiveHits = [];
+for (const [index, css] of componentCss.entries()) {
+  const file = imports[index];
+  const clean = css.replace(/\/\*[\s\S]*?\*\//g, "");
+  for (const [, name] of clean.matchAll(/var\((--primitive-[\w-]+)/g)) if (!allowedPrimitive.test(name)) primitiveHits.push(`${file}: ${name}`);
+  for (const [, prop, value] of clean.matchAll(/(?:^|[;{\s])(font|font-size|line-height|letter-spacing|text-underline-offset|z-index|max-width)\s*:\s*([^;}]+)/g)) {
+    if (["font", "font-size", "line-height", "letter-spacing", "text-underline-offset", "z-index"].includes(prop) && /var\(--primitive-/.test(value)) primitiveHits.push(`${file}: ${prop}: ${value.trim()}`);
+    if (prop === "z-index" && !/^var\(--z-[\w-]+\)$/.test(value.trim())) primitiveHits.push(`${file}: literal z-index ${value.trim()}`);
+  }
+  for (const [hit] of clean.matchAll(/\b\d+(?:\.\d+)?ch\b/g)) primitiveHits.push(`${file}: literal measure ${hit}`);
+}
+if (primitiveHits.length) fail("primitive-in-components", [...new Set(primitiveHits)]);
 for (const [, name, url] of iconDecls) {
   if (!url.startsWith("/kootok/tokens/icons/") || url.includes("data:")) fail("icons", `${name}: ${url}`);
   const response = await fetch(new URL(url, origin));

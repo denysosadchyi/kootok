@@ -6,11 +6,11 @@ const cdpPort = process.env.KOOTOOK_CDP_PORT;
 if (!cdpPort) { console.error("Потрібна змінна KOOTOOK_CDP_PORT (порт Chrome DevTools)."); process.exit(2); }
 if (!process.argv[2]) { console.error("Потрібен origin першим аргументом, напр. http://127.0.0.1:8791 (без /kootok)."); process.exit(2); }
 const origin = process.argv[2].replace(/\/+$/, "");
-// 5 екранів уроку 6 у курсовій рамці: 4 макети lesson-6/ + «Чати» (design-system/examples/chats.html).
+// Активний прототип — 5 екранів у курсовій рамці: 4 макети lesson-6/ + «Чати» (design-system/examples/chats.html).
 const pages = ["listings.html", "listing.html", "compatibility-form.html", "application.html", "chats.html"];
 const pagePath = (page) => page === "chats.html" ? "/kootok/design-system/examples/chats.html" : `/kootok/lesson-6/${page}`;
-// Курсова панель «Екрани уроку 6» — ті самі 5 екранів.
-const familyLabels = ["Пошук", "Оголошення", "Сумісність", "Заявка", "Чати"];
+// Курсова панель «Активний прототип · 5 екранів» — назви екранів з IA (sitemap.md).
+const familyLabels = ["Стрічка кімнат", "Картка оголошення", "Анкета сумісності", "Заявка", "Чати"];
 const dockScreens = { "listings.html": "listings.html", "chats.html": "/kootok/design-system/examples/chats.html" };
 const dockCurrentLabel = { "listings.html": "Пошук", "chats.html": "Чати" };
 // Dock за IA для ролі шукачки: 3 пункти, поточний — «Пошук».

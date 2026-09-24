@@ -21,7 +21,12 @@
 ## Як відновити файл
 
 1. Поверніть потрібний файл до `beginners/source/prototype/` і заберіть суфікс
-   `.archived`: локальні assets та `_base.css` лишились там.
+   `.archived`. `_base.css` лишився там, а старі фото й аватари — ні: скопіюйте
+   `archive/early-prototype/assets-original/listings/*` у
+   `beginners/source/prototype/assets/listings/` і
+   `assets-original/avatars-web/*` у `beginners/source/prototype/assets/avatars/`
+   (архівні сторінки посилаються саме на `assets/listings/room-01.jpg` і
+   `assets/avatars/{mariia,nastia,oleh,solomiia}.png`).
 2. Замініть `/kootok/tokens.css` + `/kootok/components/index.css` на
    `/kootok/design-system/index.css` (старих файлів у корені більше немає).
 3. Виправте відомі порушення (таблиця нижче) до того, як показувати сторінку.

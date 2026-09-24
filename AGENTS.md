@@ -19,10 +19,12 @@
   `design-system/patterns/README.md`),
   `design-system/docs/` (жива документація компонентів). Продуктова мова й
   правила застосування — `DESIGN.md`; обґрунтування атрибутів — `concept.md`.
-- Активний прототип — рівно 4 макети в `beginners/source/prototype/`
-  (публічний alias `lesson-6/`): `listings`, `listing`, `compatibility-form`,
-  `application`; п'ятий екран сценарію — «Чати» (`design-system/examples/chats.html`,
-  зібраний лише з кіта) — показується в тій самій курсовій рамці. Правила саме
+- Активний прототип — 5 екранів: 4 макети в `beginners/source/prototype/`
+  (публічний alias `lesson-6/`) — «Стрічка кімнат» (`listings`), «Картка
+  оголошення» (`listing`), «Анкета сумісності» (`compatibility-form`), «Заявка»
+  (`application`) — і п'ятий екран «Чати» (`design-system/examples/chats.html`,
+  зібраний лише з кіта) у тій самій курсовій рамці. Назви екранів — з IA
+  (`sitemap.md`). Правила саме
   цього шару — `beginners/source/prototype/_rules.md`.
   Решта ранніх макетів — в `archive/early-prototype/`, продуктові wireframes —
   в `archive/product-wireframes/`; архів не є активними сторінками й не
@@ -32,7 +34,9 @@
   архівний знімок ранніх уроків; його `CLAUDE.md`, `PRODUCT.md`, `README.md`
   та `product/` не є чинними правилами.
 - Єдина веб-точка входу до артефактів — `index.html`. Курсова панель
-  (`course-nav.*`) і desktop frame навколо екрана не є частиною продукту.
+  (`course-nav.*`) і desktop frame навколо екрана не є частиною продукту;
+  course-nav не підключає продуктову поведінку — вона живе в
+  `design-system/components/*.js` (`sheet.js`, `form.js`).
 - Backlog і статус вимог — `IMPLEMENTATION_PLAN.md`; прогалини кіта —
   `design-system/backlog.md`. У `CLAUDE.md` і `DESIGN.md` статусну хроніку
   не вносити.
@@ -53,8 +57,10 @@
   рівні: raw value — primitive, продуктова роль — semantic (посилається на
   primitive). Компоненти й екрани не споживають literal. Колір, типографічні
   ролі, spacing- і radius-ролі — лише semantic; primitive напряму допустимі в
-  `components/` тільки для геометрії (length/width), іконок, тривалості й
-  font-weight. Екрани primitive не споживають. Кожен новий semantic token
+  `components/` тільки для геометрії (length/width/height), іконок і
+  font-weight; трекінг, інтерліньяж і розміри тексту — через `--type-*`,
+  довжина рядка — `--measure-*`, z-index — `--z-*`. Це перевіряє гейт
+  `primitive-in-components` у `scripts/qa-lesson-8.mjs`. Екрани primitive не споживають. Кожен новий semantic token
   визначається в обох темах (якщо значення в темній темі відрізняється).
 
 **Правило «залишаємо».** Якщо користувач каже «залишаємо», правка стає

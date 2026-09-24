@@ -196,3 +196,4 @@
 .docs-brand-mark--20 { width: 20px; height: 20px; }
 .docs-brand-mark--24 { width: 24px; height: 24px; }
 .docs-brand-mark--30 { width: 30px; height: 30px; }
+.docs-code { max-width: 100%; margin: var(--space-stack-md) 0; padding: var(--space-stack-md); overflow-x: auto; border-radius: var(--radius-control); background: var(--color-surface-sunken); color: var(--color-text-primary); font-size: 12px; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; }

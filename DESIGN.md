@@ -38,7 +38,15 @@ typography:
   price: { fontFamily: "Jost, sans-serif", fontSize: "18px", fontWeight: 800, lineHeight: 1.15 }
   price-head: { fontFamily: "Jost, sans-serif", fontSize: "22px", fontWeight: 800, lineHeight: 1.15 }
   shell-title: { fontFamily: "Jost, sans-serif", fontSize: "15px", fontWeight: 700, lineHeight: 1.2 }
-rounded: { field: "10px", control: "10px", card: "14px", listing-top: "18px", tabbar: "18px", sheet: "18px", context: "20px", pill: "999px", circle: "50%" }
+  chip: { fontFamily: "Jost, sans-serif", fontSize: "12px", fontWeight: 700, lineHeight: 1.2 }
+  overline: { fontFamily: "Jost, sans-serif", fontSize: "11px", fontWeight: 700, lineHeight: 1.2, letterSpacing: "0.07em", textTransform: "uppercase" }
+  footer: { fontFamily: "Golos Text, sans-serif", fontSize: "12px", fontWeight: 400, lineHeight: 1.4 }
+  brand: { fontFamily: "Jost, sans-serif", fontSize: "18px", fontWeight: 800, lineHeight: 1, letterSpacing: "-0.02em" }
+  control: { fontFamily: "Jost, sans-serif", fontSize: "15px", fontWeight: 700, lineHeight: 1.3 }
+  control-compact: { fontFamily: "Jost, sans-serif", fontSize: "14px", fontWeight: 700, lineHeight: 1.3 }
+  input: { fontFamily: "Golos Text, sans-serif", fontSize: "16px", fontWeight: 400, lineHeight: 1.5 }
+  # імена ролей = --type-*: headline=page-title, card-head=detail-title, compact=support, label=field-label, price-head=price-hero, shell-title=appbar
+rounded: { field: "10px", control: "10px", mark: "8px", card: "14px", track: "16px", hero: "18px", sheet: "18px", context: "20px", pill: "999px", circle: "50%" }
 spacing: { xs: "6px", sm: "8px", md: "12px", lg: "16px", xl: "24px", xxl: "32px" }
 ratio: { listing: "3/2", gallery: "4/3" }
 elevation:
@@ -130,7 +138,7 @@ Product gutter зліва/справа — 16px; між сусідніми conte
 
 ## Shapes
 
-Радіуси за роллю: поля й контроли 10, content cards 14, верх картки стрічки/tabbar/sheet 18, контекст заявки 20, доріжка сегмента 16, pills 999 для доказу, звички й статусу, аватари й кругла «Назад» 50%. Висота поля = висота контролу = 50 (`--size-control`), ціль дотику ≥ 44 (`--size-tap`). Внутрішні rows і notes не отримують окремого радіуса.
+Радіуси за роллю (імена = токени `--radius-*`): поля й контроли 10 (`field`, `control`), бренд-марка 8 (`mark`), content cards 14 (`card`), верх картки стрічки й tabbar 18 (`hero`), sheet 18 (`sheet`), контекст заявки 20, доріжка сегмента 16, pills 999 для доказу, звички й статусу, аватари й кругла «Назад» 50%. Висота поля = висота контролу = 50 (`--size-control`), ціль дотику ≥ 44 (`--size-tap`). Внутрішні rows і notes не отримують окремого радіуса.
 
 **The Pills Have A Job Rule.** Pill — компактний стан або навігація; довгі контентні поверхні не стають капсулами.
 
@@ -164,7 +172,7 @@ Product gutter зліва/справа — 16px; між сусідніми conte
 - **App bar**: біла панель на всю ширину оболонки (`--color-appbar-surface`), відділена від полотна лише фоном; «Назад» — коло 44px кольору полотна (`--color-appbar-control`) без тіні. У темній темі — темна поверхня й темне полотно відповідно.
 - **Сегмент**: заглиблена доріжка (radius 16), активний пункт — біла поверхня radius 10 без тіні.
 - **Рядок лічильника з дією** `.kit-toolbar`: лічильник ліворуч, кнопка «Фільтри» (secondary compact) праворуч.
-- **Фільтри** — bottom sheet `.kit-sheet` з backdrop `--color-scrim`, тригер — лише кнопка «Фільтри» в toolbar (плаваючої кнопки немає); focus trap, закриття Escape/backdrop/«Закрити», повернення фокуса на тригер. Групи: тип оголошення, район/ціна/заїзд, звички; перемикач «Кімнати / Люди» (для шукачки «Люди» недоступні з поясненням).
+- **Фільтри** — bottom sheet `.kit-sheet` з backdrop `--color-scrim`, тригер — лише кнопка «Фільтри» в toolbar (плаваючої кнопки немає); focus trap, закриття Escape/backdrop/«Закрити», повернення фокуса на тригер — поведінка в компоненті кіта `design-system/components/sheet.js` (`data-kit-sheet`), не в курсовій оболонці. Групи: тип оголошення, район/ціна/заїзд, звички; перемикач «Кімнати / Люди» (для шукачки «Люди» недоступні з поясненням).
 - **Кроки форми** — патерн `apply-step` (`patterns/apply-step.md`): `.kit-progress` + `.kit-step` + `.kit-actions--split` + `.kit-draft-status`.
 
 ### State Block
@@ -208,7 +216,7 @@ Product gutter зліва/справа — 16px; між сусідніми conte
   `design-system/docs/` — канонічна реалізація та документація системи.
 - `ui/tokens.html`, `ui/kit.html`, `ui/shell.html` — оглядові або навчальні
   артефакти; вони не замінюють канонічну документацію в `design-system/docs/`.
-- `beginners/source/prototype/` (`lesson-6/`) — чотири активні екрани раннього сценарію.
+- `beginners/source/prototype/` (`lesson-6/`) — 4 макети активного прототипу (5 екранів разом із «Чатами» в `design-system/examples/chats.html`).
 - `microcopy.md`, `voice.md` — тексти й голос компонентів.
 - Стилі research-сторінок і курсової оболонки (`site-theme.css`,
   `lesson-artifact.css`, `course-nav.css`) не є джерелом продуктової мови.

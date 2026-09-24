@@ -21,7 +21,7 @@
 .kit-listing h3 .kit-chip--muted { min-height: 0; padding: 0; color: var(--color-text-secondary); }
 .kit-listing .kit-chip:not(.kit-chip--error) { color: var(--color-trust); }
 
-ul.kit-trust-list { margin: 0; padding: 0; font-size: var(--primitive-length-14); list-style: none; }
+ul.kit-trust-list { margin: 0; padding: 0; font-size: var(--type-size-support); list-style: none; }
 .kit-trust-list li { --kit-icon: var(--primitive-icon-check); position: relative; display: flex; align-items: flex-start; gap: var(--space-stack-md); padding: var(--space-stack-md) 0; }
 .kit-trust-list li + li { margin-top: 0; border-top: 0; }
 .kit-trust-list li::before { content: ""; flex: none; width: var(--primitive-length-22); height: var(--primitive-length-22); margin-top: var(--primitive-length-1); border-radius: var(--radius-circle); background: var(--color-transparent); }

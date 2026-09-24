@@ -49,9 +49,14 @@
 
   var tree = [
     {
-      id: "research", short: "01–02", label: "Дослідження", open: true,
+      id: "product", short: "01", label: "Продукт", open: true,
       items: [
-        { short: "01", label: "Бриф продукту", href: "index.html#lesson-1", paths: ["/kootok/index.html"] },
+        { short: "01", label: "Бриф продукту", href: "index.html#lesson-1", paths: ["/kootok/index.html"] }
+      ]
+    },
+    {
+      id: "research", short: "02", label: "Дослідження", open: true,
+      items: [
         { short: "02", label: "Дослідження ринку", href: "research.html", paths: ["/kootok/research.html", "/kootok/research/research.html"] },
         { short: "02", label: "Персони і JTBD", href: "personas.html", paths: ["/kootok/personas.html", "/kootok/research/personas.html"] }
       ]
@@ -74,7 +79,7 @@
       id: "look", short: "06–08", label: "Вигляд", open: true,
       items: [
         { short: "06", label: "Концепт «Зелений двір»", href: "concept.md", paths: ["/kootok/concept.md"] },
-        { short: "06", label: "Ранній прототип · 5 екранів", href: "lesson-6/listings.html", paths: ["/kootok/lesson-6/listings.html"], prototypeWorkspace: true },
+        { short: "06", label: "Активний прототип · 5 екранів", href: "lesson-6/listings.html", paths: ["/kootok/lesson-6/listings.html"], prototypeWorkspace: true },
         { short: "07", label: "Вітрина UI-кіта", href: "ui/kit.html", paths: ["/kootok/ui/kit.html"] },
         { short: "07", label: "Оболонка продукту", href: "ui/shell.html", paths: ["/kootok/ui/shell.html"] },
         { short: "08", label: "Дизайн-система", href: "design-system/docs/index.html", paths: ["/kootok/design-system/docs/index.html"] },
@@ -139,16 +144,16 @@
     var device = document.querySelector(".prototype-device");
     if (!isPrototype || !device) return;
     var families = [
-      ["Пошук", base + "lesson-6/listings.html"],
-      ["Оголошення", base + "lesson-6/listing.html"],
-      ["Сумісність", base + "lesson-6/compatibility-form.html"],
+      ["Стрічка кімнат", base + "lesson-6/listings.html"],
+      ["Картка оголошення", base + "lesson-6/listing.html"],
+      ["Анкета сумісності", base + "lesson-6/compatibility-form.html"],
       ["Заявка", base + "lesson-6/application.html"],
       ["Чати", chatsScreen]
     ];
     var panel = document.createElement("aside");
     panel.className = "lesson-family-panel";
     panel.setAttribute("aria-labelledby", "lesson-family-title");
-    panel.innerHTML = "<p class=\"course-family__title\" id=\"lesson-family-title\">Екрани уроку 6</p><nav aria-labelledby=\"lesson-family-title\">" + families.map(function (family) {
+    panel.innerHTML = "<p class=\"course-family__title\" id=\"lesson-family-title\">Активний прототип · 5 екранів</p><nav aria-labelledby=\"lesson-family-title\">" + families.map(function (family) {
       var current = family[1] === routePath;
       return "<a href=\"" + family[1] + "\"" + (current ? " aria-current=\"page\"" : "") + ">" + family[0] + "</a>";
     }).join("") + "</nav>";
@@ -163,108 +168,9 @@
 
   setupLessonWorkspace();
 
-  document.querySelectorAll(".product-nav__link--create").forEach(function (link) {
-    link.textContent = "";
-    link.setAttribute("aria-label", "Додати оголошення");
-  });
+  /* Продуктова поведінка (шторка фільтрів, date picker) живе в design-system/components/*.js;
+     курсова оболонка лише будує рамку, навігацію й тему. */
 
-  document.querySelectorAll(".trust-chips > span").forEach(function (chip) {
-    var label = chip.textContent.toLowerCase();
-    if (label.indexOf("відео") !== -1) chip.dataset.trust = "video";
-    else if (label.indexOf("профіль") !== -1) chip.dataset.trust = "profile";
-  });
-
-  document.querySelectorAll('input[type="date"]').forEach(function (input) {
-    input.addEventListener("click", function () {
-      if (typeof input.showPicker === "function") {
-        try { input.showPicker(); } catch (_) { /* Native fallback remains available. */ }
-      }
-    });
-  });
-
-  function setupFilterSheet() {
-    // Лише екрани прототипу: docs-зразки шторки статичні й не прив'язуються.
-    var sheet = isPrototype ? document.querySelector("details.kit-sheet") : null;
-    if (!sheet) return;
-
-    sheet.id = "listing-filters-sheet";
-    sheet.setAttribute("role", "dialog");
-    sheet.setAttribute("aria-modal", "true");
-    sheet.setAttribute("aria-labelledby", "listing-filters-title");
-    sheet.removeAttribute("open");
-    var title = sheet.querySelector(".kit-sheet__title");
-    if (title) title.id = "listing-filters-title";
-
-    var close = document.createElement("button");
-    close.className = "kit-sheet__close";
-    close.type = "button";
-    close.setAttribute("aria-label", "Закрити фільтри");
-    close.textContent = "Закрити";
-    sheet.insertBefore(close, sheet.querySelector(".kit-sheet__body"));
-
-    var backdrop = document.createElement("button");
-    backdrop.className = "kit-sheet-backdrop";
-    backdrop.type = "button";
-    backdrop.tabIndex = -1;
-    backdrop.setAttribute("aria-label", "Закрити фільтри");
-
-    var host = document.querySelector(".prototype-device__screen") || document.body;
-    host.appendChild(backdrop);
-    var triggers = Array.from(document.querySelectorAll('[aria-controls="' + sheet.id + '"]'));
-    var previous = null;
-
-    function resetHorizontalPosition() {
-      [document.scrollingElement, document.documentElement, document.body,
-        document.querySelector(".prototype-device__content"),
-        document.querySelector(".prototype-device__screen")].forEach(function (node) {
-        if (node) node.scrollLeft = 0;
-      });
-    }
-
-    function focusable() {
-      return Array.from(sheet.querySelectorAll("button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[href]"));
-    }
-    function syncExpanded(open) {
-      triggers.forEach(function (trigger) { trigger.setAttribute("aria-expanded", String(open)); });
-    }
-    function openSheet() {
-      previous = document.activeElement;
-      resetHorizontalPosition();
-      sheet.open = true;
-      document.documentElement.classList.add("kit-sheet-open");
-      syncExpanded(true);
-      close.focus();
-    }
-    function closeSheet() {
-      sheet.open = false;
-      document.documentElement.classList.remove("kit-sheet-open");
-      syncExpanded(false);
-      if (previous && previous.focus) previous.focus({ preventScroll: true }); else if (triggers[0]) triggers[0].focus({ preventScroll: true });
-      resetHorizontalPosition();
-      requestAnimationFrame(resetHorizontalPosition);
-    }
-
-    triggers.forEach(function (trigger) { trigger.addEventListener("click", openSheet); });
-    close.addEventListener("click", closeSheet);
-    backdrop.addEventListener("click", closeSheet);
-    sheet.querySelector("summary").addEventListener("click", function (event) { event.preventDefault(); });
-    sheet.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") { event.preventDefault(); closeSheet(); return; }
-      if (event.key !== "Tab") return;
-      var items = focusable();
-      var first = items[0];
-      var last = items[items.length - 1];
-      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
-    });
-    var form = sheet.querySelector("form");
-    if (form) {
-      form.addEventListener("submit", function (event) { event.preventDefault(); closeSheet(); });
-      form.addEventListener("reset", function () { requestAnimationFrame(closeSheet); });
-    }
-  }
-
-  setupFilterSheet();
 
   var sidebar = document.createElement("aside");
   sidebar.className = "course-shell";
@@ -299,8 +205,9 @@
   document.body.prepend(mobileBar);
   if (!document.querySelector(".docs-skip, .course-skip")) document.body.prepend(skip);
 
+  /* Статичні research-сторінки (уроки 2–3) мають власну sidebar/mobile-навігацію як
+     fallback без JS; з курсовою панеллю вона зайва й прибирається. */
   document.querySelectorAll(".mobtop, .mobile, .app > .sidebar").forEach(function (node) { node.remove(); });
-  // На сторінці галереї власна панель проєкту зникає — сітка переходить у режим «дерево екранів + сцена».
 
   var openButton = mobileBar.querySelector(".course-mobilebar__open");
   var closeButton = sidebar.querySelector(".course-shell__close");

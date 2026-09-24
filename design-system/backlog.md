@@ -48,13 +48,15 @@
   `.kit-chat-row[aria-disabled]` і `.kit-listing[aria-disabled]` прибрано. Вимкненими
   лишаються лише справжні контроли: таб «Профіль», сегмент «Люди», посилання
   «Профіль Марії».
-- **Токени (252 → 218; з двома новими appbar-токенами — 220):** 34 невжиті —
+- **Токени (252 → 218; з двома новими appbar-токенами — 220; після пізніших
+  правок і semantic-ролей `--type-*`/`--measure-*`/`--z-*` зараз 131 primitive +
+  114 semantic = 245, рахує `ui/tokens.html`):** 34 невжиті —
   `--color-action-surface-deep`, `--color-hero-surface`, `--color-on-action-secondary`,
   `--color-avatar-ring`, `--color-avatar-overlay`, `--color-skeleton-background`,
   `--radius-bubble`, `--radius-bubble-tail`, `--radius-composer`, 2 градієнти,
   2 кольори з альфою, 3 довжини, 10 відносних ширин і 8 icon-токенів
   (`listings` лишився файлом — його споживає `--primitive-icon-document`).
-- **Іконки (21 → 14 SVG):** `add`, `plus`, `send`, `success`, `closed`, `danger`,
+- **Іконки (21 → 14 SVG; разом із власним `brand.svg` у `tokens/icons/` зараз 15):** `add`, `plus`, `send`, `success`, `closed`, `danger`,
   `filter`.
 - **Нові рішення в тому ж batch:** appbar — біла панель на всю ширину
   (`--color-appbar-surface`) з «Назад» кольору полотна (`--color-appbar-control`);

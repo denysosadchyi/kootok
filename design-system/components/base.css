@@ -3,7 +3,7 @@
 html { min-width: 0; background: var(--color-page-outer-background); -webkit-text-size-adjust: var(--primitive-width-full); }
 body { margin: 0; background: var(--color-page-background); color: var(--color-text-primary); font: var(--type-body); text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
 ::selection { background: var(--color-current-background); color: var(--color-text-primary); }
-a { color: inherit; text-decoration-thickness: var(--primitive-length-1); text-underline-offset: var(--primitive-letter-spacing-02); }
+a { color: inherit; text-decoration-thickness: var(--primitive-length-1); text-underline-offset: var(--type-underline-offset); }
 @media (hover: hover) { a[href]:hover { color: var(--color-interactive-text-hover); } }
 a[href][data-demo-state="hover"] { color: var(--color-interactive-text-hover); }
 a[href]:active, a[href][data-demo-state="active"] { color: var(--color-interactive-text-active); }

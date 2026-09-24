@@ -14,16 +14,17 @@
 - **Статус:** концепт «Зелений двір» формалізований у `DESIGN.md`, а UI-система
   має єдину точку входу `design-system/index.css`, два рівні токенів
   (`design-system/tokens.css`) і компонентні модулі (`design-system/components/`).
-  Активний прототип показує 4 макети: Пошук, Оголошення,
-  Сумісність і Заявка; ще 13 макетів збережено як вихідні файли в
-  `archive/early-prototype/` і прибрано з навігації.
+  Активний прототип — 5 екранів: 4 макети `lesson-6/` («Стрічка кімнат»,
+  «Картка оголошення», «Анкета сумісності», «Заявка») + «Чати»
+  (`design-system/examples/chats.html`); ще 13 ранніх макетів збережено як
+  вихідні файли в `archive/early-prototype/` і прибрано з навігації.
 
 ## Веб-каталог
 
 [`index.html`](index.html) — єдина стартова сторінка з усіма матеріалами уроків
 1–8; урок 4 (60 вайрфреймів) і 13 ранніх станів уроку 6 — в `archive/`,
 порівняння напрямів 27.08 — в `archive/concept-directions/`. Обраний концепт
-«Зелений двір» і п'ять активних екранів (4 `lesson-6/` + «Чати»), на яких він перевірений, — у каталозі.
+«Зелений двір» і активний прототип — 5 екранів (4 `lesson-6/` + «Чати»), на яких він перевірений, — у каталозі.
 
 ## Індекс репозиторію
 
@@ -40,12 +41,12 @@
 | [sitemap.md](sitemap.md) | Карта екранів: 5 сутностей продукту (з позначками `[?]`), дерево з 15 екранів по фазах наміру, глобальна навігація й глибина до main job, матриця трасування job × екран із сиротами. |
 | [flows.md](flows.md) | Текстові описи 4 ключових флоу в Mermaid — навмисно не happy-path: порожні стани, помилки, очікування, глухі кути. |
 | [research/ia.html](research/ia.html) | Інформаційна архітектура (сутності, екрани, навігація, трасування, флоу) у тому ж Notion-стилі. |
-| [research/screens/](research/screens/) | Скріншоти ключових екранів конкурентів (9 шт.). |
+| [research/screens/index.html](research/screens/index.html) | Скріншоти ключових екранів конкурентів (9 шт.). |
 | [voice.md](voice.md) | Голос продукту: принципи, словник, заборонені патерни й правила компонентів. |
 | [microcopy.md](microcopy.md) | Історичний аудит мікрокопі та словник продуктових станів. |
 | [archive/concept-directions/](archive/concept-directions/) | Історичне порівняння трьох візуальних напрямів (обрано «Денна зміна» 27.08, того ж дня замінено «Зеленим двором»). |
 | [lesson-6-concept.html](lesson-6-concept.html) | Історичний стенд уроку 6 (Onest, `#365c4f`); канон мови — `DESIGN.md` і `design-system/`. |
-| [lesson-6/](lesson-6/) | Рівно 4 ранні макети: Пошук, Оголошення, Сумісність, Заявка. |
+| [lesson-6/](lesson-6/) | 4 макети активного прототипу: Стрічка кімнат, Картка оголошення, Анкета сумісності, Заявка (п'ятий екран — «Чати»). |
 | [concept.md](concept.md) | Обґрунтування вибору, правила застосування та критерії sign-off уроку 6. |
 | [DESIGN.md](DESIGN.md) | Продуктова мова, згенерована з коду макетів: палітра, типографіка, форми, компоненти, правила; журнал правок кіта і «Джерела». |
 | [design-system/index.css](design-system/index.css) · [design-system/tokens.css](design-system/tokens.css) · [design-system/components/](design-system/components/) · [ui/tokens.html](ui/tokens.html) · [ui/kit.html](ui/kit.html) · [ui/shell.html](ui/shell.html) | UI-система уроку 8: єдина точка входу, оглядова вітрина primitive → semantic токенів (`ui/tokens.html`), окремі component-модулі, вітрина станів та оболонка-розмітка. |
@@ -107,7 +108,7 @@
 `ui/shell.html` — оболонка (бренд-рядок, app bar з «Назад»,
 fixed нижня навігація лише на кореневому екрані зі спільним розрахованим scroll-end clearance; вкладені екрани обходяться без неї);
 `ui/kit.html` — вітрина кожного компонента в усіх станах з текстами `microcopy.md`.
-Чотири активні екрани [`lesson-6/`](lesson-6/) зібрані з цих класів. Порядок
+Активний прототип — 5 екранів: 4 макети [`lesson-6/`](lesson-6/) і «Чати» — зібрані з цих класів; поведінка шторки фільтрів і поля дати — у `design-system/components/sheet.js` і `form.js`. Порядок
 внесення змін і правило «залишаємо» — в [AGENTS.md](AGENTS.md).
 Бренд-знак — `tokens/icons/brand.svg` (`--primitive-icon-brand`, джерело
 `visuals/logo/`). Фото й аватари — власний згенерований набір [`visuals/`](visuals/manifest.md)
@@ -124,7 +125,27 @@ fixed нижня навігація лише на кореневому екра�
 - Відомі обмеження: `qa-ui-parity` порівнює DOM-baseline
   (`scripts/baselines/dom-2026-09-24.json`), не пікселі; полірування прототипів
   очікує visual acceptance (див. журнал `IMPLEMENTATION_PLAN.md`).
-- Закомітити `design-system/`, `archive/`, `assets/`, `tokens/` (зараз untracked).
+- `research/ia.html` важить ~780 КБ і має понад тисячу `!important` у
+  вбудованих стилях: це згенерований знімок уроку 3; безпечно зменшити без
+  перезбирання сторінки не вдалося, тож лишено як відоме обмеження. Великі PNG у
+  `beginners/source/` стиснуто на місці (палітра, 2026-09-24); найбільший —
+  Telegram-скріншот ~1,2 МБ (довга сторінка 780×18648).
+
+## Службові директорії
+
+Не є матеріалами курсу й не підключаються в навігацію:
+
+- `figmosha2/` — локальний клон окремого інструмента (Figma-міст: `bridge.py`,
+  плагін); не входить у git цього проєкту (`.gitignore`), раніше був випадковим gitlink.
+- `beginners/source/_build/` — скрипт збирання архівного сайту Beginners
+  (`build.py`); лишено як частину архівного знімка.
+- `beginners/source/worktree-lesson6/` — знімок робочої гілки уроку 6
+  (fixlog, directions); історичний, не активні сторінки.
+- `tmp/` — тимчасові файли агентів (у `.gitignore`).
+- `.impeccable/` — службові дані skill impeccable (`design.json`, critique).
+- `assets/course-icons/` — іконки курсової панелі (`course-nav.css`), не продукт.
+- Статичні research-сторінки (`research/*.html`) мають власну sidebar-навігацію
+  як fallback без JS; `course-nav.js` прибирає її, коли показує курсову панель.
 
 ## Як запускати QA
 
@@ -142,12 +163,13 @@ Origin для скриптів — `http://127.0.0.1:<port>` (без `/kootok`).
 - `scripts/audit-local-links.mjs` — локальні посилання й assets усіх HTML поза
   `archive/`.
 - `scripts/qa-lesson-8.mjs` — кіт: import graph, токени, компоненти, гейти
-  `undeclared-kit-class`, `screen-layer-kit-rules`, `hidden-display`,
-  `no-external-requests`, `no-motion` (анімацій немає).
+  `undeclared-kit-class`, `screen-layer-kit-rules`, `primitive-in-components`
+  (primitive у компонентах лише для геометрії, іконок і font-weight),
+  `hidden-display`, `no-external-requests`, `no-motion` (анімацій немає).
 - `scripts/qa-final-responsive.mjs` — 5 екранів у курсовій рамці (4 `lesson-6/`
   + «Чати») на 320/390/430/1440, dock, family-панель, сабміт заявки.
-- `scripts/qa-polish.mjs` — полірування 4 екранів `lesson-6/`, zoom, контраст.
+- `scripts/qa-polish.mjs` — полірування 4 макетів `lesson-6/`, zoom, контраст.
 - `scripts/qa-web-app.mjs` — маршрути, шторка фільтрів, тема, скрол.
 - `scripts/qa-listing-cards.mjs` — картки стрічки й зображення.
-- `scripts/qa-ui-parity.mjs` — DOM-baseline 4 екранів; `capture` перезнімає
+- `scripts/qa-ui-parity.mjs` — DOM-baseline 4 макетів `lesson-6/`; `capture` перезнімає
   `scripts/baselines/dom-2026-09-24.json` після свідомої зміни екранів.

@@ -35,6 +35,11 @@
 
 ## Люди й аватари
 
+Джерело — `visuals/avatars/*-web.jpg`; екрани беруть байт-у-байт копії з
+`beginners/source/prototype/assets/avatars/` (`lesson-6/assets/avatars/`,
+для `ui/` — через симлінк `ui/assets`). Дубль свідомий: прототип не залежить
+від теки `visuals/`. Фото кімнат так само — `visuals/rooms/` → `lesson-6/assets/rooms/`.
+
 | Екран | Елемент | Персонаж/кімната | Поточний файл → новий файл | Alt-текст українською |
 |---|---|---|---|---|
 | `listings.html`, `listing.html`, `chats.html` | мешканка / учасниця чату | Марія, 26, дизайнерка | `assets/avatars/mariia.png`, `/kootok/ui/assets/avatars/mariia.png` → `visuals/avatars/mariia-web.jpg` | Марія з каштановим волоссям у світло-зеленій лляній сорочці |

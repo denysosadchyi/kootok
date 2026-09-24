@@ -1,11 +1,11 @@
 /* ───────── Типографіка (§1) ───────── */
-.kit-headline { margin: 0; max-width: 22ch; font: var(--type-page-title); letter-spacing: var(--primitive-letter-spacing-n02); text-wrap: balance; }
+.kit-headline { margin: 0; max-width: var(--measure-headline); font: var(--type-page-title); letter-spacing: var(--type-tracking-display); text-wrap: balance; }
 .kit-section__title { margin: 0; font: var(--type-section-title); text-wrap: balance; }
 .kit-fieldset > legend { margin: 0; font: var(--type-card-title); color: var(--color-text-primary); }
 .kit-meta { margin: 0; color: var(--color-text-secondary); font: var(--type-meta); }
 .kit-meta--place { display: flex; align-items: center; gap: var(--primitive-length-5); }
 .kit-meta--place::before { --kit-icon: var(--primitive-icon-pin); width: var(--primitive-length-14); height: var(--primitive-length-14); color: var(--color-accent); }
-.kit-hint { max-width: 42ch; margin: 0; color: var(--color-text-secondary); font: var(--type-support); }
+.kit-hint { max-width: var(--measure-hint); margin: 0; color: var(--color-text-secondary); font: var(--type-support); }
 .kit-price { margin: 0; color: var(--color-action); font: var(--type-price); font-variant-numeric: tabular-nums; }
 .kit-card--head .kit-headline, .kit-card--head h2 { margin: 0; font: var(--type-detail-title); }
 .kit-card--head .kit-price { font: var(--type-price-hero); }

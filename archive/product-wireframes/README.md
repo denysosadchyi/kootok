@@ -30,7 +30,7 @@ critique/conventions і колишні інвентарі токенів і ко
 Свідомо прибрані без активної заміни: `ui/kit.css` (→ `design-system/components/`),
 `ui/inventory.md`, `scripts/check-kit.sh` (→ `scripts/qa-lesson-8.mjs`),
 `wireframes.html`, `research/wireframes.html` — їхні копії HEAD лежать у
-`support/*.archived` (кладе пакет P2).
+`support/*.archived`.
 
 ## Маніфест SHA-256
 
