@@ -1,0 +1,36 @@
+/* ───────── Breadcrumbs (навігаційний ланцюжок) ─────────
+   Шлях від кореневого розділу до поточної сторінки вкладеного екрана — ланки
+   з IA (sitemap.md): Пошук › Кімната в Голосіївському районі › Анкета
+   сумісності › Заявка. Розмітка:
+   <nav class="kit-breadcrumbs" aria-label="Навігаційний ланцюжок">
+     <ol>
+       <li><a href="listings.html">Пошук</a></li>
+       <li><a href="listing.html">Кімната в Голосіївському районі</a></li>
+       <li><a aria-current="page">Анкета сумісності</a></li>
+     </ol>
+   </nav>
+   Поточна ланка — a без href з aria-current="page": не посилання, текст
+   основного кольору. Роздільник — Solar Linear «Alt Arrow Right»
+   (--primitive-icon-forward) маскою в currentColor перед кожною ланкою, крім
+   першої; декоративний, скрінрідер його не чує (CSS-content порожній).
+   Видимість задає оболонка: у шапці десктопа (shell.css, від --bp-desktop) —
+   так; на телефоні й планшеті шлях замінює кнопка «Назад» в app bar.
+   Довга ланка переноситься, а не обрізається. Анімацій немає. */
+.kit-breadcrumbs { min-width: 0; }
+.kit-breadcrumbs ol { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-stack-xs) 0; margin: 0; padding: 0; list-style: none; }
+.kit-breadcrumbs li { display: inline-flex; min-width: 0; align-items: center; }
+.kit-breadcrumbs li + li::before {
+  --kit-icon: var(--primitive-icon-forward);
+  content: ""; display: inline-block; flex: none; width: var(--primitive-length-16); height: var(--primitive-length-16); margin-inline: var(--space-stack-xs);
+  background: var(--color-icon-current); color: var(--color-text-secondary);
+  -webkit-mask: var(--kit-icon) center / contain no-repeat; mask: var(--kit-icon) center / contain no-repeat;
+}
+/* Ланка — ціль 32 по висоті (мишкова шапка десктопа; ланцюжок не буває на
+   телефоні), поля всередині, щоб hover-підкладка не липла до тексту. */
+.kit-breadcrumbs a { display: inline-flex; min-height: var(--primitive-length-32); align-items: center; padding-inline: var(--space-stack-xs); border-radius: var(--radius-field); color: var(--color-text-secondary); font: var(--type-support); font-weight: var(--primitive-font-weight-600); text-decoration: none; overflow-wrap: anywhere; }
+.kit-breadcrumbs li:first-child a { margin-left: calc(-1 * var(--space-stack-xs)); }
+@media (hover: hover) { .kit-breadcrumbs a[href]:hover { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); } }
+.kit-breadcrumbs a[data-demo-state="hover"] { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); }
+.kit-breadcrumbs a[href]:active, .kit-breadcrumbs a[data-demo-state="active"] { background: var(--color-interactive-surface-active); color: var(--color-interactive-text-active); }
+.kit-breadcrumbs a[data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
+.kit-breadcrumbs [aria-current="page"] { color: var(--color-text-primary); cursor: default; }

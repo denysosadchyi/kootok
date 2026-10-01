@@ -1,7 +1,11 @@
 /* ───────── Ключ–значення ───────── */
 dl.kit-kv { margin: 0; }
-.kit-kv > div { display: grid; grid-template-columns: var(--primitive-length-104) minmax(0, 1fr); gap: var(--space-stack-md); padding: var(--space-stack-sm) 0; }
-.kit-kv > div + div { margin-top: 0; }
+/* Рядок «ознака — значення»: обидві колонки на одній базовій лінії, рядки
+   розділені тонкою лінією — пара читається як одне ціле, а не два стовпці. */
+.kit-kv > div { display: grid; grid-template-columns: var(--primitive-length-104) minmax(0, 1fr); align-items: baseline; gap: var(--space-stack-md); padding: var(--space-stack-sm) 0; }
+.kit-kv > div + div { margin-top: 0; border-top: var(--primitive-length-1) solid var(--color-divider); }
+.kit-kv > div:first-child { padding-top: 0; }
+.kit-kv > div:last-child { padding-bottom: 0; }
 .kit-kv dt { margin: 0; color: var(--color-text-secondary); font: var(--type-meta); }
 .kit-kv dd { margin: 0; color: var(--color-text-primary); font: var(--type-support); font-weight: var(--primitive-font-weight-500); }
 

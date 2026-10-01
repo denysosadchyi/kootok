@@ -1,14 +1,14 @@
 /* ───────── Галерея деталі ───────── */
-ul.kit-gallery { display: flex; margin: 0; padding: var(--primitive-length-4) 0 var(--primitive-length-8); gap: var(--primitive-length-10); overflow-x: auto; list-style: none; scroll-snap-type: x mandatory; scrollbar-width: none; }
+/* Без власних вертикальних полів: відстань до сусідніх блоків задає ритм
+   батька (--space-section-gap), а не галерея. */
+ul.kit-gallery { display: flex; margin: 0; padding: 0; gap: var(--primitive-length-10); overflow-x: auto; list-style: none; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .kit-gallery::-webkit-scrollbar { display: none; }
 .kit-gallery li { flex: none; scroll-snap-align: start; }
 .kit-gallery img { display: block; width: var(--primitive-length-280); height: auto; aspect-ratio: var(--ratio-gallery-media); border-radius: var(--radius-card); object-fit: cover; }
 
-/* Адаптив: від 40rem контейнера оболонки (= --bp-tablet; kit-shell-frame,
-   shell.css) єдине фото галереї займає всю ширину колонки — у правій колонці
-   split-view і на окремій сторінці деталі; 4:3 як і було. Кілька фото
-   лишаються свайп-стрічкою по 280. Телефон — без змін. */
-@container kit-shell-frame (min-width: 40rem) { /* = --bp-tablet */
-  .kit-gallery > li:only-child { flex: 1 1 auto; }
-  .kit-gallery > li:only-child img { width: var(--primitive-width-full); }
-}
+/* Єдине фото галереї займає всю ширину колонки на будь-якій ширині —
+   на телефоні, у правій колонці split-view і на окремій сторінці деталі;
+   4:3 як і було. Порожній «хвіст» поруч із одним фото 280 читався як
+   недовантажена стрічка. Кілька фото лишаються свайп-стрічкою по 280. */
+.kit-gallery > li:only-child { flex: 1 1 auto; }
+.kit-gallery > li:only-child img { width: var(--primitive-width-full); }

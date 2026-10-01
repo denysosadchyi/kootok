@@ -17,20 +17,24 @@
 <body>
 <div class="kit-shell kit-shell--with-dock">
   <header class="kit-shell__brand"><a href="listings.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
-  <main class="kit-shell__body">
-    <header class="kit-page-intro">
+  <header class="kit-page-intro kit-shell__header">
+    <div class="kit-page-intro__heading">
       <h1 class="kit-headline">Стрічка оголошень</h1>
+      <p id="listings-count" class="kit-hint">128 оголошень у Києві</p>
+    </div>
+    <div class="kit-page-intro__controls">
       <ul class="kit-segmented" aria-label="Що показувати">
-        <li><a href="listings.html" aria-current="page">Кімнати</a></li>
-        <li><span aria-disabled="true" aria-describedby="people-feed-hint">Люди</span></li>
+        <li><a href="listings.html" aria-current="page" aria-label="Кімнати, 128">Кімнати <span class="kit-segmented__count" aria-hidden="true">128</span></a></li>
+        <li><span aria-disabled="true" aria-describedby="people-feed-hint">Люди <span class="kit-segmented__count">46</span></span></li>
       </ul>
       <p id="people-feed-hint" class="kit-hint">Стрічку людей бачить лише той, хто має кімнату.</p>
-      <div class="kit-toolbar">
-        <p id="listings-count" class="kit-hint">128 оголошень у Києві</p>
-        <button type="button" class="kit-button kit-button--secondary kit-button--compact kit-button--icon-filter" aria-controls="listing-filters-sheet" aria-expanded="false">Фільтри</button>
-      </div>
-    </header>
-    <div class="kit-split" data-kit-split data-kit-split-param="listing">
+    </div>
+    <div class="kit-toolbar">
+      <button type="button" class="kit-button kit-button--secondary kit-button--compact kit-button--icon-filter" aria-controls="listing-filters-sheet" aria-expanded="false">Фільтри</button>
+    </div>
+  </header>
+  <main class="kit-shell__body">
+    <div class="kit-split kit-split--panels" data-kit-split data-kit-split-param="listing">
     <section class="kit-section kit-split__list" aria-labelledby="listings-heading">
       <h2 id="listings-heading" class="kit-sr-only">Оголошення кімнат</h2>
       <ul class="kit-list" id="listings-list">
@@ -41,8 +45,8 @@
             <div class="kit-listing__body">
               <h3><a href="listing.html">Кімната в 3-кімнатній</a> <span class="kit-chip kit-chip--muted">Підселення</span></h3>
               <p class="kit-meta kit-meta--place">Голосіївський район</p>
-              <dl class="kit-facts kit-facts--inline"><div><dt>Живуть</dt><dd>Марія (26), Олег</dd></div><div><dt>Заїзд</dt><dd>з 1 вересня</dd></div></dl>
-              <div class="kit-household"><span class="kit-household__avatars" aria-hidden="true"><img class="kit-avatar" src="assets/avatars/mariia-web.jpg" width="288" height="288" alt="Марія з каштановим волоссям у світло-зеленій лляній сорочці"><img class="kit-avatar" src="assets/avatars/oleh-web.jpg" width="288" height="288" alt="Олег із коротким русявим волоссям і легкою щетиною в темно-зеленій сорочці"></span><span class="kit-household__copy"><strong>Марія й Олег</strong><span>Двоє майбутніх співмешканців</span></span></div>
+              <dl class="kit-facts kit-facts--inline"><div><dt>Заїзд</dt><dd>з 1 вересня</dd></div></dl>
+              <div class="kit-household"><span class="kit-household__avatars" aria-hidden="true"><img class="kit-avatar" src="assets/avatars/mariia-web.jpg" width="288" height="288" alt="Марія з каштановим волоссям у світло-зеленій лляній сорочці"><img class="kit-avatar" src="assets/avatars/oleh-web.jpg" width="288" height="288" alt="Олег із коротким русявим волоссям і легкою щетиною в темно-зеленій сорочці"></span><span class="kit-household__copy"><strong>Марія (26) й Олег</strong><span>Майбутні співмешканці</span></span></div>
               <ul class="kit-tags" aria-label="Докази й статус"><li class="kit-chip">Оновлено сьогодні</li><li class="kit-chip">Відеодзвінок 28 лип.</li><li class="kit-chip">Instagram привʼязано</li></ul>
             </div>
           </article>
@@ -54,8 +58,8 @@
             <div class="kit-listing__body">
               <h3><a href="listing-solomianskyi.html">Кімната в 2-кімнатній</a> <span class="kit-chip kit-chip--muted">Підселення</span></h3>
               <p class="kit-meta kit-meta--place">Солом'янський район</p>
-              <dl class="kit-facts kit-facts--inline"><div><dt>Живе</dt><dd>Оксана (24)</dd></div><div><dt>Заїзд</dt><dd>з 15 вересня</dd></div></dl>
-              <div class="kit-household"><span class="kit-household__avatars" aria-hidden="true"><img class="kit-avatar" src="assets/avatars/oksana-web.jpg" width="288" height="288" alt="Оксана з темним кучерявим волоссям у світлому светрі з котом на руках"></span><span class="kit-household__copy"><strong>Оксана</strong><span>Майбутня співмешканка</span></span></div>
+              <dl class="kit-facts kit-facts--inline"><div><dt>Заїзд</dt><dd>з 15 вересня</dd></div></dl>
+              <div class="kit-household"><span class="kit-household__avatars" aria-hidden="true"><img class="kit-avatar" src="assets/avatars/oksana-web.jpg" width="288" height="288" alt="Оксана з темним кучерявим волоссям у світлому светрі з котом на руках"></span><span class="kit-household__copy"><strong>Оксана (24)</strong><span>Майбутня співмешканка</span></span></div>
               <ul class="kit-tags" aria-label="Докази й статус"><li class="kit-chip">Оновлено сьогодні</li><li class="kit-chip">Телефон підтверджено</li></ul>
             </div>
           </article>
@@ -67,8 +71,8 @@
             <div class="kit-listing__body">
               <h3><a href="listing-podilskyi.html">Кімната в 4-кімнатній</a> <span class="kit-chip kit-chip--muted">Підселення</span></h3>
               <p class="kit-meta kit-meta--place">Подільський район</p>
-              <dl class="kit-facts kit-facts--inline"><div><dt>Живуть</dt><dd>Юля (23), Данило (25), Тарас (27)</dd></div><div><dt>Заїзд</dt><dd>з 20 вересня</dd></div></dl>
-              <div class="kit-household"><span class="kit-household__avatars" aria-hidden="true"><img class="kit-avatar" src="assets/avatars/yulia-web.jpg" width="288" height="288" alt="Юля з хвилястим мідно-каштановим волоссям у темно-зеленому кардигані"><img class="kit-avatar" src="assets/avatars/danylo-podil-web.jpg" width="288" height="288" alt="Данило з темним волоссям і тонкими вусами у бежевій сорочці"><img class="kit-avatar" src="assets/avatars/taras-web.jpg" width="288" height="288" alt="Тарас із русявим волоссям і короткою бородою в оливковому світшоті"></span><span class="kit-household__copy"><strong>Юля, Данило й Тарас</strong><span>Троє майбутніх співмешканців</span></span></div>
+              <dl class="kit-facts kit-facts--inline"><div><dt>Заїзд</dt><dd>з 20 вересня</dd></div></dl>
+              <div class="kit-household"><span class="kit-household__avatars" aria-hidden="true"><img class="kit-avatar" src="assets/avatars/yulia-web.jpg" width="288" height="288" alt="Юля з хвилястим мідно-каштановим волоссям у темно-зеленому кардигані"><img class="kit-avatar" src="assets/avatars/danylo-podil-web.jpg" width="288" height="288" alt="Данило з темним волоссям і тонкими вусами у бежевій сорочці"><img class="kit-avatar" src="assets/avatars/taras-web.jpg" width="288" height="288" alt="Тарас із русявим волоссям і короткою бородою в оливковому світшоті"></span><span class="kit-household__copy"><strong>Юля (23), Данило (25) й Тарас (27)</strong><span>Майбутні співмешканці</span></span></div>
               <ul class="kit-tags" aria-label="Докази й статус"><li class="kit-chip kit-chip--error">Актуальність не підтверджено</li><li class="kit-chip kit-chip--error">Телефон не підтверджено</li></ul>
             </div>
           </article>
@@ -80,8 +84,8 @@
             <div class="kit-listing__body">
               <h3><a href="listing-obolonskyi.html">Кімната в 3-кімнатній</a> <span class="kit-chip kit-chip--muted">Підселення</span></h3>
               <p class="kit-meta kit-meta--place">Оболонський район</p>
-              <dl class="kit-facts kit-facts--inline"><div><dt>Живуть</dt><dd>Ігор (26), Данило (28)</dd></div><div><dt>Заїзд</dt><dd>з 1 жовтня</dd></div></dl>
-              <div class="kit-household"><span class="kit-household__avatars" aria-hidden="true"><img class="kit-avatar" src="assets/avatars/ihor-web.jpg" width="288" height="288" alt="Ігор із темним кучерявим волоссям, в окулярах і світлій лляній сорочці"><img class="kit-avatar" src="assets/avatars/danylo-obolon-web.jpg" width="288" height="288" alt="Данило з поголеною головою і темною бородою у світлій футболці"></span><span class="kit-household__copy"><strong>Ігор і Данило</strong><span>Двоє майбутніх співмешканців</span></span></div>
+              <dl class="kit-facts kit-facts--inline"><div><dt>Заїзд</dt><dd>з 1 жовтня</dd></div></dl>
+              <div class="kit-household"><span class="kit-household__avatars" aria-hidden="true"><img class="kit-avatar" src="assets/avatars/ihor-web.jpg" width="288" height="288" alt="Ігор із темним кучерявим волоссям, в окулярах і світлій лляній сорочці"><img class="kit-avatar" src="assets/avatars/danylo-obolon-web.jpg" width="288" height="288" alt="Данило з поголеною головою і темною бородою у світлій футболці"></span><span class="kit-household__copy"><strong>Ігор (26) і Данило (28)</strong><span>Майбутні співмешканці</span></span></div>
               <ul class="kit-tags" aria-label="Докази й статус"><li class="kit-chip">Оновлено сьогодні</li><li class="kit-chip">Відеодзвінок 3 серп.</li><li class="kit-chip">Телефон підтверджено</li></ul>
             </div>
           </article>
@@ -93,8 +97,8 @@
             <div class="kit-listing__body">
               <h3><a href="listing-darnytskyi.html">Кімната в 2-кімнатній</a> <span class="kit-chip kit-chip--muted">Оренда з нуля</span></h3>
               <p class="kit-meta kit-meta--place">Дарницький район</p>
-              <dl class="kit-facts kit-facts--inline"><div><dt>Живуть</dt><dd>ніхто, квартира вільна</dd></div><div><dt>Власник</dt><dd>Андрій</dd></div><div><dt>Заїзд</dt><dd>за домовленістю</dd></div></dl>
-              <div class="kit-household"><span class="kit-household__avatars" aria-hidden="true"><img class="kit-avatar" src="assets/avatars/andrii-web.jpg" width="288" height="288" alt="Андрій із коротким темним волоссям і легкою щетиною в зеленій сорочці"></span><span class="kit-household__copy"><strong>Андрій</strong><span>Власник, живе окремо</span></span></div>
+              <dl class="kit-facts kit-facts--inline"><div><dt>Заїзд</dt><dd>за домовленістю</dd></div></dl>
+              <div class="kit-household"><span class="kit-household__avatars" aria-hidden="true"><img class="kit-avatar" src="assets/avatars/andrii-web.jpg" width="288" height="288" alt="Андрій із коротким темним волоссям і легкою щетиною в зеленій сорочці"></span><span class="kit-household__copy"><strong>Андрій</strong><span>Власник, живе окремо. Квартира вільна</span></span></div>
               <ul class="kit-tags" aria-label="Докази й статус"><li class="kit-chip">Оновлено сьогодні</li><li class="kit-chip">Телефон підтверджено</li><li class="kit-tag">Власник напряму</li></ul>
             </div>
           </article>
@@ -166,7 +170,7 @@
           </div>
         </fieldset>
 
-        <fieldset class="kit-fieldset kit-sheet__span">
+        <fieldset class="kit-fieldset" data-kit-collapsed data-kit-summary-count="звичка|звички|звичок">
           <legend>Звички</legend>
           <div class="kit-field kit-field--select">
             <label for="habit-cleanliness">Чистота</label>
@@ -211,7 +215,7 @@
         </fieldset>
 
         <div class="kit-actions">
-          <button type="submit" class="kit-button kit-button--block">Застосувати фільтри</button>
+          <button type="submit" class="kit-button kit-button--block" data-kit-panel-label="Фільтрувати">Застосувати фільтри</button>
           <button type="reset" class="kit-button kit-button--secondary kit-button--block">Скинути фільтри</button>
         </div>
       </form>
@@ -220,7 +224,7 @@
 
   <nav class="kit-tabbar kit-tabbar--dock" aria-label="Основна навігація Кутка">
     <a class="kit-tab" href="listings.html" aria-current="page">Пошук</a>
-    <a class="kit-tab kit-tab--chats" href="/kootok/design-system/examples/chats.html">Чати</a>
+    <a class="kit-tab kit-tab--chats" href="/kootok/design-system/examples/chats.html">Чати</a><span class="kit-tabbar__city">Київ</span>
     <a class="kit-tab kit-tab--profile" aria-disabled="true" title="Недоступно в прототипі">Профіль</a>
   </nav>
 </div>

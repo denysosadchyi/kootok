@@ -16,3 +16,34 @@
 /* Статус чернетки під діями форми («Чернетку збережено на цьому пристрої»).
    Це модифікатор підказки: використовуй разом із .kit-hint. */
 .kit-draft-status { min-height: var(--primitive-length-20); max-width: none; margin: 0; color: var(--color-text-secondary); font: var(--type-meta); text-align: center; }
+
+/* ───────── Кроки (kit-steps) ─────────
+   [desktop-shell] Упорядкований список етапів зі станом кожного: пройдено,
+   поточний, попереду. Вживається там, де людині важливо бачити весь шлях, а
+   не лише частку (kit-progress): кроки анкети в бічній колонці десктопа, «що
+   далі» після заявки (надіслано → відповідь → чат), як працюють заявки в
+   «Чатах». Розмітка:
+   <ol class="kit-steps" aria-label="Кроки анкети">
+     <li class="kit-steps__item--done"><strong>Ритм дому</strong><span>Сон і чистота</span></li>
+     <li aria-current="step"><strong>Межі й звички</strong><span>Гості, тварини, куріння</span></li>
+     <li><strong>Графік і знайомство</strong></li>
+   </ol>
+   Номер — CSS counter у колі (декоративний: порядок і так передає <ol>);
+   пройдений крок — коло кольору дії з галочкою Solar (--primitive-icon-check),
+   поточний — aria-current="step", лайм (The Lime Is Current Rule), попереду —
+   заглиблене коло з номером. Стан передає не лише колір: галочка, вага
+   назви й aria-current. Без ліній-з'єднувачів і анімацій. */
+.kit-steps { display: flex; min-width: 0; flex-direction: column; gap: var(--space-stack-md); margin: 0; padding: 0; list-style: none; counter-reset: kit-steps; }
+.kit-steps > li { position: relative; display: grid; min-width: 0; grid-template-columns: var(--primitive-length-24) minmax(0, 1fr); align-items: start; gap: var(--primitive-length-2) var(--space-stack-md); color: var(--color-text-secondary); font: var(--type-meta); counter-increment: kit-steps; }
+.kit-steps > li::before { content: counter(kit-steps); display: grid; width: var(--primitive-length-24); height: var(--primitive-length-24); grid-row: 1 / span 2; place-items: center; border-radius: var(--radius-circle); background: var(--color-surface-sunken); color: var(--color-text-secondary); font: var(--type-meta); font-weight: var(--primitive-font-weight-700); }
+.kit-steps > li > * { grid-column: 2; min-width: 0; margin: 0; }
+.kit-steps > li > strong { color: var(--color-text-primary); font: var(--type-field-label); }
+.kit-steps > li[aria-current="step"]::before { background: var(--color-current-background); color: var(--color-current-text); }
+.kit-steps > li[aria-current="step"] > strong { font-weight: var(--primitive-font-weight-700); }
+.kit-steps > li.kit-steps__item--done::before { content: ""; background: var(--color-action-surface); }
+.kit-steps > li.kit-steps__item--done::after {
+  --kit-icon: var(--primitive-icon-check);
+  content: ""; position: absolute; left: var(--primitive-length-4); top: var(--primitive-length-4); width: var(--primitive-length-16); height: var(--primitive-length-16);
+  background: var(--color-icon-current); color: var(--color-on-action);
+  -webkit-mask: var(--kit-icon) center / contain no-repeat; mask: var(--kit-icon) center / contain no-repeat;
+}

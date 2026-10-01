@@ -12,6 +12,9 @@
 }
 .kit-fieldset > legend { float: left; width: var(--primitive-width-full); margin: 0 0 var(--primitive-length-12); padding: 0; }
 .kit-fieldset > legend + * { clear: both; margin-top: 0; }
+/* Група варіантів (радіо): рядок 44 уже має власний повітряний запас над
+   кружком, тож легенда відходить від першого варіанта на xs, а не на 12. */
+.kit-fieldset:has(> .kit-choice) > legend { margin-bottom: var(--space-stack-xs); }
 .kit-actions + .kit-hint { margin-top: var(--primitive-length-8); }
 .kit-card--section {
   padding: var(--space-card-block) var(--space-card-inline);
@@ -32,8 +35,9 @@
 }
 .kit-application-card > .kit-section__title + .kit-hint { margin-top: var(--space-stack-sm); }
 .kit-application-card > form { margin-top: var(--space-stack-lg); }
-/* Прикріплена анкета: один рядок «що додано» на заглибленій поверхні полотна
-   всередині білої картки заявки. Іконка check (доказ) · назва · дія «Змінити»
+/* Прикріплена анкета: один рядок «що додано» всередині білої картки заявки —
+   без власної поверхні (не «картка в картці»): від поля й нотатки його
+   відділяють hairline зверху й знизу та відступ. Іконка check (доказ) · назва · дія «Змінити»
    (kit-button--secondary kit-button--compact, 44px) праворуч; під назвою —
    пояснення, що саме побачать мешканці (від колонки назви до правого краю).
    Розмітка:
@@ -47,30 +51,52 @@
   display: grid; grid-template-columns: var(--primitive-length-24) minmax(0, 1fr) auto;
   grid-template-areas: "icon title action" ". meta meta";
   align-items: center; column-gap: var(--space-stack-sm); row-gap: var(--primitive-length-2);
-  padding: var(--space-stack-md);
-  border-radius: var(--radius-control); background: var(--color-page-background);
+  padding: var(--space-stack-md) 0;
+  border-block: var(--primitive-length-1) solid var(--color-hairline);
 }
 .kit-application-choice::before { grid-area: icon; width: var(--primitive-length-22); height: var(--primitive-length-22); color: var(--color-trust); }
 .kit-application-choice__title { grid-area: title; margin: 0; color: var(--color-text-primary); font: var(--type-field-label); }
-.kit-application-choice > .kit-button { grid-area: action; }
+/* «Змінити» без власної плашки на білій картці: поле кнопки виходить за правий
+   край рядка, тож підпис стоїть на правому полі картки, а не на 16px лівіше. */
+.kit-application-choice > .kit-button { grid-area: action; margin-right: calc(-1 * var(--space-control-inline)); }
 .kit-application-choice__meta { grid-area: meta; margin: 0; color: var(--color-text-secondary); font: var(--type-meta); }
 /* ≤340px: назва на всю ширину, «Змінити» — під поясненням, з лівого краю тексту. */
 @media (max-width: 340px) {
   .kit-application-choice { grid-template-columns: var(--primitive-length-24) minmax(0, 1fr); grid-template-areas: "icon title" ". meta" ". action"; }
-  .kit-application-choice > .kit-button { justify-self: start; margin-top: var(--space-stack-xs); }
+  .kit-application-choice > .kit-button { justify-self: start; margin: var(--space-stack-xs) 0 0 calc(-1 * var(--space-control-inline)); }
 }
 .kit-application-result:focus-visible, .kit-application-result[data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
 
-.kit-card--state .kit-state { display: flex; min-height: 0; align-items: flex-start; justify-content: flex-start; flex-direction: column; gap: var(--space-stack-md); padding: var(--space-stack-lg) 0 0; text-align: left; }
+/* ───────── Стан (kit-state) ─────────
+   [desktop-shell] Результат дії або порожній стан: іконка в м'якому колі →
+   заголовок → пояснення → (кроки «що далі», kit-steps) → дії → (службова
+   примітка kit-note). Усе вирівняно по одному лівому краю; дії — за вмістом,
+   у ряд, з переносом (не на всю ширину картки), тож довжина кнопок не
+   розходиться з довжиною рядка тексту. Ритм — лише --space-stack-*.
+   Розмітка:
+   <div class="kit-state">
+     <span class="kit-state__icon kit-state__icon--chat" aria-hidden="true"></span>
+     <h2>Заявку надіслано</h2>
+     <p>…</p>
+     <ol class="kit-steps" aria-label="Що далі">…</ol>
+     <div class="kit-actions"><a class="kit-button">…</a><a class="kit-button kit-button--secondary">…</a></div>
+     <p class="kit-note kit-note--info">…</p>
+   </div>
+   Самостійна картка стану — .kit-card.kit-card--state > .kit-state. */
+.kit-state { display: flex; min-width: 0; flex-direction: column; align-items: flex-start; gap: var(--space-stack-md); text-align: left; }
 /* Іконку задає лише модифікатор (--document, --chat): базового значка немає. */
-.kit-state__icon { position: relative; display: grid; width: var(--primitive-length-30); height: var(--primitive-length-30); place-items: center; border-radius: 0; background: var(--color-transparent); color: var(--color-action); }
+.kit-state__icon { position: relative; display: grid; width: var(--primitive-length-48); height: var(--primitive-length-48); flex: none; place-items: center; border-radius: var(--radius-circle); background: var(--color-trust-background); color: var(--color-trust); }
 .kit-state__icon::after { width: var(--primitive-length-24); height: var(--primitive-length-24); }
 .kit-state__icon--chat { --kit-icon: var(--primitive-icon-chat-empty); }
 .kit-state__icon--document { --kit-icon: var(--primitive-icon-document); }
-.kit-state h3 { margin: 0; font: var(--type-detail-title); color: var(--color-text-primary); }
-.kit-state p { max-width: var(--measure-state); margin: 0; color: var(--color-text-secondary); font: var(--type-support); text-align: left; }
-.kit-state .kit-actions { width: var(--primitive-width-full); }
-.kit-state .kit-actions .kit-button { width: var(--primitive-width-full); }
+.kit-state :is(h2, h3) { margin: 0; font: var(--type-detail-title); color: var(--color-text-primary); }
+.kit-state__icon + :is(h2, h3) { margin-top: var(--space-stack-xs); }
+.kit-state > p:not(.kit-note) { max-width: var(--measure-hint); margin: 0; color: var(--color-text-secondary); font: var(--type-support); }
+.kit-state > .kit-steps { margin-block: var(--space-stack-xs); }
+.kit-state .kit-actions { flex-direction: row; flex-wrap: wrap; width: auto; margin-top: var(--space-stack-xs); }
+.kit-state .kit-actions .kit-button { width: auto; }
+/* Службова примітка (межа прототипу) — вторинна: менший шрифт, після дій. */
+.kit-state > .kit-note { font: var(--type-meta); }
 
 .kit-card--list { padding: 0; overflow: hidden; }
 .kit-card--list > ul > li + li { border-top: var(--primitive-length-1) solid var(--color-hairline); }

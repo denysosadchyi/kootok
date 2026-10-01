@@ -4,3 +4,7 @@
 .kit-note strong { display: block; margin: 0 0 var(--primitive-length-2); font: var(--type-card-title); }
 .kit-note--info { --kit-icon: var(--primitive-icon-shield); background: var(--color-transparent); color: var(--color-text-primary-support); }
 .kit-note--warning { --kit-icon: var(--primitive-icon-shield-warning); background: var(--color-waiting-background); color: var(--color-text-primary); }
+/* Попередження має фон: іконка й текст отримують внутрішнє поле, а не
+   притискаються до краю плашки. */
+.kit-note--warning { padding: var(--space-stack-md) var(--space-stack-md) var(--space-stack-md) calc(var(--space-stack-md) + var(--primitive-length-20) + var(--space-stack-sm)); border-radius: var(--radius-control); }
+.kit-note--warning::before { left: var(--space-stack-md); }

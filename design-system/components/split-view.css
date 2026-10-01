@@ -55,3 +55,35 @@
   /* Заголовок і «Закрити» лишаються видимими, поки деталь прокручується. */
   .kit-split__head { position: sticky; top: 0; z-index: var(--z-overlay); padding-block: var(--space-stack-sm); background: var(--color-page-background); }
 }
+
+/* ───────── Панельний режим (kit-split--panels) ─────────
+   [desktop-shell 2026-10-01] Відкритий split на десктопі — три окремі білі
+   панелі поруч із панеллю фільтрів (sheet.css): список і деталь мають
+   поверхню --color-card-background (у темній темі — темну), радіус і поля
+   картки; проміжок між панелями — поле контейнера; верх — на одній лінії під
+   заголовком сторінки. Кожна панель липне з відступом поля й прокручується
+   сама; висота — до низу області прокрутки мінус два поля, не нижче
+   --size-panel-min (на низькому вікні тоді прокручується сторінка, колонки не
+   зникають). Усередині — без «білих карток на білому»: компактні картки й
+   секції деталі розділяє тонкий роздільник --color-hairline; вибрана картка
+   лишається лаймовою (listing.css). Шапка деталі (назва + «Закрити») — sticky
+   у межах своєї панелі. Без split (сітка великих карток) панелі немає:
+   картки самі білі й лежать на полотні. */
+@container kit-shell-frame (min-width: 64rem) { /* = --bp-desktop */
+  .kit-split--panels[data-kit-split-state="open"] { column-gap: var(--space-screen-gutter); }
+  .kit-split--panels[data-kit-split-state="open"] > .kit-split__list,
+  .kit-split--panels[data-kit-split-state="open"] > .kit-split__detail { top: var(--space-screen-gutter); height: max(var(--size-panel-min), var(--kit-scrollport-block) - (2 * var(--space-screen-gutter))); max-height: none; padding: 0 var(--space-card-inline) var(--space-card-block); border-radius: var(--radius-card); background: var(--color-card-background); }
+  .kit-split--panels[data-kit-split-state="open"] > .kit-split__list { padding-top: var(--space-stack-sm); }
+  .kit-split--panels .kit-split__head { padding-block: var(--space-card-block) var(--space-stack-md); background: var(--color-card-background); }
+  .kit-split--panels .kit-button--secondary { background: var(--color-surface-sunken); }
+
+  /* Список: картки без власної поверхні, роздільник між ними. */
+  .kit-split--panels[data-kit-split-state="open"] ul.kit-list { gap: 0; }
+  .kit-split--panels[data-kit-split-state="open"] ul.kit-list > li { padding-block: var(--space-stack-xs); }
+  .kit-split--panels[data-kit-split-state="open"] ul.kit-list > li + li { border-top: var(--primitive-length-1) solid var(--color-hairline); }
+  .kit-split--panels[data-kit-split-state="open"] .kit-listing:not(:has(a[aria-current="true"])) { background: var(--color-transparent); }
+
+  /* Деталь: секції без карток, роздільник над кожною секцією й блоком заявки. */
+  .kit-split--panels .kit-split__content .kit-card { padding-inline: 0; border-radius: 0; background: var(--color-transparent); }
+  .kit-split--panels .kit-split__content :is(.kit-card--section, .kit-detail__apply) { padding-top: var(--space-card-block); border-top: var(--primitive-length-1) solid var(--color-hairline); }
+}

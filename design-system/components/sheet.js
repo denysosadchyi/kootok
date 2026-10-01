@@ -12,9 +12,17 @@
    Режим «панель» (kit-sheet--panel, контейнер оболонки від 64rem = --bp-desktop;
    прапорець --kit-sheet-mode: panel ставить sheet.css у @container):
    - details відкритий постійно, role="region" замість діалогу, без фокус-пастки;
-   - тригери «Фільтри» і кнопка submit («Застосувати») приховані;
-   - будь-яка зміна поля застосовується одразу; «Скинути» вимкнена, поки
-     форма в типовому стані;
+   - тригери «Фільтри» приховані; submit лишається й бере підпис із
+     data-kit-panel-label («Фільтрувати»), стрічка оновлюється лише по ньому;
+   - «Скинути» повертає типові значення й одразу застосовує; вимкнена, поки
+     і форма, і застосований фільтр у типовому стані;
+   - кожна група форми (fieldset — прямий нащадок форми) отримує в legend
+     кнопку згортання kit-sheet__group-toggle (aria-expanded, aria-controls на
+     fieldset) з підсумком вибраного; згорнута група — fieldset[data-kit-collapsed]
+     (початковий стан — з розмітки), поля сховані, але лишаються у формі.
+     Підсумок: радіо — підпис вибраного; група з data-kit-summary-count=
+     "одна|дві|п'ять" — «Не важливо» або «N звички»; інакше — значення полів
+     через « · ». Поза панеллю кнопок немає, legend — текст;
    - висота sticky-панелі — висота прокручуваного предка (--kit-scrollport-block).
    Режим перемикається сам, коли змінюється ширина контейнера (ResizeObserver).
 
@@ -74,17 +82,20 @@
     });
   }
 
+  /* Ціна з пари price-min / price-max; порожньо — fallback. */
+  function priceText(min, max, fallback) {
+    if (min && max) return groupDigits(min) + "–" + groupDigits(max) + " грн";
+    if (min) return "від " + groupDigits(min) + " грн";
+    if (max) return "до " + groupDigits(max) + " грн";
+    return fallback;
+  }
+
   /* Рядок стану: «Тип · Район · Ціна» (+ «ще N» за іншими полями). */
   function stateText(form, fallback) {
     if (isPristine(form)) return fallback;
     var type = form.querySelector('input[name="type"]:checked');
     var district = fieldValue(form, "district");
-    var min = fieldValue(form, "price-min");
-    var max = fieldValue(form, "price-max");
-    var price = "Будь-яка ціна";
-    if (min && max) price = groupDigits(min) + "–" + groupDigits(max) + " грн";
-    else if (min) price = "від " + groupDigits(min) + " грн";
-    else if (max) price = "до " + groupDigits(max) + " грн";
+    var price = priceText(fieldValue(form, "price-min"), fieldValue(form, "price-max"), "Будь-яка ціна");
     var parts = [type && type.getAttribute("data-kit-state") || "Усі типи", district || "Будь-який район", price];
     var known = { type: 1, district: 1, "price-min": 1, "price-max": 1 };
     var extra = 0;
@@ -93,6 +104,49 @@
       if (field.value) extra++;
     });
     if (extra) parts.push("ще " + extra);
+    return parts.join(" · ");
+  }
+
+  /* Українська множина: forms = ["звичка", "звички", "звичок"]. */
+  function plural(n, forms) {
+    var mod10 = n % 10, mod100 = n % 100;
+    if (mod10 === 1 && mod100 !== 11) return forms[0];
+    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return forms[1];
+    return forms[2];
+  }
+
+  function shortDate(value) {
+    var parts = String(value).split("-");
+    return parts.length === 3 ? parts[2] + "." + parts[1] : value;
+  }
+
+  /* Підсумок згорнутої групи фільтрів (див. шапку файла). */
+  function groupSummary(group) {
+    var checked = group.querySelector('input[type="radio"]:checked');
+    if (checked) return (checked.closest("label") || checked).textContent.trim();
+    var fields = Array.prototype.slice.call(group.querySelectorAll("input:not([type=hidden]),select,textarea"));
+    var count = group.getAttribute("data-kit-summary-count");
+    if (count) {
+      var set = fields.filter(function (field) { return field.value; }).length;
+      if (!set) {
+        var first = fields[0];
+        return first && first.tagName === "SELECT" && first.options[0] ? first.options[0].textContent.trim() : "";
+      }
+      return set + " " + plural(set, count.split("|"));
+    }
+    var parts = [];
+    var priceDone = false;
+    fields.forEach(function (field) {
+      if (field.name === "price-min" || field.name === "price-max") {
+        if (priceDone) return;
+        priceDone = true;
+        parts.push(priceText(fieldValue(group.form || field.form, "price-min"), fieldValue(group.form || field.form, "price-max"), "будь-яка ціна"));
+        return;
+      }
+      if (field.tagName === "SELECT") { var option = field.options[field.selectedIndex]; if (option) parts.push(option.textContent.trim()); return; }
+      if (!field.value) return;
+      parts.push(field.type === "date" ? "заїзд до " + shortDate(field.value) : field.value);
+    });
     return parts.join(" · ");
   }
 
@@ -178,8 +232,70 @@
     var submits = form ? Array.prototype.slice.call(form.querySelectorAll('button[type="submit"]')) : [];
     var resets = form ? Array.prototype.slice.call(form.querySelectorAll('button[type="reset"]')) : [];
     var filtering = !!(form && form.hasAttribute("data-kit-filter-target"));
+    var groups = form ? Array.prototype.filter.call(form.children, function (node) { return node.tagName === "FIELDSET"; }) : [];
     var previous = null;
     var panel = null;
+    var appliedPristine = true;
+
+    function apply() {
+      if (filtering) applyFilters(form, sheet);
+      appliedPristine = isPristine(form);
+    }
+
+    /* Кнопки згортання груп — лише в режимі «панель». */
+    function syncSummaries() {
+      groups.forEach(function (group) {
+        var summary = group.querySelector(".kit-sheet__group-summary");
+        if (summary) summary.textContent = groupSummary(group);
+      });
+    }
+    function setCollapsed(group, collapsed) {
+      var toggle = group.querySelector(".kit-sheet__group-toggle");
+      if (collapsed) group.setAttribute("data-kit-collapsed", ""); else group.removeAttribute("data-kit-collapsed");
+      if (toggle) toggle.setAttribute("aria-expanded", String(!collapsed));
+    }
+    function setGroupToggles(on) {
+      groups.forEach(function (group, index) {
+        var legend = group.querySelector(":scope > legend");
+        if (!legend) return;
+        var toggle = legend.querySelector(".kit-sheet__group-toggle");
+        if (on && !toggle) {
+          if (!group.id) group.id = sheet.id + "-group-" + (index + 1);
+          toggle = document.createElement("button");
+          toggle.type = "button";
+          toggle.className = "kit-sheet__group-toggle";
+          toggle.setAttribute("aria-controls", group.id);
+          toggle.setAttribute("aria-describedby", group.id + "-summary");
+          var title = document.createElement("span");
+          title.className = "kit-sheet__group-title";
+          while (legend.firstChild) title.appendChild(legend.firstChild);
+          var summary = document.createElement("span");
+          summary.className = "kit-sheet__group-summary";
+          summary.id = group.id + "-summary";
+          summary.setAttribute("aria-hidden", "true");
+          toggle.appendChild(title);
+          toggle.appendChild(summary);
+          legend.appendChild(toggle);
+          toggle.addEventListener("click", function () {
+            setCollapsed(group, group.hasAttribute("data-kit-collapsed") ? false : true);
+          });
+          setCollapsed(group, group.hasAttribute("data-kit-collapsed"));
+        } else if (!on && toggle) {
+          var text = toggle.querySelector(".kit-sheet__group-title");
+          while (text && text.firstChild) legend.insertBefore(text.firstChild, toggle);
+          legend.removeChild(toggle);
+        }
+      });
+      if (on) syncSummaries();
+    }
+    function syncSubmitLabel() {
+      submits.forEach(function (button) {
+        var label = button.getAttribute("data-kit-panel-label");
+        if (!label) return;
+        if (!button.hasAttribute("data-kit-sheet-label")) button.setAttribute("data-kit-sheet-label", button.textContent);
+        button.textContent = panel ? label : button.getAttribute("data-kit-sheet-label");
+      });
+    }
 
     function focusable() {
       return Array.prototype.slice.call(sheet.querySelectorAll("button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[href]"))
@@ -190,10 +306,12 @@
     }
     function syncReset() {
       var focused = resets.indexOf(document.activeElement) !== -1;
-      resets.forEach(function (button) { button.disabled = panel ? isPristine(form) : false; });
-      // Вимкнена «Скинути» губить фокус — переносимо його на перше поле форми.
+      resets.forEach(function (button) { button.disabled = panel ? isPristine(form) && appliedPristine : false; });
+      // Вимкнена «Скинути» губить фокус — переносимо його на перше видиме поле форми.
       if (focused && resets.every(function (button) { return button.disabled; })) {
-        var first = form.querySelector("input:not([type=hidden]),select,textarea");
+        var first = Array.prototype.filter.call(form.querySelectorAll("input:not([type=hidden]),select,textarea,button"), function (node) {
+          return !node.disabled && node.getClientRects().length;
+        })[0];
         if (first) first.focus({ preventScroll: true });
       }
     }
@@ -234,7 +352,8 @@
         sheet.style.removeProperty("--kit-scrollport-block");
       }
       triggers.forEach(function (trigger) { trigger.hidden = panel; });
-      submits.forEach(function (button) { button.hidden = panel; });
+      setGroupToggles(panel);
+      syncSubmitLabel();
       syncExpanded(false);
       syncReset();
     }
@@ -267,21 +386,23 @@
     if (form) {
       form.addEventListener("submit", function (event) {
         event.preventDefault();
-        if (filtering) applyFilters(form, sheet);
+        apply();
+        syncReset();
         closeSheet();
       });
       // reset спрацьовує до скидання полів; застосовуємо й закриваємо після нього.
       form.addEventListener("reset", function () {
         setTimeout(function () {
-          if (filtering) applyFilters(form, sheet);
+          apply();
+          syncSummaries();
           syncReset();
           closeSheet();
         }, 0);
       });
-      // Панель: кожна зміна поля — одразу в стрічку.
+      // Панель: зміна поля оновлює підсумки груп і «Скинути»; стрічка — лише по «Фільтрувати».
       var onChange = function () {
         if (!panel) return;
-        if (filtering) applyFilters(form, sheet);
+        syncSummaries();
         syncReset();
       };
       form.addEventListener("input", onChange);

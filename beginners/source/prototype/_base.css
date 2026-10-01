@@ -46,6 +46,15 @@ body::-webkit-scrollbar { display: none; width: 0; height: 0; }
   .prototype-device__content::-webkit-scrollbar { display: none; width: 0; height: 0; }
 }
 
+/* Рамка phone імітує телефон і на desktop-моніторі: усередині пристрою смуга
+   прокрутки, як overlay на справжньому телефоні, не займає ширини — тому
+   прихована в усіх контейнерах (стрічка, чати, шторка фільтрів). Легкий
+   повзунок кіта (base.css) лишається для tablet/desktop-рамок. */
+html[data-prototype-device="phone"] .prototype-device,
+html[data-prototype-device="phone"] .prototype-device * { scrollbar-width: none; }
+html[data-prototype-device="phone"] .prototype-device ::-webkit-scrollbar,
+html[data-prototype-device="phone"] .prototype-device::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
 @media (min-width: 900px) {
   .prototype-device__screen { height: min(844px, calc(100dvh - 76px)); }
 }

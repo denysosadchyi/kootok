@@ -14,11 +14,15 @@
 <body>
 <div class="kit-shell">
   <header class="kit-shell__brand"><a href="listings.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
-  <header class="kit-shell__appbar"><a class="kit-back" href="compatibility-form.html" aria-label="Назад до анкети">Анкета сумісності</a><h1 class="kit-shell__title">Заявка</h1></header>
+  <header class="kit-shell__appbar"><a class="kit-back" href="compatibility-form.html" aria-label="Назад до анкети">Анкета сумісності</a><nav class="kit-breadcrumbs" aria-label="Навігаційний ланцюжок"><ol><li><a href="listings.html">Пошук</a></li><li><a href="listing.html">Кімната в Голосіївському районі</a></li><li><a href="compatibility-form.html">Анкета сумісності</a></li><li><a aria-current="page">Заявка</a></li></ol></nav><h1 class="kit-shell__title">Заявка</h1></header>
   <main class="kit-shell__body">
-    <a class="kit-conversation-context" href="listing.html"><img src="assets/rooms/room-holosiivska-mariia-oleh-web.jpg" width="1200" height="800" alt="Світла кухня-вітальня з обіднім столом і зеленим диваном у Голосіївському районі"><span><small>Заявка Марії та Олегу</small><strong>Кімната в Голосіївському</strong><b>7 500 грн/міс · заїзд 1 вересня</b></span></a>
+   <div class="kit-columns">
+    <aside class="kit-columns__aside" aria-label="Кімната, на яку подаєш заявку">
+      <a class="kit-conversation-context" href="listing.html"><img src="assets/rooms/room-holosiivska-mariia-oleh-web.jpg" width="1200" height="800" alt="Світла кухня-вітальня з обіднім столом і зеленим диваном у Голосіївському районі"><span><small>Заявка Марії та Олегу</small><strong>Кімната в Голосіївському</strong><b>7 500 грн/міс · заїзд 1 вересня</b></span></a>
+    </aside>
 
-    <section class="kit-card kit-application-card" aria-labelledby="message-heading">
+    <div class="kit-columns__main">
+    <section class="kit-card kit-application-card" aria-labelledby="message-heading" data-application-card>
       <h2 id="message-heading" class="kit-section__title" data-application-heading>Представся мешканцям</h2>
       <p class="kit-hint" data-application-intro>Коротке особисте повідомлення збільшує шанс отримати відповідь.</p>
 
@@ -41,31 +45,32 @@
         </div>
       </form>
 
-      <div id="prototype-result" class="kit-card kit-card--state kit-card--prototype kit-application-result" role="status" tabindex="-1" hidden>
-        <div class="kit-state">
-          <span class="kit-state__icon kit-state__icon--document" aria-hidden="true"></span>
-          <h3>Сценарій заявки завершено</h3>
-          <p>Це ранній прототип: заявку не надіслано, а введені дані нікуди не передано.</p>
-          <div class="kit-actions">
-            <a class="kit-button kit-button--block" href="listing.html">Повернутися до оголошення</a>
-            <a class="kit-button kit-button--secondary kit-button--block" href="compatibility-form.html">Змінити анкету</a>
-          </div>
+      <div id="prototype-result" class="kit-state kit-application-result" role="status" tabindex="-1" hidden>
+        <span class="kit-state__icon kit-state__icon--chat" aria-hidden="true"></span>
+        <h2 id="result-heading">Заявку надіслано</h2>
+        <p>Марія та Олег отримають твоє повідомлення й анкету сумісності з профілю.</p>
+        <ol class="kit-steps" aria-label="Що далі">
+          <li class="kit-steps__item--done"><strong>Надіслано</strong><span>Сьогодні · повідомлення й анкета</span></li>
+          <li aria-current="step"><strong>Відповідь</strong><span>Зазвичай відповідають протягом 1–2 днів</span></li>
+          <li><strong>Чат</strong><span>Відкриється, коли Марія та Олег приймуть заявку</span></li>
+        </ol>
+        <div class="kit-actions">
+          <a class="kit-button" href="listing.html">Повернутися до оголошення</a>
+          <a class="kit-button kit-button--secondary" href="compatibility-form.html">Змінити анкету</a>
         </div>
-      </div>
-
-      <div class="kit-card kit-card--state" aria-labelledby="sent-heading" data-application-sent hidden>
-        <div class="kit-state">
-          <span class="kit-state__icon kit-state__icon--chat" aria-hidden="true"></span>
-          <p class="kit-meta">Так це виглядатиме в Кутку</p>
-          <h3 id="sent-heading">Заявку надіслано</h3>
-          <p>Марія та Олег отримають твоє повідомлення й анкету з профілю. Зазвичай відповідають протягом 1–2 днів.</p>
-          <p class="kit-meta">Чат відкриється, коли вони приймуть заявку.</p>
-        </div>
+        <p class="kit-note kit-note--info">Це ранній прототип: заявку не надіслано, а введені дані нікуди не передано.</p>
       </div>
     </section>
+    </div>
+   </div>
 
     <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
   </main>
+  <nav class="kit-tabbar kit-tabbar--header" aria-label="Основна навігація Кутка">
+    <a class="kit-tab" href="listings.html" aria-current="page">Пошук</a>
+    <a class="kit-tab kit-tab--chats" href="/kootok/design-system/examples/chats.html">Чати</a><span class="kit-tabbar__city">Київ</span>
+    <a class="kit-tab kit-tab--profile" aria-disabled="true" title="Недоступно в прототипі">Профіль</a>
+  </nav>
 </div>
 <script>
 document.querySelector('[data-prototype-application]').addEventListener('submit', function (event) {
@@ -73,11 +78,13 @@ document.querySelector('[data-prototype-application]').addEventListener('submit'
   var form = event.currentTarget;
   var result = document.getElementById('prototype-result');
   if (!form.reportValidity()) return;
-  document.querySelector('[data-application-heading]').textContent = 'Результат прототипу';
+  // Фінальний стан замінює вміст картки: заголовок форми ховається,
+  // картку називає заголовок результату.
+  document.querySelector('[data-application-heading]').hidden = true;
   document.querySelector('[data-application-intro]').hidden = true;
+  document.querySelector('[data-application-card]').setAttribute('aria-labelledby', 'result-heading');
   form.hidden = true;
   result.hidden = false;
-  document.querySelector('[data-application-sent]').hidden = false;
   result.focus();
 });
 </script>

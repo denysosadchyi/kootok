@@ -1,7 +1,9 @@
 /* ───────── Сегмент ───────── */
 /* У макетах — перемикач стрічок: поточний пункт a[aria-current="page"],
    недоступний — span[aria-disabled="true"] з поясненням через aria-describedby. */
-.kit-segmented { display: flex; width: var(--primitive-width-full); margin: 0; padding: var(--primitive-length-4); gap: var(--primitive-length-4); border-radius: var(--radius-track); background: var(--color-surface-sunken); list-style: none; }
+/* Ширина: на телефоні — уся колонка, ширше — не більше --size-segmented-max,
+   щоб на планшеті й десктопі перемикач не розтягувався на 700–900px. */
+.kit-segmented { display: flex; width: var(--primitive-width-full); max-width: var(--size-segmented-max); margin: 0; padding: var(--primitive-length-4); gap: var(--primitive-length-4); border-radius: var(--radius-track); background: var(--color-surface-sunken); list-style: none; }
 .kit-segmented > * { min-width: 0; flex: 1 1 0; }
 .kit-segmented a, .kit-segmented span { display: inline-flex; width: var(--primitive-width-full); min-height: var(--primitive-length-38); align-items: center; justify-content: center; padding: var(--primitive-length-6) var(--primitive-length-14); border-radius: var(--radius-field); color: var(--color-text-secondary); font: var(--type-support); font-weight: var(--primitive-font-weight-600); text-decoration: none; white-space: nowrap; cursor: pointer; }
 .kit-segmented [aria-current="page"] { background: var(--color-card-background); color: var(--color-current-text); font-weight: var(--primitive-font-weight-700); }
@@ -9,4 +11,19 @@
 .kit-segmented [data-demo-state="hover"] { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); }
 .kit-segmented a[href]:not([aria-current="page"]):active, .kit-segmented [data-demo-state="active"] { background: var(--color-interactive-surface-active); color: var(--color-interactive-text-active); }
 .kit-segmented [data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
-.kit-segmented [aria-disabled="true"] { opacity: var(--opacity-disabled); cursor: default; }
+/* Недоступний пункт — без прозорості: secondary-текст на доріжці тримає AA
+   (недоступність пояснює підказка через aria-describedby), а відрізняє його
+   від доступного неактивного пункту звичайна вага й відсутність hover. */
+.kit-segmented [aria-disabled="true"] { color: var(--color-text-secondary); font-weight: var(--primitive-font-weight-500); cursor: default; }
+
+/* [desktop-shell] Лічильник у сегменті — скільки записів у цьому
+   представленні («Кімнати 128», «Люди 46»). Менший і вторинний: пігулка
+   кольору картки на доріжці; у поточному пункті — лайм поточного стану
+   (The Lime Is Current Rule), бо поточний пункт уже має білу поверхню.
+   Текстові пари — ті самі, що в статусах чатів і вкладках (AA в обох темах).
+   Скрінрідер: посилання отримує aria-label «Кімнати, 128», лічильник —
+   aria-hidden; у недоступному span назва й число читаються підряд.
+   <li><a href="…" aria-current="page" aria-label="Кімнати, 128">Кімнати <span class="kit-segmented__count" aria-hidden="true">128</span></a></li> */
+.kit-segmented .kit-segmented__count { display: inline-flex; width: auto; min-width: var(--primitive-length-24); min-height: 0; margin-left: var(--space-stack-xs); padding: 0 var(--primitive-length-6); justify-content: center; border-radius: var(--radius-pill); background: var(--color-card-background); color: var(--color-text-secondary); font: var(--type-meta); font-weight: var(--primitive-font-weight-700); cursor: inherit; }
+.kit-segmented [aria-current="page"] .kit-segmented__count { background: var(--color-current-background); color: var(--color-current-text); }
+.kit-segmented [aria-disabled="true"] .kit-segmented__count { font-weight: var(--primitive-font-weight-600); }

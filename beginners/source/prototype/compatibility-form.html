@@ -14,11 +14,13 @@
 <body>
 <div class="kit-shell">
   <header class="kit-shell__brand"><a href="listings.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
-  <header class="kit-shell__appbar"><a class="kit-back" href="listing.html" aria-label="Назад до оголошення">Кімната в Голосіївському районі</a><h1 class="kit-shell__title">Сумісність</h1></header>
+  <header class="kit-shell__appbar"><a class="kit-back" href="listing.html" aria-label="Назад до оголошення">Кімната в Голосіївському районі</a><nav class="kit-breadcrumbs" aria-label="Навігаційний ланцюжок"><ol><li><a href="listings.html">Пошук</a></li><li><a href="listing.html">Кімната в Голосіївському районі</a></li><li><a aria-current="page">Анкета сумісності</a></li></ol></nav><h1 class="kit-shell__title"><span class="kit-shell__title-compact">Сумісність</span><span class="kit-shell__title-wide">Анкета сумісності</span></h1></header>
   <main class="kit-shell__body">
+   <div class="kit-columns">
+    <div class="kit-columns__main">
     <header class="kit-page-intro">
       <h2 class="kit-headline">Розкажи про свій побут</h2>
-      <p class="kit-meta">Марія та Олег побачать цю анкету разом із твоєю заявкою на кімнату в Голосіївському районі. Відповіді збережуться у звичках твого профілю.</p>
+      <p class="kit-hint">Марія та Олег побачать цю анкету разом із твоєю заявкою на кімнату в Голосіївському районі. Відповіді збережуться у звичках твого профілю.</p>
     </header>
 
     <div class="kit-progress">
@@ -102,9 +104,28 @@
 
       <p class="kit-hint kit-draft-status" role="status" data-draft-status>Чернетка зберігається лише в цьому браузері.</p>
     </form>
+    </div>
+
+    <aside class="kit-columns__aside kit-columns__aside--wide" aria-label="Заявка, до якої додається анкета">
+      <a class="kit-conversation-context" href="listing.html"><img src="assets/rooms/room-holosiivska-mariia-oleh-web.jpg" width="1200" height="800" alt="Світла кухня-вітальня з обіднім столом і зеленим диваном у Голосіївському районі"><span><small>Заявка Марії та Олегу</small><strong>Кімната в Голосіївському</strong><b>7 500 грн/міс · заїзд 1 вересня</b></span></a>
+      <section class="kit-card kit-card--section" aria-labelledby="steps-heading">
+        <h2 id="steps-heading" class="kit-section__title">Кроки анкети</h2>
+        <ol class="kit-steps" data-step-list>
+          <li aria-current="step"><strong>Ритм дому</strong><span>Сон і чистота</span></li>
+          <li><strong>Межі й звички</strong><span>Гості, тварини, куріння</span></li>
+          <li><strong>Графік і знайомство</strong><span>Графік і кілька слів про себе</span></li>
+        </ol>
+      </section>
+    </aside>
+   </div>
 
     <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
   </main>
+  <nav class="kit-tabbar kit-tabbar--header" aria-label="Основна навігація Кутка">
+    <a class="kit-tab" href="listings.html" aria-current="page">Пошук</a>
+    <a class="kit-tab kit-tab--chats" href="/kootok/design-system/examples/chats.html">Чати</a><span class="kit-tabbar__city">Київ</span>
+    <a class="kit-tab kit-tab--profile" aria-disabled="true" title="Недоступно в прототипі">Профіль</a>
+  </nav>
 </div>
 <script>
 (function () {
@@ -116,6 +137,7 @@
   var value = document.querySelector('[data-progress-value]');
   var track = document.querySelector('[data-progress-track]');
   var status = form.querySelector('[data-draft-status]');
+  var stepItems = Array.from(document.querySelectorAll('[data-step-list] > li'));
   var storageKey = 'kutok-compatibility-draft-v1';
   var current = 0;
 
@@ -153,6 +175,10 @@
     label.textContent = 'Крок ' + (current + 1) + ' із ' + steps.length;
     value.style.width = ((current + 1) / steps.length * 100) + '%';
     track.setAttribute('aria-valuenow', String(current + 1));
+    stepItems.forEach(function (item, itemIndex) {
+      item.classList.toggle('kit-steps__item--done', itemIndex < current);
+      if (itemIndex === current) item.setAttribute('aria-current', 'step'); else item.removeAttribute('aria-current');
+    });
     track.setAttribute('aria-valuetext', 'Крок ' + (current + 1) + ' із ' + steps.length + ': ' + steps[current].dataset.stepTitle);
     if (moveFocus) steps[current].querySelector('h3').focus();
   }

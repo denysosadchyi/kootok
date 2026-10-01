@@ -32,6 +32,21 @@ form.kit-form { display: flex; flex-direction: column; gap: var(--primitive-leng
 .kit-field-row { display: flex; gap: var(--primitive-length-12); }
 .kit-field-row > .kit-field { min-width: 0; flex: 1; }
 
-label.kit-choice { display: flex; min-height: var(--size-control); align-items: center; gap: var(--primitive-length-12); font: var(--type-body); cursor: pointer; }
+/* Рядок вибору — ціль дотику 44 (--size-tap), не висота поля 50: радіо в групі
+   стоять щільним списком, а не стовпчиком окремих контролів. */
+label.kit-choice { display: flex; min-height: var(--size-tap); align-items: center; gap: var(--primitive-length-12); font: var(--type-body); cursor: pointer; }
 .kit-choice input { width: var(--primitive-length-22); height: var(--primitive-length-22); margin: 0; flex: none; }
 .kit-fieldset > .kit-choice + .kit-choice { margin-top: 0; border-top: 0; }
+
+/* [desktop-shell] Група радіо в основній колонці десктопа (kit-columns__main,
+   ≥ 608): короткі варіанти стоять у ряд, а не стовпчиком на 800+ px —
+   картка не стає широкою смугою з одним рядком тексту ліворуч. 2 варіанти —
+   2 рівні колонки, 3 і більше — 3 (далі з переносом рядком нижче); довгий
+   підпис переноситься всередині своєї колонки. Легенда — на весь рядок. Телефон,
+   планшет і панель фільтрів (360) — стовпчик, як вище. */
+@container kit-shell-frame (min-width: 64rem) { /* = --bp-desktop */
+  .kit-columns__main .kit-fieldset:has(> .kit-choice) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-stack-lg); }
+  .kit-columns__main .kit-fieldset:has(> .kit-choice:nth-of-type(3)) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .kit-columns__main .kit-fieldset:has(> .kit-choice) > legend { grid-column: 1 / -1; }
+  .kit-columns__main .kit-fieldset > .kit-choice { margin-top: 0; }
+}

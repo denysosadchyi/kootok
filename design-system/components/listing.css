@@ -36,14 +36,19 @@ ul.kit-list > li { display: grid; min-width: 0; }
    current-текст (у темній темі — ті самі ролі). Супровідний текст картки теж
    бере --color-current-text: secondary-сірий на лаймі не тримає AA. */
 .kit-listing:has(a[aria-current="true"]) { background: var(--color-current-background); color: var(--color-current-text); }
-.kit-listing:has(a[aria-current="true"]) .kit-listing__body :is(.kit-meta, .kit-facts, .kit-household__copy strong, .kit-household__copy span, .kit-hint) { color: var(--color-current-text); }
+.kit-listing:has(a[aria-current="true"]) .kit-listing__body :is(.kit-meta, .kit-facts, .kit-facts dt, .kit-household__copy strong, .kit-household__copy span, .kit-hint) { color: var(--color-current-text); }
 .kit-listing:has(a[aria-current="true"]) .kit-facts--inline > div::after { color: var(--color-current-text); }
 .kit-listing:has(a[aria-current="true"]) .kit-household__avatars .kit-avatar { border-color: var(--color-current-background); }
 /* Картка без посилання — статична, не вимкнена: виглядає як звичайна, лише
    без hover (docs; у стрічці прототипу всі 5 карток мають деталь). */
 .kit-listing__photo { display: block; width: var(--primitive-width-full); height: var(--primitive-width-full); object-fit: cover; }
-.kit-listing__media > .kit-price { position: absolute; left: var(--space-screen-gutter); bottom: var(--primitive-length-12); z-index: var(--z-overlay); margin: 0; padding: var(--primitive-length-6) var(--primitive-length-12); border-radius: var(--radius-control); background: var(--color-glass-background); color: var(--color-current-text); font: var(--type-card-title); -webkit-backdrop-filter: blur(var(--primitive-length-10)); backdrop-filter: blur(var(--primitive-length-10)); }
-.kit-listing__body { display: flex; min-width: 0; flex-direction: column; gap: var(--space-stack-sm); padding: var(--space-stack-lg) var(--space-card-inline) var(--primitive-length-14); }
+.kit-listing__media > .kit-price { position: absolute; left: var(--space-card-inline); bottom: var(--space-card-block); z-index: var(--z-overlay); margin: 0; padding: var(--primitive-length-6) var(--primitive-length-12); border-radius: var(--radius-control); background: var(--color-glass-background); color: var(--color-current-text); font: var(--type-card-title); -webkit-backdrop-filter: blur(var(--primitive-length-10)); backdrop-filter: blur(var(--primitive-length-10)); }
+/* Тіло картки: рівні поля 16 з усіх боків (як ціна на фото — 16 від краю).
+   Ритм: текстові рядки (назва, місце, заїзд) — 6; household і докази
+   відділені більшим кроком 12. Докази притиснуті до низу (margin-top: auto):
+   у сітці tablet/desktop картки одного рядка тягнуться на однакову висоту,
+   і ряд доказів стоїть на одній лінії, а не провисає порожнім низом. */
+.kit-listing__body { display: flex; min-width: 0; flex: 1 1 auto; flex-direction: column; gap: var(--space-stack-xs); padding: var(--space-card-block) var(--space-card-inline); }
 .kit-listing__body h3 { position: relative; margin: 0; display: flex; align-items: center; gap: var(--space-stack-sm); flex-wrap: wrap; font: var(--type-card-title); }
 .kit-listing__body h3 a { color: inherit; text-decoration: none; }
 .kit-listing__body h3 a::after { content: ""; position: absolute; inset: 0; }
@@ -51,19 +56,108 @@ ul.kit-list > li { display: grid; min-width: 0; }
 .kit-avatar { display: block; width: var(--primitive-length-48); height: var(--primitive-length-48); border-radius: var(--radius-circle); background: var(--color-avatar-background); object-fit: cover; }
 
 ul.kit-tags { display: flex; margin: var(--primitive-length-4) 0 0; padding: var(--primitive-length-4) 0 0; gap: var(--space-stack-xs); flex-direction: column; list-style: none; border: 0; }
+/* У картці стрічки докази — щільний ряд, що переноситься: «✓ Оновлено
+   сьогодні  ✓ Відеодзвінок 28 лип.  ✓ Instagram привʼязано». */
+.kit-listing__body > ul.kit-tags { margin: auto 0 0; padding: var(--space-stack-sm) 0 0; flex-direction: row; flex-wrap: wrap; gap: var(--space-stack-xs) var(--space-stack-md); }
 .kit-tags > li + li { border-top: 0; }
 .kit-tag { display: inline-flex; width: fit-content; align-items: center; padding: var(--primitive-length-5) var(--primitive-length-12); border: 0; border-radius: var(--radius-pill); background: var(--color-claim-background); color: var(--color-text-primary-support); font: var(--type-meta); font-weight: var(--primitive-font-weight-500); }
 
-/* Household is a first-class listing signal, not an author footnote. */
-.kit-household { display: grid; min-width: 0; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: var(--space-stack-md); padding: var(--space-stack-md) 0; border: 0; border-radius: 0; background: var(--color-transparent); }
+/* Household is a first-class listing signal, not an author footnote.
+   Імена (з віком) — лише тут; рядок фактів картки їх не повторює. */
+.kit-household { display: grid; min-width: 0; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: var(--space-stack-md); padding: 0; border: 0; border-radius: 0; background: var(--color-transparent); }
 .kit-household__avatars { display: flex; min-width: var(--primitive-length-34); align-items: center; }
 .kit-household__avatars .kit-avatar { width: var(--primitive-length-34); height: var(--primitive-length-34); border: var(--primitive-length-2) solid var(--color-card-background); }
 .kit-household__avatars .kit-avatar + .kit-avatar { margin-left: calc(-1 * var(--primitive-length-10)); }
 .kit-household__copy { display: flex; min-width: 0; flex-direction: column; gap: var(--primitive-length-1); }
-.kit-household__copy strong { overflow: hidden; font: var(--type-field-label); text-overflow: ellipsis; white-space: nowrap; }
+.kit-household__copy strong { font: var(--type-field-label); overflow-wrap: anywhere; }
+.kit-listing__body > .kit-household { margin-block: var(--space-stack-xs) 0; }
 .kit-household__copy span { color: var(--color-text-secondary); font: var(--type-meta); }
 
 .kit-evidence-summary { display: flex; align-items: flex-start; gap: var(--primitive-length-10); margin: 0; padding: var(--space-stack-md) 0 0; border-top: var(--primitive-length-1) solid var(--color-divider); border-radius: 0; background: var(--color-transparent); color: var(--color-trust); }
 .kit-evidence-summary::before { content: ""; width: var(--primitive-length-20); height: var(--primitive-length-20); margin-top: var(--primitive-length-1); flex: none; background: currentColor; -webkit-mask: var(--primitive-icon-shield) center/contain no-repeat; mask: var(--primitive-icon-shield) center/contain no-repeat; }
 .kit-evidence-summary strong { display: block; font: var(--type-field-label); }
 .kit-evidence-summary span { display: block; margin-top: var(--primitive-length-2); font: var(--type-meta); }
+
+/* Chip/tag усередині картки стрічки — текстові рядки без підкладки
+   (DESIGN.md, «Chips і теги — два голоси»): ціль дотику не потрібна, вони не
+   інтерактивні, тож без мінімальної висоти — інакше рядки роздуваються. */
+.kit-listing .kit-chip,
+.kit-listing .kit-tag { width: fit-content; min-height: 0; padding: 0; border-radius: 0; background: var(--color-transparent); }
+.kit-listing h3 .kit-chip--muted { color: var(--color-text-secondary); }
+.kit-listing .kit-chip:not(.kit-chip--error) { color: var(--color-trust); }
+
+/* Факти картки стрічки — підписані: «Заїзд з 1 вересня». Голий «з 1
+   вересня» без підпису неоднозначний, тож у картці dt видимий (поза карткою
+   kit-facts--inline ховає dt візуально). */
+.kit-listing .kit-facts--inline dt { position: static; width: auto; height: auto; margin: 0 var(--primitive-length-4) 0 0; overflow: visible; clip: auto; display: inline; color: var(--color-text-secondary); }
+
+/* ───────── Компактна картка стрічки (kit-list--compact) ─────────
+   Горизонтальний рядок: мініатюра 4:5 ліворуч (--size-listing-thumb), праворуч
+   ціна (головний акцент — з фото вона переїжджає в текст), назва, тип, район,
+   заїзд і один рядок доказів. ~137px заввишки: у колонку split-view
+   вміщається 4–5 карток замість однієї. HTML картки той самий, що й у сітці.
+
+   Вмикається не класом картки, а прапорцем --kit-listing-layout: compact на
+   ul.kit-list, який читає style-query. Прапорець ставлять:
+   - клас ul.kit-list--compact (docs, явне застосування);
+   - container query за ШИРИНОЮ стрічки: оболонка ≥ 64rem (--bp-desktop), а
+     контейнер kit-list < 30rem (--bp-listing-compact). На десктопі таку вузьку
+     стрічку дає лише ліва колонка split-view (288–360); телефон 390 сюди не
+     потрапляє (оболонка вужча за 64rem) і лишається з великими картками.
+   Custom properties в умовах @container не працюють: пороги — literal. */
+ul.kit-list--compact { --kit-listing-layout: compact; gap: var(--space-stack-sm); }
+@container kit-shell-frame (min-width: 64rem) { /* = --bp-desktop */
+  @container kit-list (max-width: 29.99rem) { /* < --bp-listing-compact */
+    ul.kit-list { --kit-listing-layout: compact; gap: var(--space-stack-sm); }
+  }
+}
+
+@container style(--kit-listing-layout: compact) {
+  /* Сітка картки: мініатюра на всю висоту рядків ліворуч, ціна й тіло праворуч.
+     .kit-listing__media розчиняється (display: contents): посилання з фото
+     й ціна стають клітинками сітки картки, DOM і порядок читання ті самі. */
+  .kit-listing { display: grid; grid-template-columns: var(--size-listing-thumb) minmax(0, 1fr); grid-template-rows: auto 1fr; align-items: start; column-gap: var(--space-stack-md); row-gap: var(--space-stack-xxs); padding: var(--space-stack-sm); border-radius: var(--radius-card); }
+  .kit-listing__media { display: contents; }
+  .kit-listing__media::after { content: none; }
+  /* Мініатюра: посилання з фото (стрічка) або саме фото (картка без посилання на фото). */
+  .kit-listing__media > :is(a, .kit-listing__photo) { grid-column: 1; grid-row: 1 / -1; display: block; width: var(--size-listing-thumb); aspect-ratio: var(--ratio-listing-thumb); overflow: hidden; border-radius: var(--radius-control); background: var(--color-info-background); }
+  .kit-listing__media > .kit-listing__photo { height: auto; }
+  .kit-listing__media > .kit-price { position: static; grid-column: 2; grid-row: 1; min-width: 0; padding: 0; border-radius: 0; background: var(--color-transparent); color: var(--color-text-primary); font: var(--type-price); -webkit-backdrop-filter: none; backdrop-filter: none; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+  /* Тіло: рядки по одному, без переносу; кожен обрізається трикрапкою. */
+  .kit-listing__body { grid-column: 2; grid-row: 2; gap: var(--space-stack-xxs); padding: 0; }
+  /* h3 без position: розтягнуте посилання (a::after) покриває всю картку —
+     ціль дотику = картка (≥ 120px заввишки), клік будь-де відкриває деталь. */
+  .kit-listing__body h3 { position: static; flex-direction: column; align-items: stretch; flex-wrap: nowrap; gap: var(--space-stack-xxs); }
+  .kit-listing__body h3 a { display: block; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .kit-listing__body h3 a:focus-visible { outline: none; }
+  .kit-listing__body h3 .kit-chip--muted { font: var(--type-meta); font-weight: var(--primitive-font-weight-600); }
+  .kit-listing__body > .kit-meta--place { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .kit-listing__body > .kit-meta--place::before { margin-right: var(--primitive-length-5); vertical-align: calc(-1 * var(--primitive-length-2)); }
+  .kit-listing__body > .kit-facts--inline { flex-wrap: nowrap; }
+  .kit-listing__body > .kit-facts--inline > div { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+  /* Мешканці не влазять у рядок 96px заввишки: візуально прибрані, але
+     лишаються для скринрідера (як у сітці — інформація та сама). */
+  .kit-listing__body > .kit-household { position: absolute; width: var(--primitive-length-1); height: var(--primitive-length-1); margin: var(--primitive-length-n1); overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+
+  /* Докази — рівно один рядок: перший факт + «+N» (скільки ще). Решта
+     фактів прихована візуально, не для скринрідера; «+N» скринрідер не читає. */
+  .kit-listing__body > ul.kit-tags { counter-reset: kit-listing-more; flex-wrap: nowrap; align-items: center; gap: var(--space-stack-xs); margin: 0; padding: 0; overflow: hidden; }
+  .kit-listing__body > ul.kit-tags > li:first-child { min-width: 0; overflow: hidden; white-space: nowrap; }
+  .kit-listing__body > ul.kit-tags > li + li { position: absolute; width: var(--primitive-length-1); height: var(--primitive-length-1); margin: var(--primitive-length-n1); overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; counter-increment: kit-listing-more; }
+  .kit-listing__body > ul.kit-tags:has(> li + li)::after { content: "+" counter(kit-listing-more) / ""; flex: none; color: var(--color-text-secondary); font: var(--type-chip); }
+
+  /* Стани. Hover і active — фон картки (фото мале, затемнення не читається);
+     вибрана картка (aria-current, split-view.js) лишається лаймовою й на hover. */
+  @media (hover: hover) { .kit-listing:has(a[href]):not(:has(a[aria-current="true"])):hover { background: var(--color-card-hover-background); } }
+  .kit-listing:not(:has(a[aria-current="true"])):has(h3 a[href]:active) { background: var(--color-card-active-background); }
+  .kit-listing[data-demo-state="hover"] { background: var(--color-card-hover-background); }
+  .kit-listing[data-demo-state="active"] { background: var(--color-card-active-background); }
+  /* Фокус — кільце навколо всієї картки, а не навколо обрізаної назви. */
+  /* Колонка split-view прокручується (overflow) і зрізала б зовнішнє кільце — тому всередину. */
+  .kit-listing:has(h3 a:focus-visible), .kit-listing[data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: calc(-1 * var(--primitive-length-3)); }
+  .kit-listing:has(a[aria-current="true"]) .kit-price,
+  .kit-listing:has(a[aria-current="true"]) h3 .kit-chip--muted,
+  .kit-listing:has(a[aria-current="true"]) ul.kit-tags::after { color: var(--color-current-text); }
+}

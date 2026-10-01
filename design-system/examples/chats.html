@@ -13,12 +13,15 @@
 <body>
   <div class="kit-shell kit-shell--with-dock">
     <header class="kit-shell__brand"><a href="/kootok/lesson-6/listings.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
-    <main class="kit-shell__body">
-      <header class="kit-page-intro">
+    <header class="kit-page-intro kit-shell__header">
+      <div class="kit-page-intro__heading">
         <h1 class="kit-headline">Заявки і чати</h1>
-        <p class="kit-meta">4 заявки й чати</p>
-      </header>
-      <section class="kit-section" aria-label="Заявки і чати">
+        <p class="kit-hint">4 заявки й чати</p>
+      </div>
+    </header>
+    <main class="kit-shell__body">
+     <div class="kit-columns">
+      <section class="kit-section kit-columns__main" aria-label="Заявки і чати">
         <div class="kit-card kit-card--list">
           <ul class="kit-chat-list">
             <li><div class="kit-chat-row kit-chat-row--waiting"><img class="kit-avatar" src="/kootok/lesson-6/assets/avatars/mariia-web.jpg" width="288" height="288" alt="Марія з каштановим волоссям у світло-зеленій лляній сорочці"><span class="kit-chat-copy"><strong>Марія та Олег</strong><span>Ти: «Привіт! Мене звати Марічка, навчаюсь у КНУ. Кімната ще вільна з 1 вересня?»</span><small><em>Заявку надіслано</em><span>Кімната в Голосіївському · 7 500 грн/міс</span></small></span><span class="kit-chat-side"><time datetime="2026-08-07T12:10">12:10</time></span></div></li>
@@ -29,11 +32,22 @@
         </div>
         <p class="kit-hint">Можеш надсилати заявки на кілька оголошень одночасно.</p>
       </section>
+      <aside class="kit-columns__aside kit-columns__aside--wide" aria-label="Як працюють заявки">
+        <section class="kit-card kit-card--section" aria-labelledby="how-heading">
+          <h2 id="how-heading" class="kit-section__title">Як працюють заявки</h2>
+          <ol class="kit-steps">
+            <li><strong>Заявка</strong><span>Повідомлення й анкета сумісності йдуть мешканцям</span></li>
+            <li><strong>Відповідь</strong><span>Зазвичай протягом 1–2 днів; контакти поки приховані</span></li>
+            <li><strong>Чат</strong><span>Відкривається, коли заявку приймуть</span></li>
+          </ol>
+        </section>
+      </aside>
+     </div>
       <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
     </main>
     <nav class="kit-tabbar kit-tabbar--dock" aria-label="Основна навігація Кутка">
       <a class="kit-tab" href="/kootok/lesson-6/listings.html">Пошук</a>
-      <a class="kit-tab kit-tab--chats" href="/kootok/design-system/examples/chats.html" aria-current="page">Чати</a>
+      <a class="kit-tab kit-tab--chats" href="/kootok/design-system/examples/chats.html" aria-current="page">Чати</a><span class="kit-tabbar__city">Київ</span>
       <a class="kit-tab kit-tab--profile" aria-disabled="true">Профіль</a>
     </nav>
   </div>

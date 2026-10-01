@@ -14,84 +14,98 @@
 <body>
 <div class="kit-shell">
   <header class="kit-shell__brand"><a href="listings.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
-  <header class="kit-shell__appbar"><a class="kit-back" href="listings.html" aria-label="Назад до пошуку">Стрічка</a><h1 class="kit-shell__title">Оголошення</h1></header>
+  <header class="kit-shell__appbar"><a class="kit-back" href="listings.html" aria-label="Назад до пошуку">Стрічка</a><nav class="kit-breadcrumbs" aria-label="Навігаційний ланцюжок"><ol><li><a href="listings.html">Пошук</a></li><li><a aria-current="page">Кімната в Подільському районі</a></li></ol></nav><h1 class="kit-shell__title"><span class="kit-shell__title-compact">Оголошення</span><span class="kit-shell__title-wide">Кімната в Подільському районі</span></h1></header>
   <main class="kit-shell__body">
 
-    <ul class="kit-gallery" aria-label="Фото оголошення">
-      <li><img src="assets/rooms/room-podilska-yulia-danylo-taras-web.jpg" width="1200" height="800" alt="Кімната з високою стелею, цегляною стіною, дерев’яними меблями й великим вікном у Подолі"></li>
-    </ul>
+    <div class="kit-detail">
+      <div class="kit-detail__layout">
 
-    <div class="kit-card kit-card--head">
-      <h2 class="kit-headline">Кімната в 4-кімнатній</h2>
-      <p class="kit-meta kit-meta--place">Подільський, вул. Костянтинівська</p>
-      <p><span class="kit-chip kit-chip--muted">Підселення</span></p>
-      <p class="kit-price">6 800 грн/міс</p>
-      <p class="kit-meta">Комунальні окремо</p>
-      <p class="kit-meta">Оновлено 3 тижні тому</p>
-      <p><span class="kit-chip kit-chip--error">Актуальність не підтверджено</span> <span class="kit-chip kit-chip--error">Телефон не підтверджено</span></p>
+        <ul class="kit-gallery kit-detail__media" aria-label="Фото оголошення">
+          <li><img src="assets/rooms/room-podilska-yulia-danylo-taras-web.jpg" width="1200" height="800" alt="Кімната з високою стелею, цегляною стіною, дерев’яними меблями й великим вікном у Подолі"></li>
+        </ul>
+
+        <div class="kit-detail__aside">
+          <div class="kit-card kit-card--head">
+            <h2 class="kit-headline">Кімната в 4-кімнатній</h2>
+            <p class="kit-meta kit-meta--place">Подільський, вул. Костянтинівська</p>
+            <p><span class="kit-chip kit-chip--muted">Підселення</span></p>
+            <p class="kit-price">6 800 грн/міс</p>
+            <p class="kit-meta">Комунальні окремо</p>
+            <p class="kit-meta">Оновлено 3 тижні тому</p>
+            <p><span class="kit-chip kit-chip--error">Актуальність не підтверджено</span> <span class="kit-chip kit-chip--error">Телефон не підтверджено</span></p>
+          </div>
+
+          <section class="kit-section kit-detail__apply" aria-label="Заявка">
+            <p class="kit-note kit-note--warning">Не переказуй гроші, поки не побачиш кімнату наживо.</p>
+            <div class="kit-actions"><a class="kit-button kit-button--block" href="compatibility-form.html">Подати заявку</a></div>
+            <p class="kit-hint">Спершу — коротка анкета сумісності (3 кроки), вона збережеться у профілі.</p>
+            <p class="kit-note kit-note--info">У прототипі чернетка зберігається лише в цьому браузері.</p>
+          </section>
+        </div>
+
+        <div class="kit-detail__main">
+          <section class="kit-card kit-card--section" aria-labelledby="trust-heading">
+            <h2 id="trust-heading" class="kit-section__title">Що саме перевірено</h2>
+            <p>Поки нічого: автори не підтвердили ні телефон, ні те, що кімната досі вільна.</p>
+            <p class="kit-meta">Ще не перевірено</p>
+            <p><span class="kit-chip kit-chip--error">Телефон не підтверджено</span> <span class="kit-chip kit-chip--error">Особу не підтверджено</span> <span class="kit-chip kit-chip--error">Договір оренди не перевірено</span> <span class="kit-chip kit-chip--error">Відеодзвінка не було</span></p>
+          </section>
+
+          <section class="kit-card kit-card--section" aria-labelledby="about-heading">
+            <h2 id="about-heading" class="kit-section__title">Про кімнату</h2>
+            <dl class="kit-kv">
+              <div><dt>Заїзд</dt><dd>з 20 вересня</dd></div>
+              <div><dt>Кімната</dt><dd>окрема, 14 м², висока стеля</dd></div>
+            </dl>
+          </section>
+
+          <section class="kit-card kit-card--section" aria-labelledby="residents-heading">
+            <h2 id="residents-heading" class="kit-section__title">Хто зараз живе</h2>
+            <div class="kit-person">
+              <img class="kit-avatar" src="assets/avatars/yulia-web.jpg" width="288" height="288" alt="Юля з хвилястим мідно-каштановим волоссям у темно-зеленому кардигані">
+              <p class="kit-person__name">Юля, 23</p>
+              <p class="kit-person__bio">Студентка, вечорами грає на гітарі, але не пізніше 22:00.</p>
+            </div>
+            <div class="kit-person">
+              <img class="kit-avatar" src="assets/avatars/danylo-podil-web.jpg" width="288" height="288" alt="Данило з темним волоссям і тонкими вусами у бежевій сорочці">
+              <p class="kit-person__name">Данило, 25</p>
+              <p class="kit-person__bio">Кухар, повертається після зміни пізно. Курить лише надворі.</p>
+            </div>
+            <div class="kit-person">
+              <img class="kit-avatar" src="assets/avatars/taras-web.jpg" width="288" height="288" alt="Тарас із русявим волоссям і короткою бородою в оливковому світшоті">
+              <p class="kit-person__name">Тарас, 27</p>
+              <p class="kit-person__bio">Звукорежисер, працює вечорами, зранку спить.</p>
+            </div>
+            <p class="kit-hint">Повний профіль Юлі в прототип не входить.</p>
+          </section>
+
+          <section class="kit-card kit-card--section" aria-labelledby="wishes-heading">
+            <h2 id="wishes-heading" class="kit-section__title">Побажання до співмешканця</h2>
+            <ul class="kit-tags" aria-label="Побажання мешканців">
+              <li class="kit-tag">Прибирання за графіком раз на тиждень</li>
+              <li class="kit-tag">Гості — іноді на вихідних</li>
+              <li class="kit-tag">Курити — лише надворі</li>
+              <li class="kit-tag">Без тварин</li>
+              <li class="kit-tag">Нормально, що лягаємо пізно</li>
+            </ul>
+          </section>
+
+          <section class="kit-card kit-card--section" aria-labelledby="description-heading">
+            <h2 id="description-heading" class="kit-section__title">Опис від мешканців</h2>
+            <p>Звільняється кімната: наш сусід переїжджає. Живемо втрьох, у неділю разом прибираємо. Шукаємо людину, якій нормально, що вечорами буває музика до десятої і хтось повертається після півночі.</p>
+          </section>
+        </div>
+
+      </div>
     </div>
-
-    <section class="kit-card kit-card--section" aria-labelledby="trust-heading">
-      <h2 id="trust-heading" class="kit-section__title">Що саме перевірено</h2>
-      <p>Поки нічого: автори не підтвердили ні телефон, ні те, що кімната досі вільна.</p>
-      <p class="kit-meta">Ще не перевірено</p>
-      <p><span class="kit-chip kit-chip--error">Телефон не підтверджено</span> <span class="kit-chip kit-chip--error">Особу не підтверджено</span> <span class="kit-chip kit-chip--error">Договір оренди не перевірено</span> <span class="kit-chip kit-chip--error">Відеодзвінка не було</span></p>
-    </section>
-
-    <section class="kit-card kit-card--section" aria-labelledby="about-heading">
-      <h2 id="about-heading" class="kit-section__title">Про кімнату</h2>
-      <dl class="kit-kv">
-        <div><dt>Заїзд</dt><dd>з 20 вересня</dd></div>
-        <div><dt>Кімната</dt><dd>окрема, 14 м², висока стеля</dd></div>
-      </dl>
-    </section>
-
-    <section class="kit-card kit-card--section" aria-labelledby="residents-heading">
-      <h2 id="residents-heading" class="kit-section__title">Хто зараз живе</h2>
-      <div class="kit-person">
-        <img class="kit-avatar" src="assets/avatars/yulia-web.jpg" width="288" height="288" alt="Юля з хвилястим мідно-каштановим волоссям у темно-зеленому кардигані">
-        <p class="kit-person__name">Юля, 23</p>
-        <p class="kit-person__bio">Студентка, вечорами грає на гітарі, але не пізніше 22:00.</p>
-      </div>
-      <div class="kit-person">
-        <img class="kit-avatar" src="assets/avatars/danylo-podil-web.jpg" width="288" height="288" alt="Данило з темним волоссям і тонкими вусами у бежевій сорочці">
-        <p class="kit-person__name">Данило, 25</p>
-        <p class="kit-person__bio">Кухар, повертається після зміни пізно. Курить лише надворі.</p>
-      </div>
-      <div class="kit-person">
-        <img class="kit-avatar" src="assets/avatars/taras-web.jpg" width="288" height="288" alt="Тарас із русявим волоссям і короткою бородою в оливковому світшоті">
-        <p class="kit-person__name">Тарас, 27</p>
-        <p class="kit-person__bio">Звукорежисер, працює вечорами, зранку спить.</p>
-      </div>
-      <p><a aria-disabled="true" aria-describedby="profile-hint">Профіль Юлі</a></p>
-      <p id="profile-hint" class="kit-hint">Профіль мешканки не входить у прототип.</p>
-    </section>
-
-    <section class="kit-card kit-card--section" aria-labelledby="wishes-heading">
-      <h2 id="wishes-heading" class="kit-section__title">Побажання до співмешканця</h2>
-      <ul class="kit-tags" aria-label="Побажання мешканців">
-        <li class="kit-tag">Прибирання за графіком раз на тиждень</li>
-        <li class="kit-tag">Гості — іноді на вихідних</li>
-        <li class="kit-tag">Курити — лише надворі</li>
-        <li class="kit-tag">Без тварин</li>
-        <li class="kit-tag">Нормально, що лягаємо пізно</li>
-      </ul>
-    </section>
-
-    <section class="kit-card kit-card--section" aria-labelledby="description-heading">
-      <h2 id="description-heading" class="kit-section__title">Опис від мешканців</h2>
-      <p>Звільняється кімната: наш сусід переїжджає. Живемо втрьох, у неділю разом прибираємо. Шукаємо людину, якій нормально, що вечорами буває музика до десятої і хтось повертається після півночі.</p>
-    </section>
-
-    <section class="kit-section" aria-label="Заявка">
-      <p class="kit-note kit-note--warning">Не переказуй гроші, поки не побачиш кімнату наживо.</p>
-      <div class="kit-actions"><a class="kit-button kit-button--block" href="compatibility-form.html">Подати заявку</a></div>
-      <p class="kit-hint">Спершу — коротка анкета сумісності (3 кроки), вона збережеться у профілі.</p>
-      <p class="kit-note kit-note--info">У прототипі чернетка зберігається лише в цьому браузері.</p>
-    </section>
 
     <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
   </main>
+  <nav class="kit-tabbar kit-tabbar--header" aria-label="Основна навігація Кутка">
+    <a class="kit-tab" href="listings.html" aria-current="page">Пошук</a>
+    <a class="kit-tab kit-tab--chats" href="/kootok/design-system/examples/chats.html">Чати</a><span class="kit-tabbar__city">Київ</span>
+    <a class="kit-tab kit-tab--profile" aria-disabled="true" title="Недоступно в прототипі">Профіль</a>
+  </nav>
 </div>
 </body>
 </html>

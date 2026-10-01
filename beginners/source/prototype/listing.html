@@ -14,81 +14,95 @@
 <body>
 <div class="kit-shell">
   <header class="kit-shell__brand"><a href="listings.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
-  <header class="kit-shell__appbar"><a class="kit-back" href="listings.html" aria-label="Назад до пошуку">Стрічка</a><h1 class="kit-shell__title">Оголошення</h1></header>
+  <header class="kit-shell__appbar"><a class="kit-back" href="listings.html" aria-label="Назад до пошуку">Стрічка</a><nav class="kit-breadcrumbs" aria-label="Навігаційний ланцюжок"><ol><li><a href="listings.html">Пошук</a></li><li><a aria-current="page">Кімната в Голосіївському районі</a></li></ol></nav><h1 class="kit-shell__title"><span class="kit-shell__title-compact">Оголошення</span><span class="kit-shell__title-wide">Кімната в Голосіївському районі</span></h1></header>
   <main class="kit-shell__body">
 
-    <ul class="kit-gallery" aria-label="Фото оголошення">
-      <li><img src="assets/rooms/room-holosiivska-mariia-oleh-web.jpg" width="1200" height="800" alt="Спільна кухня-вітальня з дерев’яним столом, зеленим диваном і великим вікном у двір"></li>
-    </ul>
+    <div class="kit-detail">
+      <div class="kit-detail__layout">
 
-    <div class="kit-card kit-card--head">
-      <h2 class="kit-headline">Кімната в 3-кімнатній</h2>
-      <p class="kit-meta kit-meta--place">Голосіївський, вул. Васильківська</p>
-      <p><span class="kit-chip kit-chip--muted">Підселення</span></p>
-      <p class="kit-price">7 500 грн/міс</p>
-      <p class="kit-meta">Комунальні окремо</p>
-      <p class="kit-meta">Оновлено 2 дні тому · активне</p>
-      <p class="kit-evidence-summary"><span><strong>Оголошення перевірено</strong><span>Відеодзвінок 28 лип. · підтверджено особу, телефон і договір</span></span></p>
+        <ul class="kit-gallery kit-detail__media" aria-label="Фото оголошення">
+          <li><img src="assets/rooms/room-holosiivska-mariia-oleh-web.jpg" width="1200" height="800" alt="Спільна кухня-вітальня з дерев’яним столом, зеленим диваном і великим вікном у двір"></li>
+        </ul>
+
+        <div class="kit-detail__aside">
+          <div class="kit-card kit-card--head">
+            <h2 class="kit-headline">Кімната в 3-кімнатній</h2>
+            <p class="kit-meta kit-meta--place">Голосіївський, вул. Васильківська</p>
+            <p><span class="kit-chip kit-chip--muted">Підселення</span></p>
+            <p class="kit-price">7 500 грн/міс</p>
+            <p class="kit-meta">Комунальні окремо</p>
+            <p class="kit-meta">Оновлено 2 дні тому · активне</p>
+            <p class="kit-evidence-summary"><span><strong>Оголошення перевірено</strong><span>Відеодзвінок 28 лип. · підтверджено особу, телефон і договір</span></span></p>
+          </div>
+
+          <section class="kit-section kit-detail__apply" aria-label="Заявка">
+            <p class="kit-note kit-note--warning">Не переказуй гроші, поки не побачиш кімнату наживо.</p>
+            <div class="kit-actions"><a class="kit-button kit-button--block" href="compatibility-form.html">Подати заявку</a></div>
+            <p class="kit-hint">Спершу — коротка анкета сумісності (3 кроки), вона збережеться у профілі.</p>
+            <p class="kit-note kit-note--info">У прототипі чернетка зберігається лише в цьому браузері.</p>
+          </section>
+        </div>
+
+        <div class="kit-detail__main">
+          <section class="kit-card kit-card--section" aria-labelledby="trust-heading">
+            <h2 id="trust-heading" class="kit-section__title">Що саме перевірено</h2>
+            <ul class="kit-trust-list">
+              <li>Особу орендарки Марії підтверджено за документом</li>
+              <li>Номер телефону підтверджено</li>
+              <li>Instagram привʼязано</li>
+              <li>Договір оренди квартири перевірено</li>
+            </ul>
+          </section>
+
+          <section class="kit-card kit-card--section" aria-labelledby="about-heading">
+            <h2 id="about-heading" class="kit-section__title">Про кімнату</h2>
+            <dl class="kit-kv">
+              <div><dt>Заїзд</dt><dd>з 1 вересня</dd></div>
+              <div><dt>Кімната</dt><dd>окрема, 12 м², своє вікно</dd></div>
+            </dl>
+          </section>
+
+          <section class="kit-card kit-card--section" aria-labelledby="residents-heading">
+            <h2 id="residents-heading" class="kit-section__title">Хто зараз живе</h2>
+            <div class="kit-person">
+              <img class="kit-avatar" src="assets/avatars/mariia-web.jpg" width="288" height="288" alt="Марія з каштановим волоссям у світло-зеленій лляній сорочці">
+              <p class="kit-person__name">Марія, 26</p>
+              <p class="kit-person__bio">Дизайнерка, не курить, тварин немає. Живе тут з січня 2025.</p>
+            </div>
+            <div class="kit-person">
+              <img class="kit-avatar" src="assets/avatars/oleh-web.jpg" width="288" height="288" alt="Олег із коротким русявим волоссям і легкою щетиною в темно-зеленій сорочці">
+              <p class="kit-person__name">Олег</p>
+              <p class="kit-person__bio">Розробник, часто працює з дому, любить тишу вранці.</p>
+            </div>
+            <p class="kit-hint">Повний профіль Марії в прототип не входить.</p>
+          </section>
+
+          <section class="kit-card kit-card--section" aria-labelledby="wishes-heading">
+            <h2 id="wishes-heading" class="kit-section__title">Побажання до співмешканця</h2>
+            <ul class="kit-tags" aria-label="Побажання мешканців">
+              <li class="kit-tag">Охайність у спільних зонах</li>
+              <li class="kit-tag">Гості — з попередженням</li>
+              <li class="kit-tag">Без куріння вдома</li>
+              <li class="kit-tag">Тиша після 23:00</li>
+            </ul>
+          </section>
+
+          <section class="kit-card kit-card--section" aria-labelledby="description-heading">
+            <h2 id="description-heading" class="kit-section__title">Опис від мешканців</h2>
+            <p>Шукаємо спокійну дівчину чи хлопця на третю кімнату. У нас затишно, є посудомийна машина і хороший інтернет. Гостей попереджаємо заздалегідь, тварин поки не тримаємо. Комунальні ділимо порівну, платимо через застосунок для сумісних витрат.</p>
+          </section>
+        </div>
+
+      </div>
     </div>
-
-    <section class="kit-card kit-card--section" aria-labelledby="trust-heading">
-      <h2 id="trust-heading" class="kit-section__title">Що саме перевірено</h2>
-      <ul class="kit-trust-list">
-        <li>Особу орендарки Марії підтверджено за документом</li>
-        <li>Номер телефону підтверджено</li>
-        <li>Instagram привʼязано</li>
-        <li>Договір оренди квартири перевірено</li>
-      </ul>
-    </section>
-
-    <section class="kit-card kit-card--section" aria-labelledby="about-heading">
-      <h2 id="about-heading" class="kit-section__title">Про кімнату</h2>
-      <dl class="kit-kv">
-        <div><dt>Заїзд</dt><dd>з 1 вересня</dd></div>
-        <div><dt>Кімната</dt><dd>окрема, 12 м², своє вікно</dd></div>
-      </dl>
-    </section>
-
-    <section class="kit-card kit-card--section" aria-labelledby="residents-heading">
-      <h2 id="residents-heading" class="kit-section__title">Хто зараз живе</h2>
-      <div class="kit-person">
-        <img class="kit-avatar" src="assets/avatars/mariia-web.jpg" width="288" height="288" alt="Марія з каштановим волоссям у світло-зеленій лляній сорочці">
-        <p class="kit-person__name">Марія, 26</p>
-        <p class="kit-person__bio">Дизайнерка, не курить, тварин немає. Живе тут з січня 2025.</p>
-      </div>
-      <div class="kit-person">
-        <img class="kit-avatar" src="assets/avatars/oleh-web.jpg" width="288" height="288" alt="Олег із коротким русявим волоссям і легкою щетиною в темно-зеленій сорочці">
-        <p class="kit-person__name">Олег</p>
-        <p class="kit-person__bio">Розробник, часто працює з дому, любить тишу вранці.</p>
-      </div>
-      <p><a aria-disabled="true" aria-describedby="profile-hint">Профіль Марії</a></p>
-      <p id="profile-hint" class="kit-hint">Профіль мешканки не входить у прототип.</p>
-    </section>
-
-    <section class="kit-card kit-card--section" aria-labelledby="wishes-heading">
-      <h2 id="wishes-heading" class="kit-section__title">Побажання до співмешканця</h2>
-      <ul class="kit-tags" aria-label="Побажання мешканців">
-        <li class="kit-tag">Охайність у спільних зонах</li>
-        <li class="kit-tag">Гості — з попередженням</li>
-        <li class="kit-tag">Без куріння вдома</li>
-        <li class="kit-tag">Тиша після 23:00</li>
-      </ul>
-    </section>
-
-    <section class="kit-card kit-card--section" aria-labelledby="description-heading">
-      <h2 id="description-heading" class="kit-section__title">Опис від мешканців</h2>
-      <p>Шукаємо спокійну дівчину чи хлопця на третю кімнату. У нас затишно, є посудомийна машина і хороший інтернет. Гостей попереджаємо заздалегідь, тварин поки не тримаємо. Комунальні ділимо порівну, платимо через застосунок для сумісних витрат.</p>
-    </section>
-
-    <section class="kit-section" aria-label="Заявка">
-      <p class="kit-note kit-note--warning">Не переказуй гроші, поки не побачиш кімнату наживо.</p>
-      <div class="kit-actions"><a class="kit-button kit-button--block" href="compatibility-form.html">Подати заявку</a></div>
-      <p class="kit-hint">Спершу — коротка анкета сумісності (3 кроки), вона збережеться у профілі.</p>
-      <p class="kit-note kit-note--info">У прототипі чернетка зберігається лише в цьому браузері.</p>
-    </section>
 
     <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
   </main>
+  <nav class="kit-tabbar kit-tabbar--header" aria-label="Основна навігація Кутка">
+    <a class="kit-tab" href="listings.html" aria-current="page">Пошук</a>
+    <a class="kit-tab kit-tab--chats" href="/kootok/design-system/examples/chats.html">Чати</a><span class="kit-tabbar__city">Київ</span>
+    <a class="kit-tab kit-tab--profile" aria-disabled="true" title="Недоступно в прототипі">Профіль</a>
+  </nav>
 </div>
 </body>
 </html>

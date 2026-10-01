@@ -11,6 +11,15 @@
   .kit-conversation-context img { width: var(--primitive-length-72); }
 }
 
+/* [desktop-shell] У бічній колонці десктопа (kit-columns__aside, 360) контекст
+   кімнати стає вертикальною карткою: фото 3:2 зверху на всю ширину, текст
+   під ним — як зведення в картці оголошення. На телефоні — рядок 80 + текст. */
+@container kit-shell-frame (min-width: 64rem) { /* = --bp-desktop */
+  .kit-columns__aside > .kit-conversation-context { grid-template-columns: minmax(0, 1fr); }
+  .kit-columns__aside > .kit-conversation-context img { width: var(--primitive-width-full); height: auto; min-height: 0; aspect-ratio: var(--ratio-listing-media); }
+  .kit-columns__aside > .kit-conversation-context > span { gap: var(--space-stack-xs); padding: var(--space-card-block) var(--space-card-inline); }
+}
+
 /* Рядок чату — div (у прототипі екрана розмови немає, рядок статичний і виглядає
    звичайно) або a[href]; hover/active/focus — лише для рядка-посилання. */
 ul.kit-chat-list { margin: 0; padding: 0; list-style: none; }

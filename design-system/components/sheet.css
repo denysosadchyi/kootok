@@ -33,7 +33,7 @@
 
 .kit-sheet__summary {
   position: relative; display: flex; min-width: 0; flex-direction: column; gap: var(--primitive-length-2);
-  padding: var(--space-stack-xl) calc(var(--size-tap) + var(--space-stack-lg)) var(--space-stack-md) var(--space-screen-gutter);
+  padding: var(--space-stack-xl) calc(var(--space-screen-gutter) + var(--size-tap) + var(--space-stack-md)) var(--space-stack-md) var(--space-screen-gutter);
   background: var(--color-card-background); list-style: none; cursor: pointer;
 }
 .kit-sheet__summary::-webkit-details-marker { display: none; }
@@ -46,13 +46,21 @@
 .kit-sheet__title { color: var(--color-text-primary); font: var(--type-section-title); }
 .kit-sheet__state { overflow: hidden; color: var(--color-text-secondary); font: var(--type-meta); text-overflow: ellipsis; white-space: nowrap; }
 
+/* Хрестик — у полях шапки, а не в куті: праве поле = ліве (--space-screen-gutter),
+   верх кола = верх блоку «заголовок + стан» (padding-top summary). Блок
+   заголовка й стану ≈ 43 px, коло 44 — центри збігаються, hover-коло не
+   торкається ні краю, ні заокругленого кута. */
 .kit-sheet__close {
   --kit-icon: var(--primitive-icon-close);
-  position: absolute; z-index: var(--z-raised); top: var(--primitive-length-18); right: var(--primitive-length-12);
+  position: absolute; z-index: var(--z-raised); top: var(--space-stack-xl); right: var(--space-screen-gutter);
   display: grid; width: var(--size-tap); height: var(--size-tap); padding: 0; place-items: center; overflow: hidden;
   border: 0; border-radius: var(--radius-circle); background: var(--color-transparent); color: var(--color-action);
   font-size: 0; line-height: var(--type-leading-icon-only); cursor: pointer;
 }
+/* Прихований текст «Закрити» (font-size 0) — другий, анонімний елемент grid:
+   йому нульовий авто-рядок, а іконці — весь перший рядок, інакше хрестик
+   зсувається вгору на 6 px від центру кола. */
+.kit-sheet__close { grid-template-rows: minmax(0, 1fr); grid-auto-rows: 0; }
 .kit-sheet__close::before { width: var(--primitive-length-20); height: var(--primitive-length-20); }
 @media (hover: hover) { .kit-sheet__close:hover { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); } }
 .kit-sheet__close[data-demo-state="hover"] { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); }
@@ -63,9 +71,10 @@
 .kit-sheet__body {
   max-height: calc(var(--primitive-height-60dvh) - var(--primitive-length-20)); overflow-y: auto; overscroll-behavior: contain;
   padding: var(--space-screen-gutter) var(--space-screen-gutter) calc(var(--space-stack-xxl) + env(safe-area-inset-bottom, 0px));
-  scrollbar-width: none;
 }
-.kit-sheet__body::-webkit-scrollbar { display: none; width: 0; height: 0; }
+/* Радіо-рядки у фільтрах — щільний список: ціль дотику 44 замість висоти
+   поля 50, бо рядки йдуть впритул один до одного (без margin між ними). */
+.kit-sheet label.kit-choice { min-height: var(--size-tap); }
 
 .kit-sheet-backdrop {
   position: fixed; z-index: var(--z-sheet-backdrop); inset: 0; padding: 0; border: 0;
@@ -83,6 +92,42 @@
 }
 .kit-sheet[data-kit-sheet]:not([data-kit-sheet-ready]) .kit-sheet__body { max-height: none; }
 
+/* ───────── Заголовок групи, що згортається (лише панель десктопа) ─────────
+   sheet.js у режимі «панель» кладе в legend кожної групи фільтрів кнопку:
+   <legend><button class="kit-sheet__group-toggle" type="button"
+     aria-expanded="true" aria-controls="<id fieldset>" aria-describedby="<id>-summary">
+     <span class="kit-sheet__group-title">Звички</span>
+     <span class="kit-sheet__group-summary" id="<id>-summary" aria-hidden="true">2 звички</span>
+   </button></legend>
+   Згорнута група — fieldset[data-kit-collapsed]: поля сховані display: none,
+   але лишаються у формі й надсилаються. Підсумок видно лише згорнутим.
+   Шеврон Solar Linear (down) перевертається миттєво, без анімації.
+   На телефоні й планшеті кнопки немає — legend лишається текстом. */
+.kit-sheet__group-toggle {
+  --kit-icon: var(--primitive-icon-down);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--space-stack-sm); align-items: center;
+  width: calc(var(--primitive-width-full) + 2 * var(--space-stack-sm)); min-height: var(--size-tap);
+  margin: 0 calc(-1 * var(--space-stack-sm)); padding: var(--space-stack-xs) var(--space-stack-sm);
+  border: 0; border-radius: var(--radius-control); background: var(--color-transparent); color: var(--color-text-primary);
+  font: var(--type-card-title); text-align: left; cursor: pointer;
+}
+.kit-sheet__group-toggle::after {
+  content: ""; grid-column: 2; grid-row: 1 / span 2; width: var(--primitive-length-16); height: var(--primitive-length-16);
+  color: var(--color-text-secondary); background: var(--color-icon-current);
+  -webkit-mask: var(--kit-icon) center / contain no-repeat; mask: var(--kit-icon) center / contain no-repeat;
+}
+.kit-sheet__group-toggle[aria-expanded="true"]::after { transform: rotate(180deg); }
+.kit-sheet__group-title, .kit-sheet__group-summary { grid-column: 1; min-width: 0; }
+.kit-sheet__group-summary { overflow: hidden; color: var(--color-text-secondary); font: var(--type-meta); text-overflow: ellipsis; white-space: nowrap; }
+.kit-sheet__group-toggle[aria-expanded="true"] .kit-sheet__group-summary { display: none; }
+@media (hover: hover) {
+  .kit-sheet__group-toggle:hover { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); }
+  .kit-sheet__group-toggle:hover::after { color: var(--color-interactive-text-hover); }
+}
+.kit-sheet__group-toggle[data-demo-state="hover"] { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); }
+.kit-sheet__group-toggle:active, .kit-sheet__group-toggle[data-demo-state="active"] { background: var(--color-interactive-surface-active); color: var(--color-interactive-text-active); }
+.kit-sheet__group-toggle[data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
+
 /* ───────── Адаптив шторки: планшет і десктоп ─────────
    Container query kit-shell-frame (shell.css), не @media: шторка fixed, але
    container query читає ширину предка-контейнера — оболонки в курсовій рамці
@@ -91,60 +136,101 @@
 
    Телефон (< 40rem): bottom sheet 390, як вище.
    Планшет (від 40rem = --bp-tablet): та сама модальна bottom sheet, але на
-   всю ширину контейнера; форма у 2 колонки — пара «Тип оголошення» |
-   «Район, ціна і заїзд», далі kit-sheet__span (група «Звички») на обидві
-   колонки з полями по 2, дії «Застосувати» / «Скинути» в один рядок. Мета —
-   усі фільтри без прокрутки; прокрутка всієї шторки лишається запасним
-   варіантом для низьких вікон.
+   всю ширину контейнера. Групи стоять одна під одною на всю ширину, а поля
+   кожної групи — рядком рівних часток (flex-wrap), тож порожніх клітинок
+   немає: «Тип оголошення» — три варіанти в ряд; «Район, ціна і заїзд»
+   (група з kit-field-row) — один рядок: район | ціна від | ціна до | заїзд;
+   «Звички» — 3 частки: 3 + 2, другий рядок розтягується на всю ширину.
+   Дії «Застосувати» / «Скинути» — в один рядок на ширину карток.
    Десктоп (від 64rem = --bp-desktop), лише kit-sheet--panel: не шторка, а
    постійна панель --size-side-panel ліворуч від вмісту оболонки, sticky, з
-   власною прокруткою, якщо вища за видиму область. Той самий DOM і та сама
-   форма; sheet.js знімає role="dialog", ховає тригер «Фільтри» й
-   «Застосувати», застосовує зміни одразу, «Скинути» вимкнена без змін. */
+   власною прокруткою. Той самий DOM і та сама форма; sheet.js знімає
+   role="dialog", ховає тригер «Фільтри», дає групам кнопки згортання, а
+   стрічка оновлюється по «Фільтрувати» (sticky внизу панелі). */
 @container kit-shell-frame (min-width: 40rem) { /* = --bp-tablet */
-  .kit-sheet { width: var(--primitive-width-full); max-height: calc(var(--primitive-width-full) - var(--space-stack-lg)); overflow-y: auto; scrollbar-width: none; }
+  .kit-sheet { width: var(--primitive-width-full); max-height: calc(var(--primitive-width-full) - var(--space-stack-lg)); overflow-y: auto; }
   .kit-sheet__summary { padding-top: var(--space-stack-lg); }
-  .kit-sheet::-webkit-scrollbar { display: none; width: 0; height: 0; }
+  .kit-sheet__close { top: var(--space-stack-lg); }
   .kit-sheet__body { max-height: none; overflow: visible; padding-bottom: calc(var(--space-stack-lg) + env(safe-area-inset-bottom, 0px)); }
-  .kit-sheet__body > .kit-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
-  .kit-sheet__body > .kit-form > .kit-sheet__span,
-  .kit-sheet__body > .kit-form > .kit-actions { grid-column: 1 / -1; }
-  /* Група на обидві колонки: поля по 2 в рядку, legend — на всю ширину. */
-  .kit-sheet__span { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-stack-md); }
-  .kit-sheet__span > * { margin: 0; }
-  .kit-sheet__span > legend { grid-column: 1 / -1; margin: 0; }
+  /* Група — рядок з 3 часток (--kit-sheet-share; −1 px — запас на округлення,
+     flex-grow добирає його), legend на всю ширину. Неповний останній рядок
+     розтягується (flex-grow), тож дірок немає: 5 звичок = 3 + 2. */
+  .kit-sheet__body > .kit-form > .kit-fieldset {
+    --kit-sheet-share: calc((var(--primitive-width-full) - 2 * var(--space-stack-md)) / 3 - var(--primitive-length-1));
+    display: flex; flex-wrap: wrap; align-items: start; gap: var(--space-stack-md);
+  }
+  /* «Район, ціна і заїзд» — під legend один рядок полів з вагами 5 | 7 | 4
+     (flex-basis 0 — усі поля вміщуються в рядок):
+     район ≈ 209 (вміщує «Будь-який район» + шеврон), пара цін ≈ 2 × 140
+     (вміщує «Ціна від, грн/міс»), заїзд ≈ 167 на рамці 768. */
+  .kit-sheet__body > .kit-form > .kit-fieldset:has(> .kit-choice) { row-gap: var(--space-stack-xs); }
+  .kit-sheet__body > .kit-form > .kit-fieldset > * { flex: 1 1 var(--kit-sheet-share); margin: 0; }
+  .kit-sheet__body > .kit-form > .kit-fieldset > legend { flex-basis: var(--primitive-width-full); }
+  /* Пара цін — дві частки; її внутрішній gap = gap групи, колонки збігаються. */
+  .kit-sheet__body > .kit-form > .kit-fieldset:has(> .kit-field-row) > :not(legend) { flex: 4 1 0; }
+  .kit-sheet__body > .kit-form > .kit-fieldset:has(> .kit-field-row) > .kit-field--select { flex-grow: 5; }
+  .kit-sheet__body > .kit-form > .kit-fieldset:has(> .kit-field-row) > .kit-field-row { flex-grow: 7; gap: var(--space-stack-md); }
   .kit-sheet__body > .kit-form > .kit-actions { flex-direction: row; }
   .kit-sheet__body > .kit-form > .kit-actions > .kit-button { flex: 1 1 0; }
 }
 
 @container kit-shell-frame (min-width: 64rem) { /* = --bp-desktop */
   /* Прапорець режиму для sheet.js (читає getComputedStyle). */
-  .kit-sheet--panel { --kit-sheet-mode: panel; --kit-scrollport-block: var(--size-scrollport); }
-  /* Оболонка з панеллю: рядок 1 — бренд і таб-бар, рядок 2 — панель | вміст. */
-  .kit-shell:has(> .kit-sheet--panel) { display: grid; grid-template-columns: calc(var(--size-side-panel) + var(--space-screen-gutter)) minmax(0, 1fr) auto; grid-template-rows: auto 1fr; align-content: start; }
-  .kit-shell:has(> .kit-sheet--panel) > * { grid-column: 2 / -1; grid-row: 2; }
-  .kit-shell:has(> .kit-sheet--panel) > .kit-shell__brand { grid-column: 1 / 3; grid-row: 1; }
-  .kit-shell:has(> .kit-sheet--panel) > .kit-tabbar { grid-column: 3; grid-row: 1; }
+  /* Панель поруч зі стрічкою — мишкова поверхня: поля компактні
+     (--size-control-compact = 44, ≥ ціль дотику); іконка select/date
+     центрується за тим самим --size-control. */
+  .kit-sheet--panel { --kit-sheet-mode: panel; --kit-scrollport-block: var(--size-scrollport); --size-control: var(--size-control-compact); }
+  /* Місце панелі в сітці оболонки (колонка 1, рядок 3) задає shell.css. */
+  /* [desktop-shell] Панель — біла поверхня (--color-card-background; у темній
+     темі — темна) з радіусом картки й полями картки: окремий блок поруч зі
+     стрічкою, а не картки-острівці на полотні. Верх — на лінії тіла (поле
+     --space-screen-gutter під заголовком сторінки), sticky з тим самим
+     відступом; висота — до низу області прокрутки мінус два поля
+     (--kit-scrollport-block, sheet.js), не нижче --size-panel-min. Прокручується сама. */
   .kit-shell > .kit-sheet--panel {
-    position: sticky; z-index: var(--z-raised); top: 0; right: auto; bottom: auto; left: auto;
-    grid-column: 1; grid-row: 2; align-self: start;
-    width: auto; max-height: var(--kit-scrollport-block); margin: 0 0 0 var(--space-screen-gutter);
-    padding-block: var(--space-screen-gutter) var(--space-scroll-end);
+    position: sticky; z-index: var(--z-raised); top: var(--space-screen-gutter); right: auto; bottom: auto; left: auto;
+    align-self: start;
+    width: auto; height: max(var(--size-panel-min), var(--kit-scrollport-block) - (2 * var(--space-screen-gutter))); margin: var(--space-screen-gutter) 0 0 var(--space-screen-gutter);
+    padding: 0 var(--space-card-inline);
     overflow-y: auto; overscroll-behavior: contain;
-    border-radius: 0; background: var(--color-page-background); box-shadow: none;
+    border-radius: var(--radius-card); background: var(--color-card-background); box-shadow: none;
     visibility: visible; transform: none;
   }
   .kit-shell > .kit-sheet--panel + .kit-sheet-backdrop,
   .kit-sheet--panel .kit-sheet__close { display: none; }
   /* Summary — заголовок панелі: «Фільтри» + рядок стану, без ручки й без кліку. */
-  .kit-sheet--panel .kit-sheet__summary { padding: 0 0 var(--space-stack-md); background: var(--color-transparent); cursor: default; }
+  .kit-sheet--panel .kit-sheet__summary { padding: var(--space-card-block) 0 var(--space-stack-md); background: var(--color-transparent); cursor: default; }
   .kit-sheet--panel .kit-sheet__summary::before { display: none; }
   .kit-sheet--panel .kit-sheet__state { white-space: normal; }
+  /* Другорядна кнопка на білій панелі — на заглибленому фоні, щоб мала форму. */
+  .kit-sheet--panel .kit-button--secondary { background: var(--color-surface-sunken); }
   .kit-sheet--panel .kit-sheet__body { max-height: none; padding: 0; overflow: visible; }
-  /* Панель вузька (360): форма знову в одну колонку, як на телефоні. */
-  .kit-sheet--panel .kit-sheet__body > .kit-form { display: flex; align-items: stretch; }
-  .kit-sheet--panel .kit-sheet__span { display: block; }
-  .kit-sheet--panel .kit-sheet__span > legend { margin: 0 0 var(--primitive-length-12); }
-  .kit-sheet--panel .kit-sheet__span > * + * { margin-top: var(--primitive-length-12); }
-  .kit-sheet--panel .kit-sheet__span > legend + * { margin-top: 0; }
+  /* Панель вузька (360): групи знову стовпчиком, як на телефоні, але щільніше —
+     рівний ритм: legend → вміст --space-stack-sm, поле → поле --space-stack-md,
+     радіо-рядки 32 (--size-choice-compact, ціль для миші) з кружком 18. */
+  .kit-sheet--panel .kit-sheet__body > .kit-form { display: flex; align-items: stretch; gap: 0; }
+  /* Групи — не білі картки на білому: без фону й бічних полів, між групами —
+     тонкий роздільник --color-hairline. Поля вводу лишаються заглибленими. */
+  .kit-sheet--panel .kit-sheet__body > .kit-form > .kit-fieldset { display: block; padding-inline: 0; border-radius: 0; background: var(--color-transparent); }
+  .kit-sheet--panel .kit-sheet__body > .kit-form > .kit-fieldset + .kit-fieldset { border-top: var(--primitive-length-1) solid var(--color-hairline); }
+  .kit-sheet--panel .kit-sheet__body > .kit-form > .kit-fieldset > legend { margin: 0 0 var(--space-stack-sm); }
+  .kit-sheet--panel .kit-sheet__body > .kit-form > .kit-fieldset > * + * { margin-top: var(--space-stack-md); }
+  .kit-sheet--panel .kit-sheet__body > .kit-form > .kit-fieldset > legend + *,
+  .kit-sheet--panel .kit-sheet__body > .kit-form > .kit-fieldset > .kit-choice + .kit-choice { margin-top: 0; }
+  .kit-sheet--panel label.kit-choice { min-height: var(--size-choice-compact); gap: var(--space-stack-sm); }
+  .kit-sheet--panel .kit-choice input { width: var(--size-choice-mark-compact); height: var(--size-choice-mark-compact); }
+  /* Група з кнопкою згортання: рядок заголовка 44 сам дає повітря зверху,
+     тож верхнє поле картки — --space-stack-sm; згорнута — sm і знизу. */
+  .kit-sheet--panel .kit-sheet__body > .kit-form > .kit-fieldset:has(> legend > .kit-sheet__group-toggle) { padding-top: var(--space-stack-sm); }
+  .kit-sheet--panel .kit-sheet__body > .kit-form > .kit-fieldset > legend:has(> .kit-sheet__group-toggle) { margin-bottom: 0; }
+  .kit-sheet--panel .kit-sheet__body > .kit-form > .kit-fieldset[data-kit-collapsed]:has(> legend > .kit-sheet__group-toggle) { padding-bottom: var(--space-stack-sm); }
+  .kit-sheet--panel .kit-sheet__body > .kit-form > .kit-fieldset[data-kit-collapsed]:has(> legend > .kit-sheet__group-toggle) > legend { margin-bottom: 0; }
+  .kit-sheet--panel .kit-sheet__body > .kit-form > .kit-fieldset[data-kit-collapsed]:has(> legend > .kit-sheet__group-toggle) > :not(legend) { display: none; }
+  /* Дії — sticky внизу панелі: «Фільтрувати» і «Скинути фільтри» завжди
+     досяжні, хоч би якою довгою була форма. Фон сторінки ховає поля під ними. */
+  .kit-sheet--panel .kit-sheet__body > .kit-form > .kit-actions {
+    position: sticky; z-index: var(--z-raised); bottom: 0;
+    margin-top: 0; padding: var(--space-stack-md) 0 var(--space-card-block);
+    background: var(--color-card-background);
+  }
 }

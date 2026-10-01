@@ -14,76 +14,90 @@
 <body>
 <div class="kit-shell">
   <header class="kit-shell__brand"><a href="listings.html" aria-label="Куток — на головну">Куток</a><span>Київ</span></header>
-  <header class="kit-shell__appbar"><a class="kit-back" href="listings.html" aria-label="Назад до пошуку">Стрічка</a><h1 class="kit-shell__title">Оголошення</h1></header>
+  <header class="kit-shell__appbar"><a class="kit-back" href="listings.html" aria-label="Назад до пошуку">Стрічка</a><nav class="kit-breadcrumbs" aria-label="Навігаційний ланцюжок"><ol><li><a href="listings.html">Пошук</a></li><li><a aria-current="page">Кімната в Дарницькому районі</a></li></ol></nav><h1 class="kit-shell__title"><span class="kit-shell__title-compact">Оголошення</span><span class="kit-shell__title-wide">Кімната в Дарницькому районі</span></h1></header>
   <main class="kit-shell__body">
 
-    <ul class="kit-gallery" aria-label="Фото оголошення">
-      <li><img src="assets/rooms/room-darnytska-andrii-web.jpg" width="1200" height="800" alt="Вільна спальня з двоспальним ліжком, шафою і вікном на дарницькі новобудови"></li>
-    </ul>
+    <div class="kit-detail">
+      <div class="kit-detail__layout">
 
-    <div class="kit-card kit-card--head">
-      <h2 class="kit-headline">Кімната в 2-кімнатній</h2>
-      <p class="kit-meta kit-meta--place">Дарницький, вул. Ревуцького</p>
-      <p><span class="kit-chip kit-chip--muted">Оренда з нуля</span> <span class="kit-tag">Власник напряму</span></p>
-      <p class="kit-price">6 300 грн/міс</p>
-      <p class="kit-meta">Комунальні окремо</p>
-      <p class="kit-meta">Оновлено сьогодні · активне</p>
-      <p class="kit-evidence-summary"><span><strong>Перевірено частково</strong><span>Підтверджено лише телефон власника</span></span></p>
-    </div>
+        <ul class="kit-gallery kit-detail__media" aria-label="Фото оголошення">
+          <li><img src="assets/rooms/room-darnytska-andrii-web.jpg" width="1200" height="800" alt="Вільна спальня з двоспальним ліжком, шафою і вікном на дарницькі новобудови"></li>
+        </ul>
 
-    <section class="kit-card kit-card--section" aria-labelledby="trust-heading">
-      <h2 id="trust-heading" class="kit-section__title">Що саме перевірено</h2>
-      <ul class="kit-trust-list">
-        <li>Номер телефону власника підтверджено</li>
-      </ul>
-      <p class="kit-meta">Ще не перевірено</p>
-      <p><span class="kit-chip kit-chip--error">Особу власника не підтверджено</span> <span class="kit-chip kit-chip--error">Відеодзвінка не було</span></p>
-    </section>
+        <div class="kit-detail__aside">
+          <div class="kit-card kit-card--head">
+            <h2 class="kit-headline">Кімната в 2-кімнатній</h2>
+            <p class="kit-meta kit-meta--place">Дарницький, вул. Ревуцького</p>
+            <p><span class="kit-chip kit-chip--muted">Оренда з нуля</span> <span class="kit-tag">Власник напряму</span></p>
+            <p class="kit-price">6 300 грн/міс</p>
+            <p class="kit-meta">Комунальні окремо</p>
+            <p class="kit-meta">Оновлено сьогодні · активне</p>
+            <p class="kit-evidence-summary"><span><strong>Перевірено частково</strong><span>Підтверджено лише телефон власника</span></span></p>
+          </div>
 
-    <section class="kit-card kit-card--section" aria-labelledby="about-heading">
-      <h2 id="about-heading" class="kit-section__title">Про кімнату</h2>
-      <dl class="kit-kv">
-        <div><dt>Заїзд</dt><dd>за домовленістю</dd></div>
-        <div><dt>Кімната</dt><dd>окрема, 13 м², двоспальне ліжко й шафа</dd></div>
-        <div><dt>Друга кімната</dt><dd>здається окремо, поки вільна</dd></div>
-      </dl>
-    </section>
+          <section class="kit-section kit-detail__apply" aria-label="Заявка">
+            <p class="kit-note kit-note--warning">Не переказуй гроші, поки не побачиш кімнату наживо.</p>
+            <div class="kit-actions"><a class="kit-button kit-button--block" href="compatibility-form.html">Подати заявку</a></div>
+            <p class="kit-hint">Спершу — коротка анкета сумісності (3 кроки), вона збережеться у профілі.</p>
+            <p class="kit-note kit-note--info">У прототипі чернетка зберігається лише в цьому браузері.</p>
+          </section>
+        </div>
 
-    <section class="kit-card kit-card--section" aria-labelledby="residents-heading">
-      <h2 id="residents-heading" class="kit-section__title">Хто здає</h2>
-      <div class="kit-person">
-        <img class="kit-avatar" src="assets/avatars/andrii-web.jpg" width="288" height="288" alt="Андрій із коротким темним волоссям і легкою щетиною в зеленій сорочці">
-        <p class="kit-person__name">Андрій, 30</p>
-        <p class="kit-person__bio">Власник, живе окремо. Здає сам, без рієлтора й комісії.</p>
+        <div class="kit-detail__main">
+          <section class="kit-card kit-card--section" aria-labelledby="trust-heading">
+            <h2 id="trust-heading" class="kit-section__title">Що саме перевірено</h2>
+            <ul class="kit-trust-list">
+              <li>Номер телефону власника підтверджено</li>
+            </ul>
+            <p class="kit-meta">Ще не перевірено</p>
+            <p><span class="kit-chip kit-chip--error">Особу власника не підтверджено</span> <span class="kit-chip kit-chip--error">Відеодзвінка не було</span></p>
+          </section>
+
+          <section class="kit-card kit-card--section" aria-labelledby="about-heading">
+            <h2 id="about-heading" class="kit-section__title">Про кімнату</h2>
+            <dl class="kit-kv">
+              <div><dt>Заїзд</dt><dd>за домовленістю</dd></div>
+              <div><dt>Кімната</dt><dd>окрема, 13 м², двоспальне ліжко й шафа</dd></div>
+              <div><dt>Друга кімната</dt><dd>здається окремо, поки вільна</dd></div>
+            </dl>
+          </section>
+
+          <section class="kit-card kit-card--section" aria-labelledby="residents-heading">
+            <h2 id="residents-heading" class="kit-section__title">Хто здає</h2>
+            <div class="kit-person">
+              <img class="kit-avatar" src="assets/avatars/andrii-web.jpg" width="288" height="288" alt="Андрій із коротким темним волоссям і легкою щетиною в зеленій сорочці">
+              <p class="kit-person__name">Андрій, 30</p>
+              <p class="kit-person__bio">Власник, живе окремо. Здає сам, без рієлтора й комісії.</p>
+            </div>
+            <p>У квартирі зараз ніхто не живе. Другу кімнату Андрій здає окремо: коли знайдеться сусід, він познайомить вас до заїзду.</p>
+            <p class="kit-hint">Повний профіль Андрія в прототип не входить.</p>
+          </section>
+
+          <section class="kit-card kit-card--section" aria-labelledby="wishes-heading">
+            <h2 id="wishes-heading" class="kit-section__title">Умови власника</h2>
+            <ul class="kit-tags" aria-label="Умови власника">
+              <li class="kit-tag">Без тварин</li>
+              <li class="kit-tag">Без куріння в квартирі</li>
+              <li class="kit-tag">Договір оренди від 6 місяців</li>
+            </ul>
+          </section>
+
+          <section class="kit-card kit-card--section" aria-labelledby="description-heading">
+            <h2 id="description-heading" class="kit-section__title">Опис від власника</h2>
+            <p>Здаю дві кімнати окремо у 2-кімнатній квартирі. Сам тут не живу, раз на місяць приходжу зняти показники лічильників і попереджаю заздалегідь. Меблі й пральна машина є, посудомийки немає.</p>
+          </section>
+        </div>
+
       </div>
-      <p>У квартирі зараз ніхто не живе. Другу кімнату Андрій здає окремо: коли знайдеться сусід, він познайомить вас до заїзду.</p>
-      <p><a aria-disabled="true" aria-describedby="profile-hint">Профіль Андрія</a></p>
-      <p id="profile-hint" class="kit-hint">Профіль власника не входить у прототип.</p>
-    </section>
-
-    <section class="kit-card kit-card--section" aria-labelledby="wishes-heading">
-      <h2 id="wishes-heading" class="kit-section__title">Умови власника</h2>
-      <ul class="kit-tags" aria-label="Умови власника">
-        <li class="kit-tag">Без тварин</li>
-        <li class="kit-tag">Без куріння в квартирі</li>
-        <li class="kit-tag">Договір оренди від 6 місяців</li>
-      </ul>
-    </section>
-
-    <section class="kit-card kit-card--section" aria-labelledby="description-heading">
-      <h2 id="description-heading" class="kit-section__title">Опис від власника</h2>
-      <p>Здаю дві кімнати окремо у 2-кімнатній квартирі. Сам тут не живу, раз на місяць приходжу зняти показники лічильників і попереджаю заздалегідь. Меблі й пральна машина є, посудомийки немає.</p>
-    </section>
-
-    <section class="kit-section" aria-label="Заявка">
-      <p class="kit-note kit-note--warning">Не переказуй гроші, поки не побачиш кімнату наживо.</p>
-      <div class="kit-actions"><a class="kit-button kit-button--block" href="compatibility-form.html">Подати заявку</a></div>
-      <p class="kit-hint">Спершу — коротка анкета сумісності (3 кроки), вона збережеться у профілі.</p>
-      <p class="kit-note kit-note--info">У прототипі чернетка зберігається лише в цьому браузері.</p>
-    </section>
+    </div>
 
     <p class="kit-footer">Куток · пошук співмешканців і кімнат у Києві</p>
   </main>
+  <nav class="kit-tabbar kit-tabbar--header" aria-label="Основна навігація Кутка">
+    <a class="kit-tab" href="listings.html" aria-current="page">Пошук</a>
+    <a class="kit-tab kit-tab--chats" href="/kootok/design-system/examples/chats.html">Чати</a><span class="kit-tabbar__city">Київ</span>
+    <a class="kit-tab kit-tab--profile" aria-disabled="true" title="Недоступно в прототипі">Профіль</a>
+  </nav>
 </div>
 </body>
 </html>

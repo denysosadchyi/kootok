@@ -140,6 +140,15 @@ html[data-theme="dark"] .course-shell__mark { background: var(--color-action-sur
 @media (min-width: 431px) and (max-width: 899px) {
   /* Під курсовою мобільною шапкою (60px) робоча область — решта висоти вікна. */
   .lesson-workspace { min-height: calc(100dvh - 60px); }
+  /* Курсовий сайдбар тут — висувна шухляда, тож панель екранів не може стояти
+     fixed праворуч від нього (left: 244px лягав поверх пристрою). Панель стає
+     смугою над робочою областю: назва й 5 екранів в один-два рядки, а рамка
+     (course-nav.js, fit) масштабується в решту висоти. */
+  html.has-course-nav body.course-nav--prototype { display: flex; flex-direction: column; }
+  .lesson-family-panel { position: static; inset: auto; width: auto; flex: none; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 0 var(--course-gap-md); padding: var(--course-gap-sm) var(--course-gutter); border-right: 0; border-bottom: 1px solid var(--course-line); }
+  .lesson-family-panel .course-family__title { margin: 0 0 0 8px; white-space: nowrap; }
+  .lesson-family-panel nav { display: flex; flex-wrap: wrap; gap: 2px; }
+  .lesson-workspace { flex: 1 1 auto; min-height: 0; }
 }
 html.has-course-nav body.course-nav--prototype { width: calc(100% - var(--course-sidebar-current) - var(--lesson-family-panel)) !important; margin-left: calc(var(--course-sidebar-current) + var(--lesson-family-panel)) !important; }
 

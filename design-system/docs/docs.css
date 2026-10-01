@@ -170,7 +170,7 @@
   .docs-layout { display: block; min-height: 0; }
   .docs-component-nav { position: sticky; z-index: 20; top: 60px; height: auto; padding: 8px 12px; overflow: hidden; border-right: 0; border-bottom: 1px solid var(--color-divider); }
   .docs-nav__title { margin: 0 4px 6px; }
-  .docs-component-nav ul { display: flex; overflow-x: auto; gap: 4px; padding-bottom: 4px; scrollbar-width: thin; }
+  .docs-component-nav ul { display: flex; overflow-x: auto; gap: 4px; padding-bottom: 4px; }
   .docs-component-nav li { flex: none; }
 }
 
@@ -236,3 +236,13 @@
 /* Рамка з оболонкою без фіксованої висоти (gallery.html): kit-shell — дитина
    рамки, тож рамка стає контейнером kit-shell-frame; min-height оболонки тут зайвий. */
 .docs-width__frame--shell > .kit-shell { min-height: 0; }
+/* [compact-card] Стани компактної картки стрічки: без підкладки комірки — картка
+   лежить прямо на фоні сторінки, як у колонці split-view; ширина колонки ≤ 360. */
+.docs-compact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 360px)); gap: 16px; align-items: start; }
+.docs-compact-cell { display: grid; min-width: 0; gap: 8px; }
+.docs-compact-cell > h4 { margin: 0; color: var(--color-text-secondary); font: var(--type-meta); }
+
+/* Живий приклад прокрутки (base.html → «Прокрутка»). Повзунок малює base.css. */
+.docs-scroll-demo { max-height: 160px; overflow: hidden auto; padding: 8px 12px; border-radius: var(--radius-control); background: var(--color-page-background); color: var(--color-text-primary); }
+.docs-scroll-demo ul { margin: 0; padding-left: 18px; }
+.docs-scroll-demo li + li { margin-top: 6px; }

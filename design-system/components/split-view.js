@@ -17,7 +17,8 @@
      посилання картки;
    - якщо фільтр (sheet.js, подія kit-filter-change) сховав вибрану картку,
      split закривається;
-   - висота sticky-колонок — висота прокручуваного предка (--kit-scrollport-block).
+   - висота sticky-колонок — висота прокручуваного предка (--kit-scrollport-block);
+     колонки-панелі (kit-split--panels) — до низу області мінус поля, ≥ --size-panel-min.
    Анімацій немає: стан змінюється миттєво. Підключення:
    <script src="/kootok/design-system/components/split-view.js" defer></script> */
 (function () {
@@ -33,16 +34,14 @@
     return null;
   }
 
-  /* Висота sticky-колонок: видима область прокрутки мінус те, що стоїть під
-     split у кінці сторінки (футер, нижні поля). Інакше, докрутивши до кінця,
-     колонки впираються в межу своєї обгортки й заголовок деталі йде вгору. */
+  /* Висота sticky-колонок — висота видимої області прокрутки (рамка або
+     вікно). Колонки-панелі (split-view.css) беруть її мінус два поля, але не
+     нижче --size-panel-min. Раніше від неї віднімали все, що стоїть під split
+     (футер, а через розтягнутий рядок оболонки — і висоту панелі фільтрів):
+     на низькому вікні це давало зворотний зв'язок і колонки стискалися до 0. */
   function columnHeight(root) {
     var parent = scrollParent(root);
-    var viewport = parent ? parent.clientHeight : window.innerHeight;
-    var end = parent ? parent.scrollHeight : document.documentElement.scrollHeight;
-    var top = parent ? parent.getBoundingClientRect().top - parent.scrollTop : -window.scrollY;
-    var below = Math.max(0, end - (root.getBoundingClientRect().bottom - top));
-    return Math.max(0, viewport - below);
+    return parent ? parent.clientHeight : window.innerHeight;
   }
 
   function enhance(root) {

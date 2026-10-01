@@ -10,23 +10,22 @@
 .kit-chip--muted::before { display: none; }
 .kit-chip--error { --kit-icon: var(--primitive-icon-warning); background: var(--color-danger-background); color: var(--color-danger); }
 
-.kit-listing .kit-chip,
-.kit-listing .kit-tag {
-  width: fit-content;
-  min-height: var(--primitive-length-30);
-  padding: var(--primitive-length-5) 0;
-  border-radius: 0;
-  background: var(--color-transparent);
-}
-.kit-listing h3 .kit-chip--muted { min-height: 0; padding: 0; color: var(--color-text-secondary); }
-.kit-listing .kit-chip:not(.kit-chip--error) { color: var(--color-trust); }
+/* Chip/tag усередині картки стрічки (текстові рядки без підкладки) — у listing.css. */
 
-ul.kit-trust-list { margin: 0; padding: 0; font-size: var(--type-size-support); list-style: none; }
-.kit-trust-list li { --kit-icon: var(--primitive-icon-check); position: relative; display: flex; align-items: flex-start; gap: var(--space-stack-md); padding: var(--space-stack-md) 0; }
+/* Список перевірених фактів: галочка в колі доказу (--color-trust-background)
+   вирівняна з першим рядком тексту (коло 20 = висота рядка --type-support
+   14/1.45 ≈ 20), між пунктами — --space-stack-xs з кожного боку (крок
+   рядків ≈ 32 замість 44). Довгий пункт переноситься під текст, не під іконку. */
+ul.kit-trust-list { margin: 0; padding: 0; font: var(--type-support); list-style: none; }
+.kit-trust-list li { --kit-icon: var(--primitive-icon-check); position: relative; display: block; margin: 0; padding: var(--space-stack-xs) 0 var(--space-stack-xs) calc(var(--primitive-length-20) + var(--space-stack-md)); color: var(--color-text-primary); }
 .kit-trust-list li + li { margin-top: 0; border-top: 0; }
-.kit-trust-list li::before { content: ""; flex: none; width: var(--primitive-length-22); height: var(--primitive-length-22); margin-top: var(--primitive-length-1); border-radius: var(--radius-circle); background: var(--color-transparent); }
+.kit-trust-list li::before { content: ""; position: absolute; left: 0; top: var(--space-stack-xs); width: var(--primitive-length-20); height: var(--primitive-length-20); border-radius: var(--radius-circle); background: var(--color-trust-background); }
 .kit-trust-list li::after {
-  content: ""; position: absolute; left: var(--primitive-length-4); top: calc(var(--space-stack-sm) + var(--primitive-length-1) + var(--primitive-length-4)); width: var(--primitive-length-14); height: var(--primitive-length-14);
+  content: ""; position: absolute; left: var(--primitive-length-4); top: calc(var(--space-stack-xs) + var(--primitive-length-4)); width: var(--primitive-length-12); height: var(--primitive-length-12);
   background: var(--color-trust);
   -webkit-mask: var(--kit-icon) center / contain no-repeat; mask: var(--kit-icon) center / contain no-repeat;
 }
+
+/* Кілька чипів поспіль у рядку картки (бракує перевірок): переносяться
+   рядами з тим самим проміжком, що й по горизонталі, а не впритул. */
+.kit-card > p:has(> .kit-chip + .kit-chip) { display: flex; flex-wrap: wrap; gap: var(--space-stack-xs); }

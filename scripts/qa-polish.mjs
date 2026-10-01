@@ -163,7 +163,8 @@ for (const page of pages) {
     const slug = `${page.replace(".html", "")}-${viewport.width}`;
     const initial = await evaluate(`(() => {
       const shell = document.querySelector('.kit-shell');
-      const nav = document.querySelector('.kit-tabbar');
+      // Видимий таб-бар: kit-tabbar--header вкладених екранів існує лише в шапці десктопа.
+      const nav = [...document.querySelectorAll('.kit-tabbar')].find(node => getComputedStyle(node).display !== 'none') || null;
       const footer = document.querySelector('.kit-footer');
       const deviceScreen = document.querySelector('.prototype-device__screen');
       const deviceContent = document.querySelector('.prototype-device__content');
@@ -275,7 +276,7 @@ for (const page of pages) {
     const endpoint = await evaluate(`(() => {
       const candidate=document.querySelector('.prototype-device__content');
       const scroller=candidate&&getComputedStyle(candidate).overflowY==='auto'?candidate:document.scrollingElement;
-      const nav=document.querySelector('.kit-tabbar');
+      const nav=[...document.querySelectorAll('.kit-tabbar')].find(node=>getComputedStyle(node).display!=='none')||null;
       const footer=document.querySelector('.kit-footer');
       const node=nav||footer;
       const viewportBottom=innerWidth>430?document.querySelector('.prototype-device__screen').getBoundingClientRect().bottom:innerHeight;

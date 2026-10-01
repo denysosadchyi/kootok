@@ -75,13 +75,17 @@ for (const page of pages) {
     const metrics = await evaluate(`(() => {
       const rect = (selector) => { const node = document.querySelector(selector); return node ? node.getBoundingClientRect().width : null; };
       const device = document.querySelector('.prototype-device');
+      const visibleTabbar = [...document.querySelectorAll('.kit-tabbar')].find(node => getComputedStyle(node).display !== 'none');
       return {
         canvas: rect('.kit-shell'), device: rect('.prototype-device'), screen: rect('.prototype-device__screen'),
         overflow: Math.max(0, document.documentElement.scrollWidth - innerWidth), border: device ? getComputedStyle(device).borderTopWidth : null,
         familyLabels: [...document.querySelectorAll('.lesson-family-panel a')].map(node => node.textContent.trim()),
-        tabLabels: [...document.querySelectorAll('.kit-tabbar a')].map(node => node.textContent.trim()),
-        currentTab: document.querySelector('.kit-tabbar [aria-current="page"]')?.getAttribute('href'),
-        currentTabLabel: document.querySelector('.kit-tabbar [aria-current="page"]')?.textContent.trim(),
+        // Лише видимий таб-бар: вкладені екрани мають kit-tabbar--header, який існує
+        // тільки в шапці десктопа (від --bp-desktop); на телефоні він прихований.
+        tabLabels: [...(visibleTabbar?.querySelectorAll('a') || [])].map(node => node.textContent.trim()),
+        currentTab: visibleTabbar?.querySelector('[aria-current="page"]')?.getAttribute('href'),
+        currentTabLabel: visibleTabbar?.querySelector('[aria-current="page"]')?.textContent.trim(),
+        desktopHeaderTabs: [...document.querySelectorAll('.kit-tabbar--header a')].map(node => node.textContent.trim()),
         familyCurrent: document.querySelector('.lesson-family-panel a[aria-current="page"]')?.textContent.trim() || null,
         stateLinks: document.querySelectorAll('.state-switcher').length,
         // Статичний вміст поза прототипом (рядки чатів, картки без деталі) не виглядає вимкненим.
@@ -108,6 +112,7 @@ const failures = results.filter((item) => {
     (item.width <= 430 ? item.border !== "0px" : item.border !== "1px") ||
     JSON.stringify(item.familyLabels) !== JSON.stringify(familyLabels) || JSON.stringify(item.tabLabels) !== JSON.stringify(expectedTabs) ||
     item.currentTab !== expectedCurrentTab || item.currentTabLabel !== expectedCurrentLabel ||
+    (!dockScreens[item.page] && JSON.stringify(item.desktopHeaderTabs) !== JSON.stringify(dockLabels)) ||
     item.familyCurrent !== expectedFamily || item.stateLinks !== 0 || item.fadedContent !== 0 || item.productRoutes.some(route => !allowedProductRoutes.includes(route));
 });
 console.log(JSON.stringify({ checks: results.length, failures, results }, null, 2));

@@ -38,7 +38,10 @@
   --primitive-color-white-a20: rgba(255, 255, 255, .2);
   --primitive-color-white-a86: rgba(255, 255, 255, .86);
   --primitive-color-ink-a10: rgba(23, 37, 32, .10);
+  --primitive-color-ink-a28: rgba(23, 37, 32, .28);
   --primitive-color-ink-a45: rgba(23, 37, 32, .45);
+  --primitive-color-cream-a28: rgba(253, 252, 248, .28);
+  --primitive-color-cream-a45: rgba(253, 252, 248, .45);
   --primitive-color-photo-a20: rgba(15, 33, 25, .2);
   --primitive-color-photo-a65: rgba(15, 33, 25, .65);
   --primitive-color-transparent: transparent;
@@ -109,6 +112,7 @@
   --primitive-length-72: 72px;
   --primitive-length-80: 80px;
   --primitive-length-84: 84px;
+  --primitive-length-96: 96px;
   --primitive-length-104: 104px;
   --primitive-length-120: 120px;
   --primitive-length-280: 280px;
@@ -117,6 +121,7 @@
   --primitive-length-390: 390px;
   --primitive-length-480: 480px;
   --primitive-length-608: 608px;
+  --primitive-length-1120: 1120px; /* [polish-detail] максимум сторінки деталі */
   --primitive-length-700: 700px;
 
   /* Radii */
@@ -127,6 +132,7 @@
   --primitive-width-22ch: 22ch;
   --primitive-width-32ch: 32ch;
   --primitive-width-42ch: 42ch;
+  --primitive-width-60ch: 60ch; /* polish-flows: measure підказок ≈ 70 кириличних знаків */
   --primitive-width-50pct: 50%;
   --primitive-width-full: 100%;
   --primitive-width-fr-072: .72fr;
@@ -155,6 +161,9 @@
   --container-max: 100.5rem;  /* 1608px: панель 360 + 16 + 3 × 400 + 2 × 16; далі сітка центрується */
   --col-count-tablet: 2;
   --col-count-desktop: 3;     /* максимум; до 2 сітка падає сама через мінімум картки 288 */
+  /* [compact-card] Стрічка вужча за 30rem (480px) на десктопі оболонки — це ліва
+     колонка split-view (288–360): картки стають компактними рядками (listing.css). */
+  --bp-listing-compact: 30rem;
 
   /* Solar assets live as local SVG files. Their SVG-internal coordinates and
      stroke widths are asset data, not component geometry tokens.
@@ -175,6 +184,8 @@
   --primitive-icon-document: url("/kootok/tokens/icons/listings.svg");
   --primitive-icon-pin: url("/kootok/tokens/icons/pin.svg");
   --primitive-icon-close: url("/kootok/tokens/icons/close.svg");
+  /* [desktop-shell] Solar Linear «Alt Arrow Right» — роздільник breadcrumbs. */
+  --primitive-icon-forward: url("/kootok/tokens/icons/forward.svg");
 
   /* ───────────────────────── SEMANTIC ─────────────────────────
      Компоненти споживають ролі, а не сирі primitive values. */
@@ -252,6 +263,11 @@
   --color-action-surface-active: var(--primitive-color-ink-900);
   --color-interactive-surface-hover: var(--primitive-color-cream-300);
   --color-interactive-surface-active: var(--primitive-color-green-200);
+  /* [compact-card] Hover/active компактної картки стрічки: поверхня картки
+     біла, тож hover — cream-300 (ink-600 на ньому 4.54:1), active — green-100
+     (4.77:1; green-200 дав би лише 4.32 — нижче AA для --color-text-secondary). */
+  --color-card-hover-background: var(--primitive-color-cream-300);
+  --color-card-active-background: var(--primitive-color-green-100);
   --color-interactive-text-hover: var(--primitive-color-green-900);
   --color-interactive-text-active: var(--primitive-color-ink-900);
   --color-field-hover: var(--primitive-color-cream-300);
@@ -280,11 +296,18 @@
   /* Затемнення під bottom sheet (kit-sheet-backdrop). */
   --color-scrim: var(--primitive-color-ink-a45);
 
+  /* Прокрутка (base.css): доріжка прозора, повзунок — напівпрозорий нейтральний
+     поверх будь-якої поверхні; hover — щільніший. */
+  --color-scrollbar-thumb: var(--primitive-color-ink-a28);
+  --color-scrollbar-thumb-hover: var(--primitive-color-ink-a45);
+
   /* Typography roles. Composite font tokens keep family, weight, size and
      line-height inseparable, so a system-wide type change cannot silently
      desynchronise one component. */
   --type-body: var(--primitive-font-weight-400) var(--primitive-length-15)/var(--primitive-line-height-150) var(--primitive-font-family-text);
   --type-page-title: var(--primitive-font-weight-800) var(--primitive-length-24)/var(--primitive-line-height-115) var(--primitive-font-family-display);
+  /* [desktop-shell] H1 сторінки в шапці десктопа (під breadcrumbs). */
+  --type-page-title-wide: var(--primitive-font-weight-800) var(--primitive-length-32)/var(--primitive-line-height-115) var(--primitive-font-family-display);
   --type-detail-title: var(--primitive-font-weight-800) var(--primitive-length-20)/var(--primitive-line-height-120) var(--primitive-font-family-display);
   --type-section-title: var(--primitive-font-weight-700) var(--primitive-length-17)/var(--primitive-line-height-130) var(--primitive-font-family-display);
   --type-card-title: var(--primitive-font-weight-700) var(--primitive-length-16)/var(--primitive-line-height-130) var(--primitive-font-family-display);
@@ -319,7 +342,9 @@
   /* Довжина рядка (measure) для текстових ролей. */
   --measure-headline: var(--primitive-width-22ch);
   --measure-state: var(--primitive-width-32ch);
-  --measure-hint: var(--primitive-width-42ch);
+  /* polish-flows 2026-10-01: 42ch (≈ 50 знаків Golos 14px) ламав однофразові
+     підказки на 2 рядки на будь-якій ширині; 60ch — у межах 45–75 знаків. */
+  --measure-hint: var(--primitive-width-60ch);
 
   /* Порядок накладання: вміст < плашка на фото/appbar < dock < backdrop < шторка. */
   --z-raised: var(--primitive-z-1);
@@ -337,11 +362,15 @@
   --space-control-block: var(--primitive-length-12);
   --space-control-inline: var(--primitive-length-16);
   --space-stack-xs: var(--primitive-length-6);
+  /* [compact-card] Щільний крок між рядками тексту компактної картки стрічки. */
+  --space-stack-xxs: var(--primitive-length-2);
   --space-stack-sm: var(--primitive-length-8);
   --space-stack-md: var(--primitive-length-12);
   --space-stack-lg: var(--primitive-length-16);
   --space-stack-xl: var(--primitive-length-24);
   --space-stack-xxl: var(--primitive-length-32);
+  /* [polish-detail] Проміжок між колонками змісту й зведення деталі (kit-detail). */
+  --space-detail-column-gap: var(--primitive-length-24);
   /* Проміжок між картками сітки стрічки (kit-list від --bp-tablet); однаковий в обох темах. */
   --space-grid-gap: var(--grid-gap);
   --size-tabbar: var(--primitive-length-70);
@@ -365,6 +394,9 @@
   --size-tap: var(--primitive-length-44);
   --ratio-listing-media: 3 / 2;
   --ratio-gallery-media: 4 / 3;
+  /* [compact-card] Мініатюра компактної картки стрічки (split-view): 96 × 120, 4:5. */
+  --size-listing-thumb: var(--primitive-length-96);
+  --ratio-listing-thumb: 4 / 5;
 
   /* Десктоп від --bp-desktop (responsive/width-audit.md, рішення 3 і 5):
      постійна панель фільтрів (kit-sheet--panel) і split-view стрічки
@@ -383,6 +415,40 @@
      однаколонкових екранів від --bp-tablet не ширший за 608 = 640 − 2 × 16
      і центрований; app bar лишається на всю ширину. */
   --size-single-column: var(--primitive-length-608);
+  /* [polish-detail] Сторінка деталі оголошення (kit-detail, layout.css):
+     від 40rem оболонки — одна широка колонка до --size-detail-max (без
+     «острова» 608); від 60rem власної ширини kit-detail (= 360 зведення +
+     24 + 576 мінімум змісту) — дві колонки: зміст ліворуч, sticky-зведення
+     праворуч шириною --size-detail-aside. Однакові в обох темах. */
+  --size-detail-max: var(--size-page-max);
+  --size-detail-aside: var(--size-page-aside);
+  /* [desktop-shell 2026-10-01] Один контейнер сторінки на десктопі (від
+     --bp-desktop): шапка, breadcrumbs, H1 і вміст усіх екранів — стрічка з
+     панеллю фільтрів, split-view, картка оголошення, анкета, заявка, чати —
+     мають той самий лівий і правий край: оболонка не ширша за --size-page-max,
+     поле — --space-screen-gutter (одне на всіх ширинах). Вузькі за природою
+     речі (форма, список чатів) не розтягуються, а стають основною колонкою
+     поруч із бічною --size-page-aside (= панель фільтрів, зведення деталі,
+     контекст анкети, заявки й чатів). Однакові в обох темах. */
+  --size-page-max: var(--container-max);
+  --size-page-aside: var(--primitive-length-360);
+  /* [desktop-shell] Білі панелі десктопа (панель фільтрів, колонки split-view):
+     висота — до низу області прокрутки мінус два поля, але не нижче 360, щоб
+     на низькому вікні колонка не стискалася до нуля (тоді прокручується сторінка). */
+  --size-panel-min: var(--primitive-length-360);
+  /* [polish-feed] Сегмент-перемикач стрічок не ширший за 360: на телефоні
+     він на всю ширину (358), на планшеті й десктопі не розтягується на
+     колонку. Компактний контрол панелі фільтрів — 44 (= --size-tap):
+     десктопна панель — мишкова поверхня поруч зі стрічкою, ціль дотику
+     лишається ≥ 44. Однакові в обох темах. */
+  --size-segmented-max: var(--primitive-length-360);
+  --size-control-compact: var(--size-tap);
+  /* [sheet-fix 2026-10-01] Радіо-рядки панелі фільтрів десктопа: мишкова
+     поверхня, тож рядок вибору 32 (не 44) і кружок 18 (не 22) — щільний
+     список без втрати клікабельного рядка на всю ширину. На телефоні й
+     планшеті лишається --size-tap. Однакові в обох темах. */
+  --size-choice-compact: var(--primitive-length-32);
+  --size-choice-mark-compact: var(--primitive-length-18);
 
   /* Current direction is deliberately flat. Elevation stays semantic so a
      future product decision changes tokens, never per-screen selectors. */
@@ -444,6 +510,10 @@
   --color-action-surface-active: var(--primitive-color-green-900);
   --color-interactive-surface-hover: var(--primitive-color-ink-700);
   --color-interactive-surface-active: var(--primitive-color-green-900);
+  /* [compact-card] Картка в темній темі — ink-700, тож hover не може бути
+     ink-700: green-900 (cream-300 на ньому 10.6:1), active — green-700 (6.6:1). */
+  --color-card-hover-background: var(--primitive-color-green-900);
+  --color-card-active-background: var(--primitive-color-green-700);
   --color-interactive-text-hover: var(--primitive-color-green-100);
   --color-interactive-text-active: var(--primitive-color-cream-050);
   --color-field-hover: var(--primitive-color-green-900);
@@ -461,6 +531,8 @@
   --color-icon-current: var(--primitive-color-current);
   --color-brand-mark: var(--primitive-color-green-700);
   --color-scrim: var(--primitive-color-ink-a45);
+  --color-scrollbar-thumb: var(--primitive-color-cream-a28);
+  --color-scrollbar-thumb-hover: var(--primitive-color-cream-a45);
 
   /* Appbar: title cream-050 on green-900 ≈ 12.9:1; back icon green-200 on
      ink-900 ≈ 12:1; панель green-900 відділена від полотна ink-900 фоном. */

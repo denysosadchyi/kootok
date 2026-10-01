@@ -25,8 +25,32 @@
 .kit-back[data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
 .kit-back[aria-disabled="true"] { opacity: var(--opacity-disabled); cursor: default; }
 
+/* Заголовок кореневого екрана (стрічка, чати) — kit-page-intro поза <main>,
+   безпосередня дитина оболонки: на десктопі він стоїть на всю ширину над
+   панеллю фільтрів і вмістом (рядок 2 сітки оболонки). На телефоні й
+   планшеті виглядає так само, як усередині тіла: ті самі поля, а відступ до
+   першого блоку тіла дає верхнє поле тіла (16 = --space-section-gap). */
+.kit-shell__header { padding: var(--space-screen-gutter) var(--space-screen-gutter) 0; }
+
+/* Заголовок вкладеного екрана має два написи: короткий для app bar телефона
+   («Сумісність») і повний для шапки десктопа («Анкета сумісності»). Видимий
+   завжди один, тож доступна назва H1 одна на кожній ширині. Ланцюжок
+   (kit-breadcrumbs) живе в app bar, але показується лише на десктопі —
+   нижче його замінює «Назад». */
+.kit-shell__title-wide, .kit-shell__appbar > .kit-breadcrumbs { display: none; }
+
 .kit-shell__body { display: flex; min-width: 0; flex-direction: column; gap: var(--space-section-gap); padding: var(--space-screen-gutter) var(--space-screen-gutter) var(--space-scroll-end); }
 .kit-shell--with-dock > .kit-shell__body { padding-bottom: var(--space-tabbar-clearance); }
+
+/* kit-tabbar--header — та сама навігація шукачки на вкладених екранах
+   (картка оголошення, анкета, заявка): існує лише в шапці десктопа, нижче
+   --bp-desktop прихована — там вкладений екран має app bar з «Назад», а не dock. */
+.kit-tabbar.kit-tabbar--header { display: none; }
+/* Місто в навігації (kit-tabbar__city) існує лише в шапці десктопа — між
+   «Чати» і «Профіль» (shell.css нижче); на телефоні й планшеті «Київ» стоїть
+   у бренд-рядку, а dock — три вкладки. Вигляд — як у бренд-рядку: пін + текст. */
+.kit-tabbar__city { display: none; min-height: var(--size-tap); align-items: center; gap: var(--primitive-length-5); padding-inline: var(--space-stack-sm); color: var(--color-text-primary-support); font: var(--type-meta); font-weight: var(--primitive-font-weight-600); white-space: nowrap; }
+.kit-tabbar__city::before { --kit-icon: var(--primitive-icon-pin); content: ""; display: inline-block; flex: none; width: var(--primitive-length-14); height: var(--primitive-length-14); background: var(--color-icon-current); color: var(--color-accent); -webkit-mask: var(--kit-icon) center / contain no-repeat; mask: var(--kit-icon) center / contain no-repeat; }
 
 /* Dock шукачки в макетах — 3 пункти (Пошук · Чати · Профіль). Dock лістера
    (4 пункти з «Оголошеннями») у макетах не показано, тож у кіті його немає. */
@@ -58,33 +82,91 @@
 
    Мобільний (< 40rem): колонка 390, dock знизу.
    Планшет (від 40rem = --bp-tablet): оболонка заповнює контейнер (до
-   --container-max), dock знизу, як на телефоні, але шириною оболонки мінус
+   --size-page-max), dock знизу, як на телефоні, але шириною оболонки мінус
    поля, а не жорсткі 390.
-   Десктоп (від 64rem = --bp-desktop): tabbar оболонки переїжджає вгору — у
-   рядок шапки поруч із брендом: static, горизонтальний, без clearance.
-   DOM той самий: пункти, порядок, href, aria-current і aria-disabled не
-   змінюються, стани (current, hover, active, focus-visible, disabled) беруть
-   ті самі semantic-токени, що вище. Вкладені екрани (appbar без tabbar)
-   навігації в шапці не отримують — лише ширшають. */
+   Десктоп (від 64rem = --bp-desktop) — одна структура на всіх екранах
+   (патерн page-header, patterns/page-header.md):
+     рядок 1 — шапка продукту: біла смуга на всю ширину оболонки, бренд
+              ліворуч; «Пошук · Чати · Київ» справді по центру; «Профіль»
+              праворуч — один nav на весь рядок із сіткою 1fr · … · 1fr;
+     рядок 2 — заголовок сторінки: kit-shell__header (кореневі екрани) або
+              app bar вкладеного екрана, що стає заголовком (breadcrumbs → H1);
+     рядок 3 — тіло (і панель фільтрів стрічки ліворуч від нього).
+   Шапка, заголовок і тіло мають той самий лівий і правий край: оболонка не
+   ширша за --size-page-max, поле --space-screen-gutter. DOM tabbar той самий:
+   пункти, порядок, href, aria-current і aria-disabled не змінюються, стани
+   беруть ті самі semantic-токени. */
 :where(:has(> .kit-shell), :not(.kit-shell):has(> .kit-tabbar--dock)) { container: kit-shell-frame / inline-size; }
 
 @container kit-shell-frame (min-width: 40rem) { /* = --bp-tablet */
-  .kit-shell { width: min(var(--primitive-width-full), var(--container-max)); }
-  /* Однаколонкові екрани (усе, крім стрічки з сіткою kit-list): тіло не ширше
-     за --size-single-column (+ поля) і по центру — картка оголошення, анкета,
-     заявка, чати. Шапка, app bar і таб-бар лишаються на всю ширину оболонки. */
-  .kit-shell__body:not(:has(.kit-list)) { width: var(--primitive-width-full); max-width: calc(var(--size-single-column) + (2 * var(--space-screen-gutter))); margin-inline: auto; }
+  /* --kit-shell-column — ширина колонки вмісту вкладеного екрана на планшеті:
+     її беруть і тіло (max-width), і app bar (поле «Назад»), щоб обидва стояли
+     на одній сітці. Деталь оголошення ширша (--size-detail-max, layout.css). */
+  .kit-shell { --kit-shell-column: var(--size-single-column); width: min(var(--primitive-width-full), var(--size-page-max)); }
+  .kit-shell:has(> .kit-shell__body > .kit-detail) { --kit-shell-column: var(--size-detail-max); }
+  /* Вкладені однаколонкові екрани (анкета, заявка, картка оголошення): тіло не
+     ширше за колонку (+ поля) і по центру. Біла панель app bar лишається на
+     всю ширину оболонки, але «Назад» стає на ліве поле колонки вмісту, а не
+     на край вікна (не ближче за 12 до краю, як на телефоні).
+     Кореневі екрани з dock (стрічка, чати) на планшеті тримають сітку шапки:
+     поле 16 від краю, як бренд і dock, — рядки чатів просто ширшають. */
+  .kit-shell:not(.kit-shell--with-dock) > .kit-shell__body:not(:has(.kit-list)) { width: var(--primitive-width-full); max-width: calc(var(--kit-shell-column) + (2 * var(--space-screen-gutter))); margin-inline: auto; }
+  .kit-shell__appbar { padding-inline: max(var(--primitive-length-12), (var(--primitive-width-full) - var(--kit-shell-column)) / 2); }
   /* 100cqi — ширина контейнера оболонки (для fixed dock % рахувався б від вікна). */
-  .kit-tabbar--dock { width: calc(min(100cqi, var(--container-max)) - (2 * var(--space-screen-gutter))); }
+  .kit-tabbar--dock { width: calc(min(100cqi, var(--size-page-max)) - (2 * var(--space-screen-gutter))); }
 }
 
 @container kit-shell-frame (min-width: 64rem) { /* = --bp-desktop */
-  .kit-shell:has(> .kit-tabbar) { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 1fr; align-content: start; }
-  .kit-shell:has(> .kit-tabbar) > * { grid-column: 1 / -1; }
-  .kit-shell:has(> .kit-tabbar) > .kit-shell__brand { grid-column: 1; grid-row: 1; }
-  /* Таб-бар у шапці: не fixed, горизонтальний, іконка + підпис в один рядок. */
-  .kit-shell > .kit-tabbar { position: static; grid-column: 2; grid-row: 1; align-self: end; width: auto; height: auto; margin: 0 var(--space-screen-gutter) 0 0; grid-template-columns: repeat(3, auto); transform: none; }
+  .kit-shell { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr; align-content: start; }
+  .kit-shell > * { grid-column: 1 / -1; }
+  .kit-shell > .kit-shell__header, .kit-shell > .kit-shell__appbar { grid-row: 2; }
+  .kit-shell > .kit-shell__body { grid-row: 3; }
+
+  /* Рядок 1 — шапка продукту: біла смуга (--color-appbar-surface — та сама
+     поверхня, що в app bar телефона; у темній темі — темна). На вкладених
+     екранах бренд теж видно: на десктопі app bar — це заголовок сторінки. */
+  .kit-shell > .kit-shell__brand,
+  .kit-shell:has(> .kit-shell__appbar) > .kit-shell__brand { display: flex; grid-row: 1; min-height: var(--primitive-length-64); padding: 0 var(--space-screen-gutter); background: var(--color-appbar-surface); }
+  /* Навігація — один nav на весь рядок 1 поверх білої смуги, власна сітка
+     «1fr · Пошук · Чати · Київ · 1fr»: дві однакові 1fr по краях, тож група
+     «Пошук · Чати · Київ» стоїть справді по центру оболонки, а «Профіль» —
+     у правій 1fr біля правого поля і центр не зсуває. Сам nav прозорий для
+     миші (pointer-events) — бренд ліворуч під ним лишається клікабельним;
+     пункти отримують події як звичайно. Окремої білої пігулки немає.
+     «Київ» на десктопі — kit-tabbar__city усередині nav (не вкладка: текст
+     з піном, тієї самої висоти); місто в бренд-рядку ховається. */
+  .kit-shell > .kit-tabbar { position: static; display: grid; grid-row: 1; grid-column: 1 / -1; align-self: center; width: auto; height: auto; margin: 0; padding: 0 var(--space-screen-gutter); grid-template-columns: minmax(0, 1fr) repeat(3, auto) minmax(0, 1fr); align-items: center; gap: var(--space-stack-xs); border-radius: 0; background: var(--color-transparent); box-shadow: none; transform: none; pointer-events: none; }
+  .kit-shell > .kit-tabbar > * { pointer-events: auto; }
   .kit-shell > .kit-tabbar > .kit-tab { min-height: var(--size-tap); flex-direction: row; gap: var(--space-stack-sm); padding-inline: var(--space-control-inline); white-space: nowrap; overflow-wrap: normal; }
-  /* Dock більше не перекриває вміст — clearance під нього не потрібен. */
-  .kit-shell--with-dock > .kit-shell__body { padding-bottom: var(--space-scroll-end); }
+  .kit-shell > .kit-tabbar > .kit-tab:first-child { grid-column: 2; }
+  .kit-shell > .kit-tabbar > .kit-tabbar__city { display: inline-flex; grid-column: 4; grid-row: 1; }
+  .kit-shell > .kit-tabbar > .kit-tab--profile { grid-column: 5; grid-row: 1; justify-self: end; }
+  .kit-shell:has(> .kit-tabbar .kit-tabbar__city) > .kit-shell__brand > span { display: none; }
+
+  /* Рядок 2 — заголовок сторінки на всю ширину оболонки, від того самого
+     поля, що й бренд. Кореневий екран: kit-shell__header (H1 + мета +
+     перемикач). Вкладений: app bar стає заголовком — без білої панелі й
+     «Назад», breadcrumbs над великим H1 з повною назвою. */
+  .kit-shell > .kit-shell__header { padding: var(--space-stack-xl) var(--space-screen-gutter) 0; }
+  .kit-shell > .kit-shell__appbar { display: flex; min-height: 0; flex-direction: column; align-items: flex-start; gap: var(--space-stack-xs); padding: var(--space-stack-lg) var(--space-screen-gutter) 0; background: var(--color-transparent); }
+  .kit-shell__appbar > .kit-back, .kit-shell__title-compact { display: none; }
+  .kit-shell__appbar > .kit-breadcrumbs, .kit-shell__title-wide { display: block; }
+  .kit-shell > .kit-shell__appbar > .kit-shell__title { max-width: none; overflow: visible; text-align: left; white-space: normal; text-wrap: balance; }
+  .kit-shell > .kit-shell__appbar > .kit-shell__title,
+  .kit-shell > .kit-shell__header .kit-headline { font: var(--type-page-title-wide); letter-spacing: var(--type-tracking-display); }
+
+  /* Рядок 3 — тіло: на всю ширину оболонки з тим самим полем. Обмеження
+     планшета (608 / --size-detail-max по центру) знято: вузькі за природою
+     речі (форма, список чатів) не розтягуються, а стають основною колонкою
+     поруч із бічною (kit-columns, kit-detail — layout.css). */
+  .kit-shell:not(.kit-shell--with-dock) > .kit-shell__body:not(:has(.kit-list)),
+  .kit-shell--with-dock > .kit-shell__body { width: var(--primitive-width-full); max-width: none; margin-inline: 0; padding-bottom: var(--space-scroll-end); }
+
+  /* Стрічка з панеллю фільтрів (kit-sheet--panel, sheet.css): колонка 1 —
+     панель (--size-side-panel + ліве поле), колонка 2 — тіло; обидві в
+     рядку 3. Бренд, навігація й заголовок сторінки — на всю ширину рядків 1–2. */
+  .kit-shell:has(> .kit-sheet--panel) { grid-template-columns: calc(var(--size-side-panel) + var(--space-screen-gutter)) minmax(0, 1fr); }
+  .kit-shell:has(> .kit-sheet--panel) > .kit-shell__body { grid-column: 2; }
+  .kit-shell > .kit-sheet--panel { grid-column: 1; grid-row: 3; }
+}
 }

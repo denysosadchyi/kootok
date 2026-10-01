@@ -6,8 +6,24 @@
 .kit-toolbar > .kit-button { flex: none; }
 
 /* Page-level title and support copy form one entry point before sections. */
-.kit-page-intro { display: flex; width: var(--primitive-width-full); min-width: 0; max-width: var(--container-max); margin-inline: auto; flex-direction: column; gap: var(--space-stack-sm); }
+.kit-page-intro { display: flex; width: var(--primitive-width-full); min-width: 0; max-width: var(--size-page-max); margin-inline: auto; flex-direction: column; gap: var(--space-stack-sm); }
 .kit-page-intro > .kit-toolbar { margin-top: var(--space-stack-sm); }
+/* Toolbar, у якому лишилася тільки прихована дія (кнопка «Фільтри» на
+   десктопі, sheet.js ставить їй hidden), не займає місця. */
+.kit-page-intro > .kit-toolbar:not(:has(> :not([hidden]))) { display: none; }
+
+/* [desktop-shell] Рядок заголовка: H1 і вторинна мета на одній базовій лінії
+   («Стрічка оголошень · 128 оголошень у Києві», «Заявки і чати · 4 заявки й
+   чати»). Мета — kit-hint / kit-meta; якщо не влазить поруч (телефон),
+   переноситься під H1. Лічильник стрічки оновлює sheet.js за id. */
+.kit-page-intro__heading { display: flex; min-width: 0; flex-wrap: wrap; align-items: baseline; gap: var(--space-stack-xs) var(--space-stack-md); }
+.kit-page-intro__heading > :not(h1, h2) { margin: 0; }
+/* Рядок керування під заголовком: перемикач і пояснення до нього. Перемикач
+   не ширший за --size-segmented-max, пояснення стає поруч, коли є місце,
+   і переноситься під перемикач на телефоні. */
+.kit-page-intro__controls { display: flex; min-width: 0; flex-wrap: wrap; align-items: center; gap: var(--space-stack-sm) var(--space-stack-lg); }
+.kit-page-intro__controls > .kit-segmented { flex: 1 1 var(--size-segmented-max); }
+.kit-page-intro__controls > .kit-hint { flex: 1 1 var(--primitive-length-280); }
 
 /* ───────── Адаптив шапки списку: container query, не @media ─────────
    Шапка стрічки (вступ з toolbar) — сама собі контейнер: вона стоїть над
@@ -36,4 +52,89 @@ section.kit-section { display: flex; flex-direction: column; gap: var(--space-st
 .kit-actions--split > .kit-button { width: var(--primitive-width-full); }
 @media (max-width: 340px) {
   .kit-actions--split { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ───────── Деталь: зміст + зведення (kit-detail) ─────────
+   Каркас сторінки деталі оголошення (патерн listing-detail,
+   patterns/listing-detail.md). Розмітка:
+   <div class="kit-detail">
+     <div class="kit-detail__layout">
+       <ul class="kit-gallery kit-detail__media">…</ul>
+       <div class="kit-detail__aside">
+         <div class="kit-card kit-card--head">…назва, ціна, перевірка…</div>
+         <section class="kit-section kit-detail__apply" aria-label="Заявка">…</section>
+       </div>
+       <div class="kit-detail__main">…kit-card--section…</div>
+     </div>
+   </div>
+   Порядок у DOM — «головне спершу»: фото → зведення й заявка → подробиці
+   (так читає скрінрідер на всіх ширинах і так стоїть десктоп).
+   Телефон і планшет (< 60rem власної ширини): одна колонка, обгортка
+   зведення розчиняється (display: contents), блок заявки візуально йде
+   останнім — після опису, як підсумок прочитаного. Фокусованих елементів
+   між зведенням і заявкою немає, тож порядок Tab не розходиться з видимим.
+   Від 60rem власної ширини (= --size-detail-aside 360 + 24 + 576 змісту):
+   дві колонки — фото й подробиці ліворуч, зведення з CTA праворуч, sticky.
+   Пороги — container query на самому kit-detail, не на вікні й не на
+   оболонці: у колонці split-view (split-view.css) деталь вужча за поріг і
+   лишається однією колонкою. Анімацій немає. */
+.kit-detail { min-width: 0; container: kit-detail / inline-size; }
+.kit-detail__layout { display: flex; min-width: 0; flex-direction: column; gap: var(--space-section-gap); }
+.kit-detail__aside { display: contents; }
+.kit-detail__main { display: flex; min-width: 0; flex-direction: column; gap: var(--space-section-gap); }
+.kit-detail__apply { order: 1; }
+
+/* Від 40rem оболонки (= --bp-tablet) сторінка деталі ширшає до
+   --size-detail-max (= --size-page-max) замість однаколонкових 608
+   (shell.css): на планшеті одна колонка на всю ширину рамки. На десктопі
+   тіло всіх екранів і так на всю ширину контейнера сторінки (shell.css).
+   Специфічність дорівнює правилу shell.css, layout.css підключено пізніше. */
+@container kit-shell-frame (min-width: 40rem) { /* = --bp-tablet */
+  .kit-shell__body:has(> .kit-detail) { max-width: calc(var(--size-detail-max) + (2 * var(--space-screen-gutter))); }
+}
+
+/* У колонці split-view деталь завжди одна колонка: власний контейнер
+   вимкнено, тож умова нижче там не спрацьовує. */
+.kit-split__content > .kit-detail { container-type: normal; }
+
+@container kit-detail (min-width: 60rem) { /* = --size-detail-aside + --space-detail-column-gap + 576 */
+  .kit-detail__layout { display: grid; grid-template-columns: minmax(0, 1fr) var(--size-detail-aside); grid-template-areas: "media aside" "main aside"; align-items: start; column-gap: var(--space-detail-column-gap); row-gap: var(--space-section-gap); }
+  .kit-detail__media { grid-area: media; }
+  .kit-detail__main { grid-area: main; }
+  /* Зведення липне до верху області прокрутки, поки читаються подробиці. */
+  .kit-detail__aside { position: sticky; top: var(--space-screen-gutter); display: flex; min-width: 0; grid-area: aside; flex-direction: column; gap: var(--space-section-gap); }
+  .kit-detail__apply { order: 0; }
+}
+
+/* ───────── Основна колонка + бічна (kit-columns) ─────────
+   [desktop-shell] Каркас вкладених і кореневих екранів, вузьких за природою
+   (анкета, заявка, чати): на десктопі вони не розтягуються на всю ширину
+   контейнера сторінки, а заповнюють її композицією — основна колонка (форма,
+   список) і бічна --size-page-aside з контекстом (кімната, кроки, що далі).
+   Геометрія та сама, що в kit-detail (колонка 1fr + 360, проміжок
+   --space-detail-column-gap), тож краї й ритм збігаються з карткою
+   оголошення. Патерн — patterns/context-aside.md. Розмітка:
+   <div class="kit-columns">
+     <aside class="kit-columns__aside" aria-label="…">…</aside>   (порядок у DOM —
+     <div class="kit-columns__main">…</div>                       як на телефоні)
+   </div>
+   Телефон і планшет: одна колонка в порядку DOM, проміжок --space-section-gap.
+   kit-columns__aside--wide — додатковий контекст, якого на вузькій ширині
+   немає (там його вже передають вступ і прогрес основної колонки): лише в
+   дві колонки. Від 64rem оболонки (= --bp-desktop): дві колонки, бічна
+   праворуч і sticky до верху області прокрутки. Анімацій немає. */
+.kit-columns, .kit-columns__main, .kit-columns__aside { display: flex; min-width: 0; flex-direction: column; gap: var(--space-section-gap); }
+.kit-columns__aside--wide { display: none; }
+
+@container kit-shell-frame (min-width: 64rem) { /* = --bp-desktop */
+  .kit-columns { display: grid; grid-template-columns: minmax(0, 1fr) var(--size-page-aside); grid-template-areas: "main aside"; align-items: start; column-gap: var(--space-detail-column-gap); row-gap: var(--space-section-gap); }
+  .kit-columns__main { grid-area: main; }
+  .kit-columns__aside { position: sticky; top: var(--space-screen-gutter); grid-area: aside; }
+  .kit-columns__aside--wide { display: flex; }
+  /* Дії форми в основній колонці — за вмістом, від лівого краю форми, а не
+     смугою на всю колонку (на телефоні — на всю ширину, ціль дотику). */
+  .kit-columns__main .kit-actions { flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .kit-columns__main .kit-actions > .kit-button--block, .kit-columns__main .kit-actions--split > .kit-button { width: auto; }
+  .kit-columns__main .kit-actions--split { display: flex; }
+  .kit-columns__main .kit-draft-status { text-align: left; }
 }

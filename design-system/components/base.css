@@ -19,6 +19,34 @@ button, input, select, textarea { color: var(--color-text-primary); font: var(--
 
 /* Анімацій у продукті немає: стани змінюються миттєво, скрол — без згладжування. */
 
+/* ───────── Прокрутка ─────────
+   Легкий повзунок замість системного — лише там, де смуга займає місце:
+   не-сенсорний вказівник (миша/тачпад; not coarse — headless має pointer: none)
+   і ширина від --bp-tablet. На телефоні й
+   вузькому вікні лишається нативна overlay-смуга: вона не забирає ширину
+   контенту (кастомний ::-webkit-scrollbar вимкнув би overlay і звузив екран).
+   Вигляд: без стрілок і доріжки, прозорий track, напівпрозорий нейтральний
+   thumb ~6px (10px смуга мінус 2px прозорої рамки з кожного боку), округлий.
+   Скрол лишається видимим і доступним; компонент чи курсова рамка, що свідомо
+   ховає смугу (scrollbar-width: none), перебиває це правило класом.
+   Chromium/Safari: ::-webkit-scrollbar. Стандартні scrollbar-width/-color
+   лише там, де webkit-псевдоелементів немає (Firefox): у Chromium 121+ вони
+   вимикають ::-webkit-scrollbar і повертають стрілки. */
+@media (not (pointer: coarse)) and (min-width: 40rem) { /* = --bp-tablet */
+  ::-webkit-scrollbar { width: var(--primitive-length-10); height: var(--primitive-length-10); background: var(--color-transparent); }
+  ::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: var(--color-transparent); }
+  ::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+  ::-webkit-scrollbar-thumb {
+    border: var(--primitive-length-2) solid var(--color-transparent); border-radius: var(--radius-pill);
+    background: var(--color-scrollbar-thumb); background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover, [data-demo-state="hover"]::-webkit-scrollbar-thumb { background-color: var(--color-scrollbar-thumb-hover); }
+  @supports not selector(::-webkit-scrollbar) {
+    * { scrollbar-width: thin; scrollbar-color: var(--color-scrollbar-thumb) var(--color-transparent); }
+    [data-demo-state="hover"] { scrollbar-color: var(--color-scrollbar-thumb-hover) var(--color-transparent); }
+  }
+}
+
 /* Спільна маска іконок Solar: кожен селектор нижче лише задає --kit-icon і розмір/колір */
 .kit-back::before, .kit-tab::before, .kit-note::before, .kit-chip::before,
 .kit-state__icon::after, .kit-meta--place::before, .kit-button--icon-filter::before,
