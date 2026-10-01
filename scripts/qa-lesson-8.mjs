@@ -21,7 +21,12 @@ const failures = [];
 const fail = (gate, detail) => failures.push({ gate, detail });
 
 const prototypes = (await readdir(resolve(repo, "beginners/source/prototype"))).filter((x) => x.endsWith(".html")).sort();
-if (prototypes.length !== 4) fail("coverage", `active early prototypes ${prototypes.length}/4`);
+// 4 екрани lesson-6 + варіанти екрана «Картка оголошення» для інших оголошень стрічки
+// (listing-<район>.html, рішення користувача 2026-09-24: деталь для всіх 5 карток).
+const listingVariants = prototypes.filter((x) => /^listing-[\w-]+\.html$/.test(x));
+const prototypeScreens = prototypes.filter((x) => !listingVariants.includes(x));
+if (prototypeScreens.length !== 4) fail("coverage", `active prototype screens ${prototypeScreens.length}/4`);
+if (listingVariants.length !== 4) fail("coverage", `listing detail variants ${listingVariants.length}/4`);
 
 const expectedLinks = ["/kootok/design-system/index.css"];
 for (const [kind, dir, names] of [["prototype", "beginners/source/prototype", prototypes]]) {
@@ -97,19 +102,33 @@ if (screenKitRules.length) fail("screen-layer-kit-rules", screenKitRules);
 // Primitive у components/ лише за винятком AGENTS.md («Внесок у систему»): геометрія
 // (length/width/height), іконки й font-weight. Типографічні властивості, z-index і measure
 // читають лише semantic-ролі (--type-*, --z-*, --measure-*); literal z-index і ch заборонені.
-const allowedPrimitive = /^--primitive-(?:length|width|height|icon|font-weight)-/;
+// Primitive адаптиву (--bp-*, --grid-*, --container-*, --col-count-*) мають імена без префікса
+// --primitive-, але гейт перевіряє їх за тими самими правилами: геометрія (--container-max,
+// --col-count-*, --bp-*) дозволена, spacing (--grid-gap) — лише через semantic --space-grid-gap.
+const primitiveRef = /var\((--(?:primitive|bp|grid|container|col-count)-[\w-]+)/g;
+const allowedPrimitive = /^--(?:primitive-(?:length|width|height|icon|font-weight)-|container-max$|col-count-|bp-)/;
 const primitiveHits = [];
 for (const [index, css] of componentCss.entries()) {
   const file = imports[index];
   const clean = css.replace(/\/\*[\s\S]*?\*\//g, "");
-  for (const [, name] of clean.matchAll(/var\((--primitive-[\w-]+)/g)) if (!allowedPrimitive.test(name)) primitiveHits.push(`${file}: ${name}`);
+  for (const [, name] of clean.matchAll(primitiveRef)) if (!allowedPrimitive.test(name)) primitiveHits.push(`${file}: ${name}`);
   for (const [, prop, value] of clean.matchAll(/(?:^|[;{\s])(font|font-size|line-height|letter-spacing|text-underline-offset|z-index|max-width)\s*:\s*([^;}]+)/g)) {
-    if (["font", "font-size", "line-height", "letter-spacing", "text-underline-offset", "z-index"].includes(prop) && /var\(--primitive-/.test(value)) primitiveHits.push(`${file}: ${prop}: ${value.trim()}`);
+    if (["font", "font-size", "line-height", "letter-spacing", "text-underline-offset", "z-index"].includes(prop) && /var\(--(?:primitive|bp|grid|container|col-count)-/.test(value)) primitiveHits.push(`${file}: ${prop}: ${value.trim()}`);
     if (prop === "z-index" && !/^var\(--z-[\w-]+\)$/.test(value.trim())) primitiveHits.push(`${file}: literal z-index ${value.trim()}`);
   }
   for (const [hit] of clean.matchAll(/\b\d+(?:\.\d+)?ch\b/g)) primitiveHits.push(`${file}: literal measure ${hit}`);
 }
 if (primitiveHits.length) fail("primitive-in-components", [...new Set(primitiveHits)]);
+// @container/@media не читають custom properties: поріг — literal із коментарем «= --bp-*».
+// Literal мусить дорівнювати значенню токена, на який посилається коментар.
+const bpValues = Object.fromEntries([...tokensCss.matchAll(/(--bp-[\w-]+)\s*:\s*([^;]+);/g)].map((x) => [x[1], x[2].trim()]));
+const bpDrift = [];
+for (const [index, css] of componentCss.entries()) {
+  for (const [, value, token] of css.matchAll(/@(?:container|media)[^{]*\(min-width:\s*([\d.]+rem)\)\s*\{\s*\/\*\s*=\s*(--bp-[\w-]+)/g)) {
+    if (bpValues[token] !== value) bpDrift.push(`${imports[index]}: ${value} ≠ ${token} (${bpValues[token] ?? "немає"})`);
+  }
+}
+if (bpDrift.length) fail("breakpoint-literal", bpDrift);
 for (const [, name, url] of iconDecls) {
   if (!url.startsWith("/kootok/tokens/icons/") || url.includes("data:")) fail("icons", `${name}: ${url}`);
   const response = await fetch(new URL(url, origin));
@@ -232,5 +251,5 @@ for (const route of routes.filter(route=>pixelRoutes.has(route.path))) {
 }
 
 await send("Target.closeTarget", { targetId }); cdp.ws.close();
-console.log(JSON.stringify({ coverage: { prototypes: prototypes.length }, architecture: { imports: imports.length, variablesReferenced: refs.size, unresolved: unresolved.length, legacyRefs: legacyHits.length }, tokenDocs, density, icons: { declarations: iconDecls.length, svgFiles: iconFiles.length, computedMasks: iconMasks.length }, markup: { pages: markupPages.length, declaredKitClasses: declaredKit.size }, surfaces: surfacePages.length, browser: { viewports: sizes.map((x) => x.width), checks: browserChecks, routeVisualParity: parity, representativePixelParity: pixelParity }, contrast, failures }, null, 2));
+console.log(JSON.stringify({ coverage: { prototypes: prototypes.length, screens: prototypeScreens.length, listingVariants: listingVariants.length }, architecture: { imports: imports.length, variablesReferenced: refs.size, unresolved: unresolved.length, legacyRefs: legacyHits.length }, tokenDocs, density, icons: { declarations: iconDecls.length, svgFiles: iconFiles.length, computedMasks: iconMasks.length }, markup: { pages: markupPages.length, declaredKitClasses: declaredKit.size }, surfaces: surfacePages.length, browser: { viewports: sizes.map((x) => x.width), checks: browserChecks, routeVisualParity: parity, representativePixelParity: pixelParity }, contrast, failures }, null, 2));
 if (failures.length) process.exitCode = 1;

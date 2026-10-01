@@ -9,6 +9,9 @@ const origin = process.argv[2].replace(/\/+$/, "");
 // Активний прототип — 5 екранів у курсовій рамці: 4 макети lesson-6/ + «Чати» (design-system/examples/chats.html).
 const pages = ["listings.html", "listing.html", "compatibility-form.html", "application.html", "chats.html"];
 const pagePath = (page) => page === "chats.html" ? "/kootok/design-system/examples/chats.html" : `/kootok/lesson-6/${page}`;
+// Стрічка веде на 4 сторінки деталі варіанта «Картка оголошення» — це дозволені
+// маршрути прототипу, але не окремі екрани, що обходяться курсовою панеллю.
+const allowedProductRoutes = [...pages, "listing-solomianskyi.html", "listing-podilskyi.html", "listing-obolonskyi.html", "listing-darnytskyi.html"];
 // Курсова панель «Активний прототип · 5 екранів» — назви екранів з IA (sitemap.md).
 const familyLabels = ["Стрічка кімнат", "Картка оголошення", "Анкета сумісності", "Заявка", "Чати"];
 const dockScreens = { "listings.html": "listings.html", "chats.html": "/kootok/design-system/examples/chats.html" };
@@ -105,7 +108,7 @@ const failures = results.filter((item) => {
     (item.width <= 430 ? item.border !== "0px" : item.border !== "1px") ||
     JSON.stringify(item.familyLabels) !== JSON.stringify(familyLabels) || JSON.stringify(item.tabLabels) !== JSON.stringify(expectedTabs) ||
     item.currentTab !== expectedCurrentTab || item.currentTabLabel !== expectedCurrentLabel ||
-    item.familyCurrent !== expectedFamily || item.stateLinks !== 0 || item.fadedContent !== 0 || item.productRoutes.some(route => !pages.includes(route));
+    item.familyCurrent !== expectedFamily || item.stateLinks !== 0 || item.fadedContent !== 0 || item.productRoutes.some(route => !allowedProductRoutes.includes(route));
 });
 console.log(JSON.stringify({ checks: results.length, failures, results }, null, 2));
 await send("Target.closeTarget", { targetId });

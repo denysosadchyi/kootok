@@ -1,5 +1,28 @@
 /* ───────── Списки й картки стрічки ───────── */
-ul.kit-list { display: flex; margin: 0; padding: 0; flex-direction: column; gap: var(--space-section-gap); list-style: none; }
+/* ───────── Адаптив стрічки: container query, не @media ─────────
+   Стрічка реагує на ширину, яку реально отримує, а не на вікно: екран у
+   курсовій рамці 390 на вікні 1440 лишається однією колонкою, а поруч із
+   майбутньою панеллю фільтрів 360 (контейнер ~616–895px) спрацьовує лише
+   планшетне правило — 2 колонки без окремої точки.
+   ul.kit-list не може бути контейнером для самого себе, тому контейнер —
+   секція, що її безпосередньо обгортає (HTML екранів не змінюється).
+   Custom properties в умовах @container не працюють: поріг — literal із
+   посиланням на токен (DESIGN.md, «Адаптив: дві точки»). */
+.kit-section:has(> ul.kit-list) { container: kit-list / inline-size; }
+/* Телефон (контейнер < 40rem): одна колонка, 16px між картками — як було.
+   Ширина стрічки обмежена --container-max і центрована. */
+ul.kit-list { display: flex; width: var(--primitive-width-full); max-width: var(--container-max); margin: 0 auto; padding: 0; flex-direction: column; gap: var(--space-section-gap); list-style: none; }
+
+/* Картка тягнеться на висоту рядка сітки; в одній колонці висота = вміст, геометрія та сама. */
+ul.kit-list > li { display: grid; min-width: 0; }
+
+@container kit-list (min-width: 40rem) { /* = --bp-tablet: сітка на --col-count-tablet */
+  ul.kit-list { display: grid; grid-template-columns: repeat(var(--col-count-tablet), minmax(0, 1fr)); gap: var(--space-grid-gap); }
+}
+@container kit-list (min-width: 64rem) { /* = --bp-desktop: сітка на --col-count-desktop */
+  ul.kit-list { grid-template-columns: repeat(var(--col-count-desktop), minmax(0, 1fr)); }
+}
+
 .kit-listing { position: relative; display: flex; min-width: 0; flex-direction: column; overflow: hidden; border-radius: var(--radius-hero) var(--radius-hero) var(--radius-card) var(--radius-card); background: var(--color-card-subdued-background); box-shadow: var(--elevation-card); }
 .kit-listing__media { position: relative; width: var(--primitive-width-full); aspect-ratio: var(--ratio-listing-media); overflow: hidden; background: var(--color-info-background); }
 .kit-listing__media::after { content: ""; position: absolute; inset: 0; background: var(--color-photo-scrim); }
@@ -7,8 +30,17 @@ ul.kit-list { display: flex; margin: 0; padding: 0; flex-direction: column; gap:
 .kit-listing[data-demo-state="hover"] .kit-listing__media::after { background: var(--color-media-hover-overlay); }
 .kit-listing[data-demo-state="active"] { background: var(--color-interactive-surface-active); }
 .kit-listing[data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
-/* Картка без посилання (деталь не входить у прототип) — статична, не вимкнена:
-   виглядає як звичайна, лише без hover. */
+/* Вибрано: картка, чия деталь відкрита праворуч у split-view (split-view.css).
+   Позначка — aria-current="true" на посиланні заголовка (ставить split-view.js);
+   вигляд — current-стан, як активний пункт навігації: лаймова поверхня й
+   current-текст (у темній темі — ті самі ролі). Супровідний текст картки теж
+   бере --color-current-text: secondary-сірий на лаймі не тримає AA. */
+.kit-listing:has(a[aria-current="true"]) { background: var(--color-current-background); color: var(--color-current-text); }
+.kit-listing:has(a[aria-current="true"]) .kit-listing__body :is(.kit-meta, .kit-facts, .kit-household__copy strong, .kit-household__copy span, .kit-hint) { color: var(--color-current-text); }
+.kit-listing:has(a[aria-current="true"]) .kit-facts--inline > div::after { color: var(--color-current-text); }
+.kit-listing:has(a[aria-current="true"]) .kit-household__avatars .kit-avatar { border-color: var(--color-current-background); }
+/* Картка без посилання — статична, не вимкнена: виглядає як звичайна, лише
+   без hover (docs; у стрічці прототипу всі 5 карток мають деталь). */
 .kit-listing__photo { display: block; width: var(--primitive-width-full); height: var(--primitive-width-full); object-fit: cover; }
 .kit-listing__media > .kit-price { position: absolute; left: var(--space-screen-gutter); bottom: var(--primitive-length-12); z-index: var(--z-overlay); margin: 0; padding: var(--primitive-length-6) var(--primitive-length-12); border-radius: var(--radius-control); background: var(--color-glass-background); color: var(--color-current-text); font: var(--type-card-title); -webkit-backdrop-filter: blur(var(--primitive-length-10)); backdrop-filter: blur(var(--primitive-length-10)); }
 .kit-listing__body { display: flex; min-width: 0; flex-direction: column; gap: var(--space-stack-sm); padding: var(--space-stack-lg) var(--space-card-inline) var(--primitive-length-14); }

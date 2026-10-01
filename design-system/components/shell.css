@@ -1,5 +1,8 @@
 /* ───────── Оболонка ───────── */
-.kit-shell { position: relative; width: min(var(--primitive-width-full), var(--primitive-length-390)); min-height: var(--primitive-length-700); margin: auto; overflow: hidden; background: var(--color-page-background); color: var(--color-text-primary); font: var(--type-body); }
+/* overflow: clip, не hidden: clip обрізає так само, але не робить оболонку
+   прокручуваним контейнером, тож sticky-панель фільтрів і колонки split-view
+   (sheet.css, split-view.css) липнуть до справжньої області прокрутки. */
+.kit-shell { position: relative; width: min(var(--primitive-width-full), var(--primitive-length-390)); min-height: var(--primitive-length-700); margin: auto; overflow: clip; background: var(--color-page-background); color: var(--color-text-primary); font: var(--type-body); }
 
 /* Бренд: зелена плитка 30px + знак «Куток» (tokens/icons/brand.svg, 22px у плитці) + wordmark текстом у Jost. */
 .kit-shell__brand { display: flex; min-height: var(--primitive-length-56); align-items: center; justify-content: space-between; padding: var(--primitive-length-8) var(--space-screen-gutter) 0; color: var(--color-action); }
@@ -41,3 +44,47 @@
 .kit-tab[aria-disabled="true"] { opacity: var(--opacity-disabled); cursor: default; }
 
 .kit-footer { margin: 0; padding: 0; color: var(--color-text-secondary); font: var(--type-footer); text-align: center; }
+
+/* ───────── Адаптив оболонки: планшет і десктоп ─────────
+   Механізм — container query, не @media: рішення залежить від реальної
+   ширини, яку отримує оболонка, а не від вікна. Екран у курсовій рамці
+   (prototype-device__content, docs-device) реагує на ширину рамки: 390 на
+   вікні 1440 лишається мобільним, а рамка 768 / 1280 дає планшет / десктоп.
+   Оболонка не може бути контейнером сама для себе, тож контейнером стає її
+   безпосередній батько (body вітрини, вміст рамки). Dock, який курсова рамка
+   виносить із оболонки поруч із вмістом (prototype-device__screen), отримує
+   контейнером свого батька — так dock рахує ту саму ширину, що й оболонка.
+   Custom properties в умовах @container не працюють — пороги literal.
+
+   Мобільний (< 40rem): колонка 390, dock знизу.
+   Планшет (від 40rem = --bp-tablet): оболонка заповнює контейнер (до
+   --container-max), dock знизу, як на телефоні, але шириною оболонки мінус
+   поля, а не жорсткі 390.
+   Десктоп (від 64rem = --bp-desktop): tabbar оболонки переїжджає вгору — у
+   рядок шапки поруч із брендом: static, горизонтальний, без clearance.
+   DOM той самий: пункти, порядок, href, aria-current і aria-disabled не
+   змінюються, стани (current, hover, active, focus-visible, disabled) беруть
+   ті самі semantic-токени, що вище. Вкладені екрани (appbar без tabbar)
+   навігації в шапці не отримують — лише ширшають. */
+:where(:has(> .kit-shell), :not(.kit-shell):has(> .kit-tabbar--dock)) { container: kit-shell-frame / inline-size; }
+
+@container kit-shell-frame (min-width: 40rem) { /* = --bp-tablet */
+  .kit-shell { width: min(var(--primitive-width-full), var(--container-max)); }
+  /* Однаколонкові екрани (усе, крім стрічки з сіткою kit-list): тіло не ширше
+     за --size-single-column (+ поля) і по центру — картка оголошення, анкета,
+     заявка, чати. Шапка, app bar і таб-бар лишаються на всю ширину оболонки. */
+  .kit-shell__body:not(:has(.kit-list)) { width: var(--primitive-width-full); max-width: calc(var(--size-single-column) + (2 * var(--space-screen-gutter))); margin-inline: auto; }
+  /* 100cqi — ширина контейнера оболонки (для fixed dock % рахувався б від вікна). */
+  .kit-tabbar--dock { width: calc(min(100cqi, var(--container-max)) - (2 * var(--space-screen-gutter))); }
+}
+
+@container kit-shell-frame (min-width: 64rem) { /* = --bp-desktop */
+  .kit-shell:has(> .kit-tabbar) { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 1fr; align-content: start; }
+  .kit-shell:has(> .kit-tabbar) > * { grid-column: 1 / -1; }
+  .kit-shell:has(> .kit-tabbar) > .kit-shell__brand { grid-column: 1; grid-row: 1; }
+  /* Таб-бар у шапці: не fixed, горизонтальний, іконка + підпис в один рядок. */
+  .kit-shell > .kit-tabbar { position: static; grid-column: 2; grid-row: 1; align-self: end; width: auto; height: auto; margin: 0 var(--space-screen-gutter) 0 0; grid-template-columns: repeat(3, auto); transform: none; }
+  .kit-shell > .kit-tabbar > .kit-tab { min-height: var(--size-tap); flex-direction: row; gap: var(--space-stack-sm); padding-inline: var(--space-control-inline); white-space: nowrap; overflow-wrap: normal; }
+  /* Dock більше не перекриває вміст — clearance під нього не потрібен. */
+  .kit-shell--with-dock > .kit-shell__body { padding-bottom: var(--space-scroll-end); }
+}

@@ -197,3 +197,42 @@
 .docs-brand-mark--24 { width: 24px; height: 24px; }
 .docs-brand-mark--30 { width: 30px; height: 30px; }
 .docs-code { max-width: 100%; margin: var(--space-stack-md) 0; padding: var(--space-stack-md); overflow-x: auto; border-radius: var(--radius-control); background: var(--color-surface-sunken); color: var(--color-text-primary); font-size: 12px; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; }
+/* Десктоп-стан оболонки: рамка шириною 64rem (= --bp-desktop), щоб спрацював
+   container query оболонки; на вужчому вікні рамка прокручується вбік, а не
+   розширює сторінку (contain: inline-size — рамка не роздуває grid-предків). */
+.docs-wide { max-width: 100%; overflow-x: auto; contain: inline-size; }
+/* Мобільні фрагменти оболонки лишаються 390: рамка — контейнер оболонки,
+   і ширша рамка перемкнула б її в планшетний стан. */
+.docs-shell-frame { max-width: 390px; }
+.docs-shell-frame--desktop { width: 64rem; max-width: none; }
+/* Адаптив компонентів на трьох ширинах (listing.html, layout.html): три рамки
+   фіксованої ширини поруч у горизонтально прокручуваній обгортці, без iframe.
+   Container query компонента міряє саму рамку (мінус 16px відступу, як у
+   kit-shell__body), тож 390 / 720 / 1100 дають контейнер 358 / 688 / 1068 px —
+   до 40rem, від 40rem (--bp-tablet), від 64rem (--bp-desktop).
+   contain: inline-size — ширина рамок не роздуває grid-предків сторінки. */
+.docs-widths { display: flex; max-width: 100%; align-items: flex-start; gap: var(--space-section-gap); padding-bottom: var(--space-stack-md); overflow-x: auto; contain: inline-size; }
+.docs-widths:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+.docs-width { display: grid; flex: none; gap: var(--space-stack-sm); margin: 0; }
+.docs-width--phone { width: 390px; }
+.docs-width--tablet { width: 720px; }
+.docs-width--desktop { width: 1100px; }
+.docs-width__label { max-width: 42ch; color: var(--color-text-secondary); font: var(--type-meta); }
+.docs-width__label strong { display: block; color: var(--color-text-primary); font: var(--type-field-label); }
+.docs-width__frame { padding: var(--space-screen-gutter); border-radius: var(--radius-card); background: var(--color-page-background); outline: 1px solid var(--color-divider); }
+.docs-width__frame--stack { display: flex; flex-direction: column; gap: var(--space-section-gap); }
+/* Варіанти карток — мобільний зразок 390 зліва, як до адаптиву: kit-list тепер
+   центрується в межах --container-max. */
+.kit-list.docs-specimen--product { max-width: 390px; margin-inline: 0; }
+/* Рамки «екран цілком» (sheet.html, split-view.html): оболонка kit-shell —
+   безпосередня дитина рамки, тож рамка стає контейнером kit-shell-frame
+   (shell.css) і вмикає телефон / планшет / десктоп сама. transform робить
+   рамку containing block для fixed-шторки; висота фіксована, зайве обрізано.
+   Десктоп — 1280, як рамка «Десктоп» курсового прототипу. */
+.docs-width--frame-1280 { width: 1280px; }
+.docs-width__frame--device { position: relative; height: 640px; padding: 0; overflow: hidden; transform: translateZ(0); }
+.docs-width__frame--tall { height: 880px; }
+.docs-width__frame--device > .kit-shell { min-height: 100%; }
+/* Рамка з оболонкою без фіксованої висоти (gallery.html): kit-shell — дитина
+   рамки, тож рамка стає контейнером kit-shell-frame; min-height оболонки тут зайвий. */
+.docs-width__frame--shell > .kit-shell { min-height: 0; }

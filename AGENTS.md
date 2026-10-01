@@ -88,7 +88,9 @@ component change → `design-system/components/` і відповідна сто�
   responsive layout, доступність, відсутність legacy-посилань). Сервер — з
   батьківської теки (`cd /home/hp/from-den && python3 -m http.server <port>`),
   origin передається аргументом без `/kootok`, CDP-порт — `KOOTOOK_CDP_PORT`;
-  докладніше — README «Як запускати QA». Не додавати в
+  докладніше — README «Як запускати QA». **Playwright заборонений** для
+  будь-яких перевірок (npm-пакет, `npx playwright`, MCP): браузерні
+  перевірки — лише сирий CDP до headless Chromium і `scripts/*.mjs`. Не додавати в
   продукт runtime CDN-шрифти чи data URI для іконок — шрифти self-hosted в
   `assets/fonts/`, іконки в `tokens/icons/`.
 - Анімацій у продукті й курсових сторінках немає: жодних transition,

@@ -119,6 +119,7 @@
   if (main && !main.id) main.id = "course-main";
   var skipTarget = main ? main.id : "course-main";
 
+  var dockHome = null;
   if (isPrototype && !document.querySelector(".prototype-device")) {
     var device = document.createElement("div");
     var deviceScreen = document.createElement("div");
@@ -131,14 +132,36 @@
     deviceScreen.appendChild(deviceContent);
     var productDock = deviceContent.querySelector(".kit-tabbar--dock");
     if (productDock) {
+      /* Місце dock в оболонці: у режимі «Десктоп» (1280 ≥ 64rem) він повертається
+         в .kit-shell, щоб shell.css поставив таб-бар у рядок шапки. */
+      dockHome = document.createComment(" kit-tabbar--dock ");
+      productDock.parentNode.insertBefore(dockHome, productDock);
       deviceScreen.classList.add("prototype-device__screen--with-dock");
       deviceContent.classList.add("prototype-device__content--with-dock");
       deviceScreen.appendChild(productDock);
     }
     deviceContent.scrollLeft = 0;
     device.appendChild(deviceScreen);
-    document.body.appendChild(device);
+    /* Сцена тримає масштабовані розміри рамки: transform: scale() не змінює
+       layout-ширину екрана, тож container queries продукту бачать справжні 768/1280. */
+    var deviceStage = document.createElement("div");
+    deviceStage.className = "prototype-stage";
+    deviceStage.appendChild(device);
+    document.body.appendChild(deviceStage);
   }
+
+  /* Курсовий перемикач пристроїв: лише змінює ширину рамки; екрани реагують самі. */
+  var deviceKey = "kootok-prototype-device";
+  var deviceModes = [
+    { id: "phone", label: "Телефон", width: 390, maxHeight: 844 },
+    { id: "tablet", label: "Планшет", width: 768, maxHeight: 1024 },
+    { id: "desktop", label: "Десктоп", width: 1280, maxHeight: Infinity }
+  ];
+  function deviceMode(id) {
+    return deviceModes.filter(function (mode) { return mode.id === id; })[0] || deviceModes[0];
+  }
+  var currentDevice = deviceMode(safeGet(deviceKey)).id;
+  if (isPrototype) document.documentElement.dataset.prototypeDevice = currentDevice;
 
   function setupLessonWorkspace() {
     var device = document.querySelector(".prototype-device");
@@ -153,17 +176,113 @@
     var panel = document.createElement("aside");
     panel.className = "lesson-family-panel";
     panel.setAttribute("aria-labelledby", "lesson-family-title");
+    /* Сторінки деталі інших оголошень (listing-<район>.html) — варіанти екрана
+       «Картка оголошення», не окремі екрани: підсвічуємо той самий пункт. */
+    var familyPath = routePath.replace(/\/lesson-6\/listing-[\w-]+\.html$/, "/lesson-6/listing.html");
     panel.innerHTML = "<p class=\"course-family__title\" id=\"lesson-family-title\">Активний прототип · 5 екранів</p><nav aria-labelledby=\"lesson-family-title\">" + families.map(function (family) {
-      var current = family[1] === routePath;
+      var current = family[1] === familyPath;
       return "<a href=\"" + family[1] + "\"" + (current ? " aria-current=\"page\"" : "") + ">" + family[0] + "</a>";
     }).join("") + "</nav>";
-    if (device) {
-      var workspace = document.createElement("div");
-      workspace.className = "lesson-workspace";
-      device.parentNode.insertBefore(workspace, device);
-      workspace.appendChild(device);
-      workspace.parentNode.insertBefore(panel, workspace);
+    var stage = device.closest(".prototype-stage") || device;
+    var workspace = document.createElement("div");
+    workspace.className = "lesson-workspace";
+    stage.parentNode.insertBefore(workspace, stage);
+    workspace.appendChild(stage);
+    workspace.parentNode.insertBefore(panel, workspace);
+    setupDeviceSwitcher(workspace, stage, device);
+  }
+
+  function setupDeviceSwitcher(workspace, stage, device) {
+    var screen = device.querySelector(".prototype-device__screen");
+    var switcher = document.createElement("div");
+    switcher.className = "prototype-devices";
+    switcher.setAttribute("role", "radiogroup");
+    switcher.setAttribute("aria-label", "Ширина пристрою");
+    switcher.innerHTML = deviceModes.map(function (mode) {
+      return "<button class=\"prototype-devices__option prototype-devices__option--" + mode.id + "\" type=\"button\" role=\"radio\" data-device=\"" + mode.id +
+        "\" aria-label=\"" + mode.label + "\" title=\"" + mode.label + " · " + mode.width + " px\"><span aria-hidden=\"true\"></span></button>";
+    }).join("");
+    workspace.insertBefore(switcher, stage);
+    var options = Array.from(switcher.querySelectorAll("button"));
+    var frameQuery = matchMedia("(min-width: 431px)");
+
+    /* Масштаб: рамка планшета/десктопа має справжню layout-ширину 768/1280.
+       Якщо центральна область вужча або нижча, рамку зменшуємо transform: scale(),
+       а сцена (.prototype-stage) займає вже зменшені розміри — без горизонтального скролу. */
+    function fit() {
+      var mode = deviceMode(currentDevice);
+      var style = document.documentElement.style;
+      if (!frameQuery.matches || mode.id === "phone") {
+        ["--prototype-scale", "--prototype-screen-height", "--prototype-stage-width", "--prototype-stage-height"].forEach(function (name) { style.removeProperty(name); });
+        return;
+      }
+      var cs = getComputedStyle(workspace);
+      var gap = parseFloat(cs.rowGap) || 0;
+      var chrome = device.offsetWidth - screen.offsetWidth; /* рамка: padding + border */
+      var availWidth = workspace.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      var availHeight = window.innerHeight - Math.max(0, workspace.getBoundingClientRect().top + window.scrollY) -
+        parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - switcher.offsetHeight - gap;
+      var naturalWidth = mode.width + chrome;
+      var scale = Math.min(1, Math.max(0.1, availWidth / naturalWidth));
+      var screenHeight = Math.max(200, Math.min(mode.maxHeight, Math.floor(availHeight / scale - chrome)));
+      style.setProperty("--prototype-scale", String(scale));
+      style.setProperty("--prototype-screen-height", screenHeight + "px");
+      style.setProperty("--prototype-stage-width", Math.floor(naturalWidth * scale) + "px");
+      style.setProperty("--prototype-stage-height", Math.floor((screenHeight + chrome) * scale) + "px");
     }
+
+    /* Телефон і планшет: dock поруч із прокручуваним вмістом, вміст закінчується над ним.
+       Десктоп: dock в оболонці (таб-бар у шапці), clearance під dock не потрібен. */
+    function placeDock() {
+      var dock = screen.querySelector(".kit-tabbar--dock") || (dockHome && dockHome.parentNode ? dockHome.parentNode.querySelector(".kit-tabbar--dock") : null);
+      if (!dock || !dockHome || !dockHome.parentNode) return;
+      var content = screen.querySelector(".prototype-device__content");
+      var inShell = frameQuery.matches && currentDevice === "desktop";
+      if (inShell && dock.parentNode === screen) dockHome.parentNode.insertBefore(dock, dockHome.nextSibling);
+      if (!inShell && dock.parentNode !== screen) screen.appendChild(dock);
+      screen.classList.toggle("prototype-device__screen--with-dock", !inShell);
+      content.classList.toggle("prototype-device__content--with-dock", !inShell);
+    }
+
+    function select(id, focus) {
+      currentDevice = deviceMode(id).id;
+      document.documentElement.dataset.prototypeDevice = currentDevice;
+      options.forEach(function (option) {
+        var checked = option.dataset.device === currentDevice;
+        option.setAttribute("aria-checked", String(checked));
+        option.tabIndex = checked ? 0 : -1;
+        if (checked && focus) option.focus();
+      });
+      var mode = deviceMode(currentDevice);
+      screen.setAttribute("data-device-screen", mode.id === "phone" ? "390 × 844" : mode.width + " px");
+      placeDock();
+      fit();
+    }
+
+    switcher.addEventListener("click", function (event) {
+      var option = event.target.closest("button[data-device]");
+      if (!option) return;
+      safeSet(deviceKey, option.dataset.device);
+      select(option.dataset.device, true);
+    });
+    switcher.addEventListener("keydown", function (event) {
+      var index = options.indexOf(document.activeElement);
+      if (index === -1) return;
+      var next = null;
+      if (event.key === "ArrowRight" || event.key === "ArrowDown") next = (index + 1) % options.length;
+      else if (event.key === "ArrowLeft" || event.key === "ArrowUp") next = (index - 1 + options.length) % options.length;
+      else if (event.key === "Home") next = 0;
+      else if (event.key === "End") next = options.length - 1;
+      if (next === null) return;
+      event.preventDefault();
+      safeSet(deviceKey, options[next].dataset.device);
+      select(options[next].dataset.device, true);
+    });
+
+    select(currentDevice, false);
+    if (window.ResizeObserver) new ResizeObserver(fit).observe(workspace);
+    window.addEventListener("resize", fit);
+    frameQuery.addEventListener("change", function () { placeDock(); fit(); });
   }
 
   setupLessonWorkspace();

@@ -49,8 +49,8 @@
   лишаються лише справжні контроли: таб «Профіль», сегмент «Люди», посилання
   «Профіль Марії».
 - **Токени (252 → 218; з двома новими appbar-токенами — 220; після пізніших
-  правок і semantic-ролей `--type-*`/`--measure-*`/`--z-*` зараз 131 primitive +
-  114 semantic = 245, рахує `ui/tokens.html`):** 34 невжиті —
+  правок і semantic-ролей `--type-*`/`--measure-*`/`--z-*` зараз 137 primitive (з 6 токенами адаптиву) +
+  115 semantic = 252 (115-та — `--space-grid-gap` для сітки стрічки), рахує `ui/tokens.html`):** 34 невжиті —
   `--color-action-surface-deep`, `--color-hero-surface`, `--color-on-action-secondary`,
   `--color-avatar-ring`, `--color-avatar-overlay`, `--color-skeleton-background`,
   `--radius-bubble`, `--radius-bubble-tail`, `--radius-composer`, 2 градієнти,

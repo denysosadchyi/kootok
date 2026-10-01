@@ -29,7 +29,8 @@ body::-webkit-scrollbar { display: none; width: 0; height: 0; }
   }
   .prototype-device__screen {
     position: relative;
-    height: min(844px, calc(100dvh - 64px));
+    /* 100dvh − курсова шапка 60 − перемикач пристроїв 52 − рамка й відступи 16. */
+    height: min(844px, calc(100dvh - 128px));
     overflow: hidden;
     border-radius: 25px;
     background: var(--color-page-background);
@@ -47,6 +48,45 @@ body::-webkit-scrollbar { display: none; width: 0; height: 0; }
 
 @media (min-width: 900px) {
   .prototype-device__screen { height: min(844px, calc(100dvh - 76px)); }
+}
+
+/* ── Режими рамки: Телефон (дефолт) / Планшет / Десктоп ──
+   Перемикач і розрахунок масштабу — course-nav.js (data-prototype-device на <html>,
+   custom properties --prototype-*). Layout-ширина екрана завжди справжня
+   (390 / 768 / 1280), щоб container queries кіта спрацьовували; якщо місця
+   бракує, рамка зменшується transform: scale(), а .prototype-stage займає
+   вже зменшені розміри. Без анімацій — режим змінюється миттєво. */
+.prototype-stage { display: contents; }
+@media (min-width: 431px) {
+  html[data-prototype-device="tablet"] .prototype-stage,
+  html[data-prototype-device="desktop"] .prototype-stage {
+    position: relative;
+    display: block;
+    width: var(--prototype-stage-width, auto);
+    height: var(--prototype-stage-height, auto);
+    flex: none;
+  }
+  html[data-prototype-device="tablet"] .prototype-device,
+  html[data-prototype-device="desktop"] .prototype-device {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: auto;
+    margin: 0;
+    transform: scale(var(--prototype-scale, 1));
+    transform-origin: 0 0;
+  }
+  html[data-prototype-device="tablet"] .prototype-device__screen,
+  html[data-prototype-device="desktop"] .prototype-device__screen {
+    height: var(--prototype-screen-height, min(844px, calc(100dvh - 76px)));
+  }
+  html[data-prototype-device="tablet"] .prototype-device__screen { width: 768px; }
+  /* Десктоп — «вікно браузера»: менший радіус, та сама рамка без тіні. */
+  html[data-prototype-device="desktop"] .prototype-device { border-radius: 12px; }
+  html[data-prototype-device="desktop"] .prototype-device__screen { width: 1280px; border-radius: 9px; }
+  /* Десктоп: course-nav.js повертає dock в оболонку (таб-бар у шапці) і знімає
+     --with-dock; про всяк випадок вміст і тут не резервує смугу під dock. */
+  html[data-prototype-device="desktop"] .prototype-device__screen--with-dock > .prototype-device__content { height: 100%; }
 }
 
 /* На ≤430px рамки немає — контент тече природно на всю ширину. */

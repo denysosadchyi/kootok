@@ -26,3 +26,4 @@
 | Патерн | Склад | Де вживається |
 |---|---|---|
 | [`apply-step`](apply-step.md) | `kit-step` + `kit-progress` + `kit-fieldset` + `kit-actions--split` + `kit-draft-status` | 3 кроки анкети сумісності у флоу заявки (`lesson-6/compatibility-form.html`) |
+| [`split-view`](split-view.md) | `kit-split` + `kit-split__list` (`kit-list` / `kit-listing`, стан «вибрано») + `kit-split__detail` + `kit-sheet--panel` поруч | «Стрічка кімнат» на десктопі (`lesson-6/listings.html`, від `--bp-desktop`). **Поріг (3) ще не досягнуто** — 1 екран; винесено за рішенням користувача 2026-09-24; наступний кандидат — «Чати» (список + переписка), коли з'явиться екран VI.2 |

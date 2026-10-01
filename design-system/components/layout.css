@@ -6,8 +6,21 @@
 .kit-toolbar > .kit-button { flex: none; }
 
 /* Page-level title and support copy form one entry point before sections. */
-.kit-page-intro { display: flex; min-width: 0; flex-direction: column; gap: var(--space-stack-sm); }
+.kit-page-intro { display: flex; width: var(--primitive-width-full); min-width: 0; max-width: var(--container-max); margin-inline: auto; flex-direction: column; gap: var(--space-stack-sm); }
 .kit-page-intro > .kit-toolbar { margin-top: var(--space-stack-sm); }
+
+/* ───────── Адаптив шапки списку: container query, не @media ─────────
+   Шапка стрічки (вступ з toolbar) — сама собі контейнер: вона стоїть над
+   сіткою kit-list, тягнеться на всю ширину сітки (той самий --container-max,
+   те саме центрування), а не займає колонку. Від 40rem (= --bp-tablet)
+   лічильник і «Фільтри» завжди в одному рядку: кнопка не переноситься під
+   лічильник, довгий лічильник переноситься всередині себе. Нижче 40rem —
+   правило .kit-toolbar вище (перенос на вузькому екрані або 200% zoom). */
+.kit-page-intro:has(> .kit-toolbar) { container: kit-page-intro / inline-size; }
+@container kit-page-intro (min-width: 40rem) { /* = --bp-tablet */
+  .kit-page-intro > .kit-toolbar { flex-wrap: nowrap; }
+  .kit-page-intro > .kit-toolbar > .kit-hint { min-width: 0; }
+}
 
 /* ───────── Розділ ───────── */
 section.kit-section { display: flex; flex-direction: column; gap: var(--space-stack-md); min-width: 0; }

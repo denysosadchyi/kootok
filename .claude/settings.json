@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(npx playwright:*)",
+      "Bash(npx @playwright/*:*)",
+      "Bash(npm install playwright:*)",
+      "Bash(npm i playwright:*)",
+      "Bash(npm install @playwright/*:*)",
+      "Bash(npm i @playwright/*:*)",
+      "Bash(pnpm add playwright:*)",
+      "Bash(pip install playwright:*)",
+      "Bash(playwright:*)",
+      "mcp__playwright",
+      "mcp__plugin_playwright_playwright"
+    ]
+  }
+}

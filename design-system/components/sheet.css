@@ -82,3 +82,69 @@
   visibility: visible; transform: none;
 }
 .kit-sheet[data-kit-sheet]:not([data-kit-sheet-ready]) .kit-sheet__body { max-height: none; }
+
+/* ───────── Адаптив шторки: планшет і десктоп ─────────
+   Container query kit-shell-frame (shell.css), не @media: шторка fixed, але
+   container query читає ширину предка-контейнера — оболонки в курсовій рамці
+   390 / 768 / 1280, у docs-рамці чи у вікні. Custom properties в умовах
+   @container не працюють — пороги literal.
+
+   Телефон (< 40rem): bottom sheet 390, як вище.
+   Планшет (від 40rem = --bp-tablet): та сама модальна bottom sheet, але на
+   всю ширину контейнера; форма у 2 колонки — пара «Тип оголошення» |
+   «Район, ціна і заїзд», далі kit-sheet__span (група «Звички») на обидві
+   колонки з полями по 2, дії «Застосувати» / «Скинути» в один рядок. Мета —
+   усі фільтри без прокрутки; прокрутка всієї шторки лишається запасним
+   варіантом для низьких вікон.
+   Десктоп (від 64rem = --bp-desktop), лише kit-sheet--panel: не шторка, а
+   постійна панель --size-side-panel ліворуч від вмісту оболонки, sticky, з
+   власною прокруткою, якщо вища за видиму область. Той самий DOM і та сама
+   форма; sheet.js знімає role="dialog", ховає тригер «Фільтри» й
+   «Застосувати», застосовує зміни одразу, «Скинути» вимкнена без змін. */
+@container kit-shell-frame (min-width: 40rem) { /* = --bp-tablet */
+  .kit-sheet { width: var(--primitive-width-full); max-height: calc(var(--primitive-width-full) - var(--space-stack-lg)); overflow-y: auto; scrollbar-width: none; }
+  .kit-sheet__summary { padding-top: var(--space-stack-lg); }
+  .kit-sheet::-webkit-scrollbar { display: none; width: 0; height: 0; }
+  .kit-sheet__body { max-height: none; overflow: visible; padding-bottom: calc(var(--space-stack-lg) + env(safe-area-inset-bottom, 0px)); }
+  .kit-sheet__body > .kit-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+  .kit-sheet__body > .kit-form > .kit-sheet__span,
+  .kit-sheet__body > .kit-form > .kit-actions { grid-column: 1 / -1; }
+  /* Група на обидві колонки: поля по 2 в рядку, legend — на всю ширину. */
+  .kit-sheet__span { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-stack-md); }
+  .kit-sheet__span > * { margin: 0; }
+  .kit-sheet__span > legend { grid-column: 1 / -1; margin: 0; }
+  .kit-sheet__body > .kit-form > .kit-actions { flex-direction: row; }
+  .kit-sheet__body > .kit-form > .kit-actions > .kit-button { flex: 1 1 0; }
+}
+
+@container kit-shell-frame (min-width: 64rem) { /* = --bp-desktop */
+  /* Прапорець режиму для sheet.js (читає getComputedStyle). */
+  .kit-sheet--panel { --kit-sheet-mode: panel; --kit-scrollport-block: var(--size-scrollport); }
+  /* Оболонка з панеллю: рядок 1 — бренд і таб-бар, рядок 2 — панель | вміст. */
+  .kit-shell:has(> .kit-sheet--panel) { display: grid; grid-template-columns: calc(var(--size-side-panel) + var(--space-screen-gutter)) minmax(0, 1fr) auto; grid-template-rows: auto 1fr; align-content: start; }
+  .kit-shell:has(> .kit-sheet--panel) > * { grid-column: 2 / -1; grid-row: 2; }
+  .kit-shell:has(> .kit-sheet--panel) > .kit-shell__brand { grid-column: 1 / 3; grid-row: 1; }
+  .kit-shell:has(> .kit-sheet--panel) > .kit-tabbar { grid-column: 3; grid-row: 1; }
+  .kit-shell > .kit-sheet--panel {
+    position: sticky; z-index: var(--z-raised); top: 0; right: auto; bottom: auto; left: auto;
+    grid-column: 1; grid-row: 2; align-self: start;
+    width: auto; max-height: var(--kit-scrollport-block); margin: 0 0 0 var(--space-screen-gutter);
+    padding-block: var(--space-screen-gutter) var(--space-scroll-end);
+    overflow-y: auto; overscroll-behavior: contain;
+    border-radius: 0; background: var(--color-page-background); box-shadow: none;
+    visibility: visible; transform: none;
+  }
+  .kit-shell > .kit-sheet--panel + .kit-sheet-backdrop,
+  .kit-sheet--panel .kit-sheet__close { display: none; }
+  /* Summary — заголовок панелі: «Фільтри» + рядок стану, без ручки й без кліку. */
+  .kit-sheet--panel .kit-sheet__summary { padding: 0 0 var(--space-stack-md); background: var(--color-transparent); cursor: default; }
+  .kit-sheet--panel .kit-sheet__summary::before { display: none; }
+  .kit-sheet--panel .kit-sheet__state { white-space: normal; }
+  .kit-sheet--panel .kit-sheet__body { max-height: none; padding: 0; overflow: visible; }
+  /* Панель вузька (360): форма знову в одну колонку, як на телефоні. */
+  .kit-sheet--panel .kit-sheet__body > .kit-form { display: flex; align-items: stretch; }
+  .kit-sheet--panel .kit-sheet__span { display: block; }
+  .kit-sheet--panel .kit-sheet__span > legend { margin: 0 0 var(--primitive-length-12); }
+  .kit-sheet--panel .kit-sheet__span > * + * { margin-top: var(--primitive-length-12); }
+  .kit-sheet--panel .kit-sheet__span > legend + * { margin-top: 0; }
+}

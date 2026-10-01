@@ -3,3 +3,12 @@ ul.kit-gallery { display: flex; margin: 0; padding: var(--primitive-length-4) 0 
 .kit-gallery::-webkit-scrollbar { display: none; }
 .kit-gallery li { flex: none; scroll-snap-align: start; }
 .kit-gallery img { display: block; width: var(--primitive-length-280); height: auto; aspect-ratio: var(--ratio-gallery-media); border-radius: var(--radius-card); object-fit: cover; }
+
+/* Адаптив: від 40rem контейнера оболонки (= --bp-tablet; kit-shell-frame,
+   shell.css) єдине фото галереї займає всю ширину колонки — у правій колонці
+   split-view і на окремій сторінці деталі; 4:3 як і було. Кілька фото
+   лишаються свайп-стрічкою по 280. Телефон — без змін. */
+@container kit-shell-frame (min-width: 40rem) { /* = --bp-tablet */
+  .kit-gallery > li:only-child { flex: 1 1 auto; }
+  .kit-gallery > li:only-child img { width: var(--primitive-width-full); }
+}

@@ -116,6 +116,31 @@ html[data-theme="dark"] .course-shell__mark { background: var(--color-action-sur
 .lesson-family-panel a { display: flex; min-height: 44px; align-items: center; padding: 8px 10px; border-radius: var(--course-radius-control); color: var(--course-ink); font: var(--type-field-label, 600 14px/1.35 "Jost", sans-serif); text-decoration: none; }
 .lesson-family-panel a[aria-current="page"] { background: var(--course-current); color: var(--course-current-text); font-weight: 700; }
 .lesson-workspace { display: flex; min-width: 0; min-height: 100dvh; align-items: center; justify-content: center; padding: 4px; gap: var(--course-gap-sm); flex: 1; flex-direction: column; }
+/* Перемикач пристроїв над рамкою прототипу (course-nav.js). Візуально — компактний
+   сегмент (трек 32px, пігулки 40×28), ціль кожної кнопки — 44×44. Іконки — Solar Linear
+   у assets/course-icons/. На ≤430px рамки немає, тож і перемикача немає. */
+.prototype-devices { position: relative; display: none; flex: none; padding: 0 2px; }
+.prototype-devices::before { position: absolute; inset: 6px 0; border-radius: var(--radius-track, 12px); background: var(--color-surface-sunken, var(--course-mint)); content: ""; }
+.prototype-devices__option { position: relative; display: grid; width: 44px; height: 44px; margin: 0; padding: 0; border: 0; background: transparent; color: var(--color-text-secondary, var(--course-muted)); cursor: pointer; place-items: center; }
+.prototype-devices__option > span { display: grid; width: 40px; height: 28px; border-radius: var(--radius-field, 8px); place-items: center; }
+.prototype-devices__option > span::before { width: 18px; height: 18px; background: currentColor; content: ""; -webkit-mask: var(--prototype-device-icon) center/contain no-repeat; mask: var(--prototype-device-icon) center/contain no-repeat; }
+.prototype-devices__option--phone { --prototype-device-icon: url("/kootok/assets/course-icons/smartphone-linear.svg"); }
+.prototype-devices__option--tablet { --prototype-device-icon: url("/kootok/assets/course-icons/tablet-linear.svg"); }
+.prototype-devices__option--desktop { --prototype-device-icon: url("/kootok/assets/course-icons/monitor-linear.svg"); }
+@media (hover: hover) { .prototype-devices__option[aria-checked="false"]:hover > span { background: var(--color-interactive-surface-hover, var(--course-mint)); color: var(--color-interactive-text-hover, var(--course-forest)); } }
+.prototype-devices__option[aria-checked="false"]:active > span { background: var(--color-interactive-surface-active, var(--course-mint)); color: var(--color-interactive-text-active, var(--course-forest)); }
+.prototype-devices__option[aria-checked="true"] > span { background: var(--color-card-background, var(--course-wash)); color: var(--color-current-text, var(--course-current-text)); }
+.prototype-devices__option:focus-visible { outline: none; }
+.prototype-devices__option:focus-visible > span { outline: 3px solid var(--color-focus, var(--course-focus)); outline-offset: 1px; }
+@media (min-width: 431px) {
+  .prototype-devices { display: inline-flex; }
+  /* Рамку центрує .lesson-workspace разом із перемикачем; auto-поля рамки відсунули б її від перемикача. */
+  .lesson-workspace .prototype-device { margin: 0; }
+}
+@media (min-width: 431px) and (max-width: 899px) {
+  /* Під курсовою мобільною шапкою (60px) робоча область — решта висоти вікна. */
+  .lesson-workspace { min-height: calc(100dvh - 60px); }
+}
 html.has-course-nav body.course-nav--prototype { width: calc(100% - var(--course-sidebar-current) - var(--lesson-family-panel)) !important; margin-left: calc(var(--course-sidebar-current) + var(--lesson-family-panel)) !important; }
 
 .course-shell a:focus-visible,.course-shell button:focus-visible,.course-shell summary:focus-visible,.course-mobilebar a:focus-visible,.course-mobilebar button:focus-visible { outline: 3px solid var(--course-focus); outline-offset: 2px; }

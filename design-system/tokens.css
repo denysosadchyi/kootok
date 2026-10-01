@@ -112,7 +112,11 @@
   --primitive-length-104: 104px;
   --primitive-length-120: 120px;
   --primitive-length-280: 280px;
+  --primitive-length-288: 288px;
+  --primitive-length-360: 360px;
   --primitive-length-390: 390px;
+  --primitive-length-480: 480px;
+  --primitive-length-608: 608px;
   --primitive-length-700: 700px;
 
   /* Radii */
@@ -130,6 +134,7 @@
   --primitive-width-105pct: 105%;
   --primitive-height-82dvh: 82dvh;
   --primitive-height-60dvh: 60dvh;
+  --primitive-height-100dvh: 100dvh;
   --primitive-opacity-55: .55;
 
   /* Stacking order: raw z-index values; компоненти беруть лише --z-* ролі. */
@@ -138,6 +143,18 @@
   --primitive-z-30: 30;
   --primitive-z-940: 940;
   --primitive-z-950: 950;
+
+  /* Адаптив: дві точки зміни поведінки й сітка з responsive/width-audit.md
+     («Межі ширин»). Rem — щоб межі йшли за розміром шрифту користувача.
+     Custom properties не працюють у @media: там значення дублюють літералом
+     з коментарем-посиланням на токен (DESIGN.md, «Адаптив»).
+     Імена без префікса --primitive- задав користувач; це все одно primitive. */
+  --bp-tablet: 40rem;         /* 640px: одна колонка → сітка з 2 карток (2 × 288 + 16 + 2 × 16 = 624) */
+  --bp-desktop: 64rem;        /* 1024px: панель фільтрів 360, split-view стрічки, таб-бар у шапці (360 + 16 + 608 + 32 = 1016) */
+  --grid-gap: 1rem;           /* 16px між картками сітки */
+  --container-max: 100.5rem;  /* 1608px: панель 360 + 16 + 3 × 400 + 2 × 16; далі сітка центрується */
+  --col-count-tablet: 2;
+  --col-count-desktop: 3;     /* максимум; до 2 сітка падає сама через мінімум картки 288 */
 
   /* Solar assets live as local SVG files. Their SVG-internal coordinates and
      stroke widths are asset data, not component geometry tokens.
@@ -325,6 +342,8 @@
   --space-stack-lg: var(--primitive-length-16);
   --space-stack-xl: var(--primitive-length-24);
   --space-stack-xxl: var(--primitive-length-32);
+  /* Проміжок між картками сітки стрічки (kit-list від --bp-tablet); однаковий в обох темах. */
+  --space-grid-gap: var(--grid-gap);
   --size-tabbar: var(--primitive-length-70);
   --space-tabbar-edge: var(--primitive-length-24);
   --space-scroll-end: var(--primitive-length-24);
@@ -346,6 +365,24 @@
   --size-tap: var(--primitive-length-44);
   --ratio-listing-media: 3 / 2;
   --ratio-gallery-media: 4 / 3;
+
+  /* Десктоп від --bp-desktop (responsive/width-audit.md, рішення 3 і 5):
+     постійна панель фільтрів (kit-sheet--panel) і split-view стрічки
+     (kit-split). Ліва колонка split — одна картка стрічки: не ширша за 360,
+     не вужча за мінімальну картку 288; деталь праворуч не вужча за 480,
+     поки ліва колонка може стискатися. --size-scrollport — висота видимої
+     області для sticky-колонок із власною прокруткою; sheet.js і
+     split-view.js підставляють замість неї справжню висоту прокручуваного
+     предка (курсова рамка нижча за вікно). Однакові в обох темах. */
+  --size-side-panel: var(--primitive-length-360);
+  --size-split-list: var(--primitive-length-360);
+  --size-split-list-min: var(--primitive-length-288);
+  --size-split-detail-min: var(--primitive-length-480);
+  --size-scrollport: var(--primitive-height-100dvh);
+  /* Одна колонка «однаково» (width-audit.md, «Межі ширин»): вміст
+     однаколонкових екранів від --bp-tablet не ширший за 608 = 640 − 2 × 16
+     і центрований; app bar лишається на всю ширину. */
+  --size-single-column: var(--primitive-length-608);
 
   /* Current direction is deliberately flat. Elevation stays semantic so a
      future product decision changes tokens, never per-screen selectors. */

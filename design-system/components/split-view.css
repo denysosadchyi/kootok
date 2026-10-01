@@ -1,0 +1,57 @@
+/* ───────── Split-view: список + деталь (десктоп) ─────────
+   Розмітка (стрічка кімнат, lesson-6/listings.html):
+   <div class="kit-split" data-kit-split data-kit-split-param="listing">
+     <section class="kit-section kit-split__list" aria-labelledby="…">
+       <ul class="kit-list">
+         <li data-kit-split-key="solomianskyi"><article class="kit-listing">…
+           <h3><a href="listing-solomianskyi.html">…</a></h3>…</article></li>
+       </ul>
+     </section>
+     <section class="kit-split__detail" aria-labelledby="listing-detail-title" hidden>
+       <header class="kit-split__head">
+         <h2 class="kit-split__title" id="listing-detail-title" tabindex="-1">Оголошення</h2>
+         <button class="kit-button kit-button--secondary kit-button--compact kit-split__close" type="button">Закрити</button>
+       </header>
+       <div class="kit-split__content"></div>
+     </section>
+   </div>
+   <script src="/kootok/design-system/components/split-view.js" defer></script>
+
+   Поведінку дає split-view.js: від 64rem контейнера оболонки клік на картку
+   не переходить на сторінку деталі, а підвантажує її <main> у праву колонку,
+   позначає картку aria-current="true" (стан «вибрано», listing.css), пише
+   ?listing=<ключ> в адресу (history), «Закрити» й Escape повертають сітку й
+   фокус на картку. Нижче 64rem посилання ведуть на повну сторінку, як без
+   скрипта. Анімацій немає: стан змінюється миттєво.
+
+   Десктоп визначає container query, а не @media: у курсовій рамці 390 / 768
+   / 1280 вікно не дорівнює ширині екрана. Прапорець --kit-split-enabled
+   виставляється лише всередині @container, і скрипт читає його з
+   getComputedStyle. Контейнер — kit-shell-frame (shell.css), той самий, що
+   переносить таб-бар у шапку. */
+
+.kit-split { --kit-scrollport-block: var(--size-scrollport); display: flex; min-width: 0; flex-direction: column; gap: var(--space-section-gap); }
+
+/* Деталь існує лише в стані split на десктопі; нижче порога — прихована,
+   навіть якщо адреса містить ?listing= (посилання карток ведуть на сторінку). */
+.kit-split__detail { display: none; min-width: 0; flex-direction: column; gap: var(--space-section-gap); }
+.kit-split__head { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: var(--space-stack-md); }
+.kit-split__title { min-width: 0; margin: 0; overflow-wrap: anywhere; font: var(--type-detail-title); }
+.kit-split__close { flex: none; }
+.kit-split__content { display: flex; min-width: 0; flex-direction: column; gap: var(--space-section-gap); }
+
+@container kit-shell-frame (min-width: 64rem) { /* = --bp-desktop */
+  .kit-split { --kit-split-enabled: 1; }
+  /* Ліва колонка — одна картка: до --size-split-list, але стискається до
+     --size-split-list-min, щоб деталь лишалась не вужчою за
+     --size-split-detail-min. Список у колонці сам стає однією колонкою:
+     контейнер kit-list (listing.css) вужчий за 40rem. */
+  .kit-split[data-kit-split-state="open"] { display: grid; grid-template-columns: clamp(var(--size-split-list-min), var(--primitive-width-full) - var(--size-split-detail-min) - var(--space-section-gap), var(--size-split-list)) minmax(0, 1fr); align-items: start; }
+  /* Колонки прокручуються незалежно: кожна липне до верху області
+     прокрутки й має висоту цієї області (--kit-scrollport-block). */
+  .kit-split[data-kit-split-state="open"] > .kit-split__list,
+  .kit-split[data-kit-split-state="open"] > .kit-split__detail { position: sticky; top: 0; max-height: var(--kit-scrollport-block); overflow-y: auto; overscroll-behavior: contain; }
+  .kit-split[data-kit-split-state="open"] > .kit-split__detail { display: flex; }
+  /* Заголовок і «Закрити» лишаються видимими, поки деталь прокручується. */
+  .kit-split__head { position: sticky; top: 0; z-index: var(--z-overlay); padding-block: var(--space-stack-sm); background: var(--color-page-background); }
+}
