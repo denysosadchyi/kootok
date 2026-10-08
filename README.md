@@ -49,6 +49,7 @@ origin передається без `/kootok`. Playwright у проєкті з�
 
 ```sh
 chromium --headless=new --remote-debugging-port=9222 about:blank &   # або google-chrome
+# Ubuntu 23.10+ без user namespaces: додай --no-sandbox
 node scripts/audit-local-links.mjs http://127.0.0.1:8000
 KOOTOOK_CDP_PORT=9222 node scripts/qa-lesson-8.mjs http://127.0.0.1:8000
 KOOTOOK_CDP_PORT=9222 node scripts/qa-reduced-motion.mjs http://127.0.0.1:8000
