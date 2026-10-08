@@ -19,7 +19,26 @@
      split закривається;
    - висота sticky-колонок — висота прокручуваного предка (--kit-scrollport-block);
      колонки-панелі (kit-split--panels) — до низу області мінус поля, ≥ --size-panel-min.
-   Анімацій немає: стан змінюється миттєво. Підключення:
+   Рух (DESIGN.md «Анімація», робота — звʼязок список → деталь; лише transform
+   і opacity, тривалості й криві — з токенів через getComputedStyle):
+   - перше відкриття (клік, «Назад»/«Вперед»): деталь виростає з вибраної
+     картки (FLIP: translate + scale + opacity), картки переїжджають із сітки в
+     колонку (FLIP: translate + opacity), --dur-slow;
+   - закриття: картки так само переїжджають назад у сітку, деталь зникає одразу;
+   - зміна картки при відкритій деталі: вміст проявляється (атрибут
+     data-kit-split-enter, рух — у split-view.css);
+   - відкриття з адреси при завантаженні сторінки — без руху;
+   - prefers-reduced-motion: руху немає зовсім — ні переїздів і росту (WAAPI),
+     ні CSS-прояви (data-kit-split-enter не ставиться): деталь одразу стоїть
+     на місці з opacity 1. Навіть 0.01 мс прояви дали б один кадр із
+     opacity 0 — блимання замість миттєвої зміни.
+   Завантаження (робота — статус процесу): поки вміст підвантажується, деталь
+   має aria-busy="true", а поверх вибраної картки видно текст
+   .kit-split__status (role="status", aria-live="polite"; текст — атрибут
+   data-kit-split-loading кореня або «Завантажуємо…»). Статус зʼявляється й
+   ховається разом з aria-busy в усіх режимах руху; без зменшеного руху старий
+   вміст відкритої деталі ще й рівно пульсує (split-view.css). Скрипт не чекає
+   animationend/transitionend, тож тривалість ≈0 нічого не ламає. Підключення:
    <script src="/kootok/design-system/components/split-view.js" defer></script> */
 (function () {
   "use strict";
@@ -64,6 +83,36 @@
 
     var current = null;
     var token = 0;
+
+    /* Текстовий статус завантаження: створюється один раз і живе в корені, щоб
+       live-регіон існував до першої зміни. Позиція — над вибраною карткою
+       (--kit-split-status-top/-left відносно кореня, split-view.css). */
+    var status = root.querySelector(".kit-split__status");
+    if (!status) {
+      status = document.createElement("p");
+      status.className = "kit-split__status";
+      root.appendChild(status);
+    }
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+    status.hidden = true;
+    var loadingText = root.getAttribute("data-kit-split-loading") || status.textContent.trim() || "Завантажуємо…";
+    status.textContent = "";
+
+    function busy(entry) {
+      detail.setAttribute("aria-busy", "true");
+      var rootBox = root.getBoundingClientRect();
+      var itemBox = entry.item.getBoundingClientRect();
+      root.style.setProperty("--kit-split-status-top", (itemBox.top - rootBox.top) + "px");
+      root.style.setProperty("--kit-split-status-left", (itemBox.left - rootBox.left) + "px");
+      status.hidden = false;
+      status.textContent = loadingText;
+    }
+    function idle() {
+      detail.removeAttribute("aria-busy");
+      status.hidden = true;
+      status.textContent = "";
+    }
 
     function enabled() {
       return getComputedStyle(root).getPropertyValue("--kit-split-enabled").trim() === "1";
@@ -127,6 +176,67 @@
       return entry.cache;
     }
 
+    /* Токени руху з CSS (DESIGN.md «Анімація»): JS не тримає власних чисел.
+       null — рух вимкнено (prefers-reduced-motion) або WAAPI недоступний. */
+    function reducedMotion() {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+    function motionTokens() {
+      if (!detail.animate || reducedMotion()) return null;
+      var style = getComputedStyle(root);
+      return {
+        slow: parseFloat(style.getPropertyValue("--dur-slow")) || 0,
+        standard: style.getPropertyValue("--ease-standard").trim(),
+        enter: style.getPropertyValue("--ease-enter").trim()
+      };
+    }
+
+    function visibleItems() {
+      return Array.prototype.filter.call(root.querySelectorAll("[data-kit-split-key]"), function (item) { return !item.closest("[hidden]"); });
+    }
+
+    function measure(items) {
+      return items.map(function (item) { return item.getBoundingClientRect(); });
+    }
+
+    /* FLIP (лише transform і opacity): картки, які перестрибнули з сітки в
+       колонку (або назад), переїжджають зі старого місця на нове; розмір
+       змінюється одразу, а вміст картки проявляється, тож зміна форми не різка. */
+    function flipItems(items, before, motion) {
+      items.forEach(function (item, index) {
+        var from = before[index];
+        var to = item.getBoundingClientRect();
+        var dx = from.left - to.left;
+        var dy = from.top - to.top;
+        if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+        item.animate([
+          { transform: "translate(" + dx + "px, " + dy + "px)", opacity: 0.5 },
+          { transform: "none", opacity: 1 }
+        ], { duration: motion.slow, easing: motion.standard });
+      });
+    }
+
+    /* Деталь «виростає» з вибраної картки: стартує з її прямокутника
+       (translate + scale від лівого верхнього кута) і прозорості, приходить
+       на своє місце. Звʼязок картка → колонка деталі. */
+    function growFrom(from, motion) {
+      var to = detail.getBoundingClientRect();
+      if (!to.width || !to.height) return;
+      detail.animate([
+        { transformOrigin: "0 0", transform: "translate(" + (from.left - to.left) + "px, " + (from.top - to.top) + "px) scale(" + (from.width / to.width) + ", " + (from.height / to.height) + ")", opacity: 0 },
+        { transformOrigin: "0 0", transform: "none", opacity: 1 }
+      ], { duration: motion.slow, easing: motion.enter });
+    }
+
+    /* Перезапуск появи: атрибут знімається, примусовий reflow, ставиться знову —
+       CSS-анімація стартує заново на кожен вибір. */
+    function enter(node) {
+      detail.removeAttribute("data-kit-split-enter");
+      content.removeAttribute("data-kit-split-enter");
+      void node.offsetWidth;
+      node.setAttribute("data-kit-split-enter", "");
+    }
+
     function markCurrent(key) {
       Object.keys(entries).forEach(function (name) {
         var link = entries[name].link;
@@ -155,25 +265,34 @@
       if (!entry) return;
       options = options || {};
       var mine = ++token;
-      detail.setAttribute("aria-busy", "true");
+      busy(entry);
       load(entry).then(function (result) {
         if (mine !== token) return;
         current = key;
         content.replaceChildren.apply(content, result.nodes.map(function (node) { return node.cloneNode(true); }));
         title.textContent = result.title;
+        var wasOpen = root.getAttribute("data-kit-split-state") === "open";
+        var motion = options.animate && !wasOpen ? motionTokens() : null;
+        var items = motion ? visibleItems() : [];
+        var before = measure(items);
+        var cardBox = motion ? entry.item.getBoundingClientRect() : null;
         root.setAttribute("data-kit-split-state", "open");
         detail.hidden = false;
-        detail.removeAttribute("aria-busy");
+        idle();
         detail.scrollTop = 0;
         markCurrent(key);
         setScrollport();
         revealInList(entry.item);
+        if (motion) {
+          flipItems(items, before, motion);
+          growFrom(cardBox, motion);
+        } else if ((wasOpen || options.animate) && !reducedMotion()) enter(wasOpen ? content : detail);
         if (options.history === "push") history.pushState({ kitSplit: key }, "", urlFor(key));
         else if (options.history === "replace") history.replaceState({ kitSplit: key }, "", urlFor(key));
         if (options.focus) title.focus({ preventScroll: true });
       }, function () {
         if (mine !== token) return;
-        detail.removeAttribute("aria-busy");
+        idle();
         // Вміст не підвантажився — відкриваємо повну сторінку, як без скрипта.
         if (options.fallback !== false) location.href = entry.href;
       });
@@ -182,13 +301,18 @@
     function shut(options) {
       options = options || {};
       token++;
+      idle();
       var previous = current;
       current = null;
+      var motion = options.animate && root.getAttribute("data-kit-split-state") === "open" ? motionTokens() : null;
+      var items = motion ? visibleItems() : [];
+      var before = measure(items);
       root.removeAttribute("data-kit-split-state");
       detail.hidden = true;
       content.replaceChildren();
       title.textContent = defaultTitle;
       markCurrent(null);
+      if (motion) flipItems(items, before, motion);
       if (options.history === "push") history.pushState({ kitSplit: null }, "", urlFor(null));
       else if (options.history === "replace") history.replaceState({ kitSplit: null }, "", urlFor(null));
       if (options.focus && previous && entries[previous]) entries[previous].link.focus({ preventScroll: false });
@@ -203,20 +327,20 @@
       if (!entries[key]) return;
       event.preventDefault();
       if (key === current) { title.focus({ preventScroll: true }); return; }
-      open(key, { history: "push", focus: true });
+      open(key, { history: "push", focus: true, animate: true });
     });
-    if (close) close.addEventListener("click", function () { shut({ history: "push", focus: true }); });
+    if (close) close.addEventListener("click", function () { shut({ history: "push", focus: true, animate: true }); });
     document.addEventListener("keydown", function (event) {
       if (event.key !== "Escape" || event.defaultPrevented || !current || !enabled()) return;
       if (document.documentElement.classList.contains("kit-sheet-open")) return;
       event.preventDefault();
-      shut({ history: "push", focus: true });
+      shut({ history: "push", focus: true, animate: true });
     });
     window.addEventListener("popstate", function () {
       if (!enabled()) return;
       var key = keyFromUrl();
-      if (key && key !== current) open(key, { fallback: false });
-      else if (!key && current) shut({ focus: true });
+      if (key && key !== current) open(key, { fallback: false, animate: true });
+      else if (!key && current) shut({ focus: true, animate: true });
     });
     root.addEventListener("kit-filter-change", function () {
       if (current && entries[current] && entries[current].item.closest("li[hidden]")) shut({ history: "replace" });
@@ -239,7 +363,17 @@
     }
 
     sync();
-    if (window.ResizeObserver) new ResizeObserver(sync).observe(root);
+    /* Висоту області прокрутки стежимо і на самій області: рамка (курсова чи
+       вікно) може змінити висоту, не змінивши розміру кореня, — тоді
+       --kit-scrollport-block лишався б застарілим (у рамці «Десктоп» — 844
+       замість 1008) і виправлявся б лише при відкритті деталі, а колонка
+       стрибала б по висоті через кілька кадрів після появи. */
+    if (window.ResizeObserver) {
+      var observer = new ResizeObserver(sync);
+      observer.observe(root);
+      var scroller = scrollParent(root);
+      if (scroller) observer.observe(scroller);
+    }
     window.addEventListener("resize", sync);
     root.setAttribute("data-kit-split-ready", "");
   }

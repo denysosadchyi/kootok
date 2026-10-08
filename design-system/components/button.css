@@ -1,13 +1,55 @@
 .kit-actions { display: flex; flex-direction: column; gap: var(--space-stack-md); }
-.kit-button { position: relative; display: inline-flex; min-height: var(--size-control); align-items: center; justify-content: center; gap: var(--space-stack-sm); padding: var(--space-control-block) var(--primitive-length-20); border: 0; border-radius: var(--radius-control); background: var(--color-action-surface); color: var(--color-on-action); font: var(--type-control); text-align: center; text-decoration: none; cursor: pointer; box-shadow: var(--elevation-primary); }
-@media (hover: hover) { .kit-button:not(:disabled):hover { background: var(--color-action-surface-hover); } }
-.kit-button[data-demo-state="hover"] { background: var(--color-action-surface-hover); }
-.kit-button:not(:disabled):active, .kit-button[data-demo-state="active"] { background: var(--color-action-surface-active); }
+.kit-button { position: relative; isolation: isolate; display: inline-flex; min-height: var(--size-control); align-items: center; justify-content: center; gap: var(--space-stack-sm); overflow: hidden; padding: var(--space-control-block) var(--primitive-length-20); border: 0; border-radius: var(--radius-control); background: var(--color-action-surface); color: var(--color-on-action); font: var(--type-control); text-align: center; text-decoration: none; cursor: pointer; box-shadow: var(--elevation-primary); --kit-button-fill: var(--color-action-surface-hover); }
+.kit-button--secondary { background: var(--color-card-background); color: var(--color-action); --kit-button-fill: var(--color-interactive-surface-hover); }
+
+/* Мікроінтеракції (DESIGN.md «Анімація»), робота — відповідь на дію.
+   Hover: колір стану hover розповзається колом із центру кнопки — шар ::after
+   під текстом (isolation + z-index -1) росте transform: scale 0 → 1 і
+   проявляється opacity; --dur-hover (320 мс), --ease-standard. Колір кола — semantic
+   токен стану через локальну --kit-button-fill. Текст secondary бере колір
+   hover миттєво.
+   Pressed: фон кола й кнопки — колір active, кнопка ледь стискається
+   (--press-scale; компактна — --press-scale-sm).
+   Фокус-кільце (outline) не анімується; overflow його не обрізає.
+   prefers-reduced-motion: коло не росте (без scale) і кнопка не стискається
+   (--press-scale = 1 у tokens.css); глобальний блок base.css робить усі
+   переходи --dur-reduced (0.01 мс), тож колір hover, коло й тінь змінюються
+   миттєво — без руху й без плавного проявлення. */
+.kit-button::after {
+  content: ""; position: absolute; z-index: var(--z-below); left: var(--primitive-width-50pct); top: var(--primitive-width-50pct);
+  width: var(--primitive-width-105pct); aspect-ratio: 1; border-radius: var(--radius-circle);
+  background: var(--kit-button-fill); opacity: 0; pointer-events: none;
+  transform: translate(calc(-1 * var(--primitive-width-50pct)), calc(-1 * var(--primitive-width-50pct))) scale(0);
+  transition: transform var(--dur-hover) var(--ease-standard), opacity var(--dur-hover) var(--ease-standard), background-color var(--dur-fast) var(--ease-standard);
+}
+@media (hover: hover) { .kit-button:not(:disabled):not([aria-disabled="true"]):hover::after { opacity: 1; transform: translate(calc(-1 * var(--primitive-width-50pct)), calc(-1 * var(--primitive-width-50pct))) scale(1); } }
+.kit-button[data-demo-state="hover"]::after, .kit-button[data-demo-state="active"]::after, .kit-button:not(:disabled):not([aria-disabled="true"]):active::after { opacity: 1; transform: translate(calc(-1 * var(--primitive-width-50pct)), calc(-1 * var(--primitive-width-50pct))) scale(1); }
+/* Текст primary на hover і pressed лишається кольором --color-on-action:
+   без цього кнопка-посилання (<a class="kit-button">) брала колір a[href]:hover
+   з base.css і темніла. */
+@media (hover: hover) { .kit-button:not(:disabled):hover { color: var(--color-on-action); } }
+.kit-button[data-demo-state="hover"] { color: var(--color-on-action); }
+@media (hover: hover) { .kit-button--secondary:not(:disabled):hover { color: var(--color-interactive-text-hover); } }
+.kit-button--secondary[data-demo-state="hover"] { color: var(--color-interactive-text-hover); }
+
+.kit-button:not(:disabled):active, .kit-button[data-demo-state="active"] { background: var(--color-action-surface-active); color: var(--color-on-action); --kit-button-fill: var(--color-action-surface-active); }
+.kit-button--secondary[data-demo-state="active"], .kit-button--secondary:not(:disabled):active { background: var(--color-interactive-surface-active); color: var(--color-interactive-text-active); --kit-button-fill: var(--color-interactive-surface-active); }
 .kit-button[data-demo-state="focus-visible"] { outline: var(--primitive-length-3) solid var(--color-focus); outline-offset: var(--primitive-length-2); }
-.kit-button--secondary { background: var(--color-card-background); color: var(--color-action); }
-@media (hover: hover) { .kit-button--secondary:not(:disabled):hover { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); } }
-.kit-button--secondary[data-demo-state="hover"] { background: var(--color-interactive-surface-hover); color: var(--color-interactive-text-hover); }
-.kit-button--secondary[data-demo-state="active"], .kit-button--secondary:not(:disabled):active { background: var(--color-interactive-surface-active); color: var(--color-interactive-text-active); }
+
+/* Легка тінь hover кольору самої кнопки на hover @ 15%: primary — --elevation-hover,
+   secondary — --elevation-hover-secondary. */
+@media (hover: hover) { .kit-button:not(:disabled):not([aria-disabled="true"]):hover { box-shadow: var(--elevation-hover); } }
+.kit-button[data-demo-state="hover"] { box-shadow: var(--elevation-hover); }
+@media (hover: hover) { .kit-button--secondary:not(:disabled):not([aria-disabled="true"]):hover { box-shadow: var(--elevation-hover-secondary); } }
+.kit-button--secondary[data-demo-state="hover"] { box-shadow: var(--elevation-hover-secondary); }
+/* Колір тексту змінюється миттєво: перехід color зачепив би й перемикання теми. */
+.kit-button { transition: box-shadow var(--dur-hover) var(--ease-standard), transform var(--dur-fast) var(--ease-standard); }
+.kit-button:not(:disabled):not([aria-disabled="true"]):active, .kit-button[data-demo-state="active"] { transform: scale(var(--press-scale)); }
+.kit-button--compact:not(:disabled):not([aria-disabled="true"]):active, .kit-button--compact[data-demo-state="active"] { transform: scale(var(--press-scale-sm)); }
+@media (prefers-reduced-motion: reduce) {
+  .kit-button::after { transform: translate(calc(-1 * var(--primitive-width-50pct)), calc(-1 * var(--primitive-width-50pct))); }
+  .kit-button { transition: box-shadow var(--dur-hover) var(--ease-standard); }
+}
 .kit-button--block { width: var(--primitive-width-full); }
 .kit-button--compact { min-height: var(--size-tap); padding: var(--primitive-length-10) var(--space-control-inline); font: var(--type-control-compact); white-space: nowrap; }
 .kit-button--icon-filter::before { --kit-icon: var(--primitive-icon-tuning); width: var(--primitive-length-18); height: var(--primitive-length-18); }

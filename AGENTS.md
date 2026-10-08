@@ -59,7 +59,8 @@
   ролі, spacing- і radius-ролі — лише semantic; primitive напряму допустимі в
   `components/` тільки для геометрії (length/width/height), іконок і
   font-weight; трекінг, інтерліньяж і розміри тексту — через `--type-*`,
-  довжина рядка — `--measure-*`, z-index — `--z-*`. Це перевіряє гейт
+  довжина рядка — `--measure-*`, z-index — `--z-*`, тривалість, крива й
+  дистанція руху — `--dur-*`, `--ease-*`, `--move-*`. Це перевіряє гейт
   `primitive-in-components` у `scripts/qa-lesson-8.mjs`. Екрани primitive не споживають. Кожен новий semantic token
   визначається в обох темах (якщо значення в темній темі відрізняється).
 
@@ -86,15 +87,23 @@ component change → `design-system/components/` і відповідна сто�
 - Перевірка після batch: `scripts/audit-local-links.mjs` і
   `scripts/qa-lesson-8.mjs` (import graph, активні маршрути, assets,
   responsive layout, доступність, відсутність legacy-посилань). Сервер — з
-  батьківської теки (`cd /home/hp/from-den && python3 -m http.server <port>`),
+  батьківської теки (`cd .. && python3 -m http.server <port>`),
   origin передається аргументом без `/kootok`, CDP-порт — `KOOTOOK_CDP_PORT`;
-  докладніше — README «Як запускати QA». **Playwright заборонений** для
+  докладніше — README, «Як запустити › QA». **Playwright заборонений** для
   будь-яких перевірок (npm-пакет, `npx playwright`, MCP): браузерні
   перевірки — лише сирий CDP до headless Chromium і `scripts/*.mjs`. Не додавати в
   продукт runtime CDN-шрифти чи data URI для іконок — шрифти self-hosted в
   `assets/fonts/`, іконки в `tokens/icons/`.
-- Анімацій у продукті й курсових сторінках немає: жодних transition,
-  animation, keyframes чи плавного скролу; токенів тривалості немає. Стани
-  змінюються миттєво.
+- Анімація в продукті й курсових сторінках — лише за правилами `DESIGN.md`,
+  розділ «Анімація» (2026-10-01): рух існує, тільки коли має роботу (звʼязок
+  між станами, статус процесу, відповідь на дію); `transition`/`animation`
+  беруть лише semantic-токени `--dur-*`, `--ease-*`, `--move-*` (без literal
+  мілісекунд і кривих), рухають лише `transform` і `opacity`, без пружини й
+  відскоку; колір (`color`, `background-color`, `border-color`) і тінь
+  (`box-shadow` лише через `--elevation-*` і лише там, де вона доречна)
+  плавно змінюються тільки у відповідь на взаємодію (hover, pressed,
+  вибрано); файл із рухом містить `@media (prefers-reduced-motion: reduce)`;
+  кільце фокусу зʼявляється миттєво; плавний скрол заборонено. Без роботи стан
+  змінюється миттєво. Це перевіряє гейт `motion` у `scripts/qa-lesson-8.mjs`.
 - Мова документації, інтерфейсу й коментарів — українська; технічні терміни
   та назви продуктів — в оригіналі.

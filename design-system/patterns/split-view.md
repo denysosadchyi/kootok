@@ -26,12 +26,13 @@
 | Деталь | `kit-split__detail` (`hidden`), `kit-split__head`, `kit-split__title` (`tabindex="-1"`), `kit-split__content` | `docs/split-view.html` |
 | «Закрити» | `kit-button kit-button--secondary kit-button--compact kit-split__close` | `docs/button.html` |
 | Фільтри поруч | `kit-sheet kit-sheet--panel` (постійна панель від 64rem) | `docs/sheet.html` |
+| Статус завантаження | `kit-split__status` (`role="status"`, створює скрипт; текст — `data-kit-split-loading`, за замовчуванням «Завантажуємо…») | `docs/split-view.html#states` |
 | Поведінка | `components/split-view.js` (+ `components/sheet.js` для фільтрів) | `docs/split-view.html#states` |
 
 ## Розмітка
 
 ```html
-<div class="kit-split" data-kit-split data-kit-split-param="listing">
+<div class="kit-split" data-kit-split data-kit-split-param="listing" data-kit-split-loading="Завантажуємо оголошення…">
   <section class="kit-section kit-split__list" aria-labelledby="listings-heading">
     <h2 id="listings-heading" class="kit-sr-only">Оголошення кімнат</h2>
     <ul class="kit-list" id="listings-list">

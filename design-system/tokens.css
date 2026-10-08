@@ -4,7 +4,8 @@
    Джерела: DESIGN.md, design-system/docs/.
    Підключений до активного раннього прототипу, docs і UI showcase.
    Лише значення, які споживають 5 макетів (компоненти й екранний шар), —
-   без запасу під непоказані варіанти (2026-09-24). */
+   без запасу під непоказані варіанти (2026-09-24). Виняток — токени руху
+   (2026-10-01): правило анімації з DESIGN.md, компоненти їх поки не споживають. */
 
 :root {
   /* ───────────────────────── PRIMITIVE ─────────────────────────
@@ -23,6 +24,7 @@
   --primitive-color-green-100: #dcefe4;
   --primitive-color-green-200: #cfe5d8;
   --primitive-color-green-300: #d8e99a;
+  --primitive-color-green-500: #357a5f; /* hover первинної дії в темній темі: cream-050 = 4.99:1 */
   --primitive-color-green-600: #2e6a53;
   --primitive-color-green-700: #245744;
   --primitive-color-green-800: #17503a;
@@ -38,6 +40,11 @@
   --primitive-color-white-a20: rgba(255, 255, 255, .2);
   --primitive-color-white-a86: rgba(255, 255, 255, .86);
   --primitive-color-ink-a10: rgba(23, 37, 32, .10);
+  /* Тінь hover = колір кнопки на hover @ 15% (рішення 2026-10-01). */
+  --primitive-color-green-600-a15: rgba(46, 106, 83, .15);  /* = green-600: primary, світла тема */
+  --primitive-color-green-500-a15: rgba(53, 122, 95, .15);  /* = green-500: primary, темна тема */
+  --primitive-color-cream-300-a15: rgba(233, 229, 216, .15); /* = cream-300: secondary, світла тема */
+  --primitive-color-ink-700-a15: rgba(51, 68, 60, .15);     /* = ink-700: secondary, темна тема */
   --primitive-color-ink-a28: rgba(23, 37, 32, .28);
   --primitive-color-ink-a45: rgba(23, 37, 32, .45);
   --primitive-color-cream-a28: rgba(253, 252, 248, .28);
@@ -73,6 +80,7 @@
   --primitive-letter-spacing-07: .07em;
 
   /* Lengths: one primitive per raw value, shared by type, spacing and geometry. */
+  --primitive-length-0: 0px; /* [motion] нульовий зсув для prefers-reduced-motion */
   --primitive-length-n2: -2px;
   --primitive-length-n1: -1px;
   --primitive-length-1: 1px;
@@ -143,7 +151,24 @@
   --primitive-height-100dvh: 100dvh;
   --primitive-opacity-55: .55;
 
+  /* Рух (2026-10-01, DESIGN.md «Анімація»): сирі тривалості й криві.
+     Лише cubic-bezier без overshoot — усі y-контрольні точки в [0, 1],
+     тож жодної пружини чи відскоку. Компоненти беруть лише --dur-* і --ease-*. */
+  --primitive-duration-120: 120ms;  /* коротка відповідь на дію */
+  --primitive-duration-200: 200ms;  /* перехід усередині компонента */
+  --primitive-duration-320: 320ms;  /* поява елемента */
+  --primitive-duration-001: .01ms;  /* «майже нуль»: подія animationend/transitionend ще настає, кадру руху немає */
+  --primitive-ease-in-out: cubic-bezier(.4, 0, .2, 1);  /* рівний старт і рівна зупинка */
+  --primitive-ease-out: cubic-bezier(0, 0, .2, 1);      /* швидкий старт, сповільнюється в кінці */
+  --primitive-ease-in: cubic-bezier(.4, 0, 1, 1);       /* повільний старт, пришвидшується в кінці */
+  --primitive-ease-linear: cubic-bezier(0, 0, 1, 1);    /* = linear: рівна швидкість для повтору */
+  --primitive-scale-100: 1;    /* без масштабу */
+  --primitive-scale-098: .98;  /* ледь помітне стискання великого контролу */
+  --primitive-scale-096: .96;  /* стискання малого контролу */
+  --primitive-opacity-60: .6;  /* нижня точка рівного пульсу завантаження */
+
   /* Stacking order: raw z-index values; компоненти беруть лише --z-* ролі. */
+  --primitive-z-n1: -1;
   --primitive-z-1: 1;
   --primitive-z-2: 2;
   --primitive-z-30: 30;
@@ -259,7 +284,9 @@
 
   /* З global/component focus rings і caret/accent-control usages. */
   --color-focus: var(--primitive-color-blue-700);
-  --color-action-surface-hover: var(--primitive-color-green-900);
+  /* Hover первинної дії світліший за дефолт (green-700 → green-600, білий 6.36:1);
+     active — темніший (ink-900). Рішення 2026-10-01. */
+  --color-action-surface-hover: var(--primitive-color-green-600);
   --color-action-surface-active: var(--primitive-color-ink-900);
   --color-interactive-surface-hover: var(--primitive-color-cream-300);
   --color-interactive-surface-active: var(--primitive-color-green-200);
@@ -347,6 +374,7 @@
   --measure-hint: var(--primitive-width-60ch);
 
   /* Порядок накладання: вміст < плашка на фото/appbar < dock < backdrop < шторка. */
+  --z-below: var(--primitive-z-n1); /* шар під вмістом компонента (коло hover у кнопці) */
   --z-raised: var(--primitive-z-1);
   --z-overlay: var(--primitive-z-2);
   --z-dock: var(--primitive-z-30);
@@ -450,17 +478,78 @@
   --size-choice-compact: var(--primitive-length-32);
   --size-choice-mark-compact: var(--primitive-length-18);
 
+  /* Рух (DESIGN.md, «Анімація»): анімуємо лише transform і opacity.
+     Однаковий в обох темах — у [data-theme="dark"] не перевизначається.
+     --dur-fast — відповідь на дію (hover, pressed), помилка;
+     --dur-base — перехід у компоненті, підтвердження;
+     --dur-slow — поява елемента. */
+  --dur-fast: var(--primitive-duration-120);
+  --dur-base: var(--primitive-duration-200);
+  --dur-slow: var(--primitive-duration-320);
+  /* --dur-hover — розповзання кольору hover (коло в кнопці): повільніше за
+     --dur-fast, щоб рух було видно; pressed лишається --dur-fast. Рішення 2026-10-01. */
+  --dur-hover: var(--primitive-duration-320);
+  /* --dur-reduced — «майже нуль» для prefers-reduced-motion (глобальний блок у
+     components/base.css): анімації й переходи завершуються за 0.01 мс, тож стан
+     змінюється миттєво, а події animationend/transitionend і кінцеві стани
+     лишаються (на відміну від 0 чи animation: none). Однаковий в обох темах. */
+  --dur-reduced: var(--primitive-duration-001);
+  /* --ease-standard — зміна стану на місці; --ease-enter — поява (ease-out,
+     сповільнюється в кінці); --ease-exit — зникнення (ease-in, пришвидшується);
+     --ease-loop — рівний лінійний повтор індикатора завантаження. */
+  --ease-standard: var(--primitive-ease-in-out);
+  --ease-enter: var(--primitive-ease-out);
+  --ease-exit: var(--primitive-ease-in);
+  --ease-loop: var(--primitive-ease-linear);
+  /* Дистанція зсуву при появі: --move-sm — підтвердження й помилка,
+     --move-md — поява елемента. У prefers-reduced-motion = 0 (нижче). */
+  --move-sm: var(--primitive-length-4);
+  --move-md: var(--primitive-length-8);
+  /* Натискання (:active): контрол ледь стискається — відповідь на дію.
+     --press-scale — кнопки на всю ширину й сегмент; --press-scale-sm — круглі
+     й малі контроли (таб, «Назад», хрестик). У prefers-reduced-motion = 1. */
+  --press-scale: var(--primitive-scale-098);
+  --press-scale-sm: var(--primitive-scale-096);
+  /* Рівний пульс стану завантаження: opacity 1 ↔ --pulse-opacity. */
+  --pulse-opacity: var(--primitive-opacity-60);
+
   /* Current direction is deliberately flat. Elevation stays semantic so a
      future product decision changes tokens, never per-screen selectors. */
   --elevation-card: none;
   --elevation-lift: none;
   --elevation-primary: none;
+  /* Легка тінь hover (рішення 2026-10-01): колір тіні = колір самої кнопки
+     на hover з opacity 15%, без зсуву вбік; зʼявляється лише на hover
+     інтерактивного контролу. Пара на кожну вагу: --elevation-hover — поверхня
+     дії (primary), --elevation-hover-secondary — інтерактивна поверхня
+     (secondary). Для майбутніх контролів — той самий принцип і токени. */
+  --color-shadow-hover: var(--primitive-color-green-600-a15);
+  --color-shadow-hover-secondary: var(--primitive-color-cream-300-a15);
+  --elevation-hover: 0 var(--primitive-length-4) var(--primitive-length-12) var(--color-shadow-hover);
+  --elevation-hover-secondary: 0 var(--primitive-length-4) var(--primitive-length-12) var(--color-shadow-hover-secondary);
+}
+
+/* Зменшений рух: зсуви вимикаються, лишається лише opacity або миттєва зміна.
+   Масштаб у компонентах у цьому режимі заборонений (DESIGN.md, «Анімація»). */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --move-sm: var(--primitive-length-0);
+    --move-md: var(--primitive-length-0);
+    --press-scale: var(--primitive-scale-100);
+    --press-scale-sm: var(--primitive-scale-100);
+  }
 }
 
 /* Proof-only stress test of the semantic layer. This is not an adopted product
    theme; keeping it after review is a separate product decision.
    This block intentionally overrides semantic color tokens only. */
 [data-theme="dark"] {
+  /* Тінь hover — колір кнопки на hover у темній темі @ 15%. Elevation
+     перевизначено тут же: var() у :root уже розвʼязаний світлим кольором. */
+  --color-shadow-hover: var(--primitive-color-green-500-a15);
+  --color-shadow-hover-secondary: var(--primitive-color-ink-700-a15);
+  --elevation-hover: 0 var(--primitive-length-4) var(--primitive-length-12) var(--color-shadow-hover);
+  --elevation-hover-secondary: 0 var(--primitive-length-4) var(--primitive-length-12) var(--color-shadow-hover-secondary);
   /* Core canvas/body text: cream-050 on ink-900 = 15.47:1; secondary
      cream-300 on ink-900 = 12.61:1 (WCAG AA normal text requires 4.5:1). */
   --color-page-background: var(--primitive-color-ink-900);
@@ -506,7 +595,8 @@
   /* Focus green-200 against ink-900 ≈ 12:1, exceeding the 3:1
      non-text focus-indicator requirement. */
   --color-focus: var(--primitive-color-green-200);
-  --color-action-surface-hover: var(--primitive-color-green-700);
+  /* Hover світліший за дефолт: green-600 → green-500, cream-050 4.99:1 (AA). */
+  --color-action-surface-hover: var(--primitive-color-green-500);
   --color-action-surface-active: var(--primitive-color-green-900);
   --color-interactive-surface-hover: var(--primitive-color-ink-700);
   --color-interactive-surface-active: var(--primitive-color-green-900);

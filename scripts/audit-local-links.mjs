@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Як запускати: з батьківської теки `cd /home/hp/from-den && python3 -m http.server 8791`,
+// Як запускати: з батьківської теки `cd .. && python3 -m http.server 8791`,
 // потім `node scripts/audit-local-links.mjs http://127.0.0.1:8791` (origin без /kootok; браузер/CDP не потрібен).
 
 import { readdir, readFile } from "node:fs/promises";

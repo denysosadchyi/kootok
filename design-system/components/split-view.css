@@ -22,7 +22,31 @@
    позначає картку aria-current="true" (стан «вибрано», listing.css), пише
    ?listing=<ключ> в адресу (history), «Закрити» й Escape повертають сітку й
    фокус на картку. Нижче 64rem посилання ведуть на повну сторінку, як без
-   скрипта. Анімацій немає: стан змінюється миттєво.
+   скрипта.
+
+   Рух (DESIGN.md «Анімація», motion-inventory M6/M7): робота — звʼязок
+   список → деталь. Перше відкриття: деталь виростає з вибраної картки, а
+   картки переїжджають із сітки в колонку (FLIP у split-view.js, --dur-slow);
+   закриття — картки переїжджають назад. Зміна картки при відкритій деталі —
+   вміст проявляється opacity 0 → 1 з малим зсувом від боку списку (зліва,
+   --move-sm), --dur-slow, --ease-enter (нижче).
+
+   Завантаження (робота — статус процесу): поки вміст підвантажується,
+   деталь має aria-busy="true", а над вибраною карткою видно текстовий статус
+   .kit-split__status (role="status", aria-live="polite", текст —
+   data-kit-split-loading кореня, за замовчуванням «Завантажуємо…»). Скрипт
+   створює його, ставить і знімає разом з aria-busy і пише в
+   --kit-split-status-top/-left позицію вибраної картки відносно кореня:
+   статус лежить поверх картки (position: absolute), тож не зсуває ні список,
+   ні деталь. Старий вміст відкритої деталі при цьому рівно пульсує opacity
+   (--pulse-opacity, --ease-loop) — це додатковий сигнал, не єдиний.
+
+   prefers-reduced-motion: проява деталі не запускається зовсім (split-view.js
+   не ставить data-kit-split-enter — інакше перший кадр мав би opacity 0);
+   глобальний блок base.css страхує решту (--dur-reduced, один повтор); пульс
+   вимкнено (нижче), старий вміст лишається статичним; статус завантаження видно
+   текстом так само, як без зменшеного руху. FLIP-переїзди й ріст деталі
+   split-view.js у цьому режимі не запускає.
 
    Десктоп визначає container query, а не @media: у курсовій рамці 390 / 768
    / 1280 вікно не дорівнює ширині екрана. Прапорець --kit-split-enabled
@@ -30,7 +54,7 @@
    getComputedStyle. Контейнер — kit-shell-frame (shell.css), той самий, що
    переносить таб-бар у шапку. */
 
-.kit-split { --kit-scrollport-block: var(--size-scrollport); display: flex; min-width: 0; flex-direction: column; gap: var(--space-section-gap); }
+.kit-split { --kit-scrollport-block: var(--size-scrollport); --kit-split-status-top: var(--primitive-length-0); --kit-split-status-left: var(--primitive-length-0); position: relative; display: flex; min-width: 0; flex-direction: column; gap: var(--space-section-gap); }
 
 /* Деталь існує лише в стані split на десктопі; нижче порога — прихована,
    навіть якщо адреса містить ?listing= (посилання карток ведуть на сторінку). */
@@ -86,4 +110,43 @@
   /* Деталь: секції без карток, роздільник над кожною секцією й блоком заявки. */
   .kit-split--panels .kit-split__content .kit-card { padding-inline: 0; border-radius: 0; background: var(--color-transparent); }
   .kit-split--panels .kit-split__content :is(.kit-card--section, .kit-detail__apply) { padding-top: var(--space-card-block); border-top: var(--primitive-length-1) solid var(--color-hairline); }
+}
+
+/* Рух список → деталь: див. коментар угорі. */
+@keyframes kit-split-enter {
+  from { opacity: 0; transform: translateX(calc(-1 * var(--move-sm))); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes kit-split-pulse {
+  from { opacity: 1; }
+  to { opacity: var(--pulse-opacity); }
+}
+.kit-split__detail[data-kit-split-enter] { animation: kit-split-enter var(--dur-base) var(--ease-enter); }
+.kit-split__content[data-kit-split-enter] { animation: kit-split-enter var(--dur-slow) var(--ease-enter); }
+.kit-split__detail[aria-busy="true"] > .kit-split__content { animation: kit-split-pulse var(--dur-slow) var(--ease-loop) infinite alternate; }
+@media (prefers-reduced-motion: reduce) {
+  /* Проява деталі в цьому режимі не запускається (split-view.js); якби
+     запустилась — тривалість дає глобальний блок base.css (--dur-reduced),
+     зсув — --move-sm = 0 у tokens.css. Пульс завантаження вимкнено явно (а не
+     лише одноразовим повтором із base.css): старий вміст лишається статичним,
+     а статус завантаження видно текстом (.kit-split__status нижче). */
+  .kit-split__detail[aria-busy="true"] > .kit-split__content { animation: none; }
+}
+
+/* Статус завантаження: див. коментар угорі. Поверх вибраної картки, з
+   полем від її лівого верхнього кута; без руху — зʼявляється й ховається
+   миттєво (атрибут hidden), бо його робота — сказати, а не показати перехід. */
+.kit-split__status {
+  position: absolute;
+  top: calc(var(--kit-split-status-top) + var(--space-stack-sm));
+  left: calc(var(--kit-split-status-left) + var(--space-stack-sm));
+  z-index: var(--z-overlay);
+  margin: 0;
+  padding: var(--space-stack-xxs) var(--space-stack-sm);
+  border-radius: var(--radius-pill);
+  background: var(--color-current-background);
+  color: var(--color-current-text);
+  font: var(--type-chip);
+  white-space: nowrap;
+  pointer-events: none;
 }

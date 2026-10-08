@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // QA уроку 8: кіт design-system/, токени, 4 макети lesson-6 (активний прототип — 5 екранів разом із «Чатами»), docs і ui-вітрини.
-// Запуск: сервер з БАТЬКІВСЬКОЇ теки (`cd /home/hp/from-den && python3 -m http.server <port>`),
+// Запуск: сервер з БАТЬКІВСЬКОЇ теки (`cd .. && python3 -m http.server <port>`),
 // headless Chrome з `--remote-debugging-port=<cdp>`, далі
 // `KOOTOOK_CDP_PORT=<cdp> node scripts/qa-lesson-8.mjs http://127.0.0.1:<port>` (origin без /kootok).
 
@@ -67,10 +67,111 @@ const locallyAssigned = new Set([...componentCss.join("\n").matchAll(/(--[\w-]+)
 const unresolved = [...refs].filter((x) => !declarations.has(x) && !locallyAssigned.has(x));
 if (unresolved.length) fail("variables", unresolved);
 if (/data:image/i.test(tokensCss + componentCss.join("\n"))) fail("icons", "data URI present");
-// Анімацій у продукті немає (2026-09-24): жодних transition/animation/@keyframes/плавного скролу й токенів тривалості.
-const motionSource = [tokensCss, ...componentCss, await readFile(resolve(repo, "beginners/source/prototype/_base.css"), "utf8"), await readFile(resolve(repo, "course-nav.css"), "utf8")].join("\n").replace(/\/\*[\s\S]*?\*\//g, "");
-const motionHits = motionSource.match(/(?:^|[;{\s])(?:transition(?:-[a-z]+)?|animation(?:-[a-z]+)?)\s*:|@keyframes|scroll-behavior\s*:\s*smooth|--(?:primitive-)?duration-[\w-]+/g);
-if (motionHits) fail("no-motion", [...new Set(motionHits.map((x) => x.trim()))]);
+// Рух за правилами (DESIGN.md «Анімація», 2026-10-01; «Ціна кадру»): transition/animation
+// дозволені лише з var(--dur-*) і var(--ease-*) — тривалості й затримки (*-duration, *-delay) без
+// literal ms/s, криві без literal; transition — лише transform, opacity і стани взаємодії
+// color/background-color/border-color/box-shadow (width/height/top/left/right/bottom/margin*/
+// padding*/inset/all/outline заборонені), @keyframes — лише transform/opacity; файл із рухом мусить
+// мати @media (prefers-reduced-motion); у base.css — глобальний блок зменшеного руху для *, *::before,
+// *::after; плавний скрол заборонено; box-shadow у компонентах — лише none або var(--elevation-*).
+// Перевіряються всі CSS кіта й активних сторінок, inline <style> і style="" активних HTML (поза
+// archive/ і архівним beginners/ поза prototype/) та JS кіта й курсу (.animate(), style.transition,
+// smooth-скрол).
+const readText = (file) => readFile(resolve(repo, file), "utf8");
+const listFiles = async (dir, ext) => { try { return (await readdir(resolve(repo, dir))).filter((x) => x.endsWith(ext)).sort().map((x) => `${dir}/${x}`); } catch (error) { if (error.code === "ENOENT") return []; throw error; } };
+const motionCssFiles = [...new Set([
+  "design-system/index.css", "design-system/tokens.css",
+  ...imports.map((item) => `design-system/components/${item.replace("./", "")}`),
+  ...await listFiles("design-system/docs", ".css"),
+  ...await listFiles("beginners/source/prototype", ".css"),
+  ...await listFiles(".", ".css").then((xs) => xs.map((x) => x.replace(/^\.\//, ""))),
+  ...await listFiles("ui", ".css"),
+])];
+const activeHtml = [
+  ...await listFiles(".", ".html").then((xs) => xs.map((x) => x.replace(/^\.\//, ""))),
+  ...await listFiles("design-system/docs", ".html"), ...await listFiles("design-system/examples", ".html"),
+  ...prototypes.map((x) => `beginners/source/prototype/${x}`), ...await listFiles("ui", ".html"),
+  ...await listFiles("research", ".html"), ...await listFiles("research/screens", ".html"),
+];
+const motionFiles = [];
+for (const file of motionCssFiles) motionFiles.push([file, await readText(file)]);
+for (const file of activeHtml) {
+  const html = await readText(file);
+  const styles = [...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)].map((x) => x[1]);
+  const attrs = [...html.matchAll(/\sstyle\s*=\s*(?:"([^"]*)"|'([^']*)')/gi)].map((x, i) => `[data-inline-${i}]{${x[1] ?? x[2]}}`);
+  if (styles.length || attrs.length) motionFiles.push([`${file} (inline)`, [...styles, ...attrs].join("\n")]);
+}
+const motionProps = new Set(["transform", "opacity"]);
+const transitionProps = new Set([...motionProps, "color", "background-color", "border-color", "box-shadow"]);
+const forbiddenGeometry = "width/height/top/left/right/bottom/margin*/padding*/inset/all заборонені — layout на кожен кадр";
+const motionHits = [];
+for (const [file, raw] of motionFiles) {
+  const css = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  let moves = false;
+  for (const [, prop, value] of css.matchAll(/(?:^|[;{\s])((?:transition|animation)(?:-[a-z-]+)?)\s*:\s*([^;}]+)/g)) {
+    moves = true;
+    const v = value.replace(/\s*!important\s*$/, "").trim();
+    if (/^(?:none|initial|unset)$/.test(v)) continue;
+    const at = `${file}: ${prop}: ${v}`;
+    if (/(?:^|[\s,(])\d*\.?\d+m?s\b/.test(v)) motionHits.push(`${at} — literal тривалість/затримка (лише var(--dur-*))`);
+    if (/\b(?:ease|ease-in|ease-out|ease-in-out|linear|step-start|step-end)\b|cubic-bezier\(|steps\(/.test(v.replace(/var\([^)]*\)/g, ""))) motionHits.push(`${at} — literal крива`);
+    for (const [, name] of v.matchAll(/var\((--[\w-]+)/g)) if (!/^--(?:dur|ease)-/.test(name)) motionHits.push(`${at} — ${name} замість --dur-*/--ease-*`);
+    if (["transition", "animation", "transition-duration", "animation-duration", "transition-delay", "animation-delay"].includes(prop) && !/var\(--dur-/.test(v)) motionHits.push(`${at} — без var(--dur-*)`);
+    if (["transition", "animation", "transition-timing-function", "animation-timing-function"].includes(prop) && !/var\(--ease-/.test(v)) motionHits.push(`${at} — без var(--ease-*)`);
+    if (prop === "transition" || prop === "transition-property") {
+      for (const item of v.split(",")) {
+        const name = item.trim().split(/\s+/)[0];
+        if (!transitionProps.has(name)) motionHits.push(`${at} — властивість «${name}»: дозволені лише transform, opacity і стани взаємодії color/background-color/border-color/box-shadow; ${forbiddenGeometry}`);
+      }
+    }
+  }
+  for (const [, name, body] of css.matchAll(/@keyframes\s+([\w-]+)\s*\{((?:[^{}]*\{[^{}]*\})*[^{}]*)\}/g)) {
+    moves = true;
+    for (const [, prop] of body.matchAll(/(?:^|[;{\s])([a-z-]+)\s*:/g)) if (!motionProps.has(prop)) motionHits.push(`${file}: @keyframes ${name} анімує «${prop}» (лише transform/opacity; ${forbiddenGeometry}, колір і тінь — лише transition при взаємодії)`);
+  }
+  if (moves && !/prefers-reduced-motion/.test(css)) motionHits.push(`${file}: є transition/animation без @media (prefers-reduced-motion)`);
+  if (/scroll-behavior\s*:\s*smooth/.test(css)) motionHits.push(`${file}: scroll-behavior: smooth (плавний скрол заборонено)`);
+  if (file.startsWith("design-system/components/")) {
+    for (const [, v] of css.matchAll(/(?:^|[;{\s])box-shadow\s*:\s*([^;}]+)/g)) {
+      if (!/^(?:none|var\(--elevation-[\w-]+\))$/.test(v.trim())) motionHits.push(`${file}: box-shadow: ${v.trim()} — лише none або var(--elevation-*)`);
+    }
+  }
+}
+// Глобальний запобіжник зменшеного руху: base.css, @media (prefers-reduced-motion: reduce) з
+// селектором *, *::before, *::after і всіма чотирма деклараціями.
+{
+  const baseCss = (await readText("design-system/components/base.css")).replace(/\/\*[\s\S]*?\*\//g, "");
+  const blocks = [...baseCss.matchAll(/@media\s*\(\s*prefers-reduced-motion\s*:\s*reduce\s*\)\s*\{((?:[^{}]*\{[^{}]*\})*[^{}]*)\}/g)].map((x) => x[1]);
+  const ok = blocks.some((block) => [...block.matchAll(/([^{}]+)\{([^{}]*)\}/g)].some(([, selector, body]) => {
+    const sel = new Set(selector.split(",").map((x) => x.trim()));
+    const decl = body.replace(/\s+/g, " ");
+    return sel.has("*") && sel.has("*::before") && sel.has("*::after")
+      && /animation-duration\s*:\s*var\(--dur-[\w-]+\)\s*!important/.test(decl)
+      && /animation-iteration-count\s*:\s*1\s*!important/.test(decl)
+      && /transition-duration\s*:\s*var\(--dur-[\w-]+\)\s*!important/.test(decl)
+      && /scroll-behavior\s*:\s*auto\s*!important/.test(decl);
+  }));
+  if (!ok) motionHits.push("design-system/components/base.css: немає глобального блоку @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: var(--dur-*) !important; animation-iteration-count: 1 !important; transition-duration: var(--dur-*) !important; scroll-behavior: auto !important } }");
+}
+// JS кіта й курсу: WAAPI лише з тривалістю з токена й перевіркою reduced-motion; без literal у
+// style.transition/animation; без плавного скролу.
+for (const file of [...await listFiles("design-system/components", ".js"), "course-nav.js", "lesson-artifact.js"]) {
+  const js = (await readText(file)).replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+  const calls = [...js.matchAll(/\.animate\(/g)];
+  if (calls.length && !/matchMedia\(\s*["']\(prefers-reduced-motion:\s*reduce\)["']\s*\)/.test(js)) motionHits.push(`${file}: .animate() без перевірки matchMedia("(prefers-reduced-motion: reduce)")`);
+  for (const call of calls) {
+    const tail = js.slice(call.index, call.index + 600);
+    const duration = tail.match(/\bduration\s*:\s*([^,}\n]+)/);
+    const easing = tail.match(/\beasing\s*:\s*([^,}\n]+)/);
+    if (!duration || /^\s*[\d.]/.test(duration[1])) motionHits.push(`${file}: .animate() з literal тривалістю «${duration ? duration[1].trim() : "—"}» (лише з токена --dur-* через getComputedStyle)`);
+    if (easing && /^\s*["'`]/.test(easing[1])) motionHits.push(`${file}: .animate() з literal кривою ${easing[1].trim()} (лише з токена --ease-*)`);
+  }
+  for (const [stmt] of js.matchAll(/style\.(?:transition|animation)[\w]*\s*=\s*[^;\n]+|setProperty\(\s*["'](?:transition|animation)[\w-]*["'][^)]*\)/g)) {
+    if (/\d*\.?\d+m?s\b|cubic-bezier|\bease\b|\blinear\b/.test(stmt.replace(/var\([^)]*\)/g, ""))) motionHits.push(`${file}: ${stmt.trim()} — literal у русі з JS`);
+  }
+  if (/behavior\s*:\s*["']smooth["']|scroll-?[Bb]ehavior["']?\s*[,=:]\s*["']smooth/.test(js)) motionHits.push(`${file}: плавний скрол з JS заборонено`);
+}
+if (motionHits.length) fail("motion", motionHits);
 
 // Кожен клас kit-* у розмітці сторінок має оголошення в components/.
 const declaredKit = new Set([...componentCss.join("\n").matchAll(/\.(kit-[\w-]+)/g)].map((x) => x[1]));
@@ -100,18 +201,20 @@ const screenKitRules = [...screenCss.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/
 if (screenKitRules.length) fail("screen-layer-kit-rules", screenKitRules);
 
 // Primitive у components/ лише за винятком AGENTS.md («Внесок у систему»): геометрія
-// (length/width/height), іконки й font-weight. Типографічні властивості, z-index і measure
+// (length/width/height), іконки й font-weight. Тривалості й криві руху (--primitive-duration-*,
+// --primitive-ease-*) — лише через semantic --dur-*/--ease-*. Типографічні властивості, z-index і measure
 // читають лише semantic-ролі (--type-*, --z-*, --measure-*); literal z-index і ch заборонені.
 // Primitive адаптиву (--bp-*, --grid-*, --container-*, --col-count-*) мають імена без префікса
 // --primitive-, але гейт перевіряє їх за тими самими правилами: геометрія (--container-max,
 // --col-count-*, --bp-*) дозволена, spacing (--grid-gap) — лише через semantic --space-grid-gap.
 const primitiveRef = /var\((--(?:primitive|bp|grid|container|col-count)-[\w-]+)/g;
 const allowedPrimitive = /^--(?:primitive-(?:length|width|height|icon|font-weight)-|container-max$|col-count-|bp-)/;
+const forbiddenPrimitive = /^--primitive-(?:duration|ease)/;
 const primitiveHits = [];
 for (const [index, css] of componentCss.entries()) {
   const file = imports[index];
   const clean = css.replace(/\/\*[\s\S]*?\*\//g, "");
-  for (const [, name] of clean.matchAll(primitiveRef)) if (!allowedPrimitive.test(name)) primitiveHits.push(`${file}: ${name}`);
+  for (const [, name] of clean.matchAll(primitiveRef)) if (!allowedPrimitive.test(name) || forbiddenPrimitive.test(name)) primitiveHits.push(`${file}: ${name}`);
   for (const [, prop, value] of clean.matchAll(/(?:^|[;{\s])(font|font-size|line-height|letter-spacing|text-underline-offset|z-index|max-width)\s*:\s*([^;}]+)/g)) {
     if (["font", "font-size", "line-height", "letter-spacing", "text-underline-offset", "z-index"].includes(prop) && /var\(--(?:primitive|bp|grid|container|col-count)-/.test(value)) primitiveHits.push(`${file}: ${prop}: ${value.trim()}`);
     if (prop === "z-index" && !/^var\(--z-[\w-]+\)$/.test(value.trim())) primitiveHits.push(`${file}: literal z-index ${value.trim()}`);

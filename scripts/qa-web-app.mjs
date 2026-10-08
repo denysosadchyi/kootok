@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Як запускати: `cd /home/hp/from-den && python3 -m http.server 8791`, Chrome з --remote-debugging-port=N;
+// Як запускати: `cd .. && python3 -m http.server 8791`, Chrome з --remote-debugging-port=N;
 // `KOOTOOK_CDP_PORT=N node scripts/qa-web-app.mjs http://127.0.0.1:8791` (origin без /kootok; скріншоти — у os.tmpdir()/kootok-qa-web-app, KOOTOOK_NO_SCREENSHOTS=1 вимикає).
 
 import { mkdir, readFile, writeFile } from "node:fs/promises";

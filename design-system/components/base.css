@@ -17,7 +17,30 @@ button, input, select, textarea { color: var(--color-text-primary); font: var(--
    (kit-step, kit-card--prototype, результати форм тощо). */
 [hidden] { display: none !important; }
 
-/* Анімацій у продукті немає: стани змінюються миттєво, скрол — без згладжування. */
+/* Рух — лише за DESIGN.md «Анімація»: transform/opacity через --dur-*, --ease-*, --move-*;
+   колір і доречна тінь (--elevation-*) переходять плавно лише при взаємодії,
+   з prefers-reduced-motion у тому ж файлі. Власного руху базовий шар не має: стани
+   змінюються миттєво, скрол — без згладжування (scroll-behavior: smooth заборонено).
+
+   Глобальний запобіжник prefers-reduced-motion (DESIGN.md «Анімація», «Ціна кадру»):
+   у режимі зменшеного руху кожна анімація й кожен перехід на сторінці — компонента,
+   екрана чи майбутнього, що забуде власний @media, — триває --dur-reduced (0.01 мс)
+   і грає не більше одного разу; нескінченний пульс зупиняється на місці, статус
+   процесу показує текст (split-view.css, .kit-split__status). Майже нуль, а не
+   none/0: кінцеві стани й події animationend/transitionend лишаються, тож скрипти,
+   що на них чекають, не зависають. !important тут свідомий і єдиний виняток:
+   блок мусить перебити будь-яку специфічність і пізніші модулі (button.css,
+   split-view.css підключаються після base.css), інакше одна забута анімація
+   компонента прорвалася б крізь налаштування людини. Рух через WAAPI (.animate())
+   цей блок не зупиняє — скрипт кіта сам перевіряє matchMedia (split-view.js). */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: var(--dur-reduced) !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: var(--dur-reduced) !important;
+    scroll-behavior: auto !important;
+  }
+}
 
 /* ───────── Прокрутка ─────────
    Легкий повзунок замість системного — лише там, де смуга займає місце:
